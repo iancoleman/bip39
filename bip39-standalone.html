@@ -18,6 +18,9 @@
         <meta content="DC POS" name="author" />
 
         <style>
+            body {
+                padding-bottom: 32px;
+            }
             .feedback-container {
                 position: fixed;
                 top: 0;
@@ -242,6 +245,161 @@
                     </p>
                 </div>
             </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Derived Addresses</h2>
+                    <p>Note these addreses are derived from the <strong>BIP32 Extended Key</strong></p>
+                    <table class="table table-striped">
+                        <thead>
+                            <th>
+                                <div class="input-group">
+                                    Index&nbsp;&nbsp;
+                                    <button class="index-toggle">Toggle</button>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="input-group">
+                                    Address&nbsp;&nbsp;
+                                    <button class="address-toggle">Toggle</button>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="input-group">
+                                    Private Key&nbsp;&nbsp;
+                                    <button class="private-key-toggle">Toggle</button>
+                                </div>
+                            </th>
+                        </thead>
+                        <tbody class="addresses">
+                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <span>Show next </button>
+            <input type="number" class="rows-to-add" value="20">
+            <button class="more">Show</button>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>More info</h2>
+                    <h3>BIP39 <span class="small">Mnemonic code for generating deterministic keys</span></h3>
+                    <p>
+                        Read more at the
+                        <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki">official BIP39 spec</a>
+                    </p>
+                    <h3>BIP32 <span class="small">Hierarchical Deterministic Wallets</span></h3>
+                    <p>
+                        Read more at the
+                        <a href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki" target="_blank">official BIP32 spec</a>
+                        and see the demo at
+                        <a href="http://bip32.org/" target="_blank">bip32.org</a>
+                    </p>
+                    <h3>BIP44 <span class="small">Multi-Account Hierarchy for Deterministic Wallets</span></h3>
+                    <p>
+                        Read more at the
+                        <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki" target="_blank">official BIP44 spec</a>
+                    </p>
+                    <h3>Private Keys</h3>
+                    <p>
+                        Use private keys at
+                        <a href="https://brainwallet.github.io/" target="_blank">brainwallet.org</a>,
+                        but be careful - it can be easy to make mistakes if you
+                        don't know what you're doing
+                    </p>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <h2>Offline Usage</h2>
+
+                    <p>
+                    You can use this tool without having to be online.
+                    </p>
+                    <p>
+                    In your browser, select file save-as, and save this page
+                    as a file.
+                    </p>
+                    <p>
+                    Double-click that file to open it in a browser
+                    on any offline computer.
+                    </p>
+                    <p>
+                    Alternatively, download it from
+                    <a href="https://github.com/dcpos/bip39">
+                        https://github.com/dcpos/bip39
+                    </a>
+
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <h2>This project is 100% open-source code</h2>
+
+                    <p>
+                        <span>Get the source code at - </span>
+                        <a href="https://github.com/dcpos/bip39" target="_blank">
+                            https://github.com/dcpos/bip39
+                        </a>
+                    </p>
+
+                    <h3>Libraries</h3>
+
+                    <p>
+                        <span>BitcoinJS - </span>
+                        <a href="https://github.com/bitcoinjs/bitcoinjs-lib" target="_blank">
+                            https://github.com/bitcoinjs/bitcoinjs-lib
+                        </a>
+                    </p>
+
+                    <p>
+                        <span>jsBIP39 - </span>
+                        <a href="https://github.com/iancoleman/jsbip39" target="_blank">
+                            https://github.com/iancoleman/jsbip39
+                        </a>
+                    </p>
+
+                    <p>
+                        <span>asmCrypto - </span>
+                        <a href="https://github.com/vibornoff/asmcrypto.js" target="_blank">
+                            https://github.com/vibornoff/asmcrypto.js
+                        </a>
+                    </p>
+
+                    <p>
+                        <span>jQuery - </span>
+                        <a href="https://jquery.com/" target="_blank">
+                            https://jquery.com/
+                        </a>
+                    </p>
+
+                    <p>
+                        <span>Twitter Bootstrap - </span>
+                        <a href="http://getbootstrap.com/" target="_blank">
+                            http://getbootstrap.com/
+                        </a>
+                    </p>
+
+                </div>
+            </div>
+
         </div>
 
         <div class="feedback-container">
