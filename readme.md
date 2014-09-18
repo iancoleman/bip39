@@ -4,7 +4,7 @@ A tool for converting BIP39 mnemonic phrases to addresses and private keys.
 
 ## Online Version
 
-Coming soon
+https://dcpos.github.io/bip39/
 
 ## Standalone offline version
 
