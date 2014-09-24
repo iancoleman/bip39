@@ -74,6 +74,12 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="passphrase" class="col-sm-2 control-label">BIP39 Passphrase (optional)</label>
+                            <div class="col-sm-10">
+                                <textarea id="passphrase" class="passphrase form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="root-key" class="col-sm-2 control-label">BIP32 Root Key</label>
                             <div class="col-sm-10">
                                 <textarea id="root-key" class="root-key form-control" disabled="disabled"></textarea>
@@ -22775,6 +22781,7 @@ WORDLISTS = {
 
     var DOM = {};
     DOM.phrase = $(".phrase");
+    DOM.passphrase = $(".passphrase");
     DOM.generate = $(".generate");
     DOM.rootKey = $(".root-key");
     DOM.extendedPrivKey = $(".extended-priv-key");
@@ -22800,6 +22807,7 @@ WORDLISTS = {
     function init() {
         // Events
         DOM.phrase.on("keyup", delayedPhraseChanged);
+        DOM.passphrase.on("keyup", delayedPhraseChanged);
         DOM.generate.on("click", generateClicked);
         DOM.more.on("click", showMore);
         DOM.bip32path.on("keyup", bip32Changed);
@@ -22832,6 +22840,7 @@ WORDLISTS = {
         hideValidationError();
         // Get the mnemonic phrase
         var phrase = DOM.phrase.val();
+        var passphrase = DOM.passphrase.val();
         var errorText = findPhraseErrors(phrase);
         if (errorText) {
             showValidationError(errorText);
@@ -22844,7 +22853,7 @@ WORDLISTS = {
             return;
         }
         // Calculate and display
-        calcBip32Seed(phrase, derivationPath);
+        calcBip32Seed(phrase, passphrase, derivationPath);
         displayBip32Info();
         hidePending();
     }
@@ -22924,8 +22933,8 @@ WORDLISTS = {
         return words;
     }
 
-    function calcBip32Seed(phrase, path) {
-        var seed = mnemonic.toSeed(phrase);
+    function calcBip32Seed(phrase, passphrase, path) {
+        var seed = mnemonic.toSeed(phrase, passphrase);
         var seedHash = Bitcoin.crypto.sha256(seed).toString("hex");
         bip32RootKey = Bitcoin.HDNode.fromSeedHex(seedHash, network);
         bip32ExtendedKey = bip32RootKey;
