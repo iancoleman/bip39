@@ -10,6 +10,7 @@
 
     var DOM = {};
     DOM.phrase = $(".phrase");
+    DOM.passphrase = $(".passphrase");
     DOM.generate = $(".generate");
     DOM.rootKey = $(".root-key");
     DOM.extendedPrivKey = $(".extended-priv-key");
@@ -35,6 +36,7 @@
     function init() {
         // Events
         DOM.phrase.on("keyup", delayedPhraseChanged);
+        DOM.passphrase.on("keyup", delayedPhraseChanged);
         DOM.generate.on("click", generateClicked);
         DOM.more.on("click", showMore);
         DOM.bip32path.on("keyup", bip32Changed);
@@ -67,6 +69,7 @@
         hideValidationError();
         // Get the mnemonic phrase
         var phrase = DOM.phrase.val();
+        var passphrase = DOM.passphrase.val();
         var errorText = findPhraseErrors(phrase);
         if (errorText) {
             showValidationError(errorText);
@@ -79,7 +82,7 @@
             return;
         }
         // Calculate and display
-        calcBip32Seed(phrase, derivationPath);
+        calcBip32Seed(phrase, passphrase, derivationPath);
         displayBip32Info();
         hidePending();
     }
@@ -159,8 +162,8 @@
         return words;
     }
 
-    function calcBip32Seed(phrase, path) {
-        var seed = mnemonic.toSeed(phrase);
+    function calcBip32Seed(phrase, passphrase, path) {
+        var seed = mnemonic.toSeed(phrase, passphrase);
         var seedHash = Bitcoin.crypto.sha256(seed).toString("hex");
         bip32RootKey = Bitcoin.HDNode.fromSeedHex(seedHash, network);
         bip32ExtendedKey = bip32RootKey;
