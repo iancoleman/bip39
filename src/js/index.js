@@ -32,6 +32,8 @@
     DOM.privateKeyToggle = $(".private-key-toggle");
 
     var derivationPath = DOM.bip44path.val();
+    var currentPhrase = DOM.phrase.val();
+    var currentPassphrase = DOM.passphrase.val();
 
     function init() {
         // Events
@@ -56,6 +58,9 @@
     // Event handlers
 
     function delayedPhraseChanged() {
+        if (!hasChanged()) {
+            return;
+        }
         hideValidationError();
         showPending();
         if (phraseChangeTimeoutEvent != null) {
@@ -85,6 +90,9 @@
         calcBip32Seed(phrase, passphrase, derivationPath);
         displayBip32Info();
         hidePending();
+        // Set current state so we only update as needed
+        currentPhrase = phrase;
+        currentPassphrase = passphrase;
     }
 
     function generateClicked() {
@@ -106,7 +114,9 @@
     }
 
     function derivationChanged() {
-        delayedPhraseChanged();
+        hideValidationError();
+        showPending();
+        setTimeout(phraseChanged, 50);
     }
 
     function bip32Changed() {
@@ -333,6 +343,12 @@
         DOM.feedback
             .text("")
             .hide();
+    }
+
+    function hasChanged() {
+        var phraseChanged = DOM.phrase.val() != currentPhrase;
+        var passphraseChanged = DOM.passphrase.val() != currentPassphrase;
+        return phraseChanged || passphraseChanged;
     }
 
     init();
