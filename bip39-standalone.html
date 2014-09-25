@@ -22736,15 +22736,15 @@ WORDLISTS = {
 
     function init() {
         // Events
-        DOM.phrase.on("keyup", delayedPhraseChanged);
-        DOM.passphrase.on("keyup", delayedPhraseChanged);
+        DOM.phrase.on("input", delayedPhraseChanged);
+        DOM.passphrase.on("input", delayedPhraseChanged);
         DOM.generate.on("click", generateClicked);
         DOM.more.on("click", showMore);
-        DOM.bip32path.on("keyup", bip32Changed);
-        DOM.bip44purpose.on("keyup", bip44Changed);
-        DOM.bip44coin.on("keyup", bip44Changed);
-        DOM.bip44account.on("keyup", bip44Changed);
-        DOM.bip44change.on("keyup", bip44Changed);
+        DOM.bip32path.on("input", bip32Changed);
+        DOM.bip44purpose.on("input", bip44Changed);
+        DOM.bip44coin.on("input", bip44Changed);
+        DOM.bip44account.on("input", bip44Changed);
+        DOM.bip44change.on("input", bip44Changed);
         DOM.tab.on("click", tabClicked);
         DOM.indexToggle.on("click", toggleIndexes);
         DOM.addressToggle.on("click", toggleAddresses);
