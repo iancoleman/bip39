@@ -241,7 +241,7 @@
             var index = i+ start;
             var key = bip32ExtendedKey.derive(index);
             var address = key.getAddress().toString();
-            var privkey = key.privKey.toWIF();
+            var privkey = key.privKey.toWIF(network);
             addAddressToList(index, address, privkey);
         }
     }
