@@ -164,8 +164,7 @@
 
     function calcBip32Seed(phrase, passphrase, path) {
         var seed = mnemonic.toSeed(phrase, passphrase);
-        var seedHash = Bitcoin.crypto.sha256(seed).toString("hex");
-        bip32RootKey = Bitcoin.HDNode.fromSeedHex(seedHash, network);
+        bip32RootKey = Bitcoin.HDNode.fromSeedHex(seed, network);
         bip32ExtendedKey = bip32RootKey;
         // Derive the key from the path
         var pathBits = path.split("/");
