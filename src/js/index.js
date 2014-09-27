@@ -199,6 +199,7 @@
     function findPhraseErrors(phrase) {
         // TODO make this right
         // Preprocess the words
+        phrase = mnemonic.normalizeString(phrase);
         var parts = phrase.split(" ");
         var proper = [];
         for (var i=0; i<parts.length; i++) {
