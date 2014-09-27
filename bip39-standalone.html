@@ -22432,14 +22432,14 @@ var Mnemonic = function(language) {
 
     self.toSeed = function(mnemonic, passphrase) {
         passphrase = passphrase || '';
-        mnemonic = normalizeString(mnemonic)
-        passphrase = normalizeString(passphrase)
+        mnemonic = self.normalizeString(mnemonic)
+        passphrase = self.normalizeString(passphrase)
         passphrase = "mnemonic" + passphrase;
         //return PBKDF2(mnemonic, 'mnemonic' + passphrase, iterations=PBKDF2_ROUNDS, macmodule=hmac, digestmodule=hashlib.sha512).read(64)
         return asmCrypto.PBKDF2_HMAC_SHA512.hex(mnemonic, passphrase, PBKDF2_ROUNDS, 512/8);
     }
 
-    function normalizeString(str) {
+    self.normalizeString = function(str) {
         if (typeof str.normalize == "function") {
             return str.normalize("NFKD");
         }
