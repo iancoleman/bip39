@@ -6256,6 +6256,20 @@ button.close {
                             <p>For more info see the <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki" target="_blank">BIP39 spec</a></p>
                         </div>
                         <div class="form-group">
+                            <label for="network-phrase" class="col-sm-2 control-label">Coin</label>
+                            <div class="col-sm-10">
+                                <select id="network-phrase" class="network form-control">
+                                    <option value="bitcoin">Bitcoin</option>
+                                    <option value="bitcoin-testnet">Bitcoin Testnet</option>
+                                    <option value="litecoin">Litecoin</option>
+                                    <option value="dogecoin">Dogecoin</option>
+                                    <option value="viacoin">Viacoin</option>
+                                    <option value="viacoin-testnet">Viacoin Testnet</option>
+                                    <option value="zetacoin">Zetacoin</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="phrase" class="col-sm-2 control-label">BIP39 Mnemonic</label>
                             <div class="col-sm-10">
                                 <textarea id="phrase" class="phrase form-control"></textarea>
@@ -6305,6 +6319,16 @@ button.close {
                                 <div class="col-sm-2"></div>
                                 <div class="col-sm-10">
                                     <p>For more info see the <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki" target="_blank">BIP44 spec</a></p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="network-bip44" class="col-sm-2 control-label">Coin</label>
+                                    <div class="col-sm-10">
+                                        <select id="network-bip44" class="network form-control">
+                                            <option value="bitcoin">Bitcoin</option>
+                                            <option value="bitcoin-testnet">Bitcoin Testnet</option>
+                                            <option value="litecoin">Litecoin</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="purpose" class="col-sm-2 control-label">
