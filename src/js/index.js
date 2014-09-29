@@ -239,12 +239,28 @@
 
     function displayAddresses(start, total) {
         for (var i=0; i<total; i++) {
-            var index = i+ start;
-            var key = bip32ExtendedKey.derive(index);
-            var address = key.getAddress().toString();
-            var privkey = key.privKey.toWIF(network);
-            addAddressToList(index, address, privkey);
+            var index = i + start;
+            new TableRow(index);
         }
+    }
+
+    function TableRow(index) {
+
+        function init() {
+            calculateValues();
+        }
+
+        function calculateValues() {
+            setTimeout(function() {
+                var key = bip32ExtendedKey.derive(index);
+                var address = key.getAddress().toString();
+                var privkey = key.privKey.toWIF(network);
+                addAddressToList(index, address, privkey);
+            }, 50)
+        }
+
+        init();
+
     }
 
     function showMore() {
@@ -261,11 +277,7 @@
                 return;
             }
         }
-        showPending();
-        setTimeout(function() {
         displayAddresses(start, rowsToAdd);
-        hidePending();
-        }, 50);
     }
 
     function clearDisplay() {
