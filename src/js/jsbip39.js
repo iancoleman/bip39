@@ -22,8 +22,8 @@
 /*
  * Javascript port from python by Ian Coleman
  *
- * Includes code from asmCrypto
- * https://github.com/tresorit/asmcrypto.js
+ * Requires code from sjcl
+ * https://github.com/bitwiseshiftleft/sjcl
  */
 
 var Mnemonic = function(language) {
@@ -33,6 +33,13 @@ var Mnemonic = function(language) {
 
     var self = this;
     var wordlist = [];
+
+    var hmacSHA512 = function(key) {
+        var hasher = new sjcl.misc.hmac(key, sjcl.hash.sha512);
+        this.encrypt = function() {
+            return hasher.encrypt.apply(hasher, arguments);
+        };
+    };
 
     function init() {
         wordlist = WORDLISTS[language];
@@ -57,14 +64,15 @@ var Mnemonic = function(language) {
         return self.toMnemonic(data);
     }
 
-    self.toMnemonic = function(data) {
-        if (data.length % 4 > 0) {
-            throw 'Data length in bits should be divisible by 32, but it is not (' + data.length + ' bytes = ' + data.length*8 + ' bits).'
+    self.toMnemonic = function(byteArray) {
+        if (byteArray.length % 4 > 0) {
+            throw 'Data length in bits should be divisible by 32, but it is not (' + byteArray.length + ' bytes = ' + byteArray.length*8 + ' bits).'
         }
 
         //h = hashlib.sha256(data).hexdigest()
-        var uintArray = new Uint8Array(data);
-        var h = asmCrypto.SHA256.bytes(uintArray);
+        var data = byteArrayToWordArray(byteArray);
+        var hash = sjcl.hash.sha256.hash(data);
+        var h = sjcl.codec.hex.fromBits(hash);
 
         // b is a binary string, eg '00111010101100...'
         //b = bin(int(binascii.hexlify(data), 16))[2:].zfill(len(data) * 8) + \
@@ -73,9 +81,9 @@ var Mnemonic = function(language) {
         // a = bin(int(binascii.hexlify(data), 16))[2:].zfill(len(data) * 8)
         // c = bin(int(h, 16))[2:].zfill(256)
         // d = c[:len(data) * 8 / 32]
-        var a = byteArrayToBinaryString(data);
-        var c = byteArrayToBinaryString(h);
-        var d = c.substring(0, data.length * 8 / 32);
+        var a = byteArrayToBinaryString(byteArray);
+        var c = zfill(hexStringToBinaryString(h), 256);
+        var d = c.substring(0, byteArray.length * 8 / 32);
         // b = line1 + line2
         var b = a + d;
 
@@ -111,10 +119,11 @@ var Mnemonic = function(language) {
         var d = b.substring(0, l / 33 * 32);
         var h = b.substring(l - l / 33, l);
         //nd = binascii.unhexlify(hex(int(d, 2))[2:].rstrip('L').zfill(l / 33 * 8))
+        var nd = binaryStringToWordArray(d);
         //nh = bin(int(hashlib.sha256(nd).hexdigest(), 16))[2:].zfill(256)[:l / 33]
-        var nd = binaryStringToByteArray(d);
-        var ndHash = asmCrypto.SHA256.bytes(nd);
-        var ndBstr = zfill(byteArrayToBinaryString(ndHash), 256);
+        var ndHash = sjcl.hash.sha256.hash(nd);
+        var ndHex = sjcl.codec.hex.fromBits(ndHash);
+        var ndBstr = zfill(hexStringToBinaryString(ndHex), 256);
         var nh = ndBstr.substring(0,l/33);
         return h == nh;
     }
@@ -124,8 +133,11 @@ var Mnemonic = function(language) {
         mnemonic = self.normalizeString(mnemonic)
         passphrase = self.normalizeString(passphrase)
         passphrase = "mnemonic" + passphrase;
-        //return PBKDF2(mnemonic, 'mnemonic' + passphrase, iterations=PBKDF2_ROUNDS, macmodule=hmac, digestmodule=hashlib.sha512).read(64)
-        return asmCrypto.PBKDF2_HMAC_SHA512.hex(mnemonic, passphrase, PBKDF2_ROUNDS, 512/8);
+        var mnemonicBits = sjcl.codec.utf8String.toBits(mnemonic);
+        var passphraseBits = sjcl.codec.utf8String.toBits(passphrase);
+        var result = sjcl.misc.pbkdf2(mnemonicBits, passphraseBits, PBKDF2_ROUNDS, 512, hmacSHA512);
+        var hashHex = sjcl.codec.hex.fromBits(result);
+        return hashHex;
     }
 
     self.normalizeString = function(str) {
@@ -139,6 +151,19 @@ var Mnemonic = function(language) {
         }
     }
 
+    function byteArrayToWordArray(data) {
+        var a = [];
+        for (var i=0; i<data.length/4; i++) {
+            v = 0;
+            v += data[i*4 + 0] << 8 * 3;
+            v += data[i*4 + 1] << 8 * 2;
+            v += data[i*4 + 2] << 8 * 1;
+            v += data[i*4 + 3] << 8 * 0;
+            a.push(v);
+        }
+        return a;
+    }
+
     function byteArrayToBinaryString(data) {
         var bin = "";
         for (var i=0; i<data.length; i++) {
@@ -147,16 +172,24 @@ var Mnemonic = function(language) {
         return bin;
     }
 
-    function binaryStringToByteArray(str) {
-        var arrayLen = str.length / 8;
-        var array = new Uint8Array(arrayLen);
-        for (var i=0; i<arrayLen; i++) {
-            var valueStr = str.substring(0,8);
-            var value = parseInt(valueStr, 2);
-            array[i] = value;
-            str = str.slice(8);
+    function hexStringToBinaryString(hexString) {
+        binaryString = "";
+        for (var i=0; i<hexString.length; i++) {
+            binaryString += zfill(parseInt(hexString[i], 16).toString(2),4);
         }
-        return array;
+        return binaryString;
+    }
+
+    function binaryStringToWordArray(binary) {
+        var aLen = binary.length / 32;
+        var a = [];
+        for (var i=0; i<aLen; i++) {
+            var valueStr = binary.substring(0,32);
+            var value = parseInt(valueStr, 2);
+            a.push(value);
+            binary = binary.slice(32);
+        }
+        return a;
     }
 
     // Pad a numeric string on the left with zero digits until the given width
