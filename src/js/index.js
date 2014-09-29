@@ -6,6 +6,10 @@
     var network = Bitcoin.networks.bitcoin;
     var addressRowTemplate = $("#address-row-template");
 
+    var showIndex = true;
+    var showAddress = true;
+    var showPrivKey = true;
+
     var phraseChangeTimeoutEvent = null;
 
     var DOM = {};
@@ -121,14 +125,17 @@
     }
 
     function toggleIndexes() {
+        showIndex = !showIndex;
         $("td.index span").toggleClass("invisible");
     }
 
     function toggleAddresses() {
+        showAddress = !showAddress;
         $("td.address span").toggleClass("invisible");
     }
 
     function togglePrivateKeys() {
+        showPrivKey = !showPrivKey;
         $("td.privkey span").toggleClass("invisible");
     }
 
@@ -298,9 +305,24 @@
 
     function addAddressToList(index, address, privkey) {
         var row = $(addressRowTemplate.html());
-        row.find(".index span").text(index);
-        row.find(".address span").text(address);
-        row.find(".privkey span").text(privkey);
+        // Elements
+        var indexCell = row.find(".index span");
+        var addressCell = row.find(".address span");
+        var privkeyCell = row.find(".privkey span");
+        // Content
+        indexCell.text(index);
+        addressCell.text(address);
+        privkeyCell.text(privkey);
+        // Visibility
+        if (!showIndex) {
+            indexCell.addClass("invisible");
+        }
+        if (!showAddress) {
+            addressCell.addClass("invisible");
+        }
+        if (!showPrivKey) {
+            privkeCell.addClass("invisible");
+        }
         DOM.addresses.append(row);
     }
 
