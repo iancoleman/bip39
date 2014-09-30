@@ -16,6 +16,7 @@
     DOM.network = $(".network");
     DOM.phraseNetwork = $("#network-phrase");
     DOM.bip44Network = $("#network-bip44");
+		DOM.addressNetwork = $("#network-address-type");
     DOM.phrase = $(".phrase");
     DOM.passphrase = $(".passphrase");
     DOM.generate = $(".generate");
@@ -89,10 +90,13 @@
         }
         else if (n == "dogecoin") {
             network = Bitcoin.networks.dogecoin;
-            disableBip44Tab();
+            //disableBip44Tab();
         }
         DOM.phraseNetwork.val(n);
         DOM.bip44Network.val(n);
+				if(e.target != DOM.addressNetwork.dom){
+						DOM.addressNetwork.val(n);
+				}
         delayedPhraseChanged();
     }
 
