@@ -6409,7 +6409,7 @@ button.close {
                 <div class="col-md-12">
                     <h2>Derived Addresses</h2>
                     <p>Note these addreses are derived from the <strong>BIP32 Extended Key</strong></p>
-										<div class="form-group">
+                    <div class="form-group">
                         <label for="network-address-type" class="col-sm-2 control-label">Coin</label>
                         <div class="col-sm-10">
                             <select id="network-address-type" class="network form-control">
@@ -6419,6 +6419,7 @@ button.close {
                                 <option value="dogecoin">Dogecoin</option>
                             </select>
                         </div>
+                    <div>
                     <table class="table table-striped">
                         <thead>
                             <th>
@@ -33855,7 +33856,7 @@ var Mnemonic = function(language) {
     DOM.network = $(".network");
     DOM.phraseNetwork = $("#network-phrase");
     DOM.bip44Network = $("#network-bip44");
-		DOM.addressNetwork = $("#network-address-type");
+    DOM.addressNetwork = $("#network-address-type");
     DOM.phrase = $(".phrase");
     DOM.passphrase = $(".passphrase");
     DOM.generate = $(".generate");
@@ -33933,9 +33934,9 @@ var Mnemonic = function(language) {
         }
         DOM.phraseNetwork.val(n);
         DOM.bip44Network.val(n);
-				if(e.target != DOM.addressNetwork.dom){
-						DOM.addressNetwork.val(n);
-				}
+        if(e.target != DOM.addressNetwork.dom){
+            DOM.addressNetwork.val(n);
+        }
         delayedPhraseChanged();
     }
 
