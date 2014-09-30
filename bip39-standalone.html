@@ -33842,12 +33842,19 @@ var Mnemonic = function(language) {
     var phraseChangeTimeoutEvent = null;
 
     var DOM = {};
+    DOM.network = $(".network");
+    DOM.phraseNetwork = $("#network-phrase");
+    DOM.bip44Network = $("#network-bip44");
     DOM.phrase = $(".phrase");
     DOM.passphrase = $(".passphrase");
     DOM.generate = $(".generate");
     DOM.rootKey = $(".root-key");
     DOM.extendedPrivKey = $(".extended-priv-key");
     DOM.extendedPubKey = $(".extended-pub-key");
+    DOM.bip32tab = $("#bip32-tab");
+    DOM.bip44tab = $("#bip44-tab");
+    DOM.bip32panel = $("#bip32");
+    DOM.bip44panel = $("#bip44");
     DOM.bip32path = $("#bip32-path");
     DOM.bip44path = $("#bip44-path");
     DOM.bip44purpose = $("#bip44 .purpose");
@@ -33868,6 +33875,7 @@ var Mnemonic = function(language) {
 
     function init() {
         // Events
+        DOM.network.on("change", networkChanged);
         DOM.phrase.on("input", delayedPhraseChanged);
         DOM.passphrase.on("input", delayedPhraseChanged);
         DOM.generate.on("click", generateClicked);
@@ -33887,6 +33895,35 @@ var Mnemonic = function(language) {
     }
 
     // Event handlers
+
+    function networkChanged(e) {
+        var n = e.target.value;
+        if (n == "bitcoin") {
+            network = Bitcoin.networks.bitcoin;
+            DOM.bip44coin.val(0);
+            setBip44DerivationPath();
+            enableBip44Tab();
+        }
+        else if (n == "bitcoin-testnet") {
+            network = Bitcoin.networks.testnet;
+            DOM.bip44coin.val(1);
+            setBip44DerivationPath();
+            enableBip44Tab();
+        }
+        else if (n == "litecoin") {
+            network = Bitcoin.networks.litecoin;
+            DOM.bip44coin.val(2);
+            setBip44DerivationPath();
+            enableBip44Tab();
+        }
+        else if (n == "dogecoin") {
+            network = Bitcoin.networks.dogecoin;
+            disableBip44Tab();
+        }
+        DOM.phraseNetwork.val(n);
+        DOM.bip44Network.val(n);
+        delayedPhraseChanged();
+    }
 
     function delayedPhraseChanged() {
         hideValidationError();
@@ -34196,6 +34233,28 @@ var Mnemonic = function(language) {
         DOM.feedback
             .text("")
             .hide();
+    }
+
+    function enableBip44Tab() {
+        // show bip44 tab (but don't select it)
+        DOM.bip44tab.removeClass("hidden");
+        DOM.bip44panel.removeClass("hidden");
+    }
+
+    function disableBip44Tab() {
+        // hide bip44 tab
+        DOM.bip44tab.addClass("hidden");
+        DOM.bip44tab.removeClass("active");
+        // hide bip44 panel
+        DOM.bip44panel.addClass("hidden");
+        DOM.bip44panel.removeClass("active");
+        // show bip32 tab
+        DOM.bip32tab.addClass("active");
+        // show bip32 panel
+        DOM.bip32panel.addClass("active");
+        // set the derivation path
+        var activePath = $("#bip32 .path");
+        derivationPath = activePath.val();
     }
 
     init();
