@@ -41,7 +41,7 @@
     DOM.addressToggle = $(".address-toggle");
     DOM.privateKeyToggle = $(".private-key-toggle");
 
-    var derivationPath = DOM.bip44path.val();
+    var derivationPath = $(".tab-pane.active .path").val();
 
     function init() {
         // Events

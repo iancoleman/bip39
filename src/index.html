@@ -101,7 +101,10 @@
                 <div class="col-md-12">
                     <h2>Derivation Path</h2>
                     <ul class="derivation-type nav nav-tabs" role="tablist">
-                        <li id="bip44-tab" class="active">
+                        <li id="hive-tab" class="active">
+                            <a href="#hive" role="tab" data-toggle="tab">Hive Wallet</a>
+                        </li>
+                        <li id="bip44-tab">
                             <a href="#bip44" role="tab" data-toggle="tab">BIP44</a>
                         </li>
                         <li id="bip32-tab">
@@ -109,7 +112,22 @@
                         </li>
                     </ul>
                     <div class="derivation-type tab-content">
-                        <div id="bip44" class="tab-pane active">
+                        <div id="hive" class="tab-pane active">
+                            <form class="form-horizontal" role="form">
+                                <br>
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-10">
+                                    <p>For more info see the <a href="https://www.hivewallet.com/" target="_blank">Hive Wallet homepage</a></p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="hive-path" class="col-sm-2 control-label">BIP32 Derivation Path</label>
+                                    <div class="col-sm-10">
+                                        <input id="hive-path" type="text" class="path form-control" value="m/0'/0" readonly="readonly">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="bip44" class="tab-pane">
                             <form class="form-horizontal" role="form">
                                 <br>
                                 <div class="col-sm-2"></div>
