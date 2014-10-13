@@ -6256,17 +6256,6 @@ button.close {
                             <p>For more info see the <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki" target="_blank">BIP39 spec</a></p>
                         </div>
                         <div class="form-group">
-                            <label for="network-phrase" class="col-sm-2 control-label">Coin</label>
-                            <div class="col-sm-10">
-                                <select id="network-phrase" class="network form-control">
-                                    <option value="bitcoin">Bitcoin</option>
-                                    <option value="bitcoin-testnet">Bitcoin Testnet</option>
-                                    <option value="litecoin">Litecoin</option>
-                                    <option value="dogecoin">Dogecoin</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label for="phrase" class="col-sm-2 control-label">BIP39 Mnemonic</label>
                             <div class="col-sm-10">
                                 <textarea id="phrase" class="phrase form-control"></textarea>
@@ -6290,6 +6279,17 @@ button.close {
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="network-phrase" class="col-sm-2 control-label">Coin</label>
+                            <div class="col-sm-10">
+                                <select id="network-phrase" class="network form-control">
+                                    <option value="bitcoin">Bitcoin</option>
+                                    <option value="bitcoin-testnet">Bitcoin Testnet</option>
+                                    <option value="litecoin">Litecoin</option>
+                                    <option value="dogecoin">Dogecoin</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="root-key" class="col-sm-2 control-label">BIP32 Root Key</label>
                             <div class="col-sm-10">
                                 <textarea id="root-key" class="root-key form-control" readonly="readonly"></textarea>
@@ -6305,7 +6305,13 @@ button.close {
                 <div class="col-md-12">
                     <h2>Derivation Path</h2>
                     <ul class="derivation-type nav nav-tabs" role="tablist">
-                        <li id="bip44-tab" class="active">
+                        <li id="hive-tab" class="active">
+                            <a href="#hive" role="tab" data-toggle="tab">Hive Wallet</a>
+                        </li>
+                        <li id="mycelium-tab">
+                            <a href="#mycelium" role="tab" data-toggle="tab">Mycelium Wallet</a>
+                        </li>
+                        <li id="bip44-tab">
                             <a href="#bip44" role="tab" data-toggle="tab">BIP44</a>
                         </li>
                         <li id="bip32-tab">
@@ -6313,22 +6319,42 @@ button.close {
                         </li>
                     </ul>
                     <div class="derivation-type tab-content">
-                        <div id="bip44" class="tab-pane active">
+                        <div id="hive" class="tab-pane active">
+                            <form class="form-horizontal" role="form">
+                                <br>
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-10">
+                                    <p>For more info see the <a href="https://www.hivewallet.com/" target="_blank">Hive Wallet homepage</a></p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="hive-path" class="col-sm-2 control-label">BIP32 Derivation Path</label>
+                                    <div class="col-sm-10">
+                                        <input id="hive-path" type="text" class="path form-control" value="m/0'/0" readonly="readonly">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="mycelium" class="tab-pane">
+                            <form class="form-horizontal" role="form">
+                                <br>
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-10">
+                                    <p>For more info see the <a href="http://www.mycelium.com/" target="_blank">Mycelium Wallet homepage</a></p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mycelium-path" class="col-sm-2 control-label">BIP32 Derivation Path</label>
+                                    <div class="col-sm-10">
+                                        <input id="mycelium-path" type="text" class="path form-control" value="m/44'/0'/0'/0" readonly="readonly">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="bip44" class="tab-pane">
                             <form class="form-horizontal" role="form">
                                 <br>
                                 <div class="col-sm-2"></div>
                                 <div class="col-sm-10">
                                     <p>For more info see the <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki" target="_blank">BIP44 spec</a></p>
-                                </div>
-                                <div class="form-group">
-                                    <label for="network-bip44" class="col-sm-2 control-label">Coin</label>
-                                    <div class="col-sm-10">
-                                        <select id="network-bip44" class="network form-control">
-                                            <option value="bitcoin">Bitcoin</option>
-                                            <option value="bitcoin-testnet">Bitcoin Testnet</option>
-                                            <option value="litecoin">Litecoin</option>
-                                        </select>
-                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="purpose" class="col-sm-2 control-label">
@@ -6409,17 +6435,6 @@ button.close {
                 <div class="col-md-12">
                     <h2>Derived Addresses</h2>
                     <p>Note these addreses are derived from the <strong>BIP32 Extended Key</strong></p>
-                    <div class="form-group">
-                        <label for="network-address-type" class="col-sm-2 control-label">Coin</label>
-                        <div class="col-sm-10">
-                            <select id="network-address-type" class="network form-control">
-                                <option value="bitcoin">Bitcoin</option>
-                                <option value="bitcoin-testnet">Bitcoin Testnet</option>
-                                <option value="litecoin">Litecoin</option>
-                                <option value="dogecoin">Dogecoin</option>
-                            </select>
-                        </div>
-                    <div>
                     <table class="table table-striped">
                         <thead>
                             <th>
@@ -6581,7 +6596,7 @@ button.close {
                 <td class="privkey"><span></span></td>
             </tr>
         </script>
-        <script>
+<script>
 /*!
  * jQuery JavaScript Library v2.1.1
  * http://jquery.com/
@@ -15772,8 +15787,8 @@ if ( typeof noGlobal === strundefined ) {
 return jQuery;
 
 }));
-        </script>
-        <script>
+</script>
+<script>
 /*!
  * Bootstrap v3.2.0 (http://getbootstrap.com)
  * Copyright 2011-2014 Twitter, Inc.
@@ -17888,8 +17903,8 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
   })
 
 }(jQuery);
-        </script>
-        <script>
+</script>
+<script>
 (function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.Bitcoin=e()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 var assert = _dereq_('assert')
 
@@ -32353,8 +32368,8 @@ module.exports = Wallet
 },{"./address":69,"./hdnode":78,"./networks":81,"./transaction":85,"assert":4,"buffer":8,"secure-random":68}]},{},[79])
 (79)
 });
-        </script>
-        <script>
+</script>
+<script>
 // Select components from sjcl to suit the crypto operations bip39 requires.
 
 //// base.js
@@ -33414,11 +33429,9 @@ sjcl.hash.sha256.prototype = {
     h[7] = h[7]+h7 | 0;
   }
 };
-        </script>
-        <script>
-WORDLISTS = {};
-        </script>
-        <script>
+</script>
+<script>
+WORDLISTS = typeof WORDLISTS == "undefined" ? {} : WORDLISTS;
 WORDLISTS["english"] = [
 "abandon","ability","able","about","above","absent","absorb","abstract","absurd","abuse",
 "access","accident","account","accuse","achieve","acid","acoustic","acquire","across","act",
@@ -33625,8 +33638,8 @@ WORDLISTS["english"] = [
 "wish","witness","wolf","woman","wonder","wood","wool","word","work","world",
 "worry","worth","wrap","wreck","wrestle","wrist","write","wrong","yard","year",
 "yellow","you","young","youth","zebra","zero","zone","zoo"]
-        </script>
-        <script>
+</script>
+<script>
 /*
  * Copyright (c) 2013 Pavol Rusnak
  *
@@ -33836,8 +33849,8 @@ var Mnemonic = function(language) {
     init();
 
 }
-        </script>
-        <script>
+</script>
+<script>
 (function() {
 
     var mnemonic = new Mnemonic("english");
@@ -33855,8 +33868,6 @@ var Mnemonic = function(language) {
     var DOM = {};
     DOM.network = $(".network");
     DOM.phraseNetwork = $("#network-phrase");
-    DOM.bip44Network = $("#network-bip44");
-    DOM.addressNetwork = $("#network-address-type");
     DOM.phrase = $(".phrase");
     DOM.passphrase = $(".passphrase");
     DOM.generate = $(".generate");
@@ -33883,7 +33894,7 @@ var Mnemonic = function(language) {
     DOM.addressToggle = $(".address-toggle");
     DOM.privateKeyToggle = $(".private-key-toggle");
 
-    var derivationPath = DOM.bip44path.val();
+    var derivationPath = $(".tab-pane.active .path").val();
 
     function init() {
         // Events
@@ -33913,30 +33924,21 @@ var Mnemonic = function(language) {
         if (n == "bitcoin") {
             network = Bitcoin.networks.bitcoin;
             DOM.bip44coin.val(0);
-            setBip44DerivationPath();
-            enableBip44Tab();
         }
         else if (n == "bitcoin-testnet") {
             network = Bitcoin.networks.testnet;
             DOM.bip44coin.val(1);
-            setBip44DerivationPath();
-            enableBip44Tab();
         }
         else if (n == "litecoin") {
             network = Bitcoin.networks.litecoin;
             DOM.bip44coin.val(2);
-            setBip44DerivationPath();
-            enableBip44Tab();
         }
         else if (n == "dogecoin") {
             network = Bitcoin.networks.dogecoin;
-            //disableBip44Tab();
+            var UNOFFICIAL_BIP44_COIN = 9999;
+            DOM.bip44coin.val(UNOFFICIAL_BIP44_COIN); // This coin is not in BIP44
         }
-        DOM.phraseNetwork.val(n);
-        DOM.bip44Network.val(n);
-        if(e.target != DOM.addressNetwork.dom){
-            DOM.addressNetwork.val(n);
-        }
+        setBip44DerivationPath();
         delayedPhraseChanged();
     }
 
@@ -34250,31 +34252,9 @@ var Mnemonic = function(language) {
             .hide();
     }
 
-    function enableBip44Tab() {
-        // show bip44 tab (but don't select it)
-        DOM.bip44tab.removeClass("hidden");
-        DOM.bip44panel.removeClass("hidden");
-    }
-
-    function disableBip44Tab() {
-        // hide bip44 tab
-        DOM.bip44tab.addClass("hidden");
-        DOM.bip44tab.removeClass("active");
-        // hide bip44 panel
-        DOM.bip44panel.addClass("hidden");
-        DOM.bip44panel.removeClass("active");
-        // show bip32 tab
-        DOM.bip32tab.addClass("active");
-        // show bip32 panel
-        DOM.bip32panel.addClass("active");
-        // set the derivation path
-        var activePath = $("#bip32 .path");
-        derivationPath = activePath.val();
-    }
-
     init();
 
 })();
-        </script>
+</script>
     </body>
 </html>
