@@ -104,6 +104,9 @@
                         <li id="hive-tab" class="active">
                             <a href="#hive" role="tab" data-toggle="tab">Hive Wallet</a>
                         </li>
+                        <li id="mycelium-tab">
+                            <a href="#mycelium" role="tab" data-toggle="tab">Mycelium Wallet</a>
+                        </li>
                         <li id="bip44-tab">
                             <a href="#bip44" role="tab" data-toggle="tab">BIP44</a>
                         </li>
@@ -123,6 +126,21 @@
                                     <label for="hive-path" class="col-sm-2 control-label">BIP32 Derivation Path</label>
                                     <div class="col-sm-10">
                                         <input id="hive-path" type="text" class="path form-control" value="m/0'/0" readonly="readonly">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="mycelium" class="tab-pane">
+                            <form class="form-horizontal" role="form">
+                                <br>
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-10">
+                                    <p>For more info see the <a href="http://www.mycelium.com/" target="_blank">Mycelium Wallet homepage</a></p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mycelium-path" class="col-sm-2 control-label">BIP32 Derivation Path</label>
+                                    <div class="col-sm-10">
+                                        <input id="mycelium-path" type="text" class="path form-control" value="m/44'/0'/0'/0" readonly="readonly">
                                     </div>
                                 </div>
                             </form>
