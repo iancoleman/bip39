@@ -73,25 +73,21 @@
         if (n == "bitcoin") {
             network = Bitcoin.networks.bitcoin;
             DOM.bip44coin.val(0);
-            setBip44DerivationPath();
-            enableBip44Tab();
         }
         else if (n == "bitcoin-testnet") {
             network = Bitcoin.networks.testnet;
             DOM.bip44coin.val(1);
-            setBip44DerivationPath();
-            enableBip44Tab();
         }
         else if (n == "litecoin") {
             network = Bitcoin.networks.litecoin;
             DOM.bip44coin.val(2);
-            setBip44DerivationPath();
-            enableBip44Tab();
         }
         else if (n == "dogecoin") {
             network = Bitcoin.networks.dogecoin;
-            //disableBip44Tab();
+            var NO_BIP44_VALUE = 9999;
+            DOM.bip44coin.val(NO_BIP44_VALUE); // This coin is not in BIP44
         }
+        setBip44DerivationPath();
         DOM.phraseNetwork.val(n);
         DOM.bip44Network.val(n);
         if(e.target != DOM.addressNetwork.dom){
@@ -408,28 +404,6 @@
         DOM.feedback
             .text("")
             .hide();
-    }
-
-    function enableBip44Tab() {
-        // show bip44 tab (but don't select it)
-        DOM.bip44tab.removeClass("hidden");
-        DOM.bip44panel.removeClass("hidden");
-    }
-
-    function disableBip44Tab() {
-        // hide bip44 tab
-        DOM.bip44tab.addClass("hidden");
-        DOM.bip44tab.removeClass("active");
-        // hide bip44 panel
-        DOM.bip44panel.addClass("hidden");
-        DOM.bip44panel.removeClass("active");
-        // show bip32 tab
-        DOM.bip32tab.addClass("active");
-        // show bip32 panel
-        DOM.bip32panel.addClass("active");
-        // set the derivation path
-        var activePath = $("#bip32 .path");
-        derivationPath = activePath.val();
     }
 
     init();
