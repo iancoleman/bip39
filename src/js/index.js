@@ -40,6 +40,7 @@
     DOM.indexToggle = $(".index-toggle");
     DOM.addressToggle = $(".address-toggle");
     DOM.privateKeyToggle = $(".private-key-toggle");
+    DOM.myceliumPath = $("#mycelium-path");
 
     var derivationPath = $(".tab-pane.active .path").val();
 
@@ -71,10 +72,12 @@
         if (n == "bitcoin") {
             network = Bitcoin.networks.bitcoin;
             DOM.bip44coin.val(0);
+            DOM.myceliumPath.val("m/44'/0'/0'/0");
         }
         else if (n == "bitcoin-testnet") {
             network = Bitcoin.networks.testnet;
             DOM.bip44coin.val(1);
+            DOM.myceliumPath.val("m/44'/1'/0'/0");
         }
         else if (n == "litecoin") {
             network = Bitcoin.networks.litecoin;
