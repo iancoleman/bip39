@@ -33938,8 +33938,7 @@ var Mnemonic = function(language) {
         }
         else if (n == "dogecoin") {
             network = Bitcoin.networks.dogecoin;
-            var UNOFFICIAL_BIP44_COIN = 9999;
-            DOM.bip44coin.val(UNOFFICIAL_BIP44_COIN); // This coin is not in BIP44
+            DOM.bip44coin.val(3);
         }
         setBip44DerivationPath();
         delayedPhraseChanged();
