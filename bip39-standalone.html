@@ -6286,8 +6286,8 @@ button.close {
                                     <option value="bitcoin-testnet">Bitcoin Testnet</option>
                                     <option value="litecoin">Litecoin</option>
                                     <option value="dogecoin">Dogecoin</option>
-                                    <option value="shadow">Shadow</option>
-                                    <option value="shadowtn">Shadow Testnet</option>
+                                    <option value="shadow">ShadowCash</option>
+                                    <option value="shadowtn">ShadowCash Testnet</option>
 				</select>
                             </div>
                         </div>
@@ -31121,7 +31121,7 @@ var networks = {
     estimateFee: estimateFee('bitcoin')
   },
     shadow: {
-    magicPrefix: '\x19Shadow Signed Message:\n',
+    magicPrefix: '\x19ShadowCash Signed Message:\n',
     bip32: {
       public: 0xEE80286A,
       private: 0xEE8031E8
@@ -31134,7 +31134,7 @@ var networks = {
     estimateFee: estimateFee('shadow')
   },
     shadowtn: {
-    magicPrefix: '\x19Shadow Signed Message:\n',
+    magicPrefix: '\x19ShadowCash Signed Message:\n',
     bip32: {
       public: 0x76C0FDFB,
       private: 0x76C1077A
@@ -33966,13 +33966,11 @@ var Mnemonic = function(language) {
         }
 		else if (n == "shadow") {
             network = Bitcoin.networks.shadow;
-			var UNOFFICIAL_BIP44_COIN = 9999;
-            DOM.bip44coin.val(UNOFFICIAL_BIP44_COIN);
+            DOM.bip44coin.val(35);
         }
 		else if (n == "shadowtn") {
             network = Bitcoin.networks.shadowtn;
-			var UNOFFICIAL_BIP44_COIN2 = 9999;
-            DOM.bip44coin.val(UNOFFICIAL_BIP44_COIN2);
+            DOM.bip44coin.val(1);
         }
         else if (n == "dogecoin") {
             network = Bitcoin.networks.dogecoin;
