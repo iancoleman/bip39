@@ -63,18 +63,14 @@
         disableForms();
         hidePending();
         hideValidationError();
+        populateNetworkSelect();
     }
 
     // Event handlers
 
     function networkChanged(e) {
         var network = e.target.value;
-        if (network in networks) {
-            networks[network].onSelect();
-        }
-        else {
-            // TODO
-        }
+        networks[network].onSelect();
         setBip44DerivationPath();
         delayedPhraseChanged();
     }
@@ -389,8 +385,18 @@
             .hide();
     }
 
-    var networks = {
-        "bitcoin": {
+    function populateNetworkSelect() {
+        for (var i=0; i<networks.length; i++) {
+            var network = networks[i];
+            var option = $("<option>");
+            option.attr("value", i);
+            option.text(network.name);
+            DOM.phraseNetwork.append(option);
+        }
+    }
+
+    var networks = [
+        {
             name: "Bitcoin",
             onSelect: function() {
                 network = Bitcoin.networks.bitcoin;
@@ -398,7 +404,7 @@
                 DOM.myceliumPath.val("m/44'/0'/0'/0");
             },
         },
-        "bitcoin-testnet": {
+        {
             name: "Bitcoin Testnet",
             onSelect: function() {
                 network = Bitcoin.networks.testnet;
@@ -406,21 +412,21 @@
                 DOM.myceliumPath.val("m/44'/1'/0'/0");
             },
         },
-        "litecoin": {
+        {
             name: "Litecoin",
             onSelect: function() {
                 network = Bitcoin.networks.litecoin;
                 DOM.bip44coin.val(2);
             },
         },
-        "dogecoin": {
+        {
             name: "Dogecoin",
             onSelect: function() {
                 network = Bitcoin.networks.dogecoin;
                 DOM.bip44coin.val(3);
             },
         },
-    }
+    ]
 
     init();
 
