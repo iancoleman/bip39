@@ -39,6 +39,11 @@
                 border-bottom-left-radius: 20px 20px;
                 border-bottom-right-radius: 20px 20px;
             }
+            .no-border {
+                border: 0;
+                box-shadow: inset 0 1px 1px rgba(0,0,0,.0);
+                -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.0);
+            }
         </style>
     </head>
     <body>
@@ -102,13 +107,7 @@
                 <div class="col-md-12">
                     <h2>Derivation Path</h2>
                     <ul class="derivation-type nav nav-tabs" role="tablist">
-                        <li id="hive-tab" class="active">
-                            <a href="#hive" role="tab" data-toggle="tab">Hive Wallet</a>
-                        </li>
-                        <li id="mycelium-tab">
-                            <a href="#mycelium" role="tab" data-toggle="tab">Mycelium Wallet</a>
-                        </li>
-                        <li id="bip44-tab">
+                        <li id="bip44-tab" class="active">
                             <a href="#bip44" role="tab" data-toggle="tab">BIP44</a>
                         </li>
                         <li id="bip32-tab">
@@ -116,37 +115,7 @@
                         </li>
                     </ul>
                     <div class="derivation-type tab-content">
-                        <div id="hive" class="tab-pane active">
-                            <form class="form-horizontal" role="form">
-                                <br>
-                                <div class="col-sm-2"></div>
-                                <div class="col-sm-10">
-                                    <p>For more info see the <a href="https://www.hivewallet.com/" target="_blank">Hive Wallet homepage</a></p>
-                                </div>
-                                <div class="form-group">
-                                    <label for="hive-path" class="col-sm-2 control-label">BIP32 Derivation Path</label>
-                                    <div class="col-sm-10">
-                                        <input id="hive-path" type="text" class="path form-control" value="m/0'/0" readonly="readonly">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div id="mycelium" class="tab-pane">
-                            <form class="form-horizontal" role="form">
-                                <br>
-                                <div class="col-sm-2"></div>
-                                <div class="col-sm-10">
-                                    <p>For more info see the <a href="http://www.mycelium.com/" target="_blank">Mycelium Wallet homepage</a></p>
-                                </div>
-                                <div class="form-group">
-                                    <label for="mycelium-path" class="col-sm-2 control-label">BIP32 Derivation Path</label>
-                                    <div class="col-sm-10">
-                                        <input id="mycelium-path" type="text" class="path form-control" value="m/44'/0'/0'/0" readonly="readonly">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div id="bip44" class="tab-pane">
+                        <div id="bip44" class="tab-pane active">
                             <form class="form-horizontal" role="form">
                                 <br>
                                 <div class="col-sm-2"></div>
@@ -204,6 +173,24 @@
                                     <label for="bip32-path" class="col-sm-2 control-label">BIP32 Derivation Path</label>
                                     <div class="col-sm-10">
                                         <input id="bip32-path" type="text" class="path form-control" value="m/0">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Hive Wallet</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control no-border">
+                                        Use path <code>m/0'/0</code>.
+                                        For more info see the <a href="https://www.hivewallet.com/" target="_blank">Hive Wallet homepage</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mycelium-path" class="col-sm-2 control-label">Mycelium Wallet</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control no-border">
+                                        Use path <code>m/44'/0'/0'/0</code>.
+                                        For more info see the <a href="http://www.mycelium.com/" target="_blank">Mycelium Wallet homepage</a>
+                                        </p>
                                     </div>
                                 </div>
                             </form>
@@ -13087,6 +13074,34 @@ module.exports = Wallet
 }).call(this,require("buffer").Buffer)
 },{"./address":54,"./bufferutils":57,"./hdnode":63,"./networks":66,"./script":68,"./transaction_builder":71,"assert":5,"buffer":7,"randombytes":52,"typeforce":53}]},{},[64])(64)
 });</script>
+        <script>bitcoin.networks.shadow = {
+  magicPrefix: '\x19ShadowCash Signed Message:\n',
+  bip32: {
+    public: 0xEE80286A,
+    private: 0xEE8031E8
+  },
+  pubKeyHash: 0x3f,
+  scriptHash: 0x7d,
+  wif: 0xbf,
+  dustThreshold: 0,
+  feePerKb: 1000,
+  estimateFee: function() { return "unused in this app" },
+};
+
+bitcoin.networks.shadowtn = {
+  magicPrefix: '\x19ShadowCash Signed Message:\n',
+  bip32: {
+    public: 0x76C0FDFB,
+    private: 0x76C1077A
+  },
+  pubKeyHash: 0x7f,
+  scriptHash: 0xc4,
+  wif: 0xff,
+  dustThreshold: 0,
+  feePerKb: 1000,
+  estimateFee: function() { return "unused in this app" },
+};
+</script>
         <script>// Select components from sjcl to suit the crypto operations bip39 requires.
 
 //// base.js
@@ -14607,7 +14622,6 @@ var Mnemonic = function(language) {
     DOM.indexToggle = $(".index-toggle");
     DOM.addressToggle = $(".address-toggle");
     DOM.privateKeyToggle = $(".private-key-toggle");
-    DOM.myceliumPath = $("#mycelium-path");
 
     var derivationPath = $(".tab-pane.active .path").val();
 
@@ -14968,7 +14982,6 @@ var Mnemonic = function(language) {
             onSelect: function() {
                 network = bitcoin.networks.bitcoin;
                 DOM.bip44coin.val(0);
-                DOM.myceliumPath.val("m/44'/0'/0'/0");
             },
         },
         {
@@ -14976,7 +14989,6 @@ var Mnemonic = function(language) {
             onSelect: function() {
                 network = bitcoin.networks.testnet;
                 DOM.bip44coin.val(1);
-                DOM.myceliumPath.val("m/44'/1'/0'/0");
             },
         },
         {
@@ -14991,6 +15003,20 @@ var Mnemonic = function(language) {
             onSelect: function() {
                 network = bitcoin.networks.dogecoin;
                 DOM.bip44coin.val(3);
+            },
+        },
+        {
+            name: "ShadowCash",
+            onSelect: function() {
+                network = bitcoin.networks.shadow;
+                DOM.bip44coin.val(35);
+            },
+        },
+        {
+            name: "ShadowCash Testnet",
+            onSelect: function() {
+                network = bitcoin.networks.shadowtn;
+                DOM.bip44coin.val(1);
             },
         },
     ]
