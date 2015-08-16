@@ -3,7 +3,7 @@
     var mnemonic = new Mnemonic("english");
     var bip32RootKey = null;
     var bip32ExtendedKey = null;
-    var network = Bitcoin.networks.bitcoin;
+    var network = bitcoin.networks.bitcoin;
     var addressRowTemplate = $("#address-row-template");
 
     var showIndex = true;
@@ -187,7 +187,7 @@
 
     function calcBip32Seed(phrase, passphrase, path) {
         var seed = mnemonic.toSeed(phrase, passphrase);
-        bip32RootKey = Bitcoin.HDNode.fromSeedHex(seed, network);
+        bip32RootKey = bitcoin.HDNode.fromSeedHex(seed, network);
         bip32ExtendedKey = bip32RootKey;
         // Derive the key from the path
         var pathBits = path.split("/");
@@ -399,7 +399,7 @@
         {
             name: "Bitcoin",
             onSelect: function() {
-                network = Bitcoin.networks.bitcoin;
+                network = bitcoin.networks.bitcoin;
                 DOM.bip44coin.val(0);
                 DOM.myceliumPath.val("m/44'/0'/0'/0");
             },
@@ -407,7 +407,7 @@
         {
             name: "Bitcoin Testnet",
             onSelect: function() {
-                network = Bitcoin.networks.testnet;
+                network = bitcoin.networks.testnet;
                 DOM.bip44coin.val(1);
                 DOM.myceliumPath.val("m/44'/1'/0'/0");
             },
@@ -415,14 +415,14 @@
         {
             name: "Litecoin",
             onSelect: function() {
-                network = Bitcoin.networks.litecoin;
+                network = bitcoin.networks.litecoin;
                 DOM.bip44coin.val(2);
             },
         },
         {
             name: "Dogecoin",
             onSelect: function() {
-                network = Bitcoin.networks.dogecoin;
+                network = bitcoin.networks.dogecoin;
                 DOM.bip44coin.val(3);
             },
         },
