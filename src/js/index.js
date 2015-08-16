@@ -40,7 +40,6 @@
     DOM.indexToggle = $(".index-toggle");
     DOM.addressToggle = $(".address-toggle");
     DOM.privateKeyToggle = $(".private-key-toggle");
-    DOM.myceliumPath = $("#mycelium-path");
 
     var derivationPath = $(".tab-pane.active .path").val();
 
@@ -401,7 +400,6 @@
             onSelect: function() {
                 network = bitcoin.networks.bitcoin;
                 DOM.bip44coin.val(0);
-                DOM.myceliumPath.val("m/44'/0'/0'/0");
             },
         },
         {
@@ -409,7 +407,6 @@
             onSelect: function() {
                 network = bitcoin.networks.testnet;
                 DOM.bip44coin.val(1);
-                DOM.myceliumPath.val("m/44'/1'/0'/0");
             },
         },
         {
