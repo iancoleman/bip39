@@ -15019,6 +15019,27 @@ var Mnemonic = function(language) {
                 DOM.bip44coin.val(1);
             },
         },
+        {
+            name: "Viacoin",
+            onSelect: function() {
+                network = bitcoin.networks.viacoin;
+                DOM.bip44coin.val(14);
+            },
+        },
+        {
+            name: "Viacoin Testnet",
+            onSelect: function() {
+                network = bitcoin.networks.viacointestnet;
+                DOM.bip44coin.val(1);
+            },
+        },
+        {
+            name: "Jumbucks",
+            onSelect: function() {
+                network = bitcoin.networks.jumbucks;
+                DOM.bip44coin.val(26);
+            },
+        },
     ]
 
     init();
