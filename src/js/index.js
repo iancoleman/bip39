@@ -68,24 +68,12 @@
     // Event handlers
 
     function networkChanged(e) {
-        var n = e.target.value;
-        if (n == "bitcoin") {
-            network = Bitcoin.networks.bitcoin;
-            DOM.bip44coin.val(0);
-            DOM.myceliumPath.val("m/44'/0'/0'/0");
+        var network = e.target.value;
+        if (network in networks) {
+            networks[network].onSelect();
         }
-        else if (n == "bitcoin-testnet") {
-            network = Bitcoin.networks.testnet;
-            DOM.bip44coin.val(1);
-            DOM.myceliumPath.val("m/44'/1'/0'/0");
-        }
-        else if (n == "litecoin") {
-            network = Bitcoin.networks.litecoin;
-            DOM.bip44coin.val(2);
-        }
-        else if (n == "dogecoin") {
-            network = Bitcoin.networks.dogecoin;
-            DOM.bip44coin.val(3);
+        else {
+            // TODO
         }
         setBip44DerivationPath();
         delayedPhraseChanged();
@@ -399,6 +387,39 @@
         DOM.feedback
             .text("")
             .hide();
+    }
+
+    var networks = {
+        "bitcoin": {
+            name: "Bitcoin",
+            onSelect: function() {
+                network = Bitcoin.networks.bitcoin;
+                DOM.bip44coin.val(0);
+                DOM.myceliumPath.val("m/44'/0'/0'/0");
+            },
+        },
+        "bitcoin-testnet": {
+            name: "Bitcoin Testnet",
+            onSelect: function() {
+                network = Bitcoin.networks.testnet;
+                DOM.bip44coin.val(1);
+                DOM.myceliumPath.val("m/44'/1'/0'/0");
+            },
+        },
+        "litecoin": {
+            name: "Litecoin",
+            onSelect: function() {
+                network = Bitcoin.networks.litecoin;
+                DOM.bip44coin.val(2);
+            },
+        },
+        "dogecoin": {
+            name: "Dogecoin",
+            onSelect: function() {
+                network = Bitcoin.networks.dogecoin;
+                DOM.bip44coin.val(3);
+            },
+        },
     }
 
     init();
