@@ -426,6 +426,20 @@
                 DOM.bip44coin.val(3);
             },
         },
+        {
+            name: "ShadowCash",
+            onSelect: function() {
+                network = bitcoin.networks.shadow;
+                DOM.bip44coin.val(35);
+            },
+        },
+        {
+            name: "ShadowCash Testnet",
+            onSelect: function() {
+                network = bitcoin.networks.shadowtn;
+                DOM.bip44coin.val(1);
+            },
+        },
     ]
 
     init();
