@@ -325,7 +325,8 @@
         var addressCell = row.find(".address span");
         var privkeyCell = row.find(".privkey span");
         // Content
-        indexCell.text(index);
+        var indexText = derivationPath + "/" + index;
+        indexCell.text(indexText);
         addressCell.text(address);
         privkeyCell.text(privkey);
         // Visibility
