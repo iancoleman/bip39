@@ -135,7 +135,6 @@
 
     function bip44Changed() {
         setBip44DerivationPath();
-        derivationPath = DOM.bip44path.val();
         derivationChanged();
     }
 
@@ -363,6 +362,7 @@
         path += account + "'/";
         path += change;
         DOM.bip44path.val(path);
+        derivationPath = DOM.bip44path.val();
     }
 
     function parseIntNoNaN(val, defaultVal) {
