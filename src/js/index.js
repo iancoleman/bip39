@@ -336,7 +336,7 @@
             addressCell.addClass("invisible");
         }
         if (!showPrivKey) {
-            privkeCell.addClass("invisible");
+            privkeyCell.addClass("invisible");
         }
         DOM.addresses.append(row);
     }
