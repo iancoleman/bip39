@@ -13101,6 +13101,15 @@ bitcoin.networks.shadowtn = {
   feePerKb: 1000,
   estimateFee: function() { return "unused in this app" },
 };
+
+bitcoin.networks.clam = {
+  bip32: {
+    public: 0xa8c26d64,
+    private: 0xa8c17826
+  },
+  pubKeyHash: 0x89,
+  wif: 0x85,
+};
 </script>
         <script>// Select components from sjcl to suit the crypto operations bip39 requires.
 
@@ -15039,6 +15048,13 @@ var Mnemonic = function(language) {
             onSelect: function() {
                 network = bitcoin.networks.jumbucks;
                 DOM.bip44coin.val(26);
+            },
+        },
+        {
+            name: "CLAM",
+            onSelect: function() {
+                network = bitcoin.networks.clam;
+                DOM.bip44coin.val(23);
             },
         },
     ]
