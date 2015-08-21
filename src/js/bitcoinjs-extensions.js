@@ -25,3 +25,12 @@ bitcoin.networks.shadowtn = {
   feePerKb: 1000,
   estimateFee: function() { return "unused in this app" },
 };
+
+bitcoin.networks.clam = {
+  bip32: {
+    public: 0xa8c26d64,
+    private: 0xa8c17826
+  },
+  pubKeyHash: 0x89,
+  wif: 0x85,
+};

@@ -459,6 +459,13 @@
                 DOM.bip44coin.val(26);
             },
         },
+        {
+            name: "CLAM",
+            onSelect: function() {
+                network = bitcoin.networks.clam;
+                DOM.bip44coin.val(23);
+            },
+        },
     ]
 
     init();
