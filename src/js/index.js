@@ -198,10 +198,14 @@
             clearTimeout(rootKeyChangeTimeoutEvent);
         }
         rootKeyChangeTimeoutEvent = setTimeout(function() {
-            bip32RootKey = bitcoin.HDNode.fromBase58(DOM.rootKey.val());
-            rootKeyChanged();
-            displayBip32Info();
-            hidePending();
+            try {
+                bip32RootKey = bitcoin.HDNode.fromBase58(DOM.rootKey.val());
+                rootKeyChanged();
+                displayBip32Info();
+                hidePending();
+            } catch (e) {
+                showValidationError(e);
+            }
         }, 400);
     }
 
