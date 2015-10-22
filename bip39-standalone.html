@@ -70,7 +70,16 @@
                             <label for="strength" class="col-sm-2 control-label">Number of words</label>
                             <div class="col-sm-10">
                                 <div class="input-group">
-                                    <input type="number" class="strength form-control" id="strength" value="15">
+                                    <select id="strength" class="strength form-control">
+                                        <option val="3">3</option>
+                                        <option val="6">6</option>
+                                        <option val="9">9</option>
+                                        <option val="12">12</option>
+                                        <option val="15" selected>15</option>
+                                        <option val="18">18</option>
+                                        <option val="21">21</option>
+                                        <option val="24">24</option>
+                                    </select>
                                     <span class="input-group-btn">
                                         <button class="btn generate">Generate Random Mnemonic</button>
                                     </span>
@@ -14753,21 +14762,6 @@ var Mnemonic = function(language) {
             return;
         }
         var numWords = parseInt(DOM.strength.val());
-        // Check strength is an integer
-        if (isNaN(numWords)) {
-            DOM.strength.val("12");
-            numWords = 12;
-        }
-        // Check strength is a multiple of 32, if not round it down
-        if (numWords % 3 != 0) {
-            numWords = Math.floor(numWords / 3) * 3;
-            DOM.strength.val(numWords);
-        }
-        // Check strength is at least 32
-        if (numWords == 0) {
-            numWords = 3;
-            DOM.strength.val(numWords);
-        }
         var strength = numWords / 3 * 32;
         var words = mnemonic.generate(strength);
         DOM.phrase.val(words);

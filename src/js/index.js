@@ -162,21 +162,6 @@
             return;
         }
         var numWords = parseInt(DOM.strength.val());
-        // Check strength is an integer
-        if (isNaN(numWords)) {
-            DOM.strength.val("12");
-            numWords = 12;
-        }
-        // Check strength is a multiple of 32, if not round it down
-        if (numWords % 3 != 0) {
-            numWords = Math.floor(numWords / 3) * 3;
-            DOM.strength.val(numWords);
-        }
-        // Check strength is at least 32
-        if (numWords == 0) {
-            numWords = 3;
-            DOM.strength.val(numWords);
-        }
         var strength = numWords / 3 * 32;
         var words = mnemonic.generate(strength);
         DOM.phrase.val(words);
