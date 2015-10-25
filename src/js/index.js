@@ -11,6 +11,7 @@
     var showPrivKey = true;
 
     var phraseChangeTimeoutEvent = null;
+    var rootKeyChangeTimeoutEvent = null;
 
     var DOM = {};
     DOM.network = $(".network");
@@ -49,6 +50,7 @@
         DOM.phrase.on("input", delayedPhraseChanged);
         DOM.passphrase.on("input", delayedPhraseChanged);
         DOM.generate.on("click", generateClicked);
+        DOM.rootKey.on("input", delayedRootKeyChanged);
         DOM.more.on("click", showMore);
         DOM.bip32path.on("input", bip32Changed);
         DOM.bip44purpose.on("input", bip44Changed);
@@ -101,7 +103,7 @@
             return;
         }
         // Calculate and display
-        calcBip32Seed(phrase, passphrase, derivationPath);
+        calcBip32Seed(phrase, passphrase);
         displayBip32Info();
         hidePending();
     }
@@ -125,17 +127,17 @@
     }
 
     function derivationChanged() {
-        delayedPhraseChanged();
+        delayedRootKeyChanged();
     }
 
     function bip32Changed() {
         derivationPath = DOM.bip32path.val();
-        derivationChanged();
+        delayedRootKeyChanged();
     }
 
     function bip44Changed() {
         setBip44DerivationPath();
-        derivationChanged();
+        delayedRootKeyChanged();
     }
 
     function toggleIndexes() {
@@ -168,12 +170,35 @@
         return words;
     }
 
-    function calcBip32Seed(phrase, passphrase, path) {
+    function calcBip32Seed(phrase, passphrase) {
         var seed = mnemonic.toSeed(phrase, passphrase);
         bip32RootKey = bitcoin.HDNode.fromSeedHex(seed, network);
+        rootKeyChanged();
+    }
+
+    function delayedRootKeyChanged() {
+        hideValidationError();
+        showPending();
+        if (rootKeyChangeTimeoutEvent != null) {
+            clearTimeout(rootKeyChangeTimeoutEvent);
+        }
+        rootKeyChangeTimeoutEvent = setTimeout(function() {
+            try {
+                bip32RootKey = bitcoin.HDNode.fromBase58(DOM.rootKey.val());
+                rootKeyChanged();
+                displayBip32Info();
+                hidePending();
+            } catch (e) {
+                showValidationError(e);
+            }
+        }, 400);
+    }
+
+
+    function rootKeyChanged() {
         bip32ExtendedKey = bip32RootKey;
         // Derive the key from the path
-        var pathBits = path.split("/");
+        var pathBits = derivationPath.split("/");
         for (var i=0; i<pathBits.length; i++) {
             var bit = pathBits[i];
             var index = parseInt(bit);
