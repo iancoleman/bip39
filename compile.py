@@ -13,7 +13,7 @@ f.close()
 
 # Script tags
 
-scriptsFinder = re.compile("""<script src="/(.*)"></script>""")
+scriptsFinder = re.compile("""<script src="(.*)"></script>""")
 scripts = scriptsFinder.findall(page)
 
 for script in scripts:
@@ -21,13 +21,13 @@ for script in scripts:
     s = open(filename)
     scriptContent = "<script>%s</script>" % s.read()
     s.close()
-    scriptTag = """<script src="/%s"></script>""" % script
+    scriptTag = """<script src="%s"></script>""" % script
     page = page.replace(scriptTag, scriptContent)
 
 
 # Style tags
 
-stylesFinder = re.compile("""<link rel="stylesheet" href="/(.*)">""")
+stylesFinder = re.compile("""<link rel="stylesheet" href="(.*)">""")
 styles = stylesFinder.findall(page)
 
 for style in styles:
@@ -35,7 +35,7 @@ for style in styles:
     s = open(filename)
     styleContent = "<style>%s</style>" % s.read()
     s.close()
-    styleTag = """<link rel="stylesheet" href="/%s">""" % style
+    styleTag = """<link rel="stylesheet" href="%s">""" % style
     page = page.replace(styleTag, styleContent)
 
 
