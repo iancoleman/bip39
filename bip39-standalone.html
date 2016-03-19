@@ -14520,7 +14520,7 @@ var Mnemonic = function(language) {
 
     self.toSeed = function(mnemonic, passphrase) {
         passphrase = passphrase || '';
-        mnemonic = self.normalizeString(mnemonic)
+        mnemonic = self.normalizeString(mnemonic).split(' ').filter(function(x) { return x.length; }).join(' ');
         passphrase = self.normalizeString(passphrase)
         passphrase = "mnemonic" + passphrase;
         var mnemonicBits = sjcl.codec.utf8String.toBits(mnemonic);
