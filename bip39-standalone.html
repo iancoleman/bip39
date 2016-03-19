@@ -93,6 +93,12 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="seed" class="col-sm-2 control-label">BIP39 Seed</label>
+                            <div class="col-sm-10">
+                                <textarea id="seed" class="seed form-control" readonly="readonly"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="network-phrase" class="col-sm-2 control-label">Coin</label>
                             <div class="col-sm-10">
                                 <select id="network-phrase" class="network form-control">
@@ -14601,6 +14607,7 @@ var Mnemonic = function(language) {
         <script>(function() {
 
     var mnemonic = new Mnemonic("english");
+    var seed = null
     var bip32RootKey = null;
     var bip32ExtendedKey = null;
     var network = bitcoin.networks.bitcoin;
@@ -14618,6 +14625,7 @@ var Mnemonic = function(language) {
     DOM.phrase = $(".phrase");
     DOM.passphrase = $(".passphrase");
     DOM.generate = $(".generate");
+    DOM.seed = $(".seed");
     DOM.rootKey = $(".root-key");
     DOM.extendedPrivKey = $(".extended-priv-key");
     DOM.extendedPubKey = $(".extended-pub-key");
@@ -14769,7 +14777,7 @@ var Mnemonic = function(language) {
     }
 
     function calcBip32Seed(phrase, passphrase, path) {
-        var seed = mnemonic.toSeed(phrase, passphrase);
+        seed = mnemonic.toSeed(phrase, passphrase);
         bip32RootKey = bitcoin.HDNode.fromSeedHex(seed, network);
         bip32ExtendedKey = bip32RootKey;
         // Derive the key from the path
@@ -14832,6 +14840,7 @@ var Mnemonic = function(language) {
 
     function displayBip32Info() {
         // Display the key
+        DOM.seed.val(seed);
         var rootKey = bip32RootKey.toBase58();
         DOM.rootKey.val(rootKey);
         var extendedPrivKey = bip32ExtendedKey.toBase58();
