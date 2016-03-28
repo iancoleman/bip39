@@ -10929,6 +10929,19 @@ var networks = {
     feePerKb: 100,
     estimateFee: estimateFee('nubits')
   },
+  nushares: {
+    magicPrefix: '\x18Nu Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 0x3f,
+    scriptHash: 0x40,
+    wif: 0x95,
+    dustThreshold: 10000,
+    feePerKb: 10000,
+    estimateFee: estimateFee('nushares')
+  },
   blackcoin: {
     magicPrefix: '\x18BlackCoin Signed Message:\n',
     bip32: {

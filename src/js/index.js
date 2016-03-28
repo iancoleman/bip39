@@ -459,6 +459,13 @@
             },
         },
         {
+            name: "NuShares",
+            onSelect: function() {
+                network = bitcoin.networks.nushares;
+                DOM.bip44coin.val(11);
+            },
+        },
+        {
             name: "Blackcoin",
             onSelect: function() {
                 network = bitcoin.networks.blackcoin;
