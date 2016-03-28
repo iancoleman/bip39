@@ -451,6 +451,20 @@
                 DOM.bip44coin.val(23);
             },
         },
+        {
+            name: "NuBits",
+            onSelect: function() {
+                network = bitcoin.networks.nubits;
+                DOM.bip44coin.val(12);
+            },
+        },
+        {
+            name: "Blackcoin",
+            onSelect: function() {
+                network = bitcoin.networks.blackcoin;
+                DOM.bip44coin.val(10);
+            },
+        },
     ]
 
     init();

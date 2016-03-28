@@ -10915,6 +10915,32 @@ var networks = {
     dustThreshold: 546, // https://github.com/zetacoin/zetacoin/blob/master/src/core.h#L159
     feePerKb: 10000, // https://github.com/zetacoin/zetacoin/blob/master/src/main.cpp#L54
     estimateFee: estimateFee('zetacoin')
+  },
+  nubits: {
+    magicPrefix: '\x18Nu Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 0x19,
+    scriptHash: 0x1a,
+    wif: 0x96,
+    dustThreshold: 100,
+    feePerKb: 100,
+    estimateFee: estimateFee('nubits')
+  },
+  blackcoin: {
+    magicPrefix: '\x18BlackCoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 0x19,
+    scriptHash: 0x55,
+    wif: 0x99,
+    dustThreshold: 1,
+    feePerKb: 10000,
+    estimateFee: estimateFee('blackcoin')
   }
 }
 
