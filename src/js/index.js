@@ -169,7 +169,7 @@
     }
 
     function calcBip32Seed(phrase, passphrase, path) {
-        var seed = mnemonic.toSeed(phrase, passphrase);
+        var seed = mnemonic.toSeed(makeProperPhrase(phrase), passphrase);
         bip32RootKey = bitcoin.HDNode.fromSeedHex(seed, network);
         bip32ExtendedKey = bip32RootKey;
         // Derive the key from the path
@@ -202,7 +202,7 @@
             .hide();
     }
 
-    function findPhraseErrors(phrase) {
+    function makeProperPhrase(phrase) {
         // TODO make this right
         // Preprocess the words
         phrase = mnemonic.normalizeString(phrase);
@@ -216,7 +216,11 @@
             }
         }
         // TODO some levenstein on the words
-        var properPhrase = proper.join(' ');
+        return proper.join(' ');
+    }
+
+    function findPhraseErrors(phrase) {
+        properPhrase = makeProperPhrase(phrase);
         // Check the words are valid
         var isValid = mnemonic.check(properPhrase);
         if (!isValid) {
