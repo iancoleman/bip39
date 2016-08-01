@@ -72,7 +72,6 @@
     function networkChanged(e) {
         var network = e.target.value;
         networks[network].onSelect();
-        setBip44DerivationPath();
         delayedPhraseChanged();
     }
 
