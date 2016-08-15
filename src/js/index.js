@@ -43,8 +43,6 @@
     DOM.addressToggle = $(".address-toggle");
     DOM.privateKeyToggle = $(".private-key-toggle");
 
-    var derivationPath = $(".tab-pane.active .path").val();
-
     function init() {
         // Events
         DOM.network.on("change", networkChanged);
@@ -52,12 +50,12 @@
         DOM.passphrase.on("input", delayedPhraseChanged);
         DOM.generate.on("click", generateClicked);
         DOM.more.on("click", showMore);
-        DOM.bip32path.on("input", bip32Changed);
-        DOM.bip44purpose.on("input", bip44Changed);
-        DOM.bip44coin.on("input", bip44Changed);
-        DOM.bip44account.on("input", bip44Changed);
-        DOM.bip44change.on("input", bip44Changed);
-        DOM.tab.on("click", tabClicked);
+        DOM.bip32path.on("input", delayedPhraseChanged);
+        DOM.bip44purpose.on("input", delayedPhraseChanged);
+        DOM.bip44coin.on("input", delayedPhraseChanged);
+        DOM.bip44account.on("input", delayedPhraseChanged);
+        DOM.bip44change.on("input", delayedPhraseChanged);
+        DOM.tab.on("click", delayedPhraseChanged);
         DOM.indexToggle.on("click", toggleIndexes);
         DOM.addressToggle.on("click", toggleAddresses);
         DOM.privateKeyToggle.on("click", togglePrivateKeys);
@@ -96,7 +94,8 @@
             return;
         }
         // Get the derivation path
-        var errorText = findDerivationPathErrors();
+        var derivationPath = getDerivationPath();
+        var errorText = findDerivationPathErrors(derivationPath);
         if (errorText) {
             showValidationError(errorText);
             return;
@@ -117,26 +116,6 @@
             }
             phraseChanged();
         }, 50);
-    }
-
-    function tabClicked(e) {
-        var activePath = $(e.target.getAttribute("href") + " .path");
-        derivationPath = activePath.val();
-        derivationChanged();
-    }
-
-    function derivationChanged() {
-        delayedPhraseChanged();
-    }
-
-    function bip32Changed() {
-        derivationPath = DOM.bip32path.val();
-        derivationChanged();
-    }
-
-    function bip44Changed() {
-        setBip44DerivationPath();
-        derivationChanged();
     }
 
     function toggleIndexes() {
@@ -226,6 +205,32 @@
         return false;
     }
 
+    function getDerivationPath() {
+        if (DOM.bip44tab.hasClass("active")) {
+            var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
+            var coin = parseIntNoNaN(DOM.bip44coin.val(), 0);
+            var account = parseIntNoNaN(DOM.bip44account.val(), 0);
+            var change = parseIntNoNaN(DOM.bip44change.val(), 0);
+            var path = "m/";
+            path += purpose + "'/";
+            path += coin + "'/";
+            path += account + "'/";
+            path += change;
+            DOM.bip44path.val(path);
+            var derivationPath = DOM.bip44path.val();
+            console.log("Using derivation path from BIP44 tab: " + derivationPath);
+            return derivationPath;
+        }
+        else if (DOM.bip32tab.hasClass("active")) {
+            var derivationPath = DOM.bip32path.val();
+            console.log("Using derivation path from BIP32 tab: " + derivationPath);
+            return derivationPath;
+        }
+        else {
+            console.log("Unknown derivation path");
+        }
+    }
+
     function findDerivationPathErrors(path) {
         // TODO
         return false;
@@ -263,7 +268,8 @@
                 var key = bip32ExtendedKey.derive(index);
                 var address = key.getAddress().toString();
                 var privkey = key.privKey.toWIF(network);
-                addAddressToList(index, address, privkey);
+                var indexText = getDerivationPath() + "/" + index;
+                addAddressToList(indexText, address, privkey);
             }, 50)
         }
 
@@ -304,14 +310,13 @@
         DOM.extendedPubKey.val("");
     }
 
-    function addAddressToList(index, address, privkey) {
+    function addAddressToList(indexText, address, privkey) {
         var row = $(addressRowTemplate.html());
         // Elements
         var indexCell = row.find(".index span");
         var addressCell = row.find(".address span");
         var privkeyCell = row.find(".privkey span");
         // Content
-        var indexText = derivationPath + "/" + index;
         indexCell.text(indexText);
         addressCell.text(address);
         privkeyCell.text(privkey);
@@ -336,20 +341,6 @@
         $("form").on("submit", function(e) {
             e.preventDefault();
         });
-    }
-
-    function setBip44DerivationPath() {
-        var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
-        var coin = parseIntNoNaN(DOM.bip44coin.val(), 0);
-        var account = parseIntNoNaN(DOM.bip44account.val(), 0);
-        var change = parseIntNoNaN(DOM.bip44change.val(), 0);
-        var path = "m/";
-        path += purpose + "'/";
-        path += coin + "'/";
-        path += account + "'/";
-        path += change;
-        DOM.bip44path.val(path);
-        derivationPath = DOM.bip44path.val();
     }
 
     function parseIntNoNaN(val, defaultVal) {
