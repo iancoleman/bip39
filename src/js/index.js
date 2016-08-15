@@ -195,8 +195,16 @@
                 proper.push(part.toLowerCase());
             }
         }
-        // TODO some levenstein on the words
         var properPhrase = proper.join(' ');
+        // Check each word
+        for (var i=0; i<proper.length; i++) {
+            var word = proper[i];
+            if (WORDLISTS["english"].indexOf(word) == -1) {
+                console.log("Finding closest match to " + word);
+                var nearestWord = findNearestWord(word);
+                return word + " not in wordlist, did you mean " + nearestWord + "?";
+            }
+        }
         // Check the words are valid
         var isValid = mnemonic.check(properPhrase);
         if (!isValid) {
@@ -387,6 +395,21 @@
         DOM.feedback
             .text("Calculating...")
             .show();
+    }
+
+    function findNearestWord(word) {
+        var words = WORDLISTS["english"];
+        var minDistance = 99;
+        var closestWord = words[0];
+        for (var i=0; i<words.length; i++) {
+            var comparedTo = words[i];
+            var distance = Levenshtein.get(word, comparedTo);
+            if (distance < minDistance) {
+                closestWord = comparedTo;
+                minDistance = distance;
+            }
+        }
+        return closestWord;
     }
 
     function hidePending() {
