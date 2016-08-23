@@ -440,6 +440,31 @@ page.open(url, function(status) {
 },
 
 // BIP32 root key is set from phrase
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "xprv9s21ZrQH143K2jkGDCeTLgRewT9F2pH5JZs2zDmmjXes34geVnFiuNa8KTvY5WoYvdn4Ag6oYRoB6cXtc43NgJAEqDXf51xPm6fhiMCKwpi";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // check the address is generated correctly
+    setTimeout(function() {
+        var actual = page.evaluate(function() {
+            return $(".root-key").val();
+        });
+        if (actual != expected) {
+            console.log("Root key is incorrectly generated from mnemonic");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    }, 1000);
+});
+},
+
+// TODO finish these tests
 
 // Tabs show correct addresses when changed
 
