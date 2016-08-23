@@ -35,6 +35,7 @@
     DOM.bip44account = $("#bip44 .account");
     DOM.bip44change = $("#bip44 .change");
     DOM.strength = $(".strength");
+    DOM.hardenedAddresses = $(".hardened-addresses");
     DOM.addresses = $(".addresses");
     DOM.rowsToAdd = $(".rows-to-add");
     DOM.more = $(".more");
@@ -58,6 +59,7 @@
         DOM.bip44account.on("input", calcForDerivationPath);
         DOM.bip44change.on("input", calcForDerivationPath);
         DOM.tab.on("shown.bs.tab", calcForDerivationPath);
+        DOM.hardenedAddresses.on("change", calcForDerivationPath);
         DOM.indexToggle.on("click", toggleIndexes);
         DOM.addressToggle.on("click", toggleAddresses);
         DOM.privateKeyToggle.on("click", togglePrivateKeys);
@@ -362,16 +364,27 @@
 
     function TableRow(index) {
 
+        var useHardenedAddresses = DOM.hardenedAddresses.prop("checked");
+
         function init() {
             calculateValues();
         }
 
         function calculateValues() {
             setTimeout(function() {
-                var key = bip32ExtendedKey.derive(index);
+                var key = "";
+                if (useHardenedAddresses) {
+                    key = bip32ExtendedKey.deriveHardened(index);
+                }
+                else {
+                    key = bip32ExtendedKey.derive(index);
+                }
                 var address = key.getAddress().toString();
                 var privkey = key.privKey.toWIF(network);
                 var indexText = getDerivationPath() + "/" + index;
+                if (useHardenedAddresses) {
+                    indexText = indexText + "'";
+                }
                 addAddressToList(indexText, address, privkey);
             }, 50)
         }
