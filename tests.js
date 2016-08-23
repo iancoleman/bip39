@@ -564,9 +564,31 @@ page.open(url, function(status) {
 });
 },
 
-// TODO finish these tests
-
 // BIP44 extended private key is shown
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "xprvA2DxxvPZcyRvYgZMGS53nadR32mVDeCyqQYyFhrCVbJNjPoxMeVf7QT5g7mQASbTf9Kp4cryvcXnu2qurjWKcrdsr91jXymdCDNxKgLFKJG";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // check the derivation path of the first address
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".extended-priv-key").val();
+        });
+        if (actual != expected) {
+            console.log("BIP44 extended private key is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // BIP44 extended public key is shown
 // BIP44 purpose field changes address list
 // BIP44 coin field changes address list
