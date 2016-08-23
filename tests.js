@@ -4,6 +4,7 @@
 
 var page = require('webpage').create();
 var url = 'src/index.html';
+var testMaxTime = 5000;
 
 page.onResourceError = function(e) {
     console.log("Error loading " + e.url);
@@ -13,6 +14,34 @@ page.onResourceError = function(e) {
 function fail() {
     console.log("Failed");
     phantom.exit();
+}
+
+function waitForGenerate(fn, maxTime) {
+    if (!maxTime) {
+        maxTime = testMaxTime;
+    }
+    var start = new Date().getTime();
+    var prevAddressCount = -1;
+    var wait = function keepWaiting() {
+        var now = new Date().getTime();
+        var hasTimedOut = now - start > maxTime;
+        var addressCount = page.evaluate(function() {
+            return $(".address").length;
+        });
+        var hasFinished = addressCount > 0 && addressCount == prevAddressCount;
+        prevAddressCount = addressCount;
+        if (hasFinished) {
+            fn();
+        }
+        else if (hasTimedOut) {
+            console.log("Test timed out");
+            fn();
+        }
+        else {
+            setTimeout(keepWaiting, 100);
+        }
+    }
+    wait();
 }
 
 function next() {
@@ -63,7 +92,7 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability").trigger("input");
     });
     // get the address
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".address:first").text();
         });
@@ -74,7 +103,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -94,7 +123,7 @@ page.open(url, function(status) {
         $(".generate").click();
     });
     // get the new phrase
-    setTimeout(function() {
+    waitForGenerate(function() {
         var phrase = page.evaluate(function() {
             return $(".phrase").val();
         });
@@ -103,7 +132,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -121,7 +150,7 @@ page.open(url, function(status) {
         $(".generate").click();
     });
     // check the new phrase is six words long
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actualLength = page.evaluate(function() {
             var words = $(".phrase").val().split(" ");
             return words.length;
@@ -133,7 +162,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -147,7 +176,7 @@ page.open(url, function(status) {
         $(".passphrase").val("secure_passphrase").trigger("input");
     });
     // check the address is generated correctly
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".address:first").text();
         });
@@ -158,7 +187,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -175,7 +204,7 @@ page.open(url, function(status) {
         $(".network").trigger("change");
     });
     // check the address is generated correctly
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".address:first").text();
         });
@@ -186,7 +215,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -203,7 +232,7 @@ page.open(url, function(status) {
         $(".network").trigger("change");
     });
     // check the address is generated correctly
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".address:first").text();
         });
@@ -214,7 +243,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -231,7 +260,7 @@ page.open(url, function(status) {
         $(".network").trigger("change");
     });
     // check the address is generated correctly
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".address:first").text();
         });
@@ -242,7 +271,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -259,7 +288,7 @@ page.open(url, function(status) {
         $(".network").trigger("change");
     });
     // check the address is generated correctly
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".address:first").text();
         });
@@ -270,7 +299,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -287,7 +316,7 @@ page.open(url, function(status) {
         $(".network").trigger("change");
     });
     // check the address is generated correctly
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".address:first").text();
         });
@@ -298,7 +327,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -315,7 +344,7 @@ page.open(url, function(status) {
         $(".network").trigger("change");
     });
     // check the address is generated correctly
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".address:first").text();
         });
@@ -326,7 +355,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -343,7 +372,7 @@ page.open(url, function(status) {
         $(".network").trigger("change");
     });
     // check the address is generated correctly
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".address:first").text();
         });
@@ -354,7 +383,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -371,7 +400,7 @@ page.open(url, function(status) {
         $(".network").trigger("change");
     });
     // check the address is generated correctly
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".address:first").text();
         });
@@ -382,7 +411,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -399,7 +428,7 @@ page.open(url, function(status) {
         $(".network").trigger("change");
     });
     // check the address is generated correctly
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".address:first").text();
         });
@@ -410,7 +439,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -424,7 +453,7 @@ page.open(url, function(status) {
         $(".phrase").trigger("input");
     });
     // check the address is generated correctly
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".seed").val();
         });
@@ -435,7 +464,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -449,7 +478,7 @@ page.open(url, function(status) {
         $(".phrase").trigger("input");
     });
     // check the address is generated correctly
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".root-key").val();
         });
@@ -460,7 +489,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
