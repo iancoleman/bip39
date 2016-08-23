@@ -493,11 +493,40 @@ page.open(url, function(status) {
 });
 },
 
-// TODO finish these tests
-
 // Tabs show correct addresses when changed
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "17uQ7s2izWPwBmEVFikTmZUjbBKWYdJchz";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // change tabs
+    waitForGenerate(function() {
+        page.evaluate(function() {
+            $("#bip32-tab a").click();
+        });
+        // check the address is generated correctly
+        waitForGenerate(function() {
+            var actual = page.evaluate(function() {
+                return $(".address:first").text();
+            });
+            if (actual != expected) {
+                console.log("Clicking tab generates incorrect address");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + actual);
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
 
 // BIP44 derivation path is shown
+// TODO finish these tests
+
 // BIP44 extended private key is shown
 // BIP44 extended public key is shown
 // BIP44 purpose field changes address list
