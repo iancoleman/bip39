@@ -679,6 +679,39 @@ page.open(url, function(status) {
 },
 
 // BIP44 account field changes address list
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "1Nq2Wmu726XHCuGhctEtGmhxo3wzk5wZ1H";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    waitForGenerate(function() {
+        // change the bip44 purpose field to 45
+        page.evaluate(function() {
+            $("#bip44 .account").val("1");
+            $("#bip44 .account").trigger("input");
+        });
+        waitForGenerate(function() {
+            // check the address for the new derivation path
+            var actual = page.evaluate(function() {
+                return $(".address:first").text();
+            });
+            if (actual != expected) {
+                console.log("BIP44 account field generates incorrect address");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + actual);
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
+
+// TODO finish these tests
+
 // BIP44 external/internal field changes address list
 
 // BIP32 derivation path can be set
