@@ -573,7 +573,7 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
     });
-    // check the derivation path of the first address
+    // check the BIP44 extended private key
     waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".extended-priv-key").val();
@@ -598,7 +598,7 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
     });
-    // check the derivation path of the first address
+    // check the BIP44 extended public key
     waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".extended-pub-key").val();
@@ -614,9 +614,40 @@ page.open(url, function(status) {
 });
 },
 
+// BIP44 purpose field changes address list
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "1JbDzRJ2cDT8aat2xwKd6Pb2zzavow5MhF";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    waitForGenerate(function() {
+        // change the bip44 purpose field to 45
+        page.evaluate(function() {
+            $("#bip44 .purpose").val("45");
+            $("#bip44 .purpose").trigger("input");
+        });
+        waitForGenerate(function() {
+            // check the address for the new derivation path
+            var actual = page.evaluate(function() {
+                return $(".address:first").text();
+            });
+            if (actual != expected) {
+                console.log("BIP44 purpose field generates incorrect address");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + actual);
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
+
 // TODO finish these tests
 
-// BIP44 purpose field changes address list
 // BIP44 coin field changes address list
 // BIP44 account field changes address list
 // BIP44 external/internal field changes address list
