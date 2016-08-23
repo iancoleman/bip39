@@ -710,9 +710,39 @@ page.open(url, function(status) {
 });
 },
 
-// TODO finish these tests
+// BIP44 change field changes address list
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "1KAGfWgqfVbSSXY56fNQ7YnhyKuoskHtYo";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    waitForGenerate(function() {
+        // change the bip44 purpose field to 45
+        page.evaluate(function() {
+            $("#bip44 .change").val("1");
+            $("#bip44 .change").trigger("input");
+        });
+        waitForGenerate(function() {
+            // check the address for the new derivation path
+            var actual = page.evaluate(function() {
+                return $(".address:first").text();
+            });
+            if (actual != expected) {
+                console.log("BIP44 change field generates incorrect address");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + actual);
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
 
-// BIP44 external/internal field changes address list
+// TODO finish these tests
 
 // BIP32 derivation path can be set
 // BIP32 can use hardened derivation paths
