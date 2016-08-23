@@ -580,6 +580,13 @@
                 DOM.bip44coin.val(23);
             },
         },
+        {
+            name: "DASH",
+            onSelect: function() {
+                network = bitcoin.networks.dash;
+                DOM.bip44coin.val(5);
+            },
+        },
     ]
 
     init();
