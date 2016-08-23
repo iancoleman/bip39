@@ -111,9 +111,10 @@ page.open(url, function(status) {
 function() {
 page.open(url, function(status) {
     // set the length to 6
-    var expectedLength = 6;
+    var expectedLength = "6";
     page.evaluate(function() {
-        $(".strength").val(expectedLength);
+        $(".strength option[selected]").removeAttr("selected");
+        $(".strength option[value=6]").prop("selected", true);
     });
     // press the 'generate' button
     page.evaluate(function() {
@@ -131,15 +132,65 @@ page.open(url, function(status) {
             console.log("Actual: " + actualLength);
             fail();
         }
-    }, 200);
-    next();
+        next();
+    }, 1000);
+});
+},
+
+// Passphrase can be set
+function() {
+page.open(url, function(status) {
+    // set the phrase and passphrase
+    var expected = "15pJzUWPGzR7avffV9nY5by4PSgSKG9rba";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".passphrase").val("secure_passphrase").trigger("input");
+    });
+    // check the address is generated correctly
+    setTimeout(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("Passphrase results in wrong address");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    }, 1000);
+});
+},
+
+// Network can be set to bitcoin testnet
+function() {
+page.open(url, function(status) {
+    // set the phrase and passphrase
+    var expected = "mucaU5iiDaJDb69BHLeDv8JFfGiyg2nJKi";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option[value=1]").prop("selected", true);
+        $(".network").trigger("change");
+    });
+    // check the address is generated correctly
+    setTimeout(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("Bitcoin testnet address is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    }, 1000);
 });
 },
 
 // TODO finish these tests
-
-// Passphrase can be set
-// Network can be set to bitcoin testnet
 // Network can be set to litecoin
 // Network can be set to dogecoin
 // Network can be set to shadowcash
@@ -180,7 +231,8 @@ page.open(url, function(status) {
 // Additional addresses are shown in order of derivation path
 
 // BIP32 root key can be set by the user
-// Setting BIP32 clears the existing phrase, passphrase and seed
+// Setting BIP32 root key clears the existing phrase, passphrase and seed
+// Clearing of phrase, passphrase and seed can be cancelled by user
 // Custom BIP32 root key is used when changing the derivation path
 
 // Incorrect mnemonic shows error

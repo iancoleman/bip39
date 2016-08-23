@@ -71,14 +71,14 @@
                             <div class="col-sm-10">
                                 <div class="input-group">
                                     <select id="strength" class="strength form-control">
-                                        <option val="3">3</option>
-                                        <option val="6">6</option>
-                                        <option val="9">9</option>
-                                        <option val="12">12</option>
-                                        <option val="15" selected>15</option>
-                                        <option val="18">18</option>
-                                        <option val="21">21</option>
-                                        <option val="24">24</option>
+                                        <option value="3">3</option>
+                                        <option value="6">6</option>
+                                        <option value="9">9</option>
+                                        <option value="12">12</option>
+                                        <option value="15" selected>15</option>
+                                        <option value="18">18</option>
+                                        <option value="21">21</option>
+                                        <option value="24">24</option>
                                     </select>
                                     <span class="input-group-btn">
                                         <button class="btn generate">Generate Random Mnemonic</button>
@@ -14906,9 +14906,14 @@ var Mnemonic = function(language) {
     // Event handlers
 
     function networkChanged(e) {
-        var network = e.target.value;
-        networks[network].onSelect();
-        displayBip32Info();
+        var networkIndex = e.target.value;
+        networks[networkIndex].onSelect();
+        if (seed != null) {
+            phraseChanged();
+        }
+        else {
+            rootKeyChanged();
+        }
     }
 
     function delayedPhraseChanged() {

@@ -72,9 +72,14 @@
     // Event handlers
 
     function networkChanged(e) {
-        var network = e.target.value;
-        networks[network].onSelect();
-        displayBip32Info();
+        var networkIndex = e.target.value;
+        networks[networkIndex].onSelect();
+        if (seed != null) {
+            phraseChanged();
+        }
+        else {
+            rootKeyChanged();
+        }
     }
 
     function delayedPhraseChanged() {
