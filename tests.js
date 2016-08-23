@@ -414,8 +414,31 @@ page.open(url, function(status) {
 });
 },
 
-// TODO finish these tests
 // BIP39 seed is set from phrase
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "20da140d3dd1df8713cefcc4d54ce0e445b4151027a1ab567b832f6da5fcc5afc1c3a3f199ab78b8e0ab4652efd7f414ac2c9a3b81bceb879a70f377aa0a58f3";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // check the address is generated correctly
+    setTimeout(function() {
+        var actual = page.evaluate(function() {
+            return $(".seed").val();
+        });
+        if (actual != expected) {
+            console.log("BIP39 seed is incorrectly generated from mnemonic");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    }, 1000);
+});
+},
+
 // BIP32 root key is set from phrase
 
 // Tabs show correct addresses when changed
