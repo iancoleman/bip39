@@ -34,3 +34,13 @@ Please do not make modifications to `bip39-standalone.html`, since they will
 be overwritten by `compile.py`.
 
 Make changes in `src/*` and apply them using the command `python compile.py`
+
+# Tests
+
+Tests depend on [phantomjs](http://phantomjs.org/).
+
+Run tests from the command-line
+
+```
+$ phantomjs tests.js
+```

@@ -12,6 +12,7 @@
     var showPrivKey = true;
 
     var phraseChangeTimeoutEvent = null;
+    var rootKeyChangedTimeoutEvent = null;
 
     var DOM = {};
     DOM.network = $(".network");
@@ -34,6 +35,7 @@
     DOM.bip44account = $("#bip44 .account");
     DOM.bip44change = $("#bip44 .change");
     DOM.strength = $(".strength");
+    DOM.hardenedAddresses = $(".hardened-addresses");
     DOM.addresses = $(".addresses");
     DOM.rowsToAdd = $(".rows-to-add");
     DOM.more = $(".more");
@@ -50,12 +52,14 @@
         DOM.passphrase.on("input", delayedPhraseChanged);
         DOM.generate.on("click", generateClicked);
         DOM.more.on("click", showMore);
-        DOM.bip32path.on("input", delayedPhraseChanged);
-        DOM.bip44purpose.on("input", delayedPhraseChanged);
-        DOM.bip44coin.on("input", delayedPhraseChanged);
-        DOM.bip44account.on("input", delayedPhraseChanged);
-        DOM.bip44change.on("input", delayedPhraseChanged);
-        DOM.tab.on("click", delayedPhraseChanged);
+        DOM.rootKey.on("input", delayedRootKeyChanged);
+        DOM.bip32path.on("input", calcForDerivationPath);
+        DOM.bip44purpose.on("input", calcForDerivationPath);
+        DOM.bip44coin.on("input", calcForDerivationPath);
+        DOM.bip44account.on("input", calcForDerivationPath);
+        DOM.bip44change.on("input", calcForDerivationPath);
+        DOM.tab.on("shown.bs.tab", calcForDerivationPath);
+        DOM.hardenedAddresses.on("change", calcForDerivationPath);
         DOM.indexToggle.on("click", toggleIndexes);
         DOM.addressToggle.on("click", toggleAddresses);
         DOM.privateKeyToggle.on("click", togglePrivateKeys);
@@ -68,9 +72,14 @@
     // Event handlers
 
     function networkChanged(e) {
-        var network = e.target.value;
-        networks[network].onSelect();
-        delayedPhraseChanged();
+        var networkIndex = e.target.value;
+        networks[networkIndex].onSelect();
+        if (seed != null) {
+            phraseChanged();
+        }
+        else {
+            rootKeyChanged();
+        }
     }
 
     function delayedPhraseChanged() {
@@ -87,12 +96,57 @@
         hideValidationError();
         // Get the mnemonic phrase
         var phrase = DOM.phrase.val();
-        var passphrase = DOM.passphrase.val();
         var errorText = findPhraseErrors(phrase);
         if (errorText) {
             showValidationError(errorText);
             return;
         }
+        // Calculate and display
+        var passphrase = DOM.passphrase.val();
+        calcBip32RootKeyFromSeed(phrase, passphrase);
+        calcForDerivationPath();
+        hidePending();
+    }
+
+    function delayedRootKeyChanged() {
+        // Warn if there is an existing mnemonic or passphrase.
+        if (DOM.phrase.val().length > 0 || DOM.passphrase.val().length > 0) {
+            if (!confirm("This will clear existing mnemonic and passphrase")) {
+                DOM.rootKey.val(bip32RootKey);
+                return
+            }
+        }
+        hideValidationError();
+        showPending();
+        // Clear existing mnemonic and passphrase
+        DOM.phrase.val("");
+        DOM.passphrase.val("");
+        seed = null;
+        if (rootKeyChangedTimeoutEvent != null) {
+            clearTimeout(rootKeyChangedTimeoutEvent);
+        }
+        rootKeyChangedTimeoutEvent = setTimeout(rootKeyChanged, 400);
+    }
+
+    function rootKeyChanged() {
+        showPending();
+        hideValidationError();
+        // Validate the root key TODO
+        var rootKeyBase58 = DOM.rootKey.val();
+        var errorText = validateRootKey(rootKeyBase58);
+        if (errorText) {
+            showValidationError(errorText);
+            return;
+        }
+        // Calculate and display
+        calcBip32RootKeyFromBase58(rootKeyBase58);
+        calcForDerivationPath();
+        hidePending();
+    }
+
+    function calcForDerivationPath() {
+        showPending();
+        hideValidationError();
         // Get the derivation path
         var derivationPath = getDerivationPath();
         var errorText = findDerivationPathErrors(derivationPath);
@@ -100,8 +154,7 @@
             showValidationError(errorText);
             return;
         }
-        // Calculate and display
-        calcBip32Seed(phrase, passphrase, derivationPath);
+        calcBip32ExtendedKey(derivationPath);
         displayBip32Info();
         hidePending();
     }
@@ -148,9 +201,16 @@
         return words;
     }
 
-    function calcBip32Seed(phrase, passphrase, path) {
+    function calcBip32RootKeyFromSeed(phrase, passphrase) {
         seed = mnemonic.toSeed(phrase, passphrase);
         bip32RootKey = bitcoin.HDNode.fromSeedHex(seed, network);
+    }
+
+    function calcBip32RootKeyFromBase58(rootKeyBase58) {
+        bip32RootKey = bitcoin.HDNode.fromBase58(rootKeyBase58);
+    }
+
+    function calcBip32ExtendedKey(path) {
         bip32ExtendedKey = bip32RootKey;
         // Derive the key from the path
         var pathBits = path.split("/");
@@ -211,6 +271,16 @@
             return "Invalid mnemonic";
         }
         return false;
+    }
+
+    function validateRootKey(rootKeyBase58) {
+        try {
+            bitcoin.HDNode.fromBase58(rootKeyBase58);
+        }
+        catch (e) {
+            return "Invalid root key";
+        }
+        return "";
     }
 
     function getDerivationPath() {
@@ -299,16 +369,27 @@
 
     function TableRow(index) {
 
+        var useHardenedAddresses = DOM.hardenedAddresses.prop("checked");
+
         function init() {
             calculateValues();
         }
 
         function calculateValues() {
             setTimeout(function() {
-                var key = bip32ExtendedKey.derive(index);
+                var key = "";
+                if (useHardenedAddresses) {
+                    key = bip32ExtendedKey.deriveHardened(index);
+                }
+                else {
+                    key = bip32ExtendedKey.derive(index);
+                }
                 var address = key.getAddress().toString();
                 var privkey = key.privKey.toWIF(network);
                 var indexText = getDerivationPath() + "/" + index;
+                if (useHardenedAddresses) {
+                    indexText = indexText + "'";
+                }
                 addAddressToList(indexText, address, privkey);
             }, 50)
         }

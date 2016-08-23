@@ -71,14 +71,14 @@
                             <div class="col-sm-10">
                                 <div class="input-group">
                                     <select id="strength" class="strength form-control">
-                                        <option val="3">3</option>
-                                        <option val="6">6</option>
-                                        <option val="9">9</option>
-                                        <option val="12">12</option>
-                                        <option val="15" selected>15</option>
-                                        <option val="18">18</option>
-                                        <option val="21">21</option>
-                                        <option val="24">24</option>
+                                        <option value="3">3</option>
+                                        <option value="6">6</option>
+                                        <option value="9">9</option>
+                                        <option value="12">12</option>
+                                        <option value="15" selected>15</option>
+                                        <option value="18">18</option>
+                                        <option value="21">21</option>
+                                        <option value="24">24</option>
                                     </select>
                                     <span class="input-group-btn">
                                         <button class="btn generate">Generate Random Mnemonic</button>
@@ -109,7 +109,7 @@
                         <div class="form-group">
                             <label for="root-key" class="col-sm-2 control-label">BIP32 Root Key</label>
                             <div class="col-sm-10">
-                                <textarea id="root-key" class="root-key form-control" readonly="readonly"></textarea>
+                                <textarea id="root-key" class="root-key form-control"></textarea>
                             </div>
                         </div>
                     </form>
@@ -191,6 +191,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <div class="col-sm-2"></div>
+                                    <label class="col-sm-10">
+                                        <input class="hardened-addresses" type="checkbox">
+                                        Use hardened addresses
+                                    </label>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-sm-2 control-label">Hive Wallet</label>
                                     <div class="col-sm-10">
                                         <p class="form-control no-border">
@@ -205,6 +212,15 @@
                                         <p class="form-control no-border">
                                         Use path <code>m/44'/0'/0'/0</code>.
                                         For more info see the <a href="http://www.mycelium.com/" target="_blank">Mycelium Wallet homepage</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="core-path" class="col-sm-2 control-label">Bitcoin Core</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control no-border">
+                                        Use path <code>m/0'/0'</code> with hardened addresses.
+                                        For more info see the <a href="https://github.com/bitcoin/bitcoin/pull/8035" target="_blank">Bitcoin Core BIP32 implementation</a>
                                         </p>
                                     </div>
                                 </div>
@@ -14830,6 +14846,7 @@ var Mnemonic = function(language) {
     var showPrivKey = true;
 
     var phraseChangeTimeoutEvent = null;
+    var rootKeyChangedTimeoutEvent = null;
 
     var DOM = {};
     DOM.network = $(".network");
@@ -14852,6 +14869,7 @@ var Mnemonic = function(language) {
     DOM.bip44account = $("#bip44 .account");
     DOM.bip44change = $("#bip44 .change");
     DOM.strength = $(".strength");
+    DOM.hardenedAddresses = $(".hardened-addresses");
     DOM.addresses = $(".addresses");
     DOM.rowsToAdd = $(".rows-to-add");
     DOM.more = $(".more");
@@ -14868,12 +14886,14 @@ var Mnemonic = function(language) {
         DOM.passphrase.on("input", delayedPhraseChanged);
         DOM.generate.on("click", generateClicked);
         DOM.more.on("click", showMore);
-        DOM.bip32path.on("input", delayedPhraseChanged);
-        DOM.bip44purpose.on("input", delayedPhraseChanged);
-        DOM.bip44coin.on("input", delayedPhraseChanged);
-        DOM.bip44account.on("input", delayedPhraseChanged);
-        DOM.bip44change.on("input", delayedPhraseChanged);
-        DOM.tab.on("click", delayedPhraseChanged);
+        DOM.rootKey.on("input", delayedRootKeyChanged);
+        DOM.bip32path.on("input", calcForDerivationPath);
+        DOM.bip44purpose.on("input", calcForDerivationPath);
+        DOM.bip44coin.on("input", calcForDerivationPath);
+        DOM.bip44account.on("input", calcForDerivationPath);
+        DOM.bip44change.on("input", calcForDerivationPath);
+        DOM.tab.on("shown.bs.tab", calcForDerivationPath);
+        DOM.hardenedAddresses.on("change", calcForDerivationPath);
         DOM.indexToggle.on("click", toggleIndexes);
         DOM.addressToggle.on("click", toggleAddresses);
         DOM.privateKeyToggle.on("click", togglePrivateKeys);
@@ -14886,9 +14906,14 @@ var Mnemonic = function(language) {
     // Event handlers
 
     function networkChanged(e) {
-        var network = e.target.value;
-        networks[network].onSelect();
-        delayedPhraseChanged();
+        var networkIndex = e.target.value;
+        networks[networkIndex].onSelect();
+        if (seed != null) {
+            phraseChanged();
+        }
+        else {
+            rootKeyChanged();
+        }
     }
 
     function delayedPhraseChanged() {
@@ -14905,12 +14930,57 @@ var Mnemonic = function(language) {
         hideValidationError();
         // Get the mnemonic phrase
         var phrase = DOM.phrase.val();
-        var passphrase = DOM.passphrase.val();
         var errorText = findPhraseErrors(phrase);
         if (errorText) {
             showValidationError(errorText);
             return;
         }
+        // Calculate and display
+        var passphrase = DOM.passphrase.val();
+        calcBip32RootKeyFromSeed(phrase, passphrase);
+        calcForDerivationPath();
+        hidePending();
+    }
+
+    function delayedRootKeyChanged() {
+        // Warn if there is an existing mnemonic or passphrase.
+        if (DOM.phrase.val().length > 0 || DOM.passphrase.val().length > 0) {
+            if (!confirm("This will clear existing mnemonic and passphrase")) {
+                DOM.rootKey.val(bip32RootKey);
+                return
+            }
+        }
+        hideValidationError();
+        showPending();
+        // Clear existing mnemonic and passphrase
+        DOM.phrase.val("");
+        DOM.passphrase.val("");
+        seed = null;
+        if (rootKeyChangedTimeoutEvent != null) {
+            clearTimeout(rootKeyChangedTimeoutEvent);
+        }
+        rootKeyChangedTimeoutEvent = setTimeout(rootKeyChanged, 400);
+    }
+
+    function rootKeyChanged() {
+        showPending();
+        hideValidationError();
+        // Validate the root key TODO
+        var rootKeyBase58 = DOM.rootKey.val();
+        var errorText = validateRootKey(rootKeyBase58);
+        if (errorText) {
+            showValidationError(errorText);
+            return;
+        }
+        // Calculate and display
+        calcBip32RootKeyFromBase58(rootKeyBase58);
+        calcForDerivationPath();
+        hidePending();
+    }
+
+    function calcForDerivationPath() {
+        showPending();
+        hideValidationError();
         // Get the derivation path
         var derivationPath = getDerivationPath();
         var errorText = findDerivationPathErrors(derivationPath);
@@ -14918,8 +14988,7 @@ var Mnemonic = function(language) {
             showValidationError(errorText);
             return;
         }
-        // Calculate and display
-        calcBip32Seed(phrase, passphrase, derivationPath);
+        calcBip32ExtendedKey(derivationPath);
         displayBip32Info();
         hidePending();
     }
@@ -14966,9 +15035,16 @@ var Mnemonic = function(language) {
         return words;
     }
 
-    function calcBip32Seed(phrase, passphrase, path) {
+    function calcBip32RootKeyFromSeed(phrase, passphrase) {
         seed = mnemonic.toSeed(phrase, passphrase);
         bip32RootKey = bitcoin.HDNode.fromSeedHex(seed, network);
+    }
+
+    function calcBip32RootKeyFromBase58(rootKeyBase58) {
+        bip32RootKey = bitcoin.HDNode.fromBase58(rootKeyBase58);
+    }
+
+    function calcBip32ExtendedKey(path) {
         bip32ExtendedKey = bip32RootKey;
         // Derive the key from the path
         var pathBits = path.split("/");
@@ -15029,6 +15105,16 @@ var Mnemonic = function(language) {
             return "Invalid mnemonic";
         }
         return false;
+    }
+
+    function validateRootKey(rootKeyBase58) {
+        try {
+            bitcoin.HDNode.fromBase58(rootKeyBase58);
+        }
+        catch (e) {
+            return "Invalid root key";
+        }
+        return "";
     }
 
     function getDerivationPath() {
@@ -15117,16 +15203,27 @@ var Mnemonic = function(language) {
 
     function TableRow(index) {
 
+        var useHardenedAddresses = DOM.hardenedAddresses.prop("checked");
+
         function init() {
             calculateValues();
         }
 
         function calculateValues() {
             setTimeout(function() {
-                var key = bip32ExtendedKey.derive(index);
+                var key = "";
+                if (useHardenedAddresses) {
+                    key = bip32ExtendedKey.deriveHardened(index);
+                }
+                else {
+                    key = bip32ExtendedKey.derive(index);
+                }
                 var address = key.getAddress().toString();
                 var privkey = key.privKey.toWIF(network);
                 var indexText = getDerivationPath() + "/" + index;
+                if (useHardenedAddresses) {
+                    indexText = indexText + "'";
+                }
                 addAddressToList(indexText, address, privkey);
             }, 50)
         }
