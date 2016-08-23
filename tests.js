@@ -646,9 +646,38 @@ page.open(url, function(status) {
 });
 },
 
-// TODO finish these tests
-
 // BIP44 coin field changes address list
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "1F6dB2djQYrxoyfZZmfr6D5voH8GkJTghk";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    waitForGenerate(function() {
+        // change the bip44 purpose field to 45
+        page.evaluate(function() {
+            $("#bip44 .coin").val("1");
+            $("#bip44 .coin").trigger("input");
+        });
+        waitForGenerate(function() {
+            // check the address for the new derivation path
+            var actual = page.evaluate(function() {
+                return $(".address:first").text();
+            });
+            if (actual != expected) {
+                console.log("BIP44 coin field generates incorrect address");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + actual);
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
+
 // BIP44 account field changes address list
 // BIP44 external/internal field changes address list
 
