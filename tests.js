@@ -525,6 +525,30 @@ page.open(url, function(status) {
 },
 
 // BIP44 derivation path is shown
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "m/44'/0'/0'/0";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // check the derivation path of the first address
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $("#bip44 .path").val();
+        });
+        if (actual != expected) {
+            console.log("BIP44 derivation path is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // TODO finish these tests
 
 // BIP44 extended private key is shown
