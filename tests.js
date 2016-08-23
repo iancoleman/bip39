@@ -590,6 +590,32 @@ page.open(url, function(status) {
 },
 
 // BIP44 extended public key is shown
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "xpub6FDKNRvTTLzDmAdpNTc49ia9b4byd6vqCdUa46Fp3vqMcC96uBoufCmZXQLiN5AK3iSCJMhf9gT2sxkpyaPepRuA7W3MujV5tGmF5VfbueM";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // check the derivation path of the first address
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".extended-pub-key").val();
+        });
+        if (actual != expected) {
+            console.log("BIP44 extended public key is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
+// TODO finish these tests
+
 // BIP44 purpose field changes address list
 // BIP44 coin field changes address list
 // BIP44 account field changes address list
