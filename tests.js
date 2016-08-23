@@ -165,7 +165,7 @@ page.open(url, function(status) {
 // Network can be set to bitcoin testnet
 function() {
 page.open(url, function(status) {
-    // set the phrase and passphrase
+    // set the phrase and coin
     var expected = "mucaU5iiDaJDb69BHLeDv8JFfGiyg2nJKi";
     page.evaluate(function() {
         $(".phrase").val("abandon abandon ability");
@@ -190,15 +190,231 @@ page.open(url, function(status) {
 });
 },
 
-// TODO finish these tests
 // Network can be set to litecoin
+function() {
+page.open(url, function(status) {
+    // set the phrase and coin
+    var expected = "LQ4XU8RX2ULPmPq9FcUHdVmPVchP9nwXdn";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option[value=2]").prop("selected", true);
+        $(".network").trigger("change");
+    });
+    // check the address is generated correctly
+    setTimeout(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("Litecoin address is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    }, 1000);
+});
+},
+
 // Network can be set to dogecoin
+function() {
+page.open(url, function(status) {
+    // set the phrase and coin
+    var expected = "DPQH2AtuzkVSG6ovjKk4jbUmZ6iXLpgbJA";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option[value=3]").prop("selected", true);
+        $(".network").trigger("change");
+    });
+    // check the address is generated correctly
+    setTimeout(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("Dogecoin address is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    }, 1000);
+});
+},
+
 // Network can be set to shadowcash
+function() {
+page.open(url, function(status) {
+    // set the phrase and coin
+    var expected = "SiSZtfYAXEFvMm3XM8hmtkGDyViRwErtCG";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option[value=4]").prop("selected", true);
+        $(".network").trigger("change");
+    });
+    // check the address is generated correctly
+    setTimeout(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("Shadowcash address is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    }, 1000);
+});
+},
+
 // Network can be set to shadowcash testnet
+function() {
+page.open(url, function(status) {
+    // set the phrase and coin
+    var expected = "tM2EDpVKaTiEg2NZg3yKg8eqjLr55BErHe";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option[value=5]").prop("selected", true);
+        $(".network").trigger("change");
+    });
+    // check the address is generated correctly
+    setTimeout(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("Shadowcash testnet address is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    }, 1000);
+});
+},
+
 // Network can be set to viacoin
+function() {
+page.open(url, function(status) {
+    // set the phrase and coin
+    var expected = "Vq9Eq4N5SQnjqZvxtxzo7hZPW5XnyJsmXT";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option[value=6]").prop("selected", true);
+        $(".network").trigger("change");
+    });
+    // check the address is generated correctly
+    setTimeout(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("Viacoin address is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    }, 1000);
+});
+},
+
 // Network can be set to viacoin testnet
+function() {
+page.open(url, function(status) {
+    // set the phrase and coin
+    var expected = "tM2EDpVKaTiEg2NZg3yKg8eqjLr55BErHe";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option[value=7]").prop("selected", true);
+        $(".network").trigger("change");
+    });
+    // check the address is generated correctly
+    setTimeout(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("Viacoin testnet address is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    }, 1000);
+});
+},
+
 // Network can be set to jumbucks
+function() {
+page.open(url, function(status) {
+    // set the phrase and coin
+    var expected = "JLEXccwDXADK4RxBPkRez7mqsHVoJBEUew";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option[value=8]").prop("selected", true);
+        $(".network").trigger("change");
+    });
+    // check the address is generated correctly
+    setTimeout(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("Jumbucks address is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    }, 1000);
+});
+},
+
 // Network can be set to clam
+function() {
+page.open(url, function(status) {
+    // set the phrase and coin
+    var expected = "xCp4sakjVx4pUAZ6cBCtuin8Ddb6U1sk9y";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option[value=9]").prop("selected", true);
+        $(".network").trigger("change");
+    });
+    // check the address is generated correctly
+    setTimeout(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("CLAM address is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    }, 1000);
+});
+},
+
+// TODO finish these tests
 // BIP39 seed is set from phrase
 // BIP32 root key is set from phrase
 
