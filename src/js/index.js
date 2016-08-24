@@ -207,7 +207,7 @@
     }
 
     function calcBip32RootKeyFromBase58(rootKeyBase58) {
-        bip32RootKey = bitcoin.HDNode.fromBase58(rootKeyBase58);
+        bip32RootKey = bitcoin.HDNode.fromBase58(rootKeyBase58, network);
     }
 
     function calcBip32ExtendedKey(path) {
