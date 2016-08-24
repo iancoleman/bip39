@@ -881,6 +881,30 @@ page.open(url, function(status) {
 },
 
 // Derivation path is shown in table
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "m/44'/0'/0'/0/0";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // check for derivation path in table
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".index:first").text();
+        });
+        if (actual != expected) {
+            console.log("Derivation path shown incorrectly in table");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // Derivation path for address can be hardened
 // Derivation path visibility can be toggled
 // Address is shown
