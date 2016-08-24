@@ -944,6 +944,32 @@ page.open(url, function(status) {
 },
 
 // Derivation path visibility can be toggled
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // check the path is not shown
+    waitForGenerate(function() {
+        // toggle path visibility
+        page.evaluate(function() {
+            $(".index-toggle").click();
+        });
+        // check the path is not visible
+        var isInvisible = page.evaluate(function() {
+            return $(".index:first span").hasClass("invisible");
+        });
+        if (!isInvisible) {
+            console.log("Toggled derivation path is visible");
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // Address is shown
 // Addresses are shown in order of derivation path
 // Address visibility can be toggled
