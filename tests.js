@@ -742,10 +742,82 @@ page.open(url, function(status) {
 });
 },
 
-// TODO finish these tests
-
 // BIP32 derivation path can be set
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "16pYQQdLD1hH4hwTGLXBaZ9Teboi1AGL8L";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // change tabs
+    waitForGenerate(function() {
+        page.evaluate(function() {
+            $("#bip32-tab a").click();
+        });
+        // set the derivation path to m/1
+        waitForGenerate(function() {
+            page.evaluate(function() {
+                $("#bip32 .path").val("m/1");
+                $("#bip32 .path").trigger("input");
+            });
+            // check the address is generated correctly
+            waitForGenerate(function() {
+                var actual = page.evaluate(function() {
+                    return $(".address:first").text();
+                });
+                if (actual != expected) {
+                    console.log("Custom BIP32 path generates incorrect address");
+                    console.log("Expected: " + expected);
+                    console.log("Actual: " + actual);
+                    fail();
+                }
+                next();
+            });
+        });
+    });
+});
+},
+
 // BIP32 can use hardened derivation paths
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "14aXZeprXAE3UUKQc4ihvwBvww2LuEoHo4";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // change tabs
+    waitForGenerate(function() {
+        page.evaluate(function() {
+            $("#bip32-tab a").click();
+        });
+        // set the derivation path to m/0'
+        waitForGenerate(function() {
+            page.evaluate(function() {
+                $("#bip32 .path").val("m/0'");
+                $("#bip32 .path").trigger("input");
+            });
+            // check the address is generated correctly
+            waitForGenerate(function() {
+                var actual = page.evaluate(function() {
+                    return $(".address:first").text();
+                });
+                if (actual != expected) {
+                    console.log("Hardened BIP32 path generates incorrect address");
+                    console.log("Expected: " + expected);
+                    console.log("Actual: " + actual);
+                    fail();
+                }
+                next();
+            });
+        });
+    });
+});
+},
+
 // BIP32 extended private key is shown
 // BIP32 extended public key is shown
 
