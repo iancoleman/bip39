@@ -207,7 +207,7 @@
     }
 
     function calcBip32RootKeyFromBase58(rootKeyBase58) {
-        bip32RootKey = bitcoin.HDNode.fromBase58(rootKeyBase58);
+        bip32RootKey = bitcoin.HDNode.fromBase58(rootKeyBase58, network);
     }
 
     function calcBip32ExtendedKey(path) {
@@ -578,6 +578,13 @@
             onSelect: function() {
                 network = bitcoin.networks.clam;
                 DOM.bip44coin.val(23);
+            },
+        },
+        {
+            name: "DASH",
+            onSelect: function() {
+                network = bitcoin.networks.dash;
+                DOM.bip44coin.val(5);
             },
         },
     ]

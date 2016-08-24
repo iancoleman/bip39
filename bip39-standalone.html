@@ -13353,6 +13353,17 @@ bitcoin.networks.clam = {
   pubKeyHash: 0x89,
   wif: 0x85,
 };
+
+bitcoin.networks.dash = {
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  },
+  pubKeyHash: 0x4c,
+  scriptHash: 0x10,
+  wif: 0xcc,
+};
+
 </script>
         <script>// Select components from sjcl to suit the crypto operations bip39 requires.
 
@@ -15041,7 +15052,7 @@ var Mnemonic = function(language) {
     }
 
     function calcBip32RootKeyFromBase58(rootKeyBase58) {
-        bip32RootKey = bitcoin.HDNode.fromBase58(rootKeyBase58);
+        bip32RootKey = bitcoin.HDNode.fromBase58(rootKeyBase58, network);
     }
 
     function calcBip32ExtendedKey(path) {
@@ -15412,6 +15423,13 @@ var Mnemonic = function(language) {
             onSelect: function() {
                 network = bitcoin.networks.clam;
                 DOM.bip44coin.val(23);
+            },
+        },
+        {
+            name: "DASH",
+            onSelect: function() {
+                network = bitcoin.networks.dash;
+                DOM.bip44coin.val(5);
             },
         },
     ]
