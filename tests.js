@@ -101,18 +101,17 @@ page.open(url, function(status) {
 // Entering mnemonic generates addresses
 function() {
 page.open(url, function(status) {
-    var expected = "1Di3Vp7tBWtyQaDABLAjfWtF6V7hYKJtug";
     // set the phrase
     page.evaluate(function() {
         $(".phrase").val("abandon abandon ability").trigger("input");
     });
     // get the address
     waitForGenerate(function() {
-        var actual = page.evaluate(function() {
-            return $(".address:first").text();
+        var addressCount = page.evaluate(function() {
+            return $(".address").length;
         });
-        if (actual != expected) {
-            console.log("Mnemonic did not generate address");
+        if (addressCount != 20) {
+            console.log("Mnemonic did not generate addresses");
             console.log("Expected: " + expected);
             console.log("Got: " + actual);
             fail();
@@ -971,6 +970,29 @@ page.open(url, function(status) {
 },
 
 // Address is shown
+function() {
+page.open(url, function(status) {
+    var expected = "1Di3Vp7tBWtyQaDABLAjfWtF6V7hYKJtug";
+    // set the phrase
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability").trigger("input");
+    });
+    // get the address
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("Address is not shown");
+            console.log("Expected: " + expected);
+            console.log("Got: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // Addresses are shown in order of derivation path
 // Address visibility can be toggled
 // Private key is shown
