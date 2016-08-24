@@ -906,6 +906,43 @@ page.open(url, function(status) {
 },
 
 // Derivation path for address can be hardened
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "18exLzUv7kfpiXRzmCjFDoC9qwNLFyvwyd";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // change tabs
+    waitForGenerate(function() {
+        page.evaluate(function() {
+            $("#bip32-tab a").click();
+        });
+        waitForGenerate(function() {
+            // select the hardened addresses option
+            page.evaluate(function() {
+                $(".hardened-addresses").prop("checked", true);
+                $(".hardened-addresses").trigger("change");
+            });
+            waitForGenerate(function() {
+                // check the generated address is hardened
+                var actual = page.evaluate(function() {
+                    return $(".address:first").text();
+                });
+                if (actual != expected) {
+                    console.log("Hardened address is incorrect");
+                    console.log("Expected: " + expected);
+                    console.log("Actual: " + actual);
+                    fail();
+                }
+                next();
+            });
+        });
+    });
+});
+},
+
 // Derivation path visibility can be toggled
 // Address is shown
 // Addresses are shown in order of derivation path
