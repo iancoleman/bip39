@@ -1053,6 +1053,9 @@ page.open(url, function(status) {
 // Github Issue 23: Use correct derivation path when changing tabs
 // https://github.com/dcpos/bip39/issues/23
 
+// Github Issue 26: When using a Root key derrived altcoins are incorrect
+// https://github.com/dcpos/bip39/issues/26
+
 ];
 
 console.log("Running tests...");
