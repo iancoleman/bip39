@@ -819,7 +819,66 @@ page.open(url, function(status) {
 },
 
 // BIP32 extended private key is shown
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "xprv9va99uTVE5aLiutUVLTyfxfe8v8aaXjSQ1XxZbK6SezYVuikA9MnjQVTA8rQHpNA5LKvyQBpLiHbBQiiccKiBDs7eRmBogsvq3THFeLHYbe";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // change tabs
+    waitForGenerate(function() {
+        page.evaluate(function() {
+            $("#bip32-tab a").click();
+        });
+        // check the extended private key is generated correctly
+        waitForGenerate(function() {
+            var actual = page.evaluate(function() {
+                return $(".extended-priv-key").val();
+            });
+            if (actual != expected) {
+                console.log("BIP32 extended private key is incorrect");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + actual);
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
+
 // BIP32 extended public key is shown
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "xpub69ZVZQzP4T8dwPxwbMzz36cNgwy4yzTHmETZMyihzzXXNi3thgg3HCow1RtY252wdw5rS8369xKnraN5Q93y3FkFfJp2XEHWUrkyXsjS93P";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // change tabs
+    waitForGenerate(function() {
+        page.evaluate(function() {
+            $("#bip32-tab a").click();
+        });
+        // check the extended public key is generated correctly
+        waitForGenerate(function() {
+            var actual = page.evaluate(function() {
+                return $(".extended-pub-key").val();
+            });
+            if (actual != expected) {
+                console.log("BIP32 extended public key is incorrect");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + actual);
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
 
 // Derivation path is shown in table
 // Derivation path for address can be hardened
