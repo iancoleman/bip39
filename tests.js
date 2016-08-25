@@ -4,6 +4,7 @@
 
 var page = require('webpage').create();
 var url = 'src/index.html';
+var testMaxTime = 5000;
 
 page.onResourceError = function(e) {
     console.log("Error loading " + e.url);
@@ -13,6 +14,34 @@ page.onResourceError = function(e) {
 function fail() {
     console.log("Failed");
     phantom.exit();
+}
+
+function waitForGenerate(fn, maxTime) {
+    if (!maxTime) {
+        maxTime = testMaxTime;
+    }
+    var start = new Date().getTime();
+    var prevAddressCount = -1;
+    var wait = function keepWaiting() {
+        var now = new Date().getTime();
+        var hasTimedOut = now - start > maxTime;
+        var addressCount = page.evaluate(function() {
+            return $(".address").length;
+        });
+        var hasFinished = addressCount > 0 && addressCount == prevAddressCount;
+        prevAddressCount = addressCount;
+        if (hasFinished) {
+            fn();
+        }
+        else if (hasTimedOut) {
+            console.log("Test timed out");
+            fn();
+        }
+        else {
+            setTimeout(keepWaiting, 100);
+        }
+    }
+    wait();
 }
 
 function next() {
@@ -25,6 +54,21 @@ function next() {
         console.log("Finished with 0 failures");
         phantom.exit();
     }
+}
+
+/**
+ * Randomize array element order in-place.
+ * Using Durstenfeld shuffle algorithm.
+ * See http://stackoverflow.com/a/12646864
+ */
+function shuffle(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
 }
 
 tests = [
@@ -57,24 +101,23 @@ page.open(url, function(status) {
 // Entering mnemonic generates addresses
 function() {
 page.open(url, function(status) {
-    var expected = "1Di3Vp7tBWtyQaDABLAjfWtF6V7hYKJtug";
     // set the phrase
     page.evaluate(function() {
         $(".phrase").val("abandon abandon ability").trigger("input");
     });
     // get the address
-    setTimeout(function() {
-        var actual = page.evaluate(function() {
-            return $(".address:first").text();
+    waitForGenerate(function() {
+        var addressCount = page.evaluate(function() {
+            return $(".address").length;
         });
-        if (actual != expected) {
-            console.log("Mnemonic did not generate address");
+        if (addressCount != 20) {
+            console.log("Mnemonic did not generate addresses");
             console.log("Expected: " + expected);
             console.log("Got: " + actual);
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -94,7 +137,7 @@ page.open(url, function(status) {
         $(".generate").click();
     });
     // get the new phrase
-    setTimeout(function() {
+    waitForGenerate(function() {
         var phrase = page.evaluate(function() {
             return $(".phrase").val();
         });
@@ -103,7 +146,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -121,7 +164,7 @@ page.open(url, function(status) {
         $(".generate").click();
     });
     // check the new phrase is six words long
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actualLength = page.evaluate(function() {
             var words = $(".phrase").val().split(" ");
             return words.length;
@@ -133,7 +176,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -147,7 +190,7 @@ page.open(url, function(status) {
         $(".passphrase").val("secure_passphrase").trigger("input");
     });
     // check the address is generated correctly
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".address:first").text();
         });
@@ -158,7 +201,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -175,7 +218,7 @@ page.open(url, function(status) {
         $(".network").trigger("change");
     });
     // check the address is generated correctly
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".address:first").text();
         });
@@ -186,7 +229,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -203,7 +246,7 @@ page.open(url, function(status) {
         $(".network").trigger("change");
     });
     // check the address is generated correctly
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".address:first").text();
         });
@@ -214,7 +257,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -231,7 +274,7 @@ page.open(url, function(status) {
         $(".network").trigger("change");
     });
     // check the address is generated correctly
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".address:first").text();
         });
@@ -242,7 +285,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -259,7 +302,7 @@ page.open(url, function(status) {
         $(".network").trigger("change");
     });
     // check the address is generated correctly
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".address:first").text();
         });
@@ -270,7 +313,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -287,7 +330,7 @@ page.open(url, function(status) {
         $(".network").trigger("change");
     });
     // check the address is generated correctly
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".address:first").text();
         });
@@ -298,7 +341,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -315,7 +358,7 @@ page.open(url, function(status) {
         $(".network").trigger("change");
     });
     // check the address is generated correctly
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".address:first").text();
         });
@@ -326,7 +369,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -343,7 +386,7 @@ page.open(url, function(status) {
         $(".network").trigger("change");
     });
     // check the address is generated correctly
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".address:first").text();
         });
@@ -354,7 +397,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -371,7 +414,7 @@ page.open(url, function(status) {
         $(".network").trigger("change");
     });
     // check the address is generated correctly
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".address:first").text();
         });
@@ -382,7 +425,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -399,7 +442,7 @@ page.open(url, function(status) {
         $(".network").trigger("change");
     });
     // check the address is generated correctly
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".address:first").text();
         });
@@ -410,7 +453,35 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
+});
+},
+
+// Network can be set to dash
+function() {
+page.open(url, function(status) {
+    // set the phrase and coin
+    var expected = "XdbhtMuGsPSkE6bPdNTHoFSszQKmK4S5LT";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option[value=10]").prop("selected", true);
+        $(".network").trigger("change");
+    });
+    // check the address is generated correctly
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("DASH address is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
 });
 },
 
@@ -424,7 +495,7 @@ page.open(url, function(status) {
         $(".phrase").trigger("input");
     });
     // check the address is generated correctly
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".seed").val();
         });
@@ -435,7 +506,7 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
@@ -449,7 +520,7 @@ page.open(url, function(status) {
         $(".phrase").trigger("input");
     });
     // check the address is generated correctly
-    setTimeout(function() {
+    waitForGenerate(function() {
         var actual = page.evaluate(function() {
             return $(".root-key").val();
         });
@@ -460,31 +531,496 @@ page.open(url, function(status) {
             fail();
         }
         next();
-    }, 1000);
+    });
 });
 },
 
-// TODO finish these tests
-
 // Tabs show correct addresses when changed
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "17uQ7s2izWPwBmEVFikTmZUjbBKWYdJchz";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // change tabs
+    waitForGenerate(function() {
+        page.evaluate(function() {
+            $("#bip32-tab a").click();
+        });
+        // check the address is generated correctly
+        waitForGenerate(function() {
+            var actual = page.evaluate(function() {
+                return $(".address:first").text();
+            });
+            if (actual != expected) {
+                console.log("Clicking tab generates incorrect address");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + actual);
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
 
 // BIP44 derivation path is shown
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "m/44'/0'/0'/0";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // check the derivation path of the first address
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $("#bip44 .path").val();
+        });
+        if (actual != expected) {
+            console.log("BIP44 derivation path is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // BIP44 extended private key is shown
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "xprvA2DxxvPZcyRvYgZMGS53nadR32mVDeCyqQYyFhrCVbJNjPoxMeVf7QT5g7mQASbTf9Kp4cryvcXnu2qurjWKcrdsr91jXymdCDNxKgLFKJG";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // check the BIP44 extended private key
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".extended-priv-key").val();
+        });
+        if (actual != expected) {
+            console.log("BIP44 extended private key is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // BIP44 extended public key is shown
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "xpub6FDKNRvTTLzDmAdpNTc49ia9b4byd6vqCdUa46Fp3vqMcC96uBoufCmZXQLiN5AK3iSCJMhf9gT2sxkpyaPepRuA7W3MujV5tGmF5VfbueM";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // check the BIP44 extended public key
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".extended-pub-key").val();
+        });
+        if (actual != expected) {
+            console.log("BIP44 extended public key is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // BIP44 purpose field changes address list
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "1JbDzRJ2cDT8aat2xwKd6Pb2zzavow5MhF";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    waitForGenerate(function() {
+        // change the bip44 purpose field to 45
+        page.evaluate(function() {
+            $("#bip44 .purpose").val("45");
+            $("#bip44 .purpose").trigger("input");
+        });
+        waitForGenerate(function() {
+            // check the address for the new derivation path
+            var actual = page.evaluate(function() {
+                return $(".address:first").text();
+            });
+            if (actual != expected) {
+                console.log("BIP44 purpose field generates incorrect address");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + actual);
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
+
 // BIP44 coin field changes address list
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "1F6dB2djQYrxoyfZZmfr6D5voH8GkJTghk";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    waitForGenerate(function() {
+        // change the bip44 purpose field to 45
+        page.evaluate(function() {
+            $("#bip44 .coin").val("1");
+            $("#bip44 .coin").trigger("input");
+        });
+        waitForGenerate(function() {
+            // check the address for the new derivation path
+            var actual = page.evaluate(function() {
+                return $(".address:first").text();
+            });
+            if (actual != expected) {
+                console.log("BIP44 coin field generates incorrect address");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + actual);
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
+
 // BIP44 account field changes address list
-// BIP44 external/internal field changes address list
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "1Nq2Wmu726XHCuGhctEtGmhxo3wzk5wZ1H";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    waitForGenerate(function() {
+        // change the bip44 purpose field to 45
+        page.evaluate(function() {
+            $("#bip44 .account").val("1");
+            $("#bip44 .account").trigger("input");
+        });
+        waitForGenerate(function() {
+            // check the address for the new derivation path
+            var actual = page.evaluate(function() {
+                return $(".address:first").text();
+            });
+            if (actual != expected) {
+                console.log("BIP44 account field generates incorrect address");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + actual);
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
+
+// BIP44 change field changes address list
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "1KAGfWgqfVbSSXY56fNQ7YnhyKuoskHtYo";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    waitForGenerate(function() {
+        // change the bip44 purpose field to 45
+        page.evaluate(function() {
+            $("#bip44 .change").val("1");
+            $("#bip44 .change").trigger("input");
+        });
+        waitForGenerate(function() {
+            // check the address for the new derivation path
+            var actual = page.evaluate(function() {
+                return $(".address:first").text();
+            });
+            if (actual != expected) {
+                console.log("BIP44 change field generates incorrect address");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + actual);
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
 
 // BIP32 derivation path can be set
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "16pYQQdLD1hH4hwTGLXBaZ9Teboi1AGL8L";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // change tabs
+    waitForGenerate(function() {
+        page.evaluate(function() {
+            $("#bip32-tab a").click();
+        });
+        // set the derivation path to m/1
+        waitForGenerate(function() {
+            page.evaluate(function() {
+                $("#bip32 .path").val("m/1");
+                $("#bip32 .path").trigger("input");
+            });
+            // check the address is generated correctly
+            waitForGenerate(function() {
+                var actual = page.evaluate(function() {
+                    return $(".address:first").text();
+                });
+                if (actual != expected) {
+                    console.log("Custom BIP32 path generates incorrect address");
+                    console.log("Expected: " + expected);
+                    console.log("Actual: " + actual);
+                    fail();
+                }
+                next();
+            });
+        });
+    });
+});
+},
+
 // BIP32 can use hardened derivation paths
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "14aXZeprXAE3UUKQc4ihvwBvww2LuEoHo4";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // change tabs
+    waitForGenerate(function() {
+        page.evaluate(function() {
+            $("#bip32-tab a").click();
+        });
+        // set the derivation path to m/0'
+        waitForGenerate(function() {
+            page.evaluate(function() {
+                $("#bip32 .path").val("m/0'");
+                $("#bip32 .path").trigger("input");
+            });
+            // check the address is generated correctly
+            waitForGenerate(function() {
+                var actual = page.evaluate(function() {
+                    return $(".address:first").text();
+                });
+                if (actual != expected) {
+                    console.log("Hardened BIP32 path generates incorrect address");
+                    console.log("Expected: " + expected);
+                    console.log("Actual: " + actual);
+                    fail();
+                }
+                next();
+            });
+        });
+    });
+});
+},
+
 // BIP32 extended private key is shown
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "xprv9va99uTVE5aLiutUVLTyfxfe8v8aaXjSQ1XxZbK6SezYVuikA9MnjQVTA8rQHpNA5LKvyQBpLiHbBQiiccKiBDs7eRmBogsvq3THFeLHYbe";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // change tabs
+    waitForGenerate(function() {
+        page.evaluate(function() {
+            $("#bip32-tab a").click();
+        });
+        // check the extended private key is generated correctly
+        waitForGenerate(function() {
+            var actual = page.evaluate(function() {
+                return $(".extended-priv-key").val();
+            });
+            if (actual != expected) {
+                console.log("BIP32 extended private key is incorrect");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + actual);
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
+
 // BIP32 extended public key is shown
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "xpub69ZVZQzP4T8dwPxwbMzz36cNgwy4yzTHmETZMyihzzXXNi3thgg3HCow1RtY252wdw5rS8369xKnraN5Q93y3FkFfJp2XEHWUrkyXsjS93P";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // change tabs
+    waitForGenerate(function() {
+        page.evaluate(function() {
+            $("#bip32-tab a").click();
+        });
+        // check the extended public key is generated correctly
+        waitForGenerate(function() {
+            var actual = page.evaluate(function() {
+                return $(".extended-pub-key").val();
+            });
+            if (actual != expected) {
+                console.log("BIP32 extended public key is incorrect");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + actual);
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
 
 // Derivation path is shown in table
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "m/44'/0'/0'/0/0";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // check for derivation path in table
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".index:first").text();
+        });
+        if (actual != expected) {
+            console.log("Derivation path shown incorrectly in table");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // Derivation path for address can be hardened
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "18exLzUv7kfpiXRzmCjFDoC9qwNLFyvwyd";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // change tabs
+    waitForGenerate(function() {
+        page.evaluate(function() {
+            $("#bip32-tab a").click();
+        });
+        waitForGenerate(function() {
+            // select the hardened addresses option
+            page.evaluate(function() {
+                $(".hardened-addresses").prop("checked", true);
+                $(".hardened-addresses").trigger("change");
+            });
+            waitForGenerate(function() {
+                // check the generated address is hardened
+                var actual = page.evaluate(function() {
+                    return $(".address:first").text();
+                });
+                if (actual != expected) {
+                    console.log("Hardened address is incorrect");
+                    console.log("Expected: " + expected);
+                    console.log("Actual: " + actual);
+                    fail();
+                }
+                next();
+            });
+        });
+    });
+});
+},
+
 // Derivation path visibility can be toggled
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // check the path is not shown
+    waitForGenerate(function() {
+        // toggle path visibility
+        page.evaluate(function() {
+            $(".index-toggle").click();
+        });
+        // check the path is not visible
+        var isInvisible = page.evaluate(function() {
+            return $(".index:first span").hasClass("invisible");
+        });
+        if (!isInvisible) {
+            console.log("Toggled derivation path is visible");
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // Address is shown
+function() {
+page.open(url, function(status) {
+    var expected = "1Di3Vp7tBWtyQaDABLAjfWtF6V7hYKJtug";
+    // set the phrase
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability").trigger("input");
+    });
+    // get the address
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("Address is not shown");
+            console.log("Expected: " + expected);
+            console.log("Got: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // Addresses are shown in order of derivation path
 // Address visibility can be toggled
 // Private key is shown
@@ -517,7 +1053,11 @@ page.open(url, function(status) {
 // Github Issue 23: Use correct derivation path when changing tabs
 // https://github.com/dcpos/bip39/issues/23
 
+// Github Issue 26: When using a Root key derrived altcoins are incorrect
+// https://github.com/dcpos/bip39/issues/26
+
 ];
 
 console.log("Running tests...");
+tests = shuffle(tests);
 next();
