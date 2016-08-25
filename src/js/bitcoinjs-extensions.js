@@ -45,3 +45,23 @@ bitcoin.networks.dash = {
   wif: 0xcc,
 };
 
+bitcoin.networks.namecoin = {
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  },
+  pubKeyHash: 0x34,
+  //scriptHash: 0x10,
+  wif: 0x80,
+};
+
+bitcoin.networks.peercoin = {
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  },
+  pubKeyHash: 0x37,
+  //scriptHash: 0x10,
+  wif: 0xb7,
+};
+

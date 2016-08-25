@@ -13364,6 +13364,26 @@ bitcoin.networks.dash = {
   wif: 0xcc,
 };
 
+bitcoin.networks.namecoin = {
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  },
+  pubKeyHash: 0x34,
+  //scriptHash: 0x10,
+  wif: 0x80,
+};
+
+bitcoin.networks.peercoin = {
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  },
+  pubKeyHash: 0x37,
+  //scriptHash: 0x10,
+  wif: 0xb7,
+};
+
 </script>
         <script>// Select components from sjcl to suit the crypto operations bip39 requires.
 
@@ -15430,6 +15450,20 @@ var Mnemonic = function(language) {
             onSelect: function() {
                 network = bitcoin.networks.dash;
                 DOM.bip44coin.val(5);
+            },
+        },
+        {
+            name: "Namecoin",
+            onSelect: function() {
+                network = bitcoin.networks.namecoin;
+                DOM.bip44coin.val(7);
+            },
+        },
+        {
+            name: "Peercoin",
+            onSelect: function() {
+                network = bitcoin.networks.peercoin;
+                DOM.bip44coin.val(6);
             },
         },
     ]
