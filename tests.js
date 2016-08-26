@@ -1080,6 +1080,29 @@ page.open(url, function(status) {
 },
 
 // Private key is shown
+function() {
+page.open(url, function(status) {
+    var expected = "L26cVSpWFkJ6aQkPkKmTzLqTdLJ923e6CzrVh9cmx21QHsoUmrEE";
+    // set the phrase
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability").trigger("input");
+    });
+    // get the address
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".privkey:first").text();
+        });
+        if (actual != expected) {
+            console.log("Private key is not shown");
+            console.log("Expected: " + expected);
+            console.log("Got: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // Private key visibility can be toggled
 
 // More addresses can be generated
