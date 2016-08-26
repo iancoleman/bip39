@@ -978,7 +978,6 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
     });
-    // check the path is not shown
     waitForGenerate(function() {
         // toggle path visibility
         page.evaluate(function() {
@@ -1053,7 +1052,33 @@ page.open(url, function(status) {
     });
 });
 },
+
 // Address visibility can be toggled
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    waitForGenerate(function() {
+        // toggle address visibility
+        page.evaluate(function() {
+            $(".address-toggle").click();
+        });
+        // check the address is not visible
+        var isInvisible = page.evaluate(function() {
+            return $(".address:first span").hasClass("invisible");
+        });
+        if (!isInvisible) {
+            console.log("Toggled address is visible");
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // Private key is shown
 // Private key visibility can be toggled
 
