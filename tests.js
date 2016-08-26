@@ -1104,6 +1104,30 @@ page.open(url, function(status) {
 },
 
 // Private key visibility can be toggled
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    waitForGenerate(function() {
+        // toggle private key visibility
+        page.evaluate(function() {
+            $(".private-key-toggle").click();
+        });
+        // check the private key is not visible
+        var isInvisible = page.evaluate(function() {
+            return $(".privkey:first span").hasClass("invisible");
+        });
+        if (!isInvisible) {
+            console.log("Toggled private key is visible");
+            fail();
+        }
+        next();
+    });
+});
+},
 
 // More addresses can be generated
 // A custom number of additional addresses can be generated
