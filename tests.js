@@ -1022,6 +1022,37 @@ page.open(url, function(status) {
 },
 
 // Addresses are shown in order of derivation path
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability").trigger("input");
+    });
+    // get the derivation paths
+    waitForGenerate(function() {
+        var paths = page.evaluate(function() {
+            return $(".index").map(function(i, e) {
+                return $(e).text();
+            });
+        });
+        if (paths.length != 20) {
+            console.log("Total paths is less than expected: " + paths.length);
+            fail();
+        }
+        for (var i=0; i<paths.length; i++) {
+            var expected = "m/44'/0'/0'/0/" + i;
+            var actual = paths[i];
+            if (actual != expected) {
+                console.log("Path " + i + " is incorrect");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + actual);
+                fail();
+            }
+        }
+        next();
+    });
+});
+},
 // Address visibility can be toggled
 // Private key is shown
 // Private key visibility can be toggled
