@@ -485,6 +485,62 @@ page.open(url, function(status) {
 });
 },
 
+// Network can be set to namecoin
+function() {
+page.open(url, function(status) {
+    // set the phrase and coin
+    var expected = "Mw2vK2Bvex1yYtYF6sfbEg2YGoUc98YUD2";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option[value=11]").prop("selected", true);
+        $(".network").trigger("change");
+    });
+    // check the address is generated correctly
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("Namecoin address is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
+// Network can be set to peercoin
+function() {
+page.open(url, function(status) {
+    // set the phrase and coin
+    var expected = "PVAiioTaK2eDHSEo3tppT9AVdBYqxRTBAm";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option[value=12]").prop("selected", true);
+        $(".network").trigger("change");
+    });
+    // check the address is generated correctly
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("Peercoin address is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // BIP39 seed is set from phrase
 function() {
 page.open(url, function(status) {
