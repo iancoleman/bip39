@@ -587,6 +587,20 @@
                 DOM.bip44coin.val(5);
             },
         },
+        {
+            name: "Namecoin",
+            onSelect: function() {
+                network = bitcoin.networks.namecoin;
+                DOM.bip44coin.val(7);
+            },
+        },
+        {
+            name: "Peercoin",
+            onSelect: function() {
+                network = bitcoin.networks.peercoin;
+                DOM.bip44coin.val(6);
+            },
+        },
     ]
 
     init();
