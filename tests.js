@@ -1186,6 +1186,33 @@ page.open(url, function(status) {
 },
 
 // More addresses can be generated
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    waitForGenerate(function() {
+        // generate more addresses
+        page.evaluate(function() {
+            $(".more").click();
+        });
+        waitForGenerate(function() {
+            // check there are more addresses
+            var addressCount = page.evaluate(function() {
+                return $(".address").length;
+            });
+            if (addressCount != 40) {
+                console.log("More addresses cannot be generated");
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
+
 // A custom number of additional addresses can be generated
 // Additional addresses are shown in order of derivation path
 
