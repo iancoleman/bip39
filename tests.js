@@ -1214,6 +1214,43 @@ page.open(url, function(status) {
 },
 
 // A custom number of additional addresses can be generated
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    waitForGenerate(function() {
+        // get the current number of addresses
+        var oldAddressCount = page.evaluate(function() {
+            return $(".address").length;
+        });
+        // set a custom number of additional addresses
+        page.evaluate(function() {
+            $(".rows-to-add").val(1);
+        });
+        // generate more addresses
+        page.evaluate(function() {
+            $(".more").click();
+        });
+        waitForGenerate(function() {
+            // check there are the correct number of addresses
+            var newAddressCount = page.evaluate(function() {
+                return $(".address").length;
+            });
+            if (newAddressCount - oldAddressCount != 1) {
+                console.log("Number of additional addresses cannot be customized");
+                console.log(newAddressCount)
+                console.log(oldAddressCount)
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
+
 // Additional addresses are shown in order of derivation path
 
 // BIP32 root key can be set by the user
