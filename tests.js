@@ -1252,6 +1252,43 @@ page.open(url, function(status) {
 },
 
 // Additional addresses are shown in order of derivation path
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability").trigger("input");
+    });
+    waitForGenerate(function() {
+        // generate more addresses
+        page.evaluate(function() {
+            $(".more").click();
+        });
+        // get the derivation paths
+        waitForGenerate(function() {
+            var paths = page.evaluate(function() {
+                return $(".index").map(function(i, e) {
+                    return $(e).text();
+                });
+            });
+            if (paths.length != 40) {
+                console.log("Total additional paths is less than expected: " + paths.length);
+                fail();
+            }
+            for (var i=0; i<paths.length; i++) {
+                var expected = "m/44'/0'/0'/0/" + i;
+                var actual = paths[i];
+                if (actual != expected) {
+                    console.log("Path " + i + " is not in correct order");
+                    console.log("Expected: " + expected);
+                    console.log("Actual: " + actual);
+                    fail();
+                }
+            }
+            next();
+        });
+    });
+});
+},
 
 // BIP32 root key can be set by the user
 // Setting BIP32 root key clears the existing phrase, passphrase and seed
