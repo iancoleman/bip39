@@ -1345,6 +1345,33 @@ page.open(url, function(status) {
 },
 
 // Clearing of phrase, passphrase and seed can be cancelled by user
+function() {
+page.open(url, function(status) {
+    var expected = "abandon abandon ability";
+    // set a mnemonic
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+    });
+    // Cancel any confirm dialogs
+    page.onConfirm = function() {
+        return false;
+    };
+    // set the root key
+    page.evaluate(function() {
+        $(".root-key").val("xprv9s21ZrQH143K3d3vzEDD3KpSKmxsZ3y7CqhAL1tinwtP6wqK4TKEKjpBuo6P2hUhB6ZENo7TTSRytiP857hBZVpBdk8PooFuRspE1eywwNZ").trigger("input");
+    });
+    var actual = page.evaluate(function() {
+        return $(".phrase").val();
+    });
+    if (actual != expected) {
+        console.log("Phrase not retained when cancelling changes to BIP32 root key");
+        console.log("Expected: " + expected);
+        console.log("Actual: " + actual);
+        fail();
+    }
+    next();
+});
+},
 // Custom BIP32 root key is used when changing the derivation path
 
 // Incorrect mnemonic shows error
