@@ -1303,7 +1303,7 @@ page.open(url, function(status) {
             return $(".address:first").text();
         });
         if (actual != expected) {
-            console.log("Passphrase results in wrong address");
+            console.log("Setting BIP32 root key results in wrong address");
             console.log("Expected: " + expected);
             console.log("Actual: " + actual);
             fail();
@@ -1314,6 +1314,36 @@ page.open(url, function(status) {
 },
 
 // Setting BIP32 root key clears the existing phrase, passphrase and seed
+function() {
+page.open(url, function(status) {
+    var expected = "";
+    // set a mnemonic
+    page.evaluate(function() {
+        $(".phrase").val("A non-blank but invalid value");
+    });
+    // Accept any confirm dialogs
+    page.onConfirm = function() {
+        return true;
+    };
+    // set the root key
+    page.evaluate(function() {
+        $(".root-key").val("xprv9s21ZrQH143K2jkGDCeTLgRewT9F2pH5JZs2zDmmjXes34geVnFiuNa8KTvY5WoYvdn4Ag6oYRoB6cXtc43NgJAEqDXf51xPm6fhiMCKwpi").trigger("input");
+    });
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".phrase").val();
+        });
+        if (actual != expected) {
+            console.log("Phrase not cleared when setting BIP32 root key");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // Clearing of phrase, passphrase and seed can be cancelled by user
 // Custom BIP32 root key is used when changing the derivation path
 
