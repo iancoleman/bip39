@@ -1372,7 +1372,36 @@ page.open(url, function(status) {
     next();
 });
 },
+
 // Custom BIP32 root key is used when changing the derivation path
+function() {
+page.open(url, function(status) {
+    var expected = "1Nq2Wmu726XHCuGhctEtGmhxo3wzk5wZ1H";
+    // set the root key
+    page.evaluate(function() {
+        $(".root-key").val("xprv9s21ZrQH143K2jkGDCeTLgRewT9F2pH5JZs2zDmmjXes34geVnFiuNa8KTvY5WoYvdn4Ag6oYRoB6cXtc43NgJAEqDXf51xPm6fhiMCKwpi").trigger("input");
+    });
+    waitForGenerate(function() {
+        // change the derivation path
+        page.evaluate(function() {
+            $("#account").val("1").trigger("input");
+        });
+        // check the bip32 root key is used for derivation, not the blank phrase
+        waitForGenerate(function() {
+            var actual = page.evaluate(function() {
+                return $(".address:first").text();
+            });
+            if (actual != expected) {
+                console.log("Changing the derivation path does not use BIP32 root key");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + actual);
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
 
 // Incorrect mnemonic shows error
 // Incorrect word shows suggested replacement
