@@ -44,6 +44,37 @@ function waitForGenerate(fn, maxTime) {
     wait();
 }
 
+function waitForFeedback(fn, maxTime) {
+    if (!maxTime) {
+        maxTime = testMaxTime;
+    }
+    var start = new Date().getTime();
+    var wait = function keepWaiting() {
+        var now = new Date().getTime();
+        var hasTimedOut = now - start > maxTime;
+        if (hasTimedOut) {
+            console.log("Test timed out");
+            fn();
+            return;
+        }
+        var feedback = page.evaluate(function() {
+            var feedback = $(".feedback");
+            if (feedback.css("display") == "none") {
+                return "";
+            }
+            return feedback.text();
+        });
+        var hasFinished = feedback.length > 0 && feedback != "Calculating...";
+        if (hasFinished) {
+            fn();
+        }
+        else {
+            setTimeout(keepWaiting, 100);
+        }
+    }
+    wait();
+}
+
 function next() {
     if (tests.length > 0) {
         var testsStr = tests.length == 1 ? "test" : "tests";
@@ -1404,6 +1435,26 @@ page.open(url, function(status) {
 },
 
 // Incorrect mnemonic shows error
+function() {
+page.open(url, function(status) {
+    // set the root key
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon abandon").trigger("input");
+    });
+    waitForFeedback(function() {
+        // check there is an error shown
+        var feedback = page.evaluate(function() {
+            return $(".feedback").text();
+        });
+        if (feedback.length <= 0) {
+            console.log("Invalid mnemonic does not show error");
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // Incorrect word shows suggested replacement
 // Incorrect BIP32 root key shows error
 // Derivation path not starting with m shows error
