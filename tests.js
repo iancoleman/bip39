@@ -1456,6 +1456,27 @@ page.open(url, function(status) {
 },
 
 // Incorrect word shows suggested replacement
+function() {
+page.open(url, function(status) {
+    // set the root key
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon abiliti").trigger("input");
+    });
+    // check there is a suggestion shown
+    waitForFeedback(function() {
+        var feedback = page.evaluate(function() {
+            return $(".feedback").text();
+        });
+        if (feedback.indexOf("did you mean ability?") < 0) {
+            console.log("Incorrect word does not show suggested replacement");
+            console.log("Error: " + error);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // Incorrect BIP32 root key shows error
 // Derivation path not starting with m shows error
 // Derivation path containing invalid characters shows useful error
