@@ -1500,6 +1500,38 @@ page.open(url, function(status) {
 },
 
 // Derivation path not starting with m shows error
+function() {
+page.open(url, function(status) {
+    // set the mnemonic phrase
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability").trigger("input");
+    });
+    waitForGenerate(function() {
+        // select the bip32 tab so custom derivation path can be set
+        page.evaluate(function() {
+            $("#bip32-tab a").click();
+        });
+        waitForGenerate(function() {
+            // set the incorrect derivation path
+            page.evaluate(function() {
+                $("#bip32 .path").val("n/0").trigger("input");
+            });
+            waitForFeedback(function() {
+                var feedback = page.evaluate(function() {
+                    return $(".feedback").text();
+                });
+                if (feedback != "First character must be 'm'") {
+                    console.log("Derivation path not starting with m should show error");
+                    console.log("Error: " + error);
+                    fail();
+                }
+                next();
+            });
+        });
+    });
+});
+},
+
 // Derivation path containing invalid characters shows useful error
 
 // Github Issue 11: Default word length is 15
