@@ -1533,6 +1533,37 @@ page.open(url, function(status) {
 },
 
 // Derivation path containing invalid characters shows useful error
+function() {
+page.open(url, function(status) {
+    // set the mnemonic phrase
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability").trigger("input");
+    });
+    waitForGenerate(function() {
+        // select the bip32 tab so custom derivation path can be set
+        page.evaluate(function() {
+            $("#bip32-tab a").click();
+        });
+        waitForGenerate(function() {
+            // set the incorrect derivation path
+            page.evaluate(function() {
+                $("#bip32 .path").val("m/1/0wrong1/1").trigger("input");
+            });
+            waitForFeedback(function() {
+                var feedback = page.evaluate(function() {
+                    return $(".feedback").text();
+                });
+                if (feedback != "Invalid characters 0wrong1 found at depth 2") {
+                    console.log("Derivation path with invalid characters should show error");
+                    console.log("Error: " + error);
+                    fail();
+                }
+                next();
+            });
+        });
+    });
+});
+},
 
 // Github Issue 11: Default word length is 15
 // https://github.com/dcpos/bip39/issues/11
