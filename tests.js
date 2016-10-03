@@ -1478,6 +1478,27 @@ page.open(url, function(status) {
 },
 
 // Incorrect BIP32 root key shows error
+function() {
+page.open(url, function(status) {
+    // set the root key
+    page.evaluate(function() {
+        $(".root-key").val("xprv9s21ZrQH143K2jkGDCeTLgRewT9F2pH5JZs2zDmmjXes34geVnFiuNa8KTvY5WoYvdn4Ag6oYRoB6cXtc43NgJAEqDXf51xPm6fhiMCKwpj").trigger("input");
+    });
+    // check there is an error shown
+    waitForFeedback(function() {
+        var feedback = page.evaluate(function() {
+            return $(".feedback").text();
+        });
+        if (feedback != "Invalid root key") {
+            console.log("Invalid root key does not show error");
+            console.log("Error: " + error);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // Derivation path not starting with m shows error
 // Derivation path containing invalid characters shows useful error
 
