@@ -1733,6 +1733,34 @@ page.open(url, function(status) {
 
 // Github Issue 26: When using a Root key derrived altcoins are incorrect
 // https://github.com/dcpos/bip39/issues/26
+function() {
+page.open(url, function(status) {
+    // 1) 2) and 3) set the root key
+    page.evaluate(function() {
+        $(".root-key").val("xprv9s21ZrQH143K2jkGDCeTLgRewT9F2pH5JZs2zDmmjXes34geVnFiuNa8KTvY5WoYvdn4Ag6oYRoB6cXtc43NgJAEqDXf51xPm6fhiMCKwpi").trigger("input");
+    });
+    waitForGenerate(function() {
+        // 4) switch from bitcoin to viacoin
+        page.evaluate(function() {
+            $(".network").val("6").trigger("change");
+        });
+        waitForGenerate(function() {
+            // 5) ensure the derived address is correct
+            var expected = "Vq9Eq4N5SQnjqZvxtxzo7hZPW5XnyJsmXT";
+            var actual = page.evaluate(function() {
+                return $(".address:first").text();
+            });
+            if (actual != expected) {
+                console.log("Github Issue 26: address is incorrect when changing networks and using root-key to derive");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + actual);
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
 
 ];
 
