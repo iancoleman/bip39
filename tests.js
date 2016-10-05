@@ -1584,6 +1584,46 @@ page.open(url, function(status) {
 
 // Github Issue 12: Generate more rows with private keys hidden
 // https://github.com/dcpos/bip39/issues/12
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    waitForGenerate(function() {
+        // toggle private keys hidden, then generate more addresses
+        page.evaluate(function() {
+            $(".private-key-toggle").click();
+            $(".more").click();
+        });
+        waitForGenerate(function() {
+            // check more have been generated
+            var expected = 40;
+            var numPrivKeys = page.evaluate(function() {
+                return $(".privkey").length;
+            });
+            if (numPrivKeys != expected) {
+                console.log("Wrong number of addresses when clicking 'more' with hidden privkeys");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + numPrivKeys);
+                fail();
+            }
+            // check no private keys are shown
+            var numHiddenPrivKeys = page.evaluate(function() {
+                return $(".privkey span[class=invisible]").length;
+            });
+            if (numHiddenPrivKeys != expected) {
+                console.log("Generating more does not retain hidden state of privkeys");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + numHiddenPrivKeys);
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
 
 // Github Issue 19: Mnemonic is not sensitive to whitespace
 // https://github.com/dcpos/bip39/issues/19
