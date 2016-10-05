@@ -1652,8 +1652,56 @@ page.open(url, function(status) {
 });
 },
 
-// Github Issue 23: Use correct derivation path when changing tabs
+// Github Issue 23: Part 1: Use correct derivation path when changing tabs
 // https://github.com/dcpos/bip39/issues/23
+function() {
+page.open(url, function(status) {
+    // 1) and 2) set the phrase
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability").trigger("input");
+    });
+    waitForGenerate(function() {
+        // 3) select bip32 tab
+        page.evaluate(function() {
+            $("#bip32-tab a").click();
+        });
+        waitForGenerate(function() {
+            // 4) switch from bitcoin to litecoin
+            page.evaluate(function() {
+                $(".network").val("2").trigger("change");
+            });
+            waitForGenerate(function() {
+                // 5) Check derivation path is displayed correctly
+                var expected = "m/0/0";
+                var actual = page.evaluate(function() {
+                    return $(".index:first").text();
+                });
+                if (actual != expected) {
+                    console.log("Github Issue 23 Part 1: derivation path display error");
+                    console.log("Expected: " + expected);
+                    console.log("Actual: " + actual);
+                    fail();
+                }
+                // 5) Check address is displayed correctly
+                var expected = "LS8MP5LZ5AdzSZveRrjm3aYVoPgnfFh5T5";
+                var actual = page.evaluate(function() {
+                    return $(".address:first").text();
+                });
+                if (actual != expected) {
+                    console.log("Github Issue 23 Part 1: address display error");
+                    console.log("Expected: " + expected);
+                    console.log("Actual: " + actual);
+                    fail();
+                }
+                next();
+            });
+        });
+    });
+});
+},
+
+// Github Issue 23 Part 2: Coin selection in derivation path
+// https://github.com/dcpos/bip39/issues/23#issuecomment-238011920
 
 // Github Issue 26: When using a Root key derrived altcoins are incorrect
 // https://github.com/dcpos/bip39/issues/26
