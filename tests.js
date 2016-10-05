@@ -1702,6 +1702,34 @@ page.open(url, function(status) {
 
 // Github Issue 23 Part 2: Coin selection in derivation path
 // https://github.com/dcpos/bip39/issues/23#issuecomment-238011920
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability").trigger("input");
+    });
+    waitForGenerate(function() {
+        // switch from bitcoin to clam
+        page.evaluate(function() {
+            $(".network").val("9").trigger("change");
+        });
+        waitForGenerate(function() {
+            // check derivation path is displayed correctly
+            var expected = "m/44'/23'/0'/0/0";
+            var actual = page.evaluate(function() {
+                return $(".index:first").text();
+            });
+            if (actual != expected) {
+                console.log("Github Issue 23 Part 2: Coin in BIP44 derivation path is incorrect");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + actual);
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
 
 // Github Issue 26: When using a Root key derrived altcoins are incorrect
 // https://github.com/dcpos/bip39/issues/26
