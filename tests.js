@@ -1627,6 +1627,30 @@ page.open(url, function(status) {
 
 // Github Issue 19: Mnemonic is not sensitive to whitespace
 // https://github.com/dcpos/bip39/issues/19
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "xprv9s21ZrQH143K3isaZsWbKVoTtbvd34Y1ZGRugGdMeBGbM3AgBVzTH159mj1cbbtYSJtQr65w6L5xy5L9SFC7c9VJZWHxgAzpj4mun5LhrbC";
+    page.evaluate(function() {
+        var doubleSpace = "  ";
+        $(".phrase").val("urge cat" + doubleSpace + "bid");
+        $(".phrase").trigger("input");
+    });
+    waitForGenerate(function() {
+        // Check the bip32 root key is correct
+        var actual = page.evaluate(function() {
+            return $(".root-key").val();
+        });
+        if (actual != expected) {
+            console.log("Mnemonic is sensitive to whitespace");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
 
 // Github Issue 23: Use correct derivation path when changing tabs
 // https://github.com/dcpos/bip39/issues/23
