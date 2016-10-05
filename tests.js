@@ -1567,6 +1567,20 @@ page.open(url, function(status) {
 
 // Github Issue 11: Default word length is 15
 // https://github.com/dcpos/bip39/issues/11
+function() {
+page.open(url, function(status) {
+    // get the word length
+    var defaultLength = page.evaluate(function() {
+        return $(".strength").val();
+    });
+    if (defaultLength != 15) {
+        console.log("Default word length is not 15");
+        fail();
+    }
+    next();
+});
+},
+
 
 // Github Issue 12: Generate more rows with private keys hidden
 // https://github.com/dcpos/bip39/issues/12
