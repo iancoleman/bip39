@@ -1762,6 +1762,37 @@ page.open(url, function(status) {
 });
 },
 
+// If you wish to add more tests, do so here...
+
+// Here is a blank test template
+/*
+
+function() {
+page.open(url, function(status) {
+    // Do something on the page
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability").trigger("input");
+    });
+    waitForGenerate(function() {
+        // Check the result of doing the thing
+        var expected = "1Di3Vp7tBWtyQaDABLAjfWtF6V7hYKJtug";
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("A specific message about what failed");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        // Run the next test
+        next();
+    });
+});
+},
+
+*/
+
 ];
 
 console.log("Running tests...");
