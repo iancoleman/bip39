@@ -44,6 +44,11 @@
                 box-shadow: inset 0 1px 1px rgba(0,0,0,.0);
                 -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.0);
             }
+            .strength {
+                /* override mobile width from bootstrap */
+                width: auto!important;
+                display: inline-block;
+            }
         </style>
     </head>
     <body>
@@ -61,29 +66,31 @@
                             <p>For more info see the <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki" target="_blank">BIP39 spec</a></p>
                         </div>
                         <div class="form-group">
-                            <label for="phrase" class="col-sm-2 control-label">BIP39 Mnemonic</label>
+                            <label class="col-sm-2 control-label"></label>
                             <div class="col-sm-10">
-                                <textarea id="phrase" class="phrase form-control"></textarea>
+                                <div class="form-inline">
+                                    <div class="input-group-inline">
+                                        <button class="btn generate">Generate</button>
+                                        <span>a random</span>
+                                        <select id="strength" class="strength form-control">
+                                            <option value="3">3</option>
+                                            <option value="6">6</option>
+                                            <option value="9">9</option>
+                                            <option value="12">12</option>
+                                            <option value="15" selected>15</option>
+                                            <option value="18">18</option>
+                                            <option value="21">21</option>
+                                            <option value="24">24</option>
+                                        </select>
+                                        word mnemonic, or enter your own below.
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="strength" class="col-sm-2 control-label">Number of words</label>
+                            <label for="phrase" class="col-sm-2 control-label">BIP39 Mnemonic</label>
                             <div class="col-sm-10">
-                                <div class="input-group">
-                                    <select id="strength" class="strength form-control">
-                                        <option value="3">3</option>
-                                        <option value="6">6</option>
-                                        <option value="9">9</option>
-                                        <option value="12">12</option>
-                                        <option value="15" selected>15</option>
-                                        <option value="18">18</option>
-                                        <option value="21">21</option>
-                                        <option value="24">24</option>
-                                    </select>
-                                    <span class="input-group-btn">
-                                        <button class="btn generate">Generate Random Mnemonic</button>
-                                    </span>
-                                </div>
+                                <textarea id="phrase" class="phrase form-control"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
