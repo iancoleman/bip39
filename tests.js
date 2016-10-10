@@ -1566,7 +1566,7 @@ page.open(url, function(status) {
 },
 
 // Github Issue 11: Default word length is 15
-// https://github.com/dcpos/bip39/issues/11
+// https://github.com/iancoleman/bip39/issues/11
 function() {
 page.open(url, function(status) {
     // get the word length
@@ -1583,7 +1583,7 @@ page.open(url, function(status) {
 
 
 // Github Issue 12: Generate more rows with private keys hidden
-// https://github.com/dcpos/bip39/issues/12
+// https://github.com/iancoleman/bip39/issues/12
 function() {
 page.open(url, function(status) {
     // set the phrase
@@ -1626,7 +1626,7 @@ page.open(url, function(status) {
 },
 
 // Github Issue 19: Mnemonic is not sensitive to whitespace
-// https://github.com/dcpos/bip39/issues/19
+// https://github.com/iancoleman/bip39/issues/19
 function() {
 page.open(url, function(status) {
     // set the phrase
@@ -1653,7 +1653,7 @@ page.open(url, function(status) {
 },
 
 // Github Issue 23: Part 1: Use correct derivation path when changing tabs
-// https://github.com/dcpos/bip39/issues/23
+// https://github.com/iancoleman/bip39/issues/23
 function() {
 page.open(url, function(status) {
     // 1) and 2) set the phrase
@@ -1701,7 +1701,7 @@ page.open(url, function(status) {
 },
 
 // Github Issue 23 Part 2: Coin selection in derivation path
-// https://github.com/dcpos/bip39/issues/23#issuecomment-238011920
+// https://github.com/iancoleman/bip39/issues/23#issuecomment-238011920
 function() {
 page.open(url, function(status) {
     // set the phrase
@@ -1732,7 +1732,7 @@ page.open(url, function(status) {
 },
 
 // Github Issue 26: When using a Root key derrived altcoins are incorrect
-// https://github.com/dcpos/bip39/issues/26
+// https://github.com/iancoleman/bip39/issues/26
 function() {
 page.open(url, function(status) {
     // 1) 2) and 3) set the root key
