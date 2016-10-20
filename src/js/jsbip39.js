@@ -93,11 +93,11 @@ var Mnemonic = function(language) {
             var idx = parseInt(b.substring(i * 11, (i + 1) * 11), 2);
             result.push(wordlist[idx]);
         }
-        return result.join(' ');
+        return self.joinWords(result);
     }
 
     self.check = function(mnemonic) {
-        var mnemonic = mnemonic.split(' ')
+        var mnemonic = self.splitWords(mnemonic);
         if (mnemonic.length % 3 > 0) {
             return false
         }
@@ -130,7 +130,7 @@ var Mnemonic = function(language) {
 
     self.toSeed = function(mnemonic, passphrase) {
         passphrase = passphrase || '';
-        mnemonic = self.normalizeString(mnemonic).split(' ').filter(function(x) { return x.length; }).join(' ');
+        mnemonic = self.joinWords(self.splitWords(self.normalizeString(mnemonic))); // removes blanks
         passphrase = self.normalizeString(passphrase)
         passphrase = "mnemonic" + passphrase;
         var mnemonicBits = sjcl.codec.utf8String.toBits(mnemonic);
@@ -138,6 +138,20 @@ var Mnemonic = function(language) {
         var result = sjcl.misc.pbkdf2(mnemonicBits, passphraseBits, PBKDF2_ROUNDS, 512, hmacSHA512);
         var hashHex = sjcl.codec.hex.fromBits(result);
         return hashHex;
+    }
+
+    self.splitWords = function(mnemonic) {
+        return mnemonic.split(/\s/g).filter(function(x) { return x.length; });
+    }
+
+    self.joinWords = function(words) {
+        // Set space correctly depending on the language
+        // see https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md#japanese
+        var space = " ";
+        if (language == "japanese") {
+            space = "\u3000"; // ideographic space
+        }
+        return words.join(space);
     }
 
     self.normalizeString = function(str) {
