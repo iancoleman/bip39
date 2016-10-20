@@ -1762,6 +1762,154 @@ page.open(url, function(status) {
 });
 },
 
+// Selecting a language with no existing phrase should generate a phrase in
+// that language.
+function() {
+page.open(url, function(status) {
+    // Select a language
+    // Need to manually simulate hash being set due to quirk between
+    // 'click' event triggered by javascript vs triggered by mouse.
+    // Perhaps look into page.sendEvent
+    // http://phantomjs.org/api/webpage/method/send-event.html
+    page.evaluate(function() {
+        window.location.hash = "#japanese";
+        $("a[href='#japanese']").trigger("click");
+    });
+    waitForGenerate(function() {
+        // Check the mnemonic is in Japanese
+        var phrase = page.evaluate(function() {
+            return $(".phrase").val();
+        });
+        if (phrase.length <= 0) {
+            console.log("No Japanese phrase generated");
+            fail();
+        }
+        if (phrase.charCodeAt(0) < 128) {
+            console.log("First character of Japanese phrase is ascii");
+            console.log("Phrase: " + phrase);
+            fail();
+        }
+        next();
+    });
+});
+},
+
+// Selecting a language with existing phrase should update the phrase to use
+// that language.
+function() {
+page.open(url, function(status) {
+    // Set the phrase to an English phrase.
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability").trigger("input");
+    });
+    waitForGenerate(function() {
+        // Change to Italian
+        // Need to manually simulate hash being set due to quirk between
+        // 'click' event triggered by javascript vs triggered by mouse.
+        // Perhaps look into page.sendEvent
+        // http://phantomjs.org/api/webpage/method/send-event.html
+        page.evaluate(function() {
+            window.location.hash = "#italian";
+            $("a[href='#italian']").trigger("click");
+        });
+        waitForGenerate(function() {
+            // Check only the language changes, not the phrase
+            var expected = "abaco abaco abbaglio";
+            var actual = page.evaluate(function() {
+                return $(".phrase").val();
+            });
+            if (actual != expected) {
+                console.log("Changing language with existing phrase");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + actual);
+                fail();
+            }
+            // Check the address is correct
+            var expected = "1Dz5TgDhdki9spa6xbPFbBqv5sjMrx3xgV";
+            var actual = page.evaluate(function() {
+                return $(".address:first").text();
+            });
+            if (actual != expected) {
+                console.log("Changing language generates incorrect address");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + actual);
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
+
+// Suggested replacement for erroneous word in non-English language
+function() {
+page.open(url, function(status) {
+    // Set an incorrect phrase in Italian
+    page.evaluate(function() {
+        $(".phrase").val("abaco abaco zbbaglio").trigger("input");
+    });
+    waitForFeedback(function() {
+        // Check the suggestion is correct
+        var feedback = page.evaluate(function() {
+            return $(".feedback").text();
+        });
+        if (feedback.indexOf("did you mean abbaglio?") < 0) {
+            console.log("Incorrect Italian word does not show suggested replacement");
+            console.log("Error: " + error);
+            fail();
+        }
+        next();
+    });
+});
+},
+
+
+// Japanese word does not break across lines.
+// Point 2 from
+// https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md#japanese
+function() {
+page.open(url, function(status) {
+    hasWordBreakCss = page.content.indexOf("word-break: keep-all;") > -1;
+    if (!hasWordBreakCss) {
+        console.log("Japanese words can break across lines mid-word");
+        console.log("Check CSS for '.phrase { word-break: keep-all; }'");
+        fail();
+    }
+    // Run the next test
+    next();
+});
+},
+
+// Language can be specified at page load using hash value in url
+function() {
+page.open(url, function(status) {
+    // Set the page hash as if it were on a fresh page load
+    page.evaluate(function() {
+        window.location.hash = "#japanese";
+    });
+    // Generate a random phrase
+    page.evaluate(function() {
+        $(".generate").trigger("click");
+    });
+    waitForGenerate(function() {
+        // Check the phrase is in Japanese
+        var phrase = page.evaluate(function() {
+            return $(".phrase").val();
+        });
+        if (phrase.length <= 0) {
+            console.log("No phrase generated using url hash");
+            fail();
+        }
+        if (phrase.charCodeAt(0) < 128) {
+            console.log("Language not detected from url hash on page load.");
+            console.log("Phrase: " + phrase);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // If you wish to add more tests, do so here...
 
 // Here is a blank test template
