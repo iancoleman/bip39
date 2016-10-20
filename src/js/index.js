@@ -1,6 +1,8 @@
 (function() {
 
-    var mnemonic = new Mnemonic("english");
+    // mnemonics is populated as required by getLanguage
+    var mnemonics = { "english": new Mnemonic("english") };
+    var mnemonic = mnemonics["english"];
     var seed = null
     var bip32RootKey = null;
     var bip32ExtendedKey = null;
@@ -44,6 +46,7 @@
     DOM.indexToggle = $(".index-toggle");
     DOM.addressToggle = $(".address-toggle");
     DOM.privateKeyToggle = $(".private-key-toggle");
+    DOM.languages = $(".languages a");
 
     function init() {
         // Events
@@ -63,6 +66,7 @@
         DOM.indexToggle.on("click", toggleIndexes);
         DOM.addressToggle.on("click", toggleAddresses);
         DOM.privateKeyToggle.on("click", togglePrivateKeys);
+        DOM.languages.on("click", languageChanged);
         disableForms();
         hidePending();
         hideValidationError();
@@ -94,6 +98,7 @@
     function phraseChanged() {
         showPending();
         hideValidationError();
+        setMnemonicLanguage();
         // Get the mnemonic phrase
         var phrase = DOM.phrase.val();
         var errorText = findPhraseErrors(phrase);
@@ -163,11 +168,26 @@
         clearDisplay();
         showPending();
         setTimeout(function() {
+            setMnemonicLanguage();
             var phrase = generateRandomPhrase();
             if (!phrase) {
                 return;
             }
             phraseChanged();
+        }, 50);
+    }
+
+    function languageChanged() {
+        setTimeout(function() {
+            setMnemonicLanguage();
+            if (DOM.phrase.val().length > 0) {
+                var newPhrase = convertPhraseToNewLanguage();
+                DOM.phrase.val(newPhrase);
+                phraseChanged();
+            }
+            else {
+                DOM.generate.trigger("click");
+            }
         }, 50);
     }
 
@@ -246,26 +266,19 @@
         // TODO make this right
         // Preprocess the words
         phrase = mnemonic.normalizeString(phrase);
-        var parts = phrase.split(" ");
-        var proper = [];
-        for (var i=0; i<parts.length; i++) {
-            var part = parts[i];
-            if (part.length > 0) {
-                // TODO check that lowercasing is always valid to do
-                proper.push(part.toLowerCase());
-            }
-        }
-        var properPhrase = proper.join(' ');
+        var words = phraseToWordArray(phrase);
         // Check each word
-        for (var i=0; i<proper.length; i++) {
-            var word = proper[i];
-            if (WORDLISTS["english"].indexOf(word) == -1) {
+        for (var i=0; i<words.length; i++) {
+            var word = words[i];
+            var language = getLanguage();
+            if (WORDLISTS[language].indexOf(word) == -1) {
                 console.log("Finding closest match to " + word);
                 var nearestWord = findNearestWord(word);
                 return word + " not in wordlist, did you mean " + nearestWord + "?";
             }
         }
         // Check the words are valid
+        var properPhrase = wordArrayToPhrase(words);
         var isValid = mnemonic.check(properPhrase);
         if (!isValid) {
             return "Invalid mnemonic";
@@ -479,7 +492,8 @@
     }
 
     function findNearestWord(word) {
-        var words = WORDLISTS["english"];
+        var language = getLanguage();
+        var words = WORDLISTS[language];
         var minDistance = 99;
         var closestWord = words[0];
         for (var i=0; i<words.length; i++) {
@@ -507,6 +521,119 @@
             option.text(network.name);
             DOM.phraseNetwork.append(option);
         }
+    }
+
+    function getLanguage() {
+        var defaultLanguage = "english";
+        // Try to get from existing phrase
+        var language = getLanguageFromPhrase();
+        // Try to get from url if not from phrase
+        if (language.length == 0) {
+            language = getLanguageFromUrl();
+        }
+        // Default to English if no other option
+        if (language.length == 0) {
+            language = defaultLanguage;
+        }
+        return language;
+    }
+
+    function getLanguageFromPhrase(phrase) {
+        // Check if how many words from existing phrase match a language.
+        var language = "";
+        if (!phrase) {
+            phrase = DOM.phrase.val();
+        }
+        if (phrase.length > 0) {
+            var words = phraseToWordArray(phrase);
+            var languageMatches = {};
+            for (l in WORDLISTS) {
+                // Track how many words match in this language
+                languageMatches[l] = 0;
+                for (var i=0; i<words.length; i++) {
+                    var wordInLanguage = WORDLISTS[l].indexOf(words[i]) > -1;
+                    if (wordInLanguage) {
+                        languageMatches[l]++;
+                    }
+                }
+                // Find languages with most word matches.
+                // This is made difficult due to commonalities between Chinese
+                // simplified vs traditional.
+                var mostMatches = 0;
+                var mostMatchedLanguages = [];
+                for (var l in languageMatches) {
+                    var numMatches = languageMatches[l];
+                    if (numMatches > mostMatches) {
+                        mostMatches = numMatches;
+                        mostMatchedLanguages = [l];
+                    }
+                    else if (numMatches == mostMatches) {
+                        mostMatchedLanguages.push(l);
+                    }
+                }
+            }
+            if (mostMatchedLanguages.length > 0) {
+                // Use first language and warn if multiple detected
+                language = mostMatchedLanguages[0];
+                if (mostMatchedLanguages.length > 1) {
+                    console.warn("Multiple possible languages");
+                    console.warn(mostMatchedLanguages);
+                }
+            }
+        }
+        return language;
+    }
+
+    function getLanguageFromUrl() {
+        return window.location.hash.substring(1);
+    }
+
+    function setMnemonicLanguage() {
+        var language = getLanguage();
+        // Load the bip39 mnemonic generator for this language if required
+        if (!(language in mnemonics)) {
+            mnemonics[language] = new Mnemonic(language);
+        }
+        mnemonic = mnemonics[language];
+    }
+
+    function convertPhraseToNewLanguage() {
+        var oldLanguage = getLanguageFromPhrase();
+        var newLanguage = getLanguageFromUrl();
+        var oldPhrase = DOM.phrase.val();
+        var oldWords = phraseToWordArray(oldPhrase);
+        var newWords = [];
+        for (var i=0; i<oldWords.length; i++) {
+            var oldWord = oldWords[i];
+            var index = WORDLISTS[oldLanguage].indexOf(oldWord);
+            var newWord = WORDLISTS[newLanguage][index];
+            newWords.push(newWord);
+        }
+        newPhrase = wordArrayToPhrase(newWords);
+        return newPhrase;
+    }
+
+    // TODO look at jsbip39 - mnemonic.splitWords
+    function phraseToWordArray(phrase) {
+        var words = phrase.split(/\s/g);
+        var noBlanks = [];
+        for (var i=0; i<words.length; i++) {
+            var word = words[i];
+            if (word.length > 0) {
+                noBlanks.push(word);
+            }
+        }
+        return noBlanks;
+    }
+
+    // TODO look at jsbip39 - mnemonic.joinWords
+    function wordArrayToPhrase(words) {
+        var phrase = words.join(" ");
+        var language = getLanguageFromPhrase(phrase);
+        if (language == "japanese") {
+            phrase = words.join("\u3000");
+        }
+        return phrase;
     }
 
     var networks = [
