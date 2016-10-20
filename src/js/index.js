@@ -476,6 +476,13 @@
                 DOM.bip44coin.val(10);
             },
         },
+        {
+            name: "Potcoin",
+            onSelect: function() {
+                network = bitcoin.networks.potcoin;
+                DOM.bip44coin.val(81);
+            },
+        },
     ]
 
     init();
