@@ -10954,6 +10954,19 @@ var networks = {
     dustThreshold: 1,
     feePerKb: 10000,
     estimateFee: estimateFee('blackcoin')
+  },
+  potcoin: {
+    magicPrefix: '\x18PotCoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 55,
+    scriptHash: 5,
+    wif: 183,
+    dustThreshold: 1,
+    feePerKb: 100000,
+    estimateFee: estimateFee('potcoin')
   }
 }
 
