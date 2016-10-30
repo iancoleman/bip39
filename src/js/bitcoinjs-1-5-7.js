@@ -10847,6 +10847,20 @@ var networks = {
     feePerKb: 100000000, // https://github.com/dogecoin/dogecoin/blob/v1.7.1/src/main.cpp#L58
     estimateFee: estimateFee('dogecoin')
   },
+  dash: {
+    magicPrefix: '\x19DarkCoin Signed Message:\n',
+    bip32: {
+      public: 0x02FE52F8,
+      private: 0x02FE52CC
+    },
+    pubKeyHash: 0x4c,
+    scriptHash: 0x10,
+    wif: 0xcc,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('dash')
+  },
   viacoin: {
     magicPrefix: '\x18Viacoin Signed Message:\n',
     bip32: {

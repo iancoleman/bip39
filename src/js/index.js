@@ -414,6 +414,13 @@
             },
         },
         {
+            name: "Dash",
+            onSelect: function() {
+                network = bitcoin.networks.dash;
+                DOM.bip44coin.val(5);
+            },
+        },
+        {
             name: "ShadowCash",
             onSelect: function() {
                 network = bitcoin.networks.shadow;
