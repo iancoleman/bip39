@@ -10981,7 +10981,427 @@ var networks = {
     dustThreshold: 1,
     feePerKb: 100000,
     estimateFee: estimateFee('potcoin')
-  }
+  },
+  batacoin: {
+    magicPrefix: '\x19Bata Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 25,
+    scriptHash: 5,
+    wif: 153,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('bata')
+  },
+  feathercoin: {
+    magicPrefix: '\x19Feathercoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 14,
+    scriptHash: 5,
+    wif: 142,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('feathercoin')
+  },
+  gridcoin: {
+    magicPrefix: '\x19Gridcoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 62,
+    scriptHash: 85,
+    wif: 128,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('gridcoin')
+  },
+  richcoin: {
+    magicPrefix: '\x19Richcoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 61,
+    scriptHash: 9,
+    wif: 128,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('richcoin')
+  },
+  auroracoin: {
+    magicPrefix: '\x19Auroracoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 23,
+    scriptHash: 5,
+    wif: 151,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('auroracoin')
+  },
+  novacoin: {
+    magicPrefix: '\x19Novacoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 8,
+    scriptHash: 28,
+    wif: 136,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('novacoin')
+  },
+  cannacoin: {
+    magicPrefix: '\x19Cannacoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 28,
+    scriptHash: 5,
+    wif: 189,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('cannacoin')
+  },
+  clubcoin: {
+    magicPrefix: '\x19Clubcoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 28,
+    scriptHash: 85,
+    wif: 153,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('clubcoin')
+  },
+  digibyte: {
+    magicPrefix: '\x19Digibyte Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 30,
+    scriptHash: 5,
+    wif: 128,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('digitbyte')
+  },
+  clubcoin: {
+    magicPrefix: '\x19Digitalcoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 30,
+    scriptHash: 5,
+    wif: 158,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('digitalcoin')
+  },
+  edrcoin: {
+    magicPrefix: '\x19EDRcoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 93,
+    scriptHash: 28,
+    wif: 221,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('edrcoin')
+  },
+  egulden: {
+    magicPrefix: '\x19e-Gulden Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 48,
+    scriptHash: 5,
+    wif: 176,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('egulden')
+  },
+  gulden: {
+    magicPrefix: '\x19Gulden Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 38,
+    scriptHash: 5,
+    wif: 166,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('gulden')
+  },
+  gcrcoin: {
+    magicPrefix: '\x19GCR Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 38,
+    scriptHash: 97,
+    wif: 154,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('gcr')
+  },
+  monacoin: {
+    magicPrefix: '\x19Monacoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 50,
+    scriptHash: 5,
+    wif: 178,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('monacoin')
+  },
+  myriadcoin: {
+    magicPrefix: '\x19Myriadcoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 50,
+    scriptHash: 9,
+    wif: 178,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('myriadcoin')
+  },
+  neoscoin: {
+    magicPrefix: '\x19Neoscoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 53,
+    scriptHash: 5,
+    wif: 177,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('neoscoin')
+  },
+  parkbyte: {
+    magicPrefix: '\x19ParkByte Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 55,
+    scriptHash: 28,
+    wif: 183,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('parkbyte')
+  },
+  peercoin: {
+    magicPrefix: '\x19PPCoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 55,
+    scriptHash: 117,
+    wif: 183,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('peercoin')
+  },
+  pesobit: {
+    magicPrefix: '\x19Pesobit Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 55,
+    scriptHash: 85,
+    wif: 183,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('pesobit')
+  },
+  reddcoin: {
+    magicPrefix: '\x19Reddcoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 61,
+    scriptHash: 5,
+    wif: 189,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('reddcoin')
+  },
+  primecoin: {
+    magicPrefix: '\x19Primecoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 23,
+    scriptHash: 83,
+    wif: 151,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('primecoin')
+  },
+  rubycoin: {
+    magicPrefix: '\x19Rubycoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 60,
+    scriptHash: 85,
+    wif: 188,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('rubycoin')
+  },
+  rubycoin: {
+    magicPrefix: '\x19Smileycoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 25,
+    scriptHash: 5,
+    wif: 176,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('smileycoin')
+  },
+  solarcoin: {
+    magicPrefix: '\x19SolarCoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 18,
+    scriptHash: 5,
+    wif: 146,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('solarcoin')
+  },
+  syscoin: {
+    magicPrefix: '\x19Syscoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 63,
+    scriptHash: 5,
+    wif: 191,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('syscoin')
+  },
+  unobtanium: {
+    magicPrefix: '\x19Unobtanium Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 130,
+    scriptHash: 30,
+    wif: 224,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('unobtanium')
+  },
+  vergecoin: {
+    magicPrefix: '\x19Vergecoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 30,
+    scriptHash: 33,
+    wif: 158,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('verge')
+  },
+  vertcoin: {
+    magicPrefix: '\x19Vertcoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 71,
+    scriptHash: 5,
+    wif: 199,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('vertcoin')
+  },
+  vpncoin: {
+    magicPrefix: '\x19VpnCoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 71,
+    scriptHash: 5,
+    wif: 199,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('vpncoin')
+  },
 }
 
 function estimateFee (type) {

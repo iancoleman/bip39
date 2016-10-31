@@ -490,6 +490,216 @@
                 DOM.bip44coin.val(81);
             },
         },
+        {
+            name: "Feathercoin",
+            onSelect: function() {
+                network = bitcoin.networks.feathercoin;
+                DOM.bip44coin.val(8);
+            },
+        },
+        {
+            name: "Bata",
+            onSelect: function() {
+                network = bitcoin.networks.batacoin;
+                DOM.bip44coin.val(89);
+            },
+        },
+        {
+            name: "Gridcoin",
+            onSelect: function() {
+                network = bitcoin.networks.gridcoin;
+                DOM.bip44coin.val(84);
+            },
+        },
+        {
+            name: "Auroracoin",
+            onSelect: function() {
+                network = bitcoin.networks.auroracoin;
+                DOM.bip44coin.val(85);
+            },
+        },
+        {
+            name: "Novacoin",
+            onSelect: function() {
+                network = bitcoin.networks.novacoin;
+                DOM.bip44coin.val(50);
+            },
+        },
+        {
+            name: "Cannacoin",
+            onSelect: function() {
+                network = bitcoin.networks.cannacoin;
+                DOM.bip44coin.val(19);
+            },
+        },
+        {
+            name: "Clubcoin",
+            onSelect: function() {
+                network = bitcoin.networks.clubcoin;
+                DOM.bip44coin.val(79);
+            },
+        },
+        {
+            name: "Digibyte",
+            onSelect: function() {
+                network = bitcoin.networks.digibyte;
+                DOM.bip44coin.val(20);
+            },
+        },
+        {
+            name: "Digitalcoin",
+            onSelect: function() {
+                network = bitcoin.networks.digitalcoin;
+                DOM.bip44coin.val(18);
+            },
+        },
+        {
+            name: "EDRCoin",
+            onSelect: function() {
+                network = bitcoin.networks.edrcoin;
+                DOM.bip44coin.val(56);
+            },
+        },
+        {
+            name: "e-Gulden",
+            onSelect: function() {
+                network = bitcoin.networks.egulden;
+                DOM.bip44coin.val(2);
+            },
+        },
+        {
+            name: "Gulden",
+            onSelect: function() {
+                network = bitcoin.networks.gulden;
+                DOM.bip44coin.val(87);
+            },
+        },
+        {
+            name: "GCRCoin",
+            onSelect: function() {
+                network = bitcoin.networks.gcrcoin;
+                DOM.bip44coin.val(49);
+            },
+        },
+        {
+            name: "Monacoin",
+            onSelect: function() {
+                network = bitcoin.networks.monacoin;
+                DOM.bip44coin.val(22);
+            },
+        },
+        {
+            name: "Myriadcoin",
+            onSelect: function() {
+                network = bitcoin.networks.myriadcoin;
+                DOM.bip44coin.val(90);
+            },
+        },
+        {
+            name: "Neoscoin",
+            onSelect: function() {
+                network = bitcoin.networks.neoscoin;
+                DOM.bip44coin.val(25);
+            },
+        },
+        {
+            name: "ParkByte",
+            onSelect: function() {
+                network = bitcoin.networks.parkbyte;
+                DOM.bip44coin.val(36);
+            },
+        },
+        {
+            name: "Peercoin",
+            onSelect: function() {
+                network = bitcoin.networks.peercoin;
+                DOM.bip44coin.val(6);
+            },
+        },
+        {
+            name: "Pesobit",
+            onSelect: function() {
+                network = bitcoin.networks.pesobit;
+                DOM.bip44coin.val(62);
+            },
+        },
+        {
+            name: "Primecoin",
+            onSelect: function() {
+                network = bitcoin.networks.primecoin;
+                DOM.bip44coin.val(24);
+            },
+        },
+        {
+            name: "Reddcoin",
+            onSelect: function() {
+                network = bitcoin.networks.reddcoin;
+                DOM.bip44coin.val(4);
+            },
+        },
+        {
+            name: "Rubycoin",
+            onSelect: function() {
+                network = bitcoin.networks.rubycoin;
+                DOM.bip44coin.val(16);
+            },
+        },
+        {
+            name: "Smileycoin",
+            onSelect: function() {
+                network = bitcoin.networks.smileycoin;
+                DOM.bip44coin.val(59);
+            },
+        },
+        {
+            name: "Solarcoin",
+            onSelect: function() {
+                network = bitcoin.networks.solarcoin;
+                DOM.bip44coin.val(58);
+            },
+        },
+        {
+            name: "Syscoin",
+            onSelect: function() {
+                network = bitcoin.networks.syscoin;
+                DOM.bip44coin.val(57);
+            },
+        },
+        {
+            name: "Unobtanium",
+            onSelect: function() {
+                network = bitcoin.networks.unobtanium;
+                DOM.bip44coin.val(92);
+            },
+        },
+        {
+            name: "Vergecoin",
+            onSelect: function() {
+                network = bitcoin.networks.vergecoin;
+                DOM.bip44coin.val(77);
+            },
+        },
+        {
+            name: "Vertcoin",
+            onSelect: function() {
+                network = bitcoin.networks.vertcoin;
+                DOM.bip44coin.val(28);
+            },
+        },
+        {
+            name: "Vpncoin",
+            onSelect: function() {
+                network = bitcoin.networks.vpncoin;
+                DOM.bip44coin.val(33);
+            },
+        },
+        {
+            name: "Richcoin",
+            onSelect: function() {
+                network = bitcoin.networks.richcoin;
+                DOM.bip44coin.val(80);
+            },
+        }
     ]
 
     init();
