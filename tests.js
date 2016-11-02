@@ -1166,6 +1166,56 @@ page.open(url, function(status) {
 });
 },
 
+// Public key is shown
+function() {
+page.open(url, function(status) {
+    var expected = "033f5aed5f6cfbafaf223188095b5980814897295f723815fea5d3f4b648d0d0b3";
+    // set the phrase
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability").trigger("input");
+    });
+    // get the address
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".pubkey:first").text();
+        });
+        if (actual != expected) {
+            console.log("Public key is not shown");
+            console.log("Expected: " + expected);
+            console.log("Got: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
+// Public key visibility can be toggled
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    waitForGenerate(function() {
+        // toggle public key visibility
+        page.evaluate(function() {
+            $(".public-key-toggle").click();
+        });
+        // check the public key is not visible
+        var isInvisible = page.evaluate(function() {
+            return $(".pubkey:first span").hasClass("invisible");
+        });
+        if (!isInvisible) {
+            console.log("Toggled public key is visible");
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // Private key is shown
 function() {
 page.open(url, function(status) {

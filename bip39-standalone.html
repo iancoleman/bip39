@@ -300,6 +300,12 @@
                             </th>
                             <th>
                                 <div class="input-group">
+                                    Public Key&nbsp;&nbsp;
+                                    <button class="public-key-toggle">Toggle</button>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="input-group">
                                     Private Key&nbsp;&nbsp;
                                     <button class="private-key-toggle">Toggle</button>
                                 </div>
@@ -442,6 +448,7 @@
             <tr>
                 <td class="index"><span></span></td>
                 <td class="address"><span></span></td>
+                <td class="pubkey"><span></span></td>
                 <td class="privkey"><span></span></td>
             </tr>
         </script>
@@ -16172,6 +16179,7 @@ var Mnemonic = function(language) {
 
     var showIndex = true;
     var showAddress = true;
+    var showPubKey = true;
     var showPrivKey = true;
 
     var phraseChangeTimeoutEvent = null;
@@ -16206,6 +16214,7 @@ var Mnemonic = function(language) {
     DOM.tab = $(".derivation-type a");
     DOM.indexToggle = $(".index-toggle");
     DOM.addressToggle = $(".address-toggle");
+    DOM.publicKeyToggle = $(".public-key-toggle");
     DOM.privateKeyToggle = $(".private-key-toggle");
     DOM.languages = $(".languages a");
 
@@ -16226,6 +16235,7 @@ var Mnemonic = function(language) {
         DOM.hardenedAddresses.on("change", calcForDerivationPath);
         DOM.indexToggle.on("click", toggleIndexes);
         DOM.addressToggle.on("click", toggleAddresses);
+        DOM.publicKeyToggle.on("click", togglePublicKeys);
         DOM.privateKeyToggle.on("click", togglePrivateKeys);
         DOM.languages.on("click", languageChanged);
         disableForms();
@@ -16360,6 +16370,11 @@ var Mnemonic = function(language) {
     function toggleAddresses() {
         showAddress = !showAddress;
         $("td.address span").toggleClass("invisible");
+    }
+
+    function togglePublicKeys() {
+        showPubKey = !showPubKey;
+        $("td.pubkey span").toggleClass("invisible");
     }
 
     function togglePrivateKeys() {
@@ -16560,11 +16575,12 @@ var Mnemonic = function(language) {
                 }
                 var address = key.getAddress().toString();
                 var privkey = key.privKey.toWIF(network);
+                var pubkey = key.pubKey.toHex();
                 var indexText = getDerivationPath() + "/" + index;
                 if (useHardenedAddresses) {
                     indexText = indexText + "'";
                 }
-                addAddressToList(indexText, address, privkey);
+                addAddressToList(indexText, address, pubkey, privkey);
             }, 50)
         }
 
@@ -16605,15 +16621,17 @@ var Mnemonic = function(language) {
         DOM.extendedPubKey.val("");
     }
 
-    function addAddressToList(indexText, address, privkey) {
+    function addAddressToList(indexText, address, pubkey, privkey) {
         var row = $(addressRowTemplate.html());
         // Elements
         var indexCell = row.find(".index span");
         var addressCell = row.find(".address span");
+        var pubkeyCell = row.find(".pubkey span");
         var privkeyCell = row.find(".privkey span");
         // Content
         indexCell.text(indexText);
         addressCell.text(address);
+        pubkeyCell.text(pubkey);
         privkeyCell.text(privkey);
         // Visibility
         if (!showIndex) {
@@ -16621,6 +16639,9 @@ var Mnemonic = function(language) {
         }
         if (!showAddress) {
             addressCell.addClass("invisible");
+        }
+        if (!showPubKey) {
+            pubkeyCell.addClass("invisible");
         }
         if (!showPrivKey) {
             privkeyCell.addClass("invisible");

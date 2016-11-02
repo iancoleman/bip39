@@ -11,6 +11,7 @@
 
     var showIndex = true;
     var showAddress = true;
+    var showPubKey = true;
     var showPrivKey = true;
 
     var phraseChangeTimeoutEvent = null;
@@ -45,6 +46,7 @@
     DOM.tab = $(".derivation-type a");
     DOM.indexToggle = $(".index-toggle");
     DOM.addressToggle = $(".address-toggle");
+    DOM.publicKeyToggle = $(".public-key-toggle");
     DOM.privateKeyToggle = $(".private-key-toggle");
     DOM.languages = $(".languages a");
 
@@ -65,6 +67,7 @@
         DOM.hardenedAddresses.on("change", calcForDerivationPath);
         DOM.indexToggle.on("click", toggleIndexes);
         DOM.addressToggle.on("click", toggleAddresses);
+        DOM.publicKeyToggle.on("click", togglePublicKeys);
         DOM.privateKeyToggle.on("click", togglePrivateKeys);
         DOM.languages.on("click", languageChanged);
         disableForms();
@@ -199,6 +202,11 @@
     function toggleAddresses() {
         showAddress = !showAddress;
         $("td.address span").toggleClass("invisible");
+    }
+
+    function togglePublicKeys() {
+        showPubKey = !showPubKey;
+        $("td.pubkey span").toggleClass("invisible");
     }
 
     function togglePrivateKeys() {
@@ -399,11 +407,12 @@
                 }
                 var address = key.getAddress().toString();
                 var privkey = key.privKey.toWIF(network);
+                var pubkey = key.pubKey.toHex();
                 var indexText = getDerivationPath() + "/" + index;
                 if (useHardenedAddresses) {
                     indexText = indexText + "'";
                 }
-                addAddressToList(indexText, address, privkey);
+                addAddressToList(indexText, address, pubkey, privkey);
             }, 50)
         }
 
@@ -444,15 +453,17 @@
         DOM.extendedPubKey.val("");
     }
 
-    function addAddressToList(indexText, address, privkey) {
+    function addAddressToList(indexText, address, pubkey, privkey) {
         var row = $(addressRowTemplate.html());
         // Elements
         var indexCell = row.find(".index span");
         var addressCell = row.find(".address span");
+        var pubkeyCell = row.find(".pubkey span");
         var privkeyCell = row.find(".privkey span");
         // Content
         indexCell.text(indexText);
         addressCell.text(address);
+        pubkeyCell.text(pubkey);
         privkeyCell.text(privkey);
         // Visibility
         if (!showIndex) {
@@ -460,6 +471,9 @@
         }
         if (!showAddress) {
             addressCell.addClass("invisible");
+        }
+        if (!showPubKey) {
+            pubkeyCell.addClass("invisible");
         }
         if (!showPrivKey) {
             privkeyCell.addClass("invisible");
