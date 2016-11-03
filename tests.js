@@ -1960,6 +1960,613 @@ page.open(url, function(status) {
 });
 },
 
+// Entropy unit tests
+function() {
+page.open(url, function(status) {
+    var error = page.evaluate(function() {
+        var e;
+        // binary entropy is detected
+        e = Entropy.fromString("01010101");
+        if (e.base.str != "binary") {
+            return "Binary entropy not detected correctly";
+        }
+        // base6 entropy is detected
+        e = Entropy.fromString("012345012345");
+        if (e.base.str != "base 6") {
+            return "base6 entropy not detected correctly";
+        }
+        // dice entropy is detected
+        e = Entropy.fromString("123456123456");
+        if (e.base.str != "base 6 (dice)") {
+            return "dice entropy not detected correctly";
+        }
+        // base10 entropy is detected
+        e = Entropy.fromString("0123456789");
+        if (e.base.str != "base 10") {
+            return "base10 entropy not detected correctly";
+        }
+        // hex entropy is detected
+        e = Entropy.fromString("0123456789ABCDEF");
+        if (e.base.str != "hexadecimal") {
+            return "hexadecimal entropy not detected correctly";
+        }
+        // entropy is case insensitive
+        e = Entropy.fromString("aBcDeF");
+        if (e.cleanStr != "aBcDeF") {
+            return "Entropy should not be case sensitive";
+        }
+        // dice entropy is converted to base6
+        e = Entropy.fromString("123456");
+        if (e.cleanStr != "012345") {
+            return "Dice entropy is not automatically converted to base6";
+        }
+        // dice entropy is preferred to base6 if ambiguous
+        e = Entropy.fromString("12345");
+        if (e.base.str != "base 6 (dice)") {
+            return "dice not used as default over base 6";
+        }
+        // unused characters are ignored
+        e = Entropy.fromString("fghijkl");
+        if (e.cleanStr != "f") {
+            return "additional characters are not ignored";
+        }
+        // the lowest base is used by default
+        // 7 could be decimal or hexadecimal, but should be detected as decimal
+        e = Entropy.fromString("7");
+        if (e.base.str != "base 10") {
+            return "lowest base is not used";
+        }
+        // Hexadecimal representation is returned
+        e = Entropy.fromString("1010");
+        if (e.hexStr != "A") {
+            return "Hexadecimal representation not returned";
+        }
+        // Leading zeros are retained
+        e = Entropy.fromString("000A");
+        if (e.cleanStr != "000A") {
+            return "Leading zeros are not retained";
+        }
+        // Leading zeros are correctly preserved for hex in binary string
+        e = Entropy.fromString("2A");
+        if (e.binaryStr != "00101010") {
+            return "Hex leading zeros are not correct in binary";
+        }
+        // Keyboard mashing results in weak entropy
+        // Despite being a long string, it's less than 30 bits of entropy
+        e = Entropy.fromString("aj;se ifj; ask,dfv js;ifj");
+        if (e.binaryStr.length >= 30) {
+            return "Keyboard mashing should produce weak entropy";
+        }
+        return false;
+    });
+    if (error) {
+        console.log("Entropy unit tests");
+        console.log(error);
+        fail();
+    };
+    next();
+});
+},
+
+// Entropy can be entered by the user
+function() {
+page.open(url, function(status) {
+    expected = {
+        mnemonic: "abandon abandon ability",
+        address: "1Di3Vp7tBWtyQaDABLAjfWtF6V7hYKJtug",
+    }
+    // use entropy
+    page.evaluate(function() {
+        $(".use-entropy").prop("checked", true).trigger("change");
+        $(".entropy").val("00000000 00000000 00000000 00000000").trigger("input");
+    });
+    // check the mnemonic is set and address is correct
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return {
+                address: $(".address:first").text(),
+                mnemonic: $(".phrase").val(),
+            }
+        });
+        if (actual.mnemonic != expected.mnemonic) {
+            console.log("Entropy does not generate correct mnemonic");
+            console.log("Expected: " + expected.mnemonic);
+            console.log("Got: " + actual.mnemonic);
+            fail();
+        }
+        if (actual.address != expected.address) {
+            console.log("Entropy does not generate correct address");
+            console.log("Expected: " + expected.address);
+            console.log("Got: " + actual.address);
+            fail();
+        }
+        next();
+    });
+});
+},
+
+// A warning about entropy is shown to the user, with additional information
+function() {
+page.open(url, function(status) {
+    // get text content from entropy sections of page
+    var hasWarning = page.evaluate(function() {
+        var entropyText = $(".entropy-container").text();
+        var warning = "mnemonic may be insecure";
+        if (entropyText.indexOf(warning) == -1) {
+            return false;
+        }
+        var readMoreText = $("#entropy-notes").parent().text();
+        var goodSources = "flipping a fair coin, rolling a fair dice, noise measurements etc";
+        if (readMoreText.indexOf(goodSources) == -1) {
+            return false;
+        }
+        return true;
+    });
+    // check the warnings and information are shown
+    if (!hasWarning) {
+        console.log("Page does not contain warning about using own entropy");
+        fail();
+    }
+    next();
+});
+},
+
+// The types of entropy available are described to the user
+function() {
+page.open(url, function(status) {
+    // get placeholder text for entropy field
+    var placeholder = page.evaluate(function() {
+        return $(".entropy").attr("placeholder");
+    });
+    var options = [
+        "binary",
+        "base 6",
+        "dice",
+        "base 10",
+        "hexadecimal",
+    ];
+    for (var i=0; i<options.length; i++) {
+        var option = options[i];
+        if (placeholder.indexOf(option) == -1) {
+            console.log("Available entropy type is not shown to user: " + option);
+            fail();
+        }
+    }
+    next();
+});
+},
+
+// The actual entropy used is shown to the user
+function() {
+page.open(url, function(status) {
+    // use entropy
+    var badEntropySource = page.evaluate(function() {
+        var entropy = "Not A Very Good Entropy Source At All";
+        $(".use-entropy").prop("checked", true).trigger("change");
+        $(".entropy").val(entropy).trigger("input");
+    });
+    // check the actual entropy being used is shown
+    waitForGenerate(function() {
+        var expectedText = "AedEceAA";
+        var entropyText = page.evaluate(function() {
+            return $(".entropy-container").text();
+        });
+        if (entropyText.indexOf(expectedText) == -1) {
+            console.log("Actual entropy used is not shown");
+            fail();
+        }
+        next();
+    });
+});
+},
+
+// Binary entropy can be entered
+function() {
+page.open(url, function(status) {
+    // use entropy
+    page.evaluate(function() {
+        $(".use-entropy").prop("checked", true).trigger("change");
+        $(".entropy").val("01").trigger("input");
+    });
+    // check the entropy is shown to be the correct type
+    waitForGenerate(function() {
+        var entropyText = page.evaluate(function() {
+            return $(".entropy-container").text();
+        });
+        if (entropyText.indexOf("binary") == -1) {
+            console.log("Binary entropy is not detected and presented to user");
+            fail();
+        }
+        next();
+    });
+});
+},
+
+// Base 6 entropy can be entered
+function() {
+page.open(url, function(status) {
+    // use entropy
+    page.evaluate(function() {
+        $(".use-entropy").prop("checked", true).trigger("change");
+        $(".entropy").val("012345").trigger("input");
+    });
+    // check the entropy is shown to be the correct type
+    waitForGenerate(function() {
+        var entropyText = page.evaluate(function() {
+            return $(".entropy-container").text();
+        });
+        if (entropyText.indexOf("base 6") == -1) {
+            console.log("Base 6 entropy is not detected and presented to user");
+            fail();
+        }
+        next();
+    });
+});
+},
+
+// Base 6 dice entropy can be entered
+function() {
+page.open(url, function(status) {
+    // use entropy
+    page.evaluate(function() {
+        $(".use-entropy").prop("checked", true).trigger("change");
+        $(".entropy").val("123456").trigger("input");
+    });
+    // check the entropy is shown to be the correct type
+    waitForGenerate(function() {
+        var entropyText = page.evaluate(function() {
+            return $(".entropy-container").text();
+        });
+        if (entropyText.indexOf("dice") == -1) {
+            console.log("Dice entropy is not detected and presented to user");
+            fail();
+        }
+        next();
+    });
+});
+},
+
+// Base 10 entropy can be entered
+function() {
+page.open(url, function(status) {
+    // use entropy
+    page.evaluate(function() {
+        $(".use-entropy").prop("checked", true).trigger("change");
+        $(".entropy").val("789").trigger("input");
+    });
+    // check the entropy is shown to be the correct type
+    waitForGenerate(function() {
+        var entropyText = page.evaluate(function() {
+            return $(".entropy-container").text();
+        });
+        if (entropyText.indexOf("base 10") == -1) {
+            console.log("Base 10 entropy is not detected and presented to user");
+            fail();
+        }
+        next();
+    });
+});
+},
+
+// Hexadecimal entropy can be entered
+function() {
+page.open(url, function(status) {
+    // use entropy
+    page.evaluate(function() {
+        $(".use-entropy").prop("checked", true).trigger("change");
+        $(".entropy").val("abcdef").trigger("input");
+    });
+    // check the entropy is shown to be the correct type
+    waitForGenerate(function() {
+        var entropyText = page.evaluate(function() {
+            return $(".entropy-container").text();
+        });
+        if (entropyText.indexOf("hexadecimal") == -1) {
+            console.log("Hexadecimal entropy is not detected and presented to user");
+            fail();
+        }
+        next();
+    });
+});
+},
+
+// Dice entropy value is shown as the converted base 6 value
+function() {
+page.open(url, function(status) {
+    // use entropy
+    page.evaluate(function() {
+        $(".use-entropy").prop("checked", true).trigger("change");
+        $(".entropy").val("123456").trigger("input");
+    });
+    // check the entropy is shown as base 6, not as the original dice value
+    waitForGenerate(function() {
+        var entropyText = page.evaluate(function() {
+            return $(".entropy-container").text();
+        });
+        if (entropyText.indexOf("012345") == -1) {
+            console.log("Dice entropy is not shown to user as base 6 value");
+            fail();
+        }
+        if (entropyText.indexOf("123456") > -1) {
+            console.log("Dice entropy value is shown instead of true base 6 value");
+            fail();
+        }
+        next();
+    });
+});
+},
+
+// The number of bits of entropy accumulated is shown
+function() {
+page.open(url, function(status) {
+    var tests = {
+        "0000 0000 0000 0000 0000": "20",
+        "0": "1",
+        "0000": "4",
+        "6": "3",
+        "7": "3",
+        "8": "4",
+        "F": "4",
+        "29": "5",
+        "0A": "8",
+        "1A": "8", // hex is always multiple of 4 bits of entropy
+        "2A": "8",
+        "4A": "8",
+        "8A": "8",
+        "FA": "8",
+        "000A": "16",
+        "2220": "10",
+        "2221": "9", // uses dice, so entropy is actually 1110
+        "2227": "12",
+        "222F": "16",
+        "FFFF": "16",
+    }
+    // Arrange tests in array so last one can be easily detected
+    var entropys = [];
+    var results = [];
+    for (var entropy in tests) {
+        entropys.push(entropy);
+        results.push(tests[entropy]);
+    }
+    // use entropy
+    page.evaluate(function(e) {
+        $(".use-entropy").prop("checked", true).trigger("change");
+    });
+    // Run each test
+    var nextTest = function runNextTest(i) {
+        var entropy = entropys[i];
+        var expected = results[i];
+        // set entropy
+        page.evaluate(function(e) {
+            $(".addresses").empty(); // bit of a hack, but needed for waitForGenerate
+            $(".entropy").val(e).trigger("input");
+        }, entropy);
+        // check the number of bits of entropy is shown
+        waitForGenerate(function() {
+            var entropyText = page.evaluate(function() {
+                return $(".entropy-container").text();
+            });
+            if (entropyText.indexOf("Have " + expected + " bits of entropy") == -1) {
+                console.log("Accumulated entropy is not shown correctly for " + entropy);
+                fail();
+            }
+            var isLastTest = i == results.length - 1;
+            if (isLastTest) {
+                next();
+            }
+            else {
+                runNextTest(i+1);
+            }
+        });
+    }
+    nextTest(0);
+});
+},
+
+// The number of bits of entropy to reach the next mnemonic strength is shown
+function() {
+page.open(url, function(status) {
+    // use entropy
+    page.evaluate(function() {
+        $(".use-entropy").prop("checked", true).trigger("change");
+        $(".entropy").val("7654321").trigger("input");
+    });
+    // check the amount of additional entropy required is shown
+    waitForGenerate(function() {
+        var entropyText = page.evaluate(function() {
+            return $(".entropy-container").text();
+        });
+        if (entropyText.indexOf("3 more base 10 chars required") == -1) {
+            console.log("Additional entropy requirement is not shown");
+            fail();
+        }
+        next();
+    });
+});
+},
+
+// The next strength above 0-word mnemonics is considered extremely weak
+// The next strength above 3-word mnemonics is considered very weak
+// The next strength above 6-word mnemonics is considered weak
+// The next strength above 9-word mnemonics is considered strong
+// The next strength above 12-word mnemonics is considered very strong
+// The next strength above 15-word mnemonics is considered extremely strong
+function() {
+page.open(url, function(status) {
+    var tests = [
+        {
+            entropy: "A",
+            words: 0,
+            nextStrength: "an extremely weak",
+        },
+        {
+            entropy: "AAAAAAAA",
+            words: 3,
+            nextStrength: "a very weak",
+        },
+        {
+            entropy: "AAAAAAAA B",
+            words: 3,
+            nextStrength: "a very weak",
+        },
+        {
+            entropy: "AAAAAAAA BBBBBBBB",
+            words: 6,
+            nextStrength: "a weak",
+        },
+        {
+            entropy: "AAAAAAAA BBBBBBBB CCCCCCCC",
+            words: 9,
+            nextStrength: "a strong",
+        },
+        {
+            entropy: "AAAAAAAA BBBBBBBB CCCCCCCC DDDDDDDD",
+            words: 12,
+            nextStrength: "a very strong",
+        },
+        {
+            entropy: "AAAAAAAA BBBBBBBB CCCCCCCC DDDDDDDD EEEEEEEE",
+            words: 15,
+            nextStrength: "an extremely strong",
+        }
+    ];
+    // use entropy
+    page.evaluate(function() {
+        $(".use-entropy").prop("checked", true).trigger("change");
+    });
+    var nextTest = function runNextTest(i) {
+        test = tests[i];
+        page.evaluate(function(e) {
+            $(".addresses").empty();
+            $(".entropy").val(e).trigger("input");
+        }, test.entropy);
+        waitForGenerate(function() {
+            // check the strength of the current mnemonic
+            var mnemonic = page.evaluate(function() {
+                return $(".phrase").val();
+            });
+            if (test.words == 0) {
+                if (mnemonic.length > 0) {
+                    console.log("Mnemonic length for " + test.nextStrength + " strength is not " + test.words);
+                    console.log("Mnemonic: " + mnemonic);
+                    fail();
+                }
+            }
+            else {
+                if (mnemonic.split(" ").length != test.words) {
+                    console.log("Mnemonic length for " + test.nextStrength + " strength is not " + test.words);
+                    console.log("Mnemonic: " + mnemonic);
+                    fail();
+                }
+            }
+            // check the strength of the next mnemonic is shown
+            var entropyText = page.evaluate(function() {
+                return $(".entropy-container").text();
+            });
+            if (entropyText.indexOf("required to generate " + test.nextStrength + " mnemonic") == -1) {
+                console.log("Strength indicator for " + test.nextStrength + " mnemonic is incorrect");
+                fail();
+            }
+            var isLastTest = i == tests.length - 1;
+            if (isLastTest) {
+                next();
+            }
+            else {
+                runNextTest(i+1);
+            }
+        });
+    }
+    nextTest(0);
+});
+},
+
+// Entropy is truncated from the right
+function() {
+page.open(url, function(status) {
+    var expected = "abandon abandon ability";
+    // use entropy
+    page.evaluate(function() {
+        $(".use-entropy").prop("checked", true).trigger("change");
+        var entropy  = "00000000 00000000 00000000 00000000";
+            entropy += "11111111 11111111 11111111 1111"; // Missing last byte, only first 8 bytes are used
+        $(".entropy").val(entropy).trigger("input");
+    });
+    // check the entropy is truncated from the right
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".phrase").val();
+        });
+        if (actual != expected) {
+            console.log("Entropy is not truncated from the right");
+            console.log("Expected: " + expected);
+            console.log("Got: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
+// Very large entropy results in very long mnemonics
+function() {
+page.open(url, function(status) {
+    // use entropy
+    page.evaluate(function() {
+        $(".use-entropy").prop("checked", true).trigger("change");
+        var entropy  = "";
+        // Generate a very long entropy string
+        for (var i=0; i<33; i++) {
+            entropy += "AAAAAAAA"; // 3 words * 33 iterations = 99 words
+        }
+        $(".entropy").val(entropy).trigger("input");
+    });
+    // check the mnemonic is very long
+    waitForGenerate(function() {
+        var wordCount = page.evaluate(function() {
+            return $(".phrase").val().split(" ").length;
+        });
+        if (wordCount != 99) {
+            console.log("Large entropy does not generate long mnemonic");
+            console.log("Expected 99 words, got " + wordCount);
+            fail();
+        }
+        next();
+    });
+});
+},
+
+// Is compatible with bip32jp entropy
+// https://bip32jp.github.io/english/index.html
+// NOTES:
+// Is incompatible with:
+//     base 6 with leading zeros
+//     base 6 wth 12 words / 53 chars
+//     base 20
+function() {
+page.open(url, function(status) {
+    var expected = "defy trip fatal jaguar mean rack rifle survey satisfy drift twist champion steel wife state furnace night consider glove olympic oblige donor novel left";
+    // use entropy
+    page.evaluate(function() {
+        $(".use-entropy").prop("checked", true).trigger("change");
+        var entropy  = "123450123450123450123450123450123450123450123450123450123450123450123450123450123450123450123450123";
+        $(".entropy").val(entropy).trigger("input");
+    });
+    // check the mnemonic matches the expected value from bip32jp
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".phrase").val();
+        });
+        if (actual != expected) {
+            console.log("Mnemonic does not match bip32jp for base 6 entropy");
+            console.log("Expected: " + expected);
+            console.log("Got: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // If you wish to add more tests, do so here...
 
 // Here is a blank test template

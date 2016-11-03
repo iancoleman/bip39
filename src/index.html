@@ -65,12 +65,14 @@
                 <div class="col-md-12">
                     <h2>Mnemonic</h2>
                     <form class="form-horizontal" role="form">
-                        <div class="col-sm-2"></div>
-                        <div class="col-sm-10">
-                            <p>You can enter an existing BIP39 mnemonic, or generate a new random one. Typing your own twelve words will probably not work how you expect, since the words require a particular structure (the last word is a checksum)</p>
-                            <p>For more info see the <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki" target="_blank">BIP39 spec</a></p>
-                        </div>
                         <div class="form-group">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-10">
+                                <p>You can enter an existing BIP39 mnemonic, or generate a new random one. Typing your own twelve words will probably not work how you expect, since the words require a particular structure (the last word is a checksum)</p>
+                                <p>For more info see the <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki" target="_blank">BIP39 spec</a></p>
+                            </div>
+                        </div>
+                        <div class="form-group generate-container">
                             <label class="col-sm-2 control-label"></label>
                             <div class="col-sm-10">
                                 <div class="form-inline">
@@ -92,7 +94,30 @@
                                 </div>
                             </div>
                         </div>
-                            <div class="form-group">
+                        <div class="entropy-container hidden">
+                            <label for="entropy" class="col-sm-2 control-label">Entropy</label>
+                            <div class="col-sm-10">
+                                <input id="entropy" class="entropy form-control" placeholder="Accepts binary, base 6, 6-sided dice, base 10, hexadecimal">
+                                <span class="help-block">
+                                    <div class="text-danger">
+                                    This is an advanced feature.
+                                    Your mnemonic may be insecure if this feature is used incorrectly.
+                                    <a href="#entropy-notes">Read more</a>
+                                    </div>
+                                    <div class="text-danger entropy-error"></div>
+                               </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-10 checkbox">
+                                <label>
+                                    <input type="checkbox" class="use-entropy">
+                                    Supply my own source of entropy
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-sm-2 control-label"></label>
                             <div class="col-sm-10 languages">
                                 <a href="#english">English</a>
@@ -353,6 +378,24 @@
                         but be careful - it can be easy to make mistakes if you
                         don't know what you're doing
                     </p>
+                    <h3 id="entropy-notes">Entropy</h3>
+                    <p>
+                    Entropy values must be sourced from a
+                    <a href="https://en.wikipedia.org/wiki/Random_number_generation" target="_blank">strong source of randomness</a>.
+                    This means flipping a fair coin, rolling a fair dice, noise measurements etc. Do <strong>NOT</strong> use
+                    phrases from books, lyrics from songs, your birthday or steet address, keyboard mashing, or anything you <i>think</i>
+                    is random, because chances are <em>overwhelming</em> that it isn't random enough for the needs of this tool.
+                    </p>
+                    <p>
+                    The random mnemonic generator on this page uses a
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/API/RandomSource/getRandomValues" target="_blank">cryptographically secure random number generator</a>,
+                    and can generally be trusted more than your own intuition about randomness.
+                    If cryptographic randomness isn't available in your browser, this page will show a warning and <i>will not generate
+                    random mnemonics</i>.
+                    </p>
+                    <p>
+                    <a href="https://bitcointalk.org/index.php?topic=311000.msg3345309#msg3345309" target="_blank">You are not a good source of entropy.</a>
+                    </p>
                 </div>
             </div>
 
@@ -465,6 +508,7 @@
         <script src="js/wordlist_french.js"></script>
         <script src="js/wordlist_italian.js"></script>
         <script src="js/jsbip39.js"></script>
+        <script src="js/entropy.js"></script>
         <script src="js/index.js"></script>
     </body>
 </html>

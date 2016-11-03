@@ -14,14 +14,20 @@
     var showPubKey = true;
     var showPrivKey = true;
 
+    var entropyChangeTimeoutEvent = null;
     var phraseChangeTimeoutEvent = null;
     var rootKeyChangedTimeoutEvent = null;
 
     var DOM = {};
     DOM.network = $(".network");
     DOM.phraseNetwork = $("#network-phrase");
+    DOM.useEntropy = $(".use-entropy");
+    DOM.entropyContainer = $(".entropy-container");
+    DOM.entropy = $(".entropy");
+    DOM.entropyError = $(".entropy-error");
     DOM.phrase = $(".phrase");
     DOM.passphrase = $(".passphrase");
+    DOM.generateContainer = $(".generate-container");
     DOM.generate = $(".generate");
     DOM.seed = $(".seed");
     DOM.rootKey = $(".root-key");
@@ -53,6 +59,8 @@
     function init() {
         // Events
         DOM.network.on("change", networkChanged);
+        DOM.useEntropy.on("change", setEntropyVisibility);
+        DOM.entropy.on("input", delayedEntropyChanged);
         DOM.phrase.on("input", delayedPhraseChanged);
         DOM.passphrase.on("input", delayedPhraseChanged);
         DOM.generate.on("click", generateClicked);
@@ -89,6 +97,21 @@
         }
     }
 
+    function setEntropyVisibility() {
+        if (isUsingOwnEntropy()) {
+            DOM.entropyContainer.removeClass("hidden");
+            DOM.generateContainer.addClass("hidden");
+            DOM.phrase.prop("readonly", true);
+            DOM.entropy.focus();
+            entropyChanged();
+        }
+        else {
+            DOM.entropyContainer.addClass("hidden");
+            DOM.generateContainer.removeClass("hidden");
+            DOM.phrase.prop("readonly", false);
+        }
+    }
+
     function delayedPhraseChanged() {
         hideValidationError();
         showPending();
@@ -114,6 +137,20 @@
         calcBip32RootKeyFromSeed(phrase, passphrase);
         calcForDerivationPath();
         hidePending();
+    }
+
+    function delayedEntropyChanged() {
+        hideValidationError();
+        showPending();
+        if (entropyChangeTimeoutEvent != null) {
+            clearTimeout(entropyChangeTimeoutEvent);
+        }
+        entropyChangeTimeoutEvent = setTimeout(entropyChanged, 400);
+    }
+
+    function entropyChanged() {
+        setMnemonicFromEntropy();
+        phraseChanged();
     }
 
     function delayedRootKeyChanged() {
@@ -168,6 +205,9 @@
     }
 
     function generateClicked() {
+        if (isUsingOwnEntropy()) {
+            return;
+        }
         clearDisplay();
         showPending();
         setTimeout(function() {
@@ -599,7 +639,12 @@
     }
 
     function getLanguageFromUrl() {
-        return window.location.hash.substring(1);
+        for (var language in WORDLISTS) {
+            if (window.location.hash.indexOf(language) > -1) {
+                return language;
+            }
+        }
+        return "";
     }
 
     function setMnemonicLanguage() {
@@ -648,6 +693,65 @@
             phrase = words.join("\u3000");
         }
         return phrase;
+    }
+
+    function isUsingOwnEntropy() {
+        return DOM.useEntropy.prop("checked");
+    }
+
+    function setMnemonicFromEntropy() {
+        hideEntropyError();
+        // Work out minimum base for entropy
+        var entropyStr = DOM.entropy.val();
+        var entropy = Entropy.fromString(entropyStr);
+        if (entropy.hexStr.length == 0) {
+            return;
+        }
+        // Show entropy details
+        var extraBits = 32 - (entropy.binaryStr.length % 32);
+        var extraChars = Math.ceil(extraBits * Math.log(2) / Math.log(entropy.base.asInt));
+        var strength = "an extremely weak";
+        if (entropy.hexStr.length >= 8) {
+            strength = "a very weak";
+        }
+        if (entropy.hexStr.length >= 12) {
+            strength = "a weak";
+        }
+        if (entropy.hexStr.length >= 24) {
+            strength = "a strong";
+        }
+        if (entropy.hexStr.length >= 32) {
+            strength = "a very strong";
+        }
+        if (entropy.hexStr.length >= 40) {
+            strength = "an extremely strong";
+        }
+        if (entropy.hexStr.length >=48) {
+            strength = "an even stronger"
+        }
+        var msg = "Have " + entropy.binaryStr.length + " bits of entropy, " + extraChars + " more " + entropy.base.str + " chars required to generate " + strength + " mnemonic: " + entropy.cleanStr;
+        showEntropyError(msg);
+        // Discard trailing entropy
+        var hexStr = entropy.hexStr.substring(0, Math.floor(entropy.hexStr.length / 8) * 8);
+        // Convert entropy string to numeric array
+        var entropyArr = [];
+        for (var i=0; i<hexStr.length / 2; i++) {
+            var entropyByte = parseInt(hexStr[i*2].concat(hexStr[i*2+1]), 16);
+            entropyArr.push(entropyByte)
+        }
+        // Convert entropy array to mnemonic
+        var phrase = mnemonic.toMnemonic(entropyArr);
+        // Set the mnemonic in the UI
+        DOM.phrase.val(phrase);
+    }
+
+    function hideEntropyError() {
+        DOM.entropyError.addClass("hidden");
+    }
+
+    function showEntropyError(msg) {
+        DOM.entropyError.text(msg);
+        DOM.entropyError.removeClass("hidden");
     }
 
     var networks = [
