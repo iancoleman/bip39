@@ -98,7 +98,7 @@ var Mnemonic = function(language) {
 
     self.check = function(mnemonic) {
         var mnemonic = self.splitWords(mnemonic);
-        if (mnemonic.length % 3 > 0) {
+        if (mnemonic.length == 0 || mnemonic.length % 3 > 0) {
             return false
         }
         // idx = map(lambda x: bin(self.wordlist.index(x))[2:].zfill(11), mnemonic)
