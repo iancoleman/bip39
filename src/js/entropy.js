@@ -68,15 +68,16 @@ window.Entropy = new (function() {
         // Find type of entropy being used (binary, hex, dice etc)
         var base = getBase(rawEntropyStr);
         // Convert dice to base6 entropy (ie 1-6 to 0-5)
+        // This is done by changing all 6s to 0s
         if (base.str == "dice") {
             var newRawEntropyStr = "";
             for (var i=0; i<rawEntropyStr.length; i++) {
                 var c = rawEntropyStr[i];
-                if ("123456".indexOf(c) > -1) {
-                    newRawEntropyStr += (parseInt(c) - 1).toString();
+                if ("12345".indexOf(c) > -1) {
+                    newRawEntropyStr += c;
                 }
                 else {
-                    newRawEntropyStr += c
+                    newRawEntropyStr += "0";
                 }
             }
             rawEntropyStr = newRawEntropyStr;

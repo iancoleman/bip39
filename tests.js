@@ -2072,7 +2072,7 @@ page.open(url, function(status) {
         // dice entropy is converted to base6
         try {
             e = Entropy.fromString("123456");
-            if (e.cleanStr != "012345") {
+            if (e.cleanStr != "123450") {
                 return "Dice entropy is not automatically converted to base6";
             }
         }
@@ -2444,7 +2444,7 @@ page.open(url, function(status) {
         var entropyText = page.evaluate(function() {
             return $(".entropy-container").text();
         });
-        if (entropyText.indexOf("012345") == -1) {
+        if (entropyText.indexOf("123450") == -1) {
             console.log("Dice entropy is not shown to user as base 6 value");
             fail();
         }
