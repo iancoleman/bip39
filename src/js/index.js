@@ -738,33 +738,36 @@
         // Show entropy details
         var extraBits = 32 - (entropy.binaryStr.length % 32);
         var extraChars = Math.ceil(extraBits * Math.log(2) / Math.log(entropy.base.asInt));
+        var words = Math.floor(entropy.binaryStr.length / 32) * 3;
         var strength = "an extremely weak";
-        if (entropy.hexStr.length >= 8) {
+        if (words >= 3) {
             strength = "a very weak";
         }
-        if (entropy.hexStr.length >= 12) {
+        if (words >= 6) {
             strength = "a weak";
         }
-        if (entropy.hexStr.length >= 24) {
+        if (words >= 9) {
             strength = "a strong";
         }
-        if (entropy.hexStr.length >= 32) {
+        if (words >= 12) {
             strength = "a very strong";
         }
-        if (entropy.hexStr.length >= 40) {
+        if (words >= 15) {
             strength = "an extremely strong";
         }
-        if (entropy.hexStr.length >=48) {
+        if (words >= 18) {
             strength = "an even stronger"
         }
         var msg = "Have " + entropy.binaryStr.length + " bits of entropy, " + extraChars + " more " + entropy.base.str + " chars required to generate " + strength + " mnemonic: " + entropy.cleanStr;
         showEntropyError(msg);
         // Discard trailing entropy
-        var hexStr = entropy.hexStr.substring(0, Math.floor(entropy.hexStr.length / 8) * 8);
+        var bitsToUse = Math.floor(entropy.binaryStr.length / 32) * 32;
+        var binaryStr = entropy.binaryStr.substring(0, bitsToUse);
         // Convert entropy string to numeric array
         var entropyArr = [];
-        for (var i=0; i<hexStr.length / 2; i++) {
-            var entropyByte = parseInt(hexStr[i*2].concat(hexStr[i*2+1]), 16);
+        for (var i=0; i<binaryStr.length / 8; i++) {
+            var byteAsBits = binaryStr.substring(i*8, i*8+8);
+            var entropyByte = parseInt(byteAsBits, 2);
             entropyArr.push(entropyByte)
         }
         // Convert entropy array to mnemonic

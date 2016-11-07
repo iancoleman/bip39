@@ -36,6 +36,32 @@ window.Entropy = new (function() {
         hex: function(str) {
             return str.match(/[0-9A-F]/gi) || [];
         },
+        card: function(str) {
+            // Format is NumberSuit, eg
+            // AH ace of hearts
+            // 8C eight of clubs
+            // TD ten of diamonds
+            // JS jack of spades
+            // QH queen of hearts
+            // KC king of clubs
+            return str.match(/([A2-9TJQK][CDHS])/gi) || [];
+        }
+    }
+
+    // Convert array of cards from ["ac", "4d", "ks"]
+    // to numbers between 0 and 51 [0, 16, 51]
+    function convertCardsToInts(cards) {
+        var ints = [];
+        var values = "a23456789tjqk";
+        var suits = "cdhs";
+        for (var i=0; i<cards.length; i++) {
+            var card = cards[i].toLowerCase();
+            var value = card[0];
+            var suit = card[1];
+            var asInt = 13 * suits.indexOf(suit) + values.indexOf(value);
+            ints.push(asInt);
+        }
+        return ints;
     }
 
     this.fromString = function(rawEntropyStr) {
@@ -62,61 +88,61 @@ window.Entropy = new (function() {
         if (base.parts.length == 0) {
             return {
                 binaryStr: "",
-                hexStr: "",
                 cleanStr: "",
                 base: base,
             };
         }
         // Pull leading zeros off
         var leadingZeros = [];
-        while (base.parts[0] == "0") {
+        while (base.ints[0] == "0") {
             leadingZeros.push("0");
-            base.parts.shift();
+            base.ints.shift();
         }
         // Convert leading zeros to binary equivalent
-        var numBinLeadingZeros = Math.ceil(Math.log2(base.asInt) * leadingZeros.length);
+        var numBinLeadingZeros = Math.floor(Math.log2(base.asInt) * leadingZeros.length);
         var binLeadingZeros = "";
         for (var i=0; i<numBinLeadingZeros; i++) {
             binLeadingZeros += "0";
         }
-        // Convert leading zeros to hex equivalent
-        var numHexLeadingZeros = Math.floor(numBinLeadingZeros / 4);
-        var hexLeadingZeros = "";
-        for (var i=0; i<numHexLeadingZeros; i++) {
-            hexLeadingZeros += "0";
-        }
         // Handle entropy of zero
-        if (base.parts.length == 0) {
+        if (base.ints.length == 0) {
             return {
                 binaryStr: binLeadingZeros,
-                hexStr: hexLeadingZeros || "0",
                 cleanStr: leadingZeros,
                 base: base,
             }
         }
-        // If using hex, should always be multiples of 4 bits, which can get
-        // out of sync if first number has leading 0 bits, eg 2 in hex is 0010
-        // which would show up as 10, thus missing 2 bits it should have.
-        if (base.asInt == 16) {
-            var firstDigit = parseInt(base.parts[0], 16);
-            if (firstDigit >= 4 && firstDigit < 8) {
-                binLeadingZeros += "0";
-            }
-            else if (firstDigit >= 2 && firstDigit < 4) {
-                binLeadingZeros += "00";
-            }
-            else if (firstDigit >= 1 && firstDigit < 2) {
-                binLeadingZeros += "000";
-            }
+        // If the first integer is small, it must be padded with zeros.
+        // Otherwise the chance of the first bit being 1 is 100%, which is
+        // obviously incorrect.
+        // This is not perfect for unusual bases, eg base 6 has 2.6 bits, so is
+        // slightly biased toward having leading zeros, but it's still better
+        // than ignoring it completely.
+        // TODO: revise this, it seems very fishy. For example, in base 10, there are
+        // 8 opportunities to start with 0 but only 2 to start with 1
+        var firstInt = base.ints[0];
+        var firstIntBits = Math.floor(Math.log2(firstInt))+1;
+        var maxFirstIntBits = Math.floor(Math.log2(base.asInt-1))+1;
+        var missingFirstIntBits = maxFirstIntBits - firstIntBits;
+        var firstIntLeadingZeros = "";
+        for (var i=0; i<missingFirstIntBits; i++) {
+            binLeadingZeros += "0";
         }
-        // Convert entropy to different foramts
-        var entropyInt = BigInteger.parse(base.parts.join(""), base.asInt);
+        // Convert base.ints to BigInteger.
+        // Due to using unusual bases, eg cards of base52, this is not as simple as
+        // using BigInteger.parse()
+        var entropyInt = BigInteger.ZERO;
+        for (var i=base.ints.length-1; i>=0; i--) {
+            var thisInt = BigInteger.parse(base.ints[i]);
+            var power = (base.ints.length - 1) - i;
+            var additionalEntropy = BigInteger.parse(base.asInt).pow(power).multiply(thisInt);
+            entropyInt = entropyInt.add(additionalEntropy);
+        }
+        // Convert entropy to different formats
         var entropyBin = binLeadingZeros + entropyInt.toString(2);
-        var entropyHex = hexLeadingZeros + entropyInt.toString(16);
-        var entropyClean = leadingZeros.join("") + base.parts.join("");
+        var entropyClean = base.parts.join("");
         var e = {
             binaryStr: entropyBin,
-            hexStr: entropyHex,
             cleanStr: entropyClean,
             base: base,
         }
@@ -129,17 +155,32 @@ window.Entropy = new (function() {
         var binaryMatches = matchers.binary(str);
         var hexMatches = matchers.hex(str);
         // Find the lowest base that can be used, whilst ignoring any irrelevant chars
-        if (binaryMatches.length == hexMatches.length) {
+        if (binaryMatches.length == hexMatches.length && hexMatches.length > 0) {
+            var ints = binaryMatches.map(function(i) { return parseInt(i, 2) });
             return {
+                ints: ints,
                 parts: binaryMatches,
                 matcher: matchers.binary,
                 asInt: 2,
                 str: "binary",
             }
         }
-        var diceMatches = matchers.dice(str);
-        if (diceMatches.length == hexMatches.length) {
+        var cardMatches = matchers.card(str);
+        if (cardMatches.length >= hexMatches.length / 2) {
+            var ints = convertCardsToInts(cardMatches);
             return {
+                ints: ints,
+                parts: cardMatches,
+                matcher: matchers.card,
+                asInt: 52,
+                str: "card",
+            }
+        }
+        var diceMatches = matchers.dice(str);
+        if (diceMatches.length == hexMatches.length && hexMatches.length > 0) {
+            var ints = diceMatches.map(function(i) { return parseInt(i) });
+            return {
+                ints: ints,
                 parts: diceMatches,
                 matcher: matchers.dice,
                 asInt: 6,
@@ -147,8 +188,10 @@ window.Entropy = new (function() {
             }
         }
         var base6Matches = matchers.base6(str);
-        if (base6Matches.length == hexMatches.length) {
+        if (base6Matches.length == hexMatches.length && hexMatches.length > 0) {
+            var ints = base6Matches.map(function(i) { return parseInt(i) });
             return {
+                ints: ints,
                 parts: base6Matches,
                 matcher: matchers.base6,
                 asInt: 6,
@@ -156,15 +199,19 @@ window.Entropy = new (function() {
             }
         }
         var base10Matches = matchers.base10(str);
-        if (base10Matches.length == hexMatches.length) {
+        if (base10Matches.length == hexMatches.length && hexMatches.length > 0) {
+            var ints = base10Matches.map(function(i) { return parseInt(i) });
             return {
+                ints: ints,
                 parts: base10Matches,
                 matcher: matchers.base10,
                 asInt: 10,
                 str: "base 10",
             }
         }
+        var ints = hexMatches.map(function(i) { return parseInt(i, 16) });
         return {
+            ints: ints,
             parts: hexMatches,
             matcher: matchers.hex,
             asInt: 16,
@@ -175,7 +222,11 @@ window.Entropy = new (function() {
     // Polyfill for Math.log2
     // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/log2#Polyfill
     Math.log2 = Math.log2 || function(x) {
-        return Math.log(x) * Math.LOG2E;
+        // The polyfill isn't good enough because of the poor accuracy of
+        // Math.LOG2E
+        // log2(8) gave 2.9999999999999996 which when floored causes issues.
+        // So instead use the BigInteger library to get it right.
+        return BigInteger.log(x) / BigInteger.log(2);
     };
 
 })();

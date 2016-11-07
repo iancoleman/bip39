@@ -1997,85 +1997,212 @@ page.open(url, function(status) {
 // Entropy unit tests
 function() {
 page.open(url, function(status) {
-    var error = page.evaluate(function() {
+    var response = page.evaluate(function() {
         var e;
         // binary entropy is detected
-        e = Entropy.fromString("01010101");
-        if (e.base.str != "binary") {
-            return "Binary entropy not detected correctly";
+        try {
+            e = Entropy.fromString("01010101");
+            if (e.base.str != "binary") {
+                return "Binary entropy not detected correctly";
+            }
+        }
+        catch (e) {
+            return e.message;
         }
         // base6 entropy is detected
-        e = Entropy.fromString("012345012345");
-        if (e.base.str != "base 6") {
-            return "base6 entropy not detected correctly";
+        try {
+            e = Entropy.fromString("012345012345");
+            if (e.base.str != "base 6") {
+                return "base6 entropy not detected correctly";
+            }
+        }
+        catch (e) {
+            return e.message;
         }
         // dice entropy is detected
-        e = Entropy.fromString("123456123456");
-        if (e.base.str != "base 6 (dice)") {
-            return "dice entropy not detected correctly";
+        try {
+            e = Entropy.fromString("123456123456");
+            if (e.base.str != "base 6 (dice)") {
+                return "dice entropy not detected correctly";
+            }
+        }
+        catch (e) {
+            return e.message;
         }
         // base10 entropy is detected
-        e = Entropy.fromString("0123456789");
-        if (e.base.str != "base 10") {
-            return "base10 entropy not detected correctly";
+        try {
+            e = Entropy.fromString("0123456789");
+            if (e.base.str != "base 10") {
+                return "base10 entropy not detected correctly";
+            }
+        }
+        catch (e) {
+            return e.message;
         }
         // hex entropy is detected
-        e = Entropy.fromString("0123456789ABCDEF");
-        if (e.base.str != "hexadecimal") {
-            return "hexadecimal entropy not detected correctly";
+        try {
+            e = Entropy.fromString("0123456789ABCDEF");
+            if (e.base.str != "hexadecimal") {
+                return "hexadecimal entropy not detected correctly";
+            }
+        }
+        catch (e) {
+            return e.message;
+        }
+        // card entropy is detected
+        try {
+            e = Entropy.fromString("AC4DTHKS");
+            if (e.base.str != "card") {
+                return "card entropy not detected correctly";
+            }
+        }
+        catch (e) {
+            return e.message;
         }
         // entropy is case insensitive
-        e = Entropy.fromString("aBcDeF");
-        if (e.cleanStr != "aBcDeF") {
-            return "Entropy should not be case sensitive";
+        try {
+            e = Entropy.fromString("aBcDeF");
+            if (e.cleanStr != "aBcDeF") {
+                return "Entropy should not be case sensitive";
+            }
+        }
+        catch (e) {
+            return e.message;
         }
         // dice entropy is converted to base6
-        e = Entropy.fromString("123456");
-        if (e.cleanStr != "012345") {
-            return "Dice entropy is not automatically converted to base6";
+        try {
+            e = Entropy.fromString("123456");
+            if (e.cleanStr != "012345") {
+                return "Dice entropy is not automatically converted to base6";
+            }
+        }
+        catch (e) {
+            return e.message;
         }
         // dice entropy is preferred to base6 if ambiguous
-        e = Entropy.fromString("12345");
-        if (e.base.str != "base 6 (dice)") {
-            return "dice not used as default over base 6";
+        try {
+            e = Entropy.fromString("12345");
+            if (e.base.str != "base 6 (dice)") {
+                return "dice not used as default over base 6";
+            }
+        }
+        catch (e) {
+            return e.message;
         }
         // unused characters are ignored
-        e = Entropy.fromString("fghijkl");
-        if (e.cleanStr != "f") {
-            return "additional characters are not ignored";
+        try {
+            e = Entropy.fromString("fghijkl");
+            if (e.cleanStr != "f") {
+                return "additional characters are not ignored";
+            }
+        }
+        catch (e) {
+            return e.message;
         }
         // the lowest base is used by default
         // 7 could be decimal or hexadecimal, but should be detected as decimal
-        e = Entropy.fromString("7");
-        if (e.base.str != "base 10") {
-            return "lowest base is not used";
+        try {
+            e = Entropy.fromString("7");
+            if (e.base.str != "base 10") {
+                return "lowest base is not used";
+            }
         }
-        // Hexadecimal representation is returned
-        e = Entropy.fromString("1010");
-        if (e.hexStr != "A") {
-            return "Hexadecimal representation not returned";
+        catch (e) {
+            return e.message;
         }
         // Leading zeros are retained
-        e = Entropy.fromString("000A");
-        if (e.cleanStr != "000A") {
-            return "Leading zeros are not retained";
+        try {
+            e = Entropy.fromString("000A");
+            if (e.cleanStr != "000A") {
+                return "Leading zeros are not retained";
+            }
+        }
+        catch (e) {
+            return e.message;
         }
         // Leading zeros are correctly preserved for hex in binary string
-        e = Entropy.fromString("2A");
-        if (e.binaryStr != "00101010") {
-            return "Hex leading zeros are not correct in binary";
+        try {
+            e = Entropy.fromString("2A");
+            if (e.binaryStr != "00101010") {
+                return "Hex leading zeros are not correct in binary";
+            }
+        }
+        catch (e) {
+            return e.message;
+        }
+        // Leading zeros are correctly preserved for base 6 in binary string
+        try {
+            e = Entropy.fromString("2");
+            if (e.binaryStr != "010") {
+                return "Base 6 leading zeros are not correct in binary";
+            }
+        }
+        catch (e) {
+            return e.message;
         }
         // Keyboard mashing results in weak entropy
         // Despite being a long string, it's less than 30 bits of entropy
-        e = Entropy.fromString("aj;se ifj; ask,dfv js;ifj");
-        if (e.binaryStr.length >= 30) {
-            return "Keyboard mashing should produce weak entropy";
+        try {
+            e = Entropy.fromString("aj;se ifj; ask,dfv js;ifj");
+            if (e.binaryStr.length >= 30) {
+                return "Keyboard mashing should produce weak entropy";
+            }
         }
-        return false;
+        catch (e) {
+            return e.message;
+        }
+        // Card entropy is used if every pair could be a card
+        try {
+            e = Entropy.fromString("4c3c2c");
+            if (e.base.str != "card") {
+                return "Card entropy not used if all pairs are cards";
+            }
+        }
+        catch (e) {
+            return e.message;
+        }
+        // Card entropy uses base 52
+        // [ cards, binary ]
+        try {
+            var cards = [
+                [ "ac", "00000" ],
+                [ "acac", "00000000000" ],
+                [ "acac2c", "00000000000000001" ],
+                [ "acks", "00000110011" ],
+                [ "acacks", "00000000000110011" ],
+                [ "2c", "000001" ],
+                [ "3d", "001111" ],
+                [ "4h", "011101" ],
+                [ "5s", "101011" ],
+                [ "6c", "000101" ],
+                [ "7d", "010011" ],
+                [ "8h", "100001" ],
+                [ "9s", "101111" ],
+                [ "tc", "001001" ],
+                [ "jd", "010111" ],
+                [ "qh", "100101" ],
+                [ "ks", "110011" ],
+                [ "ks2c", "101001011101" ],
+                [ "KS2C", "101001011101" ],
+            ];
+            for (var i=0; i<cards.length; i++) {
+                var card = cards[i][0];
+                var result = cards[i][1];
+                e = Entropy.fromString(card);
+                console.log(e.binary + " " + result);
+                if (e.binaryStr !== result) {
+                    return "card entropy not parsed correctly: " + result + " != " + e.binaryStr;
+                }
+            }
+        }
+        catch (e) {
+            return e.message;
+        }
+        return "PASS";
     });
-    if (error) {
+    if (response != "PASS") {
         console.log("Entropy unit tests");
-        console.log(error);
+        console.log(response);
         fail();
     };
     next();
@@ -2339,10 +2466,10 @@ page.open(url, function(status) {
         [ "0", "1" ],
         [ "0000", "4" ],
         [ "6", "3" ],
-        [ "7", "3" ],
+        [ "7", "4" ],
         [ "8", "4" ],
         [ "F", "4" ],
-        [ "29", "5" ],
+        [ "29", "7" ],
         [ "0A", "8" ],
         [ "1A", "8" ], // hex is always multiple of 4 bits of entropy
         [ "2A", "8" ],
@@ -2350,9 +2477,9 @@ page.open(url, function(status) {
         [ "8A", "8" ],
         [ "FA", "8" ],
         [ "000A", "16" ],
-        [ "2220", "10" ],
-        [ "2221", "9" ], // uses dice, so entropy is actually 1110
-        [ "2227", "12" ],
+        [ "2220", "11" ],
+        [ "2221", "11" ], // uses dice, so entropy is actually 1110
+        [ "2227", "14" ],
         [ "222F", "16" ],
         [ "FFFF", "16" ],
     ]
