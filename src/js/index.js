@@ -109,6 +109,7 @@
             DOM.entropyContainer.addClass("hidden");
             DOM.generateContainer.removeClass("hidden");
             DOM.phrase.prop("readonly", false);
+            hidePending();
         }
     }
 
@@ -149,8 +150,31 @@
     }
 
     function entropyChanged() {
+        // If blank entropy, clear mnemonic, addresses, errors
+        if (DOM.entropy.val().trim().length == 0) {
+            clearDisplay();
+            hideEntropyError();
+            DOM.phrase.val("");
+            showValidationError("Blank entropy");
+            return;
+        }
+        // Get the current phrase to detect changes
+        var phrase = DOM.phrase.val();
+        // Set the phrase from the entropy
         setMnemonicFromEntropy();
-        phraseChanged();
+        // Recalc addresses if the phrase has changed
+        var newPhrase = DOM.phrase.val();
+        if (newPhrase != phrase) {
+            if (newPhrase.length == 0) {
+                clearDisplay();
+            }
+            else {
+                phraseChanged();
+            }
+        }
+        else {
+            hidePending();
+        }
     }
 
     function delayedRootKeyChanged() {
@@ -311,10 +335,13 @@
     }
 
     function findPhraseErrors(phrase) {
-        // TODO make this right
         // Preprocess the words
         phrase = mnemonic.normalizeString(phrase);
         var words = phraseToWordArray(phrase);
+        // Detect blank phrase
+        if (words.length == 0) {
+            return "Blank mnemonic";
+        }
         // Check each word
         for (var i=0; i<words.length; i++) {
             var word = words[i];
@@ -701,10 +728,11 @@
 
     function setMnemonicFromEntropy() {
         hideEntropyError();
-        // Work out minimum base for entropy
+        // Get entropy value
         var entropyStr = DOM.entropy.val();
+        // Work out minimum base for entropy
         var entropy = Entropy.fromString(entropyStr);
-        if (entropy.hexStr.length == 0) {
+        if (entropy.binaryStr.length == 0) {
             return;
         }
         // Show entropy details

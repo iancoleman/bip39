@@ -75,6 +75,40 @@ function waitForFeedback(fn, maxTime) {
     wait();
 }
 
+function waitForEntropyFeedback(fn, maxTime) {
+    if (!maxTime) {
+        maxTime = testMaxTime;
+    }
+    var origFeedback = page.evaluate(function() {
+        return $(".entropy-error").text();
+    });
+    var start = new Date().getTime();
+    var wait = function keepWaiting() {
+        var now = new Date().getTime();
+        var hasTimedOut = now - start > maxTime;
+        if (hasTimedOut) {
+            console.log("Test timed out");
+            fn();
+            return;
+        }
+        var feedback = page.evaluate(function() {
+            var feedback = $(".entropy-error");
+            if (feedback.css("display") == "none") {
+                return "";
+            }
+            return feedback.text();
+        });
+        var hasFinished = feedback != origFeedback;
+        if (hasFinished) {
+            fn();
+        }
+        else {
+            setTimeout(keepWaiting, 100);
+        }
+    }
+    wait();
+}
+
 function next() {
     if (tests.length > 0) {
         var testsStr = tests.length == 1 ? "test" : "tests";
@@ -2146,7 +2180,7 @@ page.open(url, function(status) {
         $(".entropy").val(entropy).trigger("input");
     });
     // check the actual entropy being used is shown
-    waitForGenerate(function() {
+    waitForEntropyFeedback(function() {
         var expectedText = "AedEceAA";
         var entropyText = page.evaluate(function() {
             return $(".entropy-container").text();
@@ -2169,7 +2203,7 @@ page.open(url, function(status) {
         $(".entropy").val("01").trigger("input");
     });
     // check the entropy is shown to be the correct type
-    waitForGenerate(function() {
+    waitForEntropyFeedback(function() {
         var entropyText = page.evaluate(function() {
             return $(".entropy-container").text();
         });
@@ -2191,7 +2225,7 @@ page.open(url, function(status) {
         $(".entropy").val("012345").trigger("input");
     });
     // check the entropy is shown to be the correct type
-    waitForGenerate(function() {
+    waitForEntropyFeedback(function() {
         var entropyText = page.evaluate(function() {
             return $(".entropy-container").text();
         });
@@ -2213,7 +2247,7 @@ page.open(url, function(status) {
         $(".entropy").val("123456").trigger("input");
     });
     // check the entropy is shown to be the correct type
-    waitForGenerate(function() {
+    waitForEntropyFeedback(function() {
         var entropyText = page.evaluate(function() {
             return $(".entropy-container").text();
         });
@@ -2235,7 +2269,7 @@ page.open(url, function(status) {
         $(".entropy").val("789").trigger("input");
     });
     // check the entropy is shown to be the correct type
-    waitForGenerate(function() {
+    waitForEntropyFeedback(function() {
         var entropyText = page.evaluate(function() {
             return $(".entropy-container").text();
         });
@@ -2257,7 +2291,7 @@ page.open(url, function(status) {
         $(".entropy").val("abcdef").trigger("input");
     });
     // check the entropy is shown to be the correct type
-    waitForGenerate(function() {
+    waitForEntropyFeedback(function() {
         var entropyText = page.evaluate(function() {
             return $(".entropy-container").text();
         });
@@ -2279,7 +2313,7 @@ page.open(url, function(status) {
         $(".entropy").val("123456").trigger("input");
     });
     // check the entropy is shown as base 6, not as the original dice value
-    waitForGenerate(function() {
+    waitForEntropyFeedback(function() {
         var entropyText = page.evaluate(function() {
             return $(".entropy-container").text();
         });
@@ -2299,58 +2333,52 @@ page.open(url, function(status) {
 // The number of bits of entropy accumulated is shown
 function() {
 page.open(url, function(status) {
-    var tests = {
-        "0000 0000 0000 0000 0000": "20",
-        "0": "1",
-        "0000": "4",
-        "6": "3",
-        "7": "3",
-        "8": "4",
-        "F": "4",
-        "29": "5",
-        "0A": "8",
-        "1A": "8", // hex is always multiple of 4 bits of entropy
-        "2A": "8",
-        "4A": "8",
-        "8A": "8",
-        "FA": "8",
-        "000A": "16",
-        "2220": "10",
-        "2221": "9", // uses dice, so entropy is actually 1110
-        "2227": "12",
-        "222F": "16",
-        "FFFF": "16",
-    }
-    // Arrange tests in array so last one can be easily detected
-    var entropys = [];
-    var results = [];
-    for (var entropy in tests) {
-        entropys.push(entropy);
-        results.push(tests[entropy]);
-    }
+    //[ entropy, bits ]
+    var tests = [
+        [ "0000 0000 0000 0000 0000", "20" ],
+        [ "0", "1" ],
+        [ "0000", "4" ],
+        [ "6", "3" ],
+        [ "7", "3" ],
+        [ "8", "4" ],
+        [ "F", "4" ],
+        [ "29", "5" ],
+        [ "0A", "8" ],
+        [ "1A", "8" ], // hex is always multiple of 4 bits of entropy
+        [ "2A", "8" ],
+        [ "4A", "8" ],
+        [ "8A", "8" ],
+        [ "FA", "8" ],
+        [ "000A", "16" ],
+        [ "2220", "10" ],
+        [ "2221", "9" ], // uses dice, so entropy is actually 1110
+        [ "2227", "12" ],
+        [ "222F", "16" ],
+        [ "FFFF", "16" ],
+    ]
     // use entropy
     page.evaluate(function(e) {
         $(".use-entropy").prop("checked", true).trigger("change");
     });
     // Run each test
     var nextTest = function runNextTest(i) {
-        var entropy = entropys[i];
-        var expected = results[i];
+        var entropy = tests[i][0];
+        var expected = tests[i][1];
         // set entropy
         page.evaluate(function(e) {
-            $(".addresses").empty(); // bit of a hack, but needed for waitForGenerate
             $(".entropy").val(e).trigger("input");
         }, entropy);
         // check the number of bits of entropy is shown
-        waitForGenerate(function() {
+        waitForEntropyFeedback(function() {
             var entropyText = page.evaluate(function() {
-                return $(".entropy-container").text();
+                return $(".entropy-error").text();
             });
             if (entropyText.indexOf("Have " + expected + " bits of entropy") == -1) {
                 console.log("Accumulated entropy is not shown correctly for " + entropy);
+                console.log(entropyText);
                 fail();
             }
-            var isLastTest = i == results.length - 1;
+            var isLastTest = i == tests.length - 1;
             if (isLastTest) {
                 next();
             }
@@ -2372,7 +2400,7 @@ page.open(url, function(status) {
         $(".entropy").val("7654321").trigger("input");
     });
     // check the amount of additional entropy required is shown
-    waitForGenerate(function() {
+    waitForEntropyFeedback(function() {
         var entropyText = page.evaluate(function() {
             return $(".entropy-container").text();
         });
@@ -2438,33 +2466,16 @@ page.open(url, function(status) {
         test = tests[i];
         page.evaluate(function(e) {
             $(".addresses").empty();
+            $(".phrase").val("");
             $(".entropy").val(e).trigger("input");
         }, test.entropy);
-        waitForGenerate(function() {
-            // check the strength of the current mnemonic
+        if (test.words == 0) {
             var mnemonic = page.evaluate(function() {
                 return $(".phrase").val();
             });
-            if (test.words == 0) {
-                if (mnemonic.length > 0) {
-                    console.log("Mnemonic length for " + test.nextStrength + " strength is not " + test.words);
-                    console.log("Mnemonic: " + mnemonic);
-                    fail();
-                }
-            }
-            else {
-                if (mnemonic.split(" ").length != test.words) {
-                    console.log("Mnemonic length for " + test.nextStrength + " strength is not " + test.words);
-                    console.log("Mnemonic: " + mnemonic);
-                    fail();
-                }
-            }
-            // check the strength of the next mnemonic is shown
-            var entropyText = page.evaluate(function() {
-                return $(".entropy-container").text();
-            });
-            if (entropyText.indexOf("required to generate " + test.nextStrength + " mnemonic") == -1) {
-                console.log("Strength indicator for " + test.nextStrength + " mnemonic is incorrect");
+            if (mnemonic.length > 0) {
+                console.log("Mnemonic length for " + test.nextStrength + " strength is not " + test.words);
+                console.log("Mnemonic: " + mnemonic);
                 fail();
             }
             var isLastTest = i == tests.length - 1;
@@ -2474,7 +2485,35 @@ page.open(url, function(status) {
             else {
                 runNextTest(i+1);
             }
-        });
+        }
+        else {
+            waitForGenerate(function() {
+                // check the strength of the current mnemonic
+                var mnemonic = page.evaluate(function() {
+                    return $(".phrase").val();
+                });
+                if (mnemonic.split(" ").length != test.words) {
+                    console.log("Mnemonic length for " + test.nextStrength + " strength is not " + test.words);
+                    console.log("Mnemonic: " + mnemonic);
+                    fail();
+                }
+                // check the strength of the next mnemonic is shown
+                var entropyText = page.evaluate(function() {
+                    return $(".entropy-container").text();
+                });
+                if (entropyText.indexOf("required to generate " + test.nextStrength + " mnemonic") == -1) {
+                    console.log("Strength indicator for " + test.nextStrength + " mnemonic is incorrect");
+                    fail();
+                }
+                var isLastTest = i == tests.length - 1;
+                if (isLastTest) {
+                    next();
+                }
+                else {
+                    runNextTest(i+1);
+                }
+            });
+        }
     }
     nextTest(0);
 });
@@ -2560,6 +2599,45 @@ page.open(url, function(status) {
             console.log("Mnemonic does not match bip32jp for base 6 entropy");
             console.log("Expected: " + expected);
             console.log("Got: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
+// Blank entropy does not generate mnemonic or addresses
+function() {
+page.open(url, function(status) {
+    // use entropy
+    page.evaluate(function() {
+        $(".use-entropy").prop("checked", true).trigger("change");
+        $(".entropy").val("").trigger("input");
+    });
+    waitForFeedback(function() {
+        // check there is no mnemonic
+        var phrase = page.evaluate(function() {
+            return $(".phrase").val();
+        });
+        if (phrase != "") {
+            console.log("Blank entropy does not result in blank mnemonic");
+            console.log("Got: " + phrase);
+            fail();
+        }
+        // check there are no addresses displayed
+        var addresses = page.evaluate(function() {
+            return $(".address").length;
+        });
+        if (addresses != 0) {
+            console.log("Blank entropy does not result in zero addresses");
+            fail();
+        }
+        // Check the feedback says 'blank entropy'
+        var feedback = page.evaluate(function() {
+            return $(".feedback").text();
+        });
+        if (feedback != "Blank entropy") {
+            console.log("Blank entropy does not show feedback message");
             fail();
         }
         next();
