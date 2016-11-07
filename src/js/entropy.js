@@ -1,11 +1,41 @@
+/*
+ * Detects entropy from a string.
+ *
+ * Formats include:
+ * binary [0-1]
+ * base 6 [0-5]
+ * dice 6 [1-6]
+ * decimal [0-9]
+ * hexadecimal [0-9A-F]
+ *
+ * Automatically uses lowest entropy to avoid issues such as interpretting 0101
+ * as hexadecimal which would be 16 bits when really it's only 4 bits of binary
+ * entropy.
+ */
+
 window.Entropy = new (function() {
 
+    // matchers returns an array of the matched events for each type of entropy.
+    // eg
+    // matchers.binary("010") returns ["0", "1", "0"]
+    // matchers.binary("a10") returns ["1", "0"]
+    // matchers.hex("a10") returns ["a", "1", "0"]
     var matchers = {
-        binary: /[0-1]/gi,
-        base6: /[0-5]/gi,
-        dice: /[1-6]/gi, // ie dice numbers
-        base10: /[0-9]/gi,
-        hex: /[0-9A-F]/gi,
+        binary: function(str) {
+            return str.match(/[0-1]/gi) || [];
+        },
+        base6: function(str) {
+            return str.match(/[0-5]/gi) || [];
+        },
+        dice: function(str) {
+            return str.match(/[1-6]/gi) || []; // ie dice numbers
+        },
+        base10: function(str) {
+            return str.match(/[0-9]/gi) || [];
+        },
+        hex: function(str) {
+            return str.match(/[0-9A-F]/gi) || [];
+        },
     }
 
     this.fromString = function(rawEntropyStr) {
@@ -25,12 +55,11 @@ window.Entropy = new (function() {
             }
             rawEntropyStr = newRawEntropyStr;
             base.str = "base 6 (dice)";
+            base.parts = matchers.base6(rawEntropyStr);
             base.matcher = matchers.base6;
         }
-        var entropyParts = rawEntropyStr.match(base.matcher) || [];
-        var entropyStr = entropyParts.join("");
         // Detect empty entropy
-        if (entropyStr.length == 0) {
+        if (base.parts.length == 0) {
             return {
                 binaryStr: "",
                 hexStr: "",
@@ -39,10 +68,10 @@ window.Entropy = new (function() {
             };
         }
         // Pull leading zeros off
-        var leadingZeros = "";
-        while (entropyStr[0] == "0") {
-            leadingZeros += "0";
-            entropyStr = entropyStr.substring(1);
+        var leadingZeros = [];
+        while (base.parts[0] == "0") {
+            leadingZeros.push("0");
+            base.parts.shift();
         }
         // Convert leading zeros to binary equivalent
         var numBinLeadingZeros = Math.ceil(Math.log2(base.asInt) * leadingZeros.length);
@@ -57,7 +86,7 @@ window.Entropy = new (function() {
             hexLeadingZeros += "0";
         }
         // Handle entropy of zero
-        if (entropyStr == "") {
+        if (base.parts.length == 0) {
             return {
                 binaryStr: binLeadingZeros,
                 hexStr: hexLeadingZeros || "0",
@@ -69,7 +98,7 @@ window.Entropy = new (function() {
         // out of sync if first number has leading 0 bits, eg 2 in hex is 0010
         // which would show up as 10, thus missing 2 bits it should have.
         if (base.asInt == 16) {
-            var firstDigit = parseInt(entropyStr[0], 16);
+            var firstDigit = parseInt(base.parts[0], 16);
             if (firstDigit >= 4 && firstDigit < 8) {
                 binLeadingZeros += "0";
             }
@@ -81,10 +110,10 @@ window.Entropy = new (function() {
             }
         }
         // Convert entropy to different foramts
-        var entropyInt = BigInteger.parse(entropyStr, base.asInt);
+        var entropyInt = BigInteger.parse(base.parts.join(""), base.asInt);
         var entropyBin = binLeadingZeros + entropyInt.toString(2);
         var entropyHex = hexLeadingZeros + entropyInt.toString(16);
-        var entropyClean = leadingZeros + entropyStr;
+        var entropyClean = leadingZeros.join("") + base.parts.join("");
         var e = {
             binaryStr: entropyBin,
             hexStr: entropyHex,
@@ -97,41 +126,46 @@ window.Entropy = new (function() {
     function getBase(str) {
         // Need to get the lowest base for the supplied entropy.
         // This prevents interpreting, say, dice rolls as hexadecimal.
-        var binaryMatches = str.match(matchers.binary) || [];
-        var base6Matches = str.match(matchers.base6) || [];
-        var diceMatches = str.match(matchers.dice) || [];
-        var base10Matches = str.match(matchers.base10) || [];
-        var hexMatches = str.match(matchers.hex) || [];
+        var binaryMatches = matchers.binary(str);
+        var hexMatches = matchers.hex(str);
         // Find the lowest base that can be used, whilst ignoring any irrelevant chars
         if (binaryMatches.length == hexMatches.length) {
             return {
+                parts: binaryMatches,
                 matcher: matchers.binary,
                 asInt: 2,
                 str: "binary",
             }
         }
+        var diceMatches = matchers.dice(str);
         if (diceMatches.length == hexMatches.length) {
             return {
+                parts: diceMatches,
                 matcher: matchers.dice,
                 asInt: 6,
                 str: "dice",
             }
         }
+        var base6Matches = matchers.base6(str);
         if (base6Matches.length == hexMatches.length) {
             return {
+                parts: base6Matches,
                 matcher: matchers.base6,
                 asInt: 6,
                 str: "base 6",
             }
         }
+        var base10Matches = matchers.base10(str);
         if (base10Matches.length == hexMatches.length) {
             return {
+                parts: base10Matches,
                 matcher: matchers.base10,
                 asInt: 10,
                 str: "base 10",
             }
         }
         return {
+            parts: hexMatches,
             matcher: matchers.hex,
             asInt: 16,
             str: "hexadecimal",
