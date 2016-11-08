@@ -2130,11 +2130,31 @@ page.open(url, function(status) {
         catch (e) {
             return e.message;
         }
-        // Leading zeros are correctly preserved for base 6 in binary string
+        // Leading zeros are not used for base 6 as binary string
         try {
             e = Entropy.fromString("2");
-            if (e.binaryStr != "010") {
-                return "Base 6 leading zeros are not correct in binary";
+            if (e.binaryStr != "10") {
+                return "Base 6 as binary has leading zeros";
+            }
+        }
+        catch (e) {
+            return e.message;
+        }
+        // Leading zeros are not used for base 10 as binary string
+        try {
+            e = Entropy.fromString("7");
+            if (e.binaryStr != "111") {
+                return "Base 10 as binary has leading zeros";
+            }
+        }
+        catch (e) {
+            return e.message;
+        }
+        // Leading zeros are not used for card entropy as binary string
+        try {
+            e = Entropy.fromString("2c");
+            if (e.binaryStr != "1") {
+                return "Card entropy as binary has leading zeros";
             }
         }
         catch (e) {
@@ -2167,19 +2187,19 @@ page.open(url, function(status) {
             var cards = [
                 [ "ac", "00000" ],
                 [ "acac", "00000000000" ],
-                [ "acac2c", "00000000000000001" ],
+                [ "acac2c", "000000000001" ],
                 [ "acks", "00000110011" ],
                 [ "acacks", "00000000000110011" ],
-                [ "2c", "000001" ],
-                [ "3d", "001111" ],
-                [ "4h", "011101" ],
+                [ "2c", "1" ],
+                [ "3d", "1111" ],
+                [ "4h", "11101" ],
                 [ "5s", "101011" ],
-                [ "6c", "000101" ],
-                [ "7d", "010011" ],
+                [ "6c", "101" ],
+                [ "7d", "10011" ],
                 [ "8h", "100001" ],
                 [ "9s", "101111" ],
-                [ "tc", "001001" ],
-                [ "jd", "010111" ],
+                [ "tc", "1001" ],
+                [ "jd", "10111" ],
                 [ "qh", "100101" ],
                 [ "ks", "110011" ],
                 [ "ks2c", "101001011101" ],
@@ -2465,11 +2485,11 @@ page.open(url, function(status) {
         [ "0000 0000 0000 0000 0000", "20" ],
         [ "0", "1" ],
         [ "0000", "4" ],
-        [ "6", "3" ],
-        [ "7", "4" ],
+        [ "6", "2" ], // 6 in card is 0 in base 6, 0 in base 6 is 2.6 bits (rounded down to 2 bits)
+        [ "7", "3" ], // 7 in base 10 is 111 in base 2, no leading zeros
         [ "8", "4" ],
         [ "F", "4" ],
-        [ "29", "7" ],
+        [ "29", "5" ],
         [ "0A", "8" ],
         [ "1A", "8" ], // hex is always multiple of 4 bits of entropy
         [ "2A", "8" ],
@@ -2477,9 +2497,9 @@ page.open(url, function(status) {
         [ "8A", "8" ],
         [ "FA", "8" ],
         [ "000A", "16" ],
-        [ "2220", "11" ],
-        [ "2221", "11" ], // uses dice, so entropy is actually 1110
-        [ "2227", "14" ],
+        [ "5555", "11" ],
+        [ "6666", "10" ], // uses dice, so entropy is actually 0000 in base 6, which is 4 lots of 2.58 bits, which is 10.32 bits (rounded down to 10 bits)
+        [ "2227", "12" ],
         [ "222F", "16" ],
         [ "FFFF", "16" ],
     ]
@@ -2710,11 +2730,11 @@ page.open(url, function(status) {
 //     base 20
 function() {
 page.open(url, function(status) {
-    var expected = "defy trip fatal jaguar mean rack rifle survey satisfy drift twist champion steel wife state furnace night consider glove olympic oblige donor novel left";
+    var expected = "train then jungle barely whip fiber purpose puppy eagle cloud clump hospital robot brave balcony utility detect estate old green desk skill multiply virus";
     // use entropy
     page.evaluate(function() {
         $(".use-entropy").prop("checked", true).trigger("change");
-        var entropy  = "123450123450123450123450123450123450123450123450123450123450123450123450123450123450123450123450123";
+        var entropy  = "543210543210543210543210543210543210543210543210543210543210543210543210543210543210543210543210543";
         $(".entropy").val(entropy).trigger("input");
     });
     // check the mnemonic matches the expected value from bip32jp

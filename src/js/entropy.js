@@ -71,17 +71,21 @@ window.Entropy = new (function() {
         // This is done by changing all 6s to 0s
         if (base.str == "dice") {
             var newRawEntropyStr = "";
+            var newInts = [];
             for (var i=0; i<rawEntropyStr.length; i++) {
                 var c = rawEntropyStr[i];
                 if ("12345".indexOf(c) > -1) {
                     newRawEntropyStr += c;
+                    newInts[i] = base.ints[i];
                 }
                 else {
                     newRawEntropyStr += "0";
+                    newInts[i] = 0;
                 }
             }
             rawEntropyStr = newRawEntropyStr;
             base.str = "base 6 (dice)";
+            base.ints = newInts;
             base.parts = matchers.base6(rawEntropyStr);
             base.matcher = matchers.base6;
         }
@@ -109,25 +113,23 @@ window.Entropy = new (function() {
         if (base.ints.length == 0) {
             return {
                 binaryStr: binLeadingZeros,
-                cleanStr: leadingZeros,
+                cleanStr: leadingZeros.join(""),
                 base: base,
             }
         }
         // If the first integer is small, it must be padded with zeros.
         // Otherwise the chance of the first bit being 1 is 100%, which is
         // obviously incorrect.
-        // This is not perfect for unusual bases, eg base 6 has 2.6 bits, so is
-        // slightly biased toward having leading zeros, but it's still better
-        // than ignoring it completely.
-        // TODO: revise this, it seems very fishy. For example, in base 10, there are
-        // 8 opportunities to start with 0 but only 2 to start with 1
-        var firstInt = base.ints[0];
-        var firstIntBits = Math.floor(Math.log2(firstInt))+1;
-        var maxFirstIntBits = Math.floor(Math.log2(base.asInt-1))+1;
-        var missingFirstIntBits = maxFirstIntBits - firstIntBits;
-        var firstIntLeadingZeros = "";
-        for (var i=0; i<missingFirstIntBits; i++) {
-            binLeadingZeros += "0";
+        // This is not perfect for unusual bases, so is only done for bases
+        // of 2^n, eg octal or hexadecimal
+        if (base.asInt == 16) {
+            var firstInt = base.ints[0];
+            var firstIntBits = firstInt.toString(2).length;
+            var maxFirstIntBits = (base.asInt-1).toString(2).length;
+            var missingFirstIntBits = maxFirstIntBits - firstIntBits;
+            for (var i=0; i<missingFirstIntBits; i++) {
+                binLeadingZeros += "0";
+            }
         }
         // Convert base.ints to BigInteger.
         // Due to using unusual bases, eg cards of base52, this is not as simple as
