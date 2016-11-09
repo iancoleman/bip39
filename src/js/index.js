@@ -43,7 +43,7 @@
     DOM.bip44coin = $("#bip44 .coin");
     DOM.bip44account = $("#bip44 .account");
     DOM.bip44change = $("#bip44 .change");
-    DOM.strength = $(".strength");
+    DOM.generatedStrength = $(".generate-container .strength");
     DOM.hardenedAddresses = $(".hardened-addresses");
     DOM.addresses = $(".addresses");
     DOM.rowsToAdd = $(".rows-to-add");
@@ -286,7 +286,7 @@
             showValidationError(errorText);
             return;
         }
-        var numWords = parseInt(DOM.strength.val());
+        var numWords = parseInt(DOM.generatedStrength.val());
         var strength = numWords / 3 * 32;
         var words = mnemonic.generate(strength);
         DOM.phrase.val(words);
