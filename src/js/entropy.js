@@ -70,23 +70,22 @@ window.Entropy = new (function() {
         // Convert dice to base6 entropy (ie 1-6 to 0-5)
         // This is done by changing all 6s to 0s
         if (base.str == "dice") {
-            var newRawEntropyStr = "";
+            var newParts = [];
             var newInts = [];
-            for (var i=0; i<rawEntropyStr.length; i++) {
-                var c = rawEntropyStr[i];
+            for (var i=0; i<base.parts.length; i++) {
+                var c = base.parts[i];
                 if ("12345".indexOf(c) > -1) {
-                    newRawEntropyStr += c;
+                    newParts[i] = base.parts[i];
                     newInts[i] = base.ints[i];
                 }
                 else {
-                    newRawEntropyStr += "0";
+                    newParts[i] = "0";
                     newInts[i] = 0;
                 }
             }
-            rawEntropyStr = newRawEntropyStr;
             base.str = "base 6 (dice)";
             base.ints = newInts;
-            base.parts = matchers.base6(rawEntropyStr);
+            base.parts = newParts;
             base.matcher = matchers.base6;
         }
         // Detect empty entropy
