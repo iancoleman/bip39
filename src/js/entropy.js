@@ -143,6 +143,13 @@ window.Entropy = new (function() {
         // Convert entropy to different formats
         var entropyBin = binLeadingZeros + entropyInt.toString(2);
         var entropyClean = base.parts.join("");
+        if (base.asInt == 52) {
+            entropyClean = base.parts.join(" ").toUpperCase();
+            entropyClean = entropyClean.replace(/C/g, "\u2663");
+            entropyClean = entropyClean.replace(/D/g, "\u2666");
+            entropyClean = entropyClean.replace(/H/g, "\u2665");
+            entropyClean = entropyClean.replace(/S/g, "\u2660");
+        }
         var e = {
             binaryStr: entropyBin,
             cleanStr: entropyClean,
