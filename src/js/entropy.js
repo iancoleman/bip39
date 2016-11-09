@@ -96,40 +96,6 @@ window.Entropy = new (function() {
                 base: base,
             };
         }
-        // Pull leading zeros off
-        var leadingZeros = [];
-        while (base.ints[0] == "0") {
-            leadingZeros.push("0");
-            base.ints.shift();
-        }
-        // Convert leading zeros to binary equivalent
-        var numBinLeadingZeros = Math.floor(Math.log2(base.asInt) * leadingZeros.length);
-        var binLeadingZeros = "";
-        for (var i=0; i<numBinLeadingZeros; i++) {
-            binLeadingZeros += "0";
-        }
-        // Handle entropy of zero
-        if (base.ints.length == 0) {
-            return {
-                binaryStr: binLeadingZeros,
-                cleanStr: leadingZeros.join(""),
-                base: base,
-            }
-        }
-        // If the first integer is small, it must be padded with zeros.
-        // Otherwise the chance of the first bit being 1 is 100%, which is
-        // obviously incorrect.
-        // This is not perfect for unusual bases, so is only done for bases
-        // of 2^n, eg octal or hexadecimal
-        if (base.asInt == 16) {
-            var firstInt = base.ints[0];
-            var firstIntBits = firstInt.toString(2).length;
-            var maxFirstIntBits = (base.asInt-1).toString(2).length;
-            var missingFirstIntBits = maxFirstIntBits - firstIntBits;
-            for (var i=0; i<missingFirstIntBits; i++) {
-                binLeadingZeros += "0";
-            }
-        }
         // Convert base.ints to BigInteger.
         // Due to using unusual bases, eg cards of base52, this is not as simple as
         // using BigInteger.parse()
@@ -140,8 +106,17 @@ window.Entropy = new (function() {
             var additionalEntropy = BigInteger.parse(base.asInt).pow(power).multiply(thisInt);
             entropyInt = entropyInt.add(additionalEntropy);
         }
-        // Convert entropy to different formats
-        var entropyBin = binLeadingZeros + entropyInt.toString(2);
+        // Convert entropy to binary
+        var entropyBin = entropyInt.toString(2);
+        // If the first integer is small, it must be padded with zeros.
+        // Otherwise the chance of the first bit being 1 is 100%, which is
+        // obviously incorrect.
+        // This is not perfect for non-2^n bases.
+        var expectedBits = Math.floor(base.parts.length * Math.log2(base.asInt));
+        while (entropyBin.length < expectedBits) {
+            entropyBin = "0" + entropyBin;
+        }
+        // Supply a 'filtered' entropy string for display purposes
         var entropyClean = base.parts.join("");
         if (base.asInt == 52) {
             entropyClean = base.parts.join(" ").toUpperCase();

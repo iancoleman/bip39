@@ -95,17 +95,57 @@
                             </div>
                         </div>
                         <div class="entropy-container hidden">
-                            <label for="entropy" class="col-sm-2 control-label">Entropy</label>
-                            <div class="col-sm-10">
-                                <input id="entropy" class="entropy form-control" placeholder="Accepts binary, base 6, 6-sided dice, base 10, hexadecimal">
-                                <span class="help-block">
-                                    <div class="text-danger">
-                                    This is an advanced feature.
-                                    Your mnemonic may be insecure if this feature is used incorrectly.
-                                    <a href="#entropy-notes">Read more</a>
+                            <div class="form-group">
+                                <label for="entropy" class="col-sm-2 control-label">Entropy</label>
+                                <div class="col-sm-10">
+                                    <input id="entropy" class="entropy form-control" placeholder="Accepts binary, base 6, 6-sided dice, base 10, hexadecimal">
+                                    <span class="help-block">
+                                        <div class="text-danger">
+                                        This is an advanced feature.
+                                        Your mnemonic may be insecure if this feature is used incorrectly.
+                                        <a href="#entropy-notes">Read more</a>
+                                        </div>
+                                   </span>
+                                </div>
+                            </div>
+                            <div class="entropy-feedback">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Filtered</label>
+                                    <div class="filtered col-sm-10 form-control-static"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Type</label>
+                                    <div class="type col-sm-10 form-control-static"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Strength</label>
+                                    <div class="strength col-sm-10 form-control-static"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Event Count</label>
+                                    <div class="event-count col-sm-10 form-control-static"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Bits Per Event</label>
+                                    <div class="bits-per-event col-sm-10 form-control-static"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Bits</label>
+                                    <div class="bits col-sm-10 form-control-static"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Mnemonic Length</label>
+                                    <div class="col-sm-10">
+                                        <select class="mnemonic-length form-control">
+                                            <option value="raw">From entropy length</option>
+                                            <option value="12">12 Words</option>
+                                            <option value="15">15 Words</option>
+                                            <option value="18">18 Words</option>
+                                            <option value="21">21 Words</option>
+                                            <option value="24">24 Words</option>
+                                        </select>
                                     </div>
-                                    <div class="text-danger entropy-error"></div>
-                               </span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">

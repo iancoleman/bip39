@@ -24,7 +24,14 @@
     DOM.useEntropy = $(".use-entropy");
     DOM.entropyContainer = $(".entropy-container");
     DOM.entropy = $(".entropy");
-    DOM.entropyError = $(".entropy-error");
+    DOM.entropyFeedback = $(".entropy-feedback");
+    DOM.entropyFiltered = DOM.entropyFeedback.find(".filtered");
+    DOM.entropyType = DOM.entropyFeedback.find(".type");
+    DOM.entropyStrength = DOM.entropyFeedback.find(".strength");
+    DOM.entropyEventCount = DOM.entropyFeedback.find(".event-count");
+    DOM.entropyBits = DOM.entropyFeedback.find(".bits");
+    DOM.entropyBitsPerEvent = DOM.entropyFeedback.find(".bits-per-event");
+    DOM.entropyMnemonicLength = DOM.entropyFeedback.find(".mnemonic-length");
     DOM.phrase = $(".phrase");
     DOM.passphrase = $(".passphrase");
     DOM.generateContainer = $(".generate-container");
@@ -153,7 +160,7 @@
         // If blank entropy, clear mnemonic, addresses, errors
         if (DOM.entropy.val().trim().length == 0) {
             clearDisplay();
-            hideEntropyError();
+            hideEntropyFeedback();
             DOM.phrase.val("");
             showValidationError("Blank entropy");
             return;
@@ -727,7 +734,7 @@
     }
 
     function setMnemonicFromEntropy() {
-        hideEntropyError();
+        hideEntropyFeedback();
         // Get entropy value
         var entropyStr = DOM.entropy.val();
         // Work out minimum base for entropy
@@ -736,30 +743,7 @@
             return;
         }
         // Show entropy details
-        var extraBits = 32 - (entropy.binaryStr.length % 32);
-        var extraChars = Math.ceil(extraBits * Math.log(2) / Math.log(entropy.base.asInt));
-        var words = Math.floor(entropy.binaryStr.length / 32) * 3;
-        var strength = "an extremely weak";
-        if (words >= 3) {
-            strength = "a very weak";
-        }
-        if (words >= 6) {
-            strength = "a weak";
-        }
-        if (words >= 9) {
-            strength = "a strong";
-        }
-        if (words >= 12) {
-            strength = "a very strong";
-        }
-        if (words >= 15) {
-            strength = "an extremely strong";
-        }
-        if (words >= 18) {
-            strength = "an even stronger"
-        }
-        var msg = "Have " + entropy.binaryStr.length + " bits of entropy, " + extraChars + " more " + entropy.base.str + " chars required to generate " + strength + " mnemonic: " + entropy.cleanStr;
-        showEntropyError(msg);
+        showEntropyFeedback(entropy);
         // Discard trailing entropy
         var bitsToUse = Math.floor(entropy.binaryStr.length / 32) * 32;
         var binaryStr = entropy.binaryStr.substring(0, bitsToUse);
@@ -776,13 +760,44 @@
         DOM.phrase.val(phrase);
     }
 
-    function hideEntropyError() {
-        DOM.entropyError.addClass("hidden");
+    function hideEntropyFeedback() {
+        DOM.entropyFeedback.addClass("hidden");
+        DOM.entropyFiltered.text("");
+        DOM.entropyType.text("");
+        DOM.entropyStrength.text("");
+        DOM.entropyEventCount.text("");
+        DOM.entropyBits.text("");
+        DOM.entropyBitsPerEvent.text("");
     }
 
-    function showEntropyError(msg) {
-        DOM.entropyError.text(msg);
-        DOM.entropyError.removeClass("hidden");
+    function showEntropyFeedback(entropy) {
+        var strength = "extremely weak";
+        if (entropy.binaryStr.length >= 64) {
+            strength = "very weak";
+        }
+        if (entropy.binaryStr.length >= 96) {
+            strength = "weak";
+        }
+        if (entropy.binaryStr.length >= 128) {
+            strength = "strong";
+        }
+        if (entropy.binaryStr.length >= 160) {
+            strength = "very strong";
+        }
+        if (entropy.binaryStr.length >= 192) {
+            strength = "extremely strong";
+        }
+        var bitsStr = entropy.binaryStr.length;
+        if (entropy.base.asInt != 2) {
+            bitsStr += " (" + entropy.binaryStr + ")";
+        }
+        DOM.entropyFiltered.text(entropy.cleanStr);
+        DOM.entropyType.text(entropy.base.str);
+        DOM.entropyStrength.text(strength);
+        DOM.entropyEventCount.text(entropy.base.ints.length);
+        DOM.entropyBits.text(bitsStr);
+        DOM.entropyBitsPerEvent.text(Math.log2(entropy.base.asInt).toFixed(2));
+        DOM.entropyFeedback.removeClass("hidden");
     }
 
     var networks = [

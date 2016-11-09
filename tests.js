@@ -80,7 +80,7 @@ function waitForEntropyFeedback(fn, maxTime) {
         maxTime = testMaxTime;
     }
     var origFeedback = page.evaluate(function() {
-        return $(".entropy-error").text();
+        return $(".entropy-feedback").text();
     });
     var start = new Date().getTime();
     var wait = function keepWaiting() {
@@ -92,11 +92,7 @@ function waitForEntropyFeedback(fn, maxTime) {
             return;
         }
         var feedback = page.evaluate(function() {
-            var feedback = $(".entropy-error");
-            if (feedback.css("display") == "none") {
-                return "";
-            }
-            return feedback.text();
+            return $(".entropy-feedback").text();
         });
         var hasFinished = feedback != origFeedback;
         if (hasFinished) {
@@ -2130,30 +2126,33 @@ page.open(url, function(status) {
         catch (e) {
             return e.message;
         }
-        // Leading zeros are not used for base 6 as binary string
+        // Leading zeros for base 6 as binary string
+        // 20 = 2 events at 2.58 bits per event = 5 bits
+        // 20 in base 6 = 12 in base 10 = 1100 in base 2
+        // so it needs 1 bit of padding to be the right bit length
         try {
-            e = Entropy.fromString("2");
-            if (e.binaryStr != "10") {
+            e = Entropy.fromString("20");
+            if (e.binaryStr != "01100") {
                 return "Base 6 as binary has leading zeros";
             }
         }
         catch (e) {
             return e.message;
         }
-        // Leading zeros are not used for base 10 as binary string
+        // Leading zeros for base 10 as binary string
         try {
-            e = Entropy.fromString("7");
-            if (e.binaryStr != "111") {
+            e = Entropy.fromString("17");
+            if (e.binaryStr != "010001") {
                 return "Base 10 as binary has leading zeros";
             }
         }
         catch (e) {
             return e.message;
         }
-        // Leading zeros are not used for card entropy as binary string
+        // Leading zeros for card entropy as binary string
         try {
             e = Entropy.fromString("2c");
-            if (e.binaryStr != "1") {
+            if (e.binaryStr != "00001") {
                 return "Card entropy as binary has leading zeros";
             }
         }
@@ -2187,18 +2186,18 @@ page.open(url, function(status) {
             var cards = [
                 [ "ac", "00000" ],
                 [ "acac", "00000000000" ],
-                [ "acac2c", "000000000001" ],
+                [ "acac2c", "00000000000000001" ],
                 [ "acks", "00000110011" ],
                 [ "acacks", "00000000000110011" ],
-                [ "2c", "1" ],
-                [ "3d", "1111" ],
+                [ "2c", "00001" ],
+                [ "3d", "01111" ],
                 [ "4h", "11101" ],
                 [ "5s", "101011" ],
-                [ "6c", "101" ],
+                [ "6c", "00101" ],
                 [ "7d", "10011" ],
                 [ "8h", "100001" ],
                 [ "9s", "101111" ],
-                [ "tc", "1001" ],
+                [ "tc", "01001" ],
                 [ "jd", "10111" ],
                 [ "qh", "100101" ],
                 [ "ks", "110011" ],
@@ -2489,7 +2488,7 @@ page.open(url, function(status) {
         [ "7", "3" ], // 7 in base 10 is 111 in base 2, no leading zeros
         [ "8", "4" ],
         [ "F", "4" ],
-        [ "29", "5" ],
+        [ "29", "6" ],
         [ "0A", "8" ],
         [ "1A", "8" ], // hex is always multiple of 4 bits of entropy
         [ "2A", "8" ],
@@ -2499,9 +2498,10 @@ page.open(url, function(status) {
         [ "000A", "16" ],
         [ "5555", "11" ],
         [ "6666", "10" ], // uses dice, so entropy is actually 0000 in base 6, which is 4 lots of 2.58 bits, which is 10.32 bits (rounded down to 10 bits)
-        [ "2227", "12" ],
+        [ "2227", "13" ], // Uses base 10, which is 4 lots of 3.32 bits, which is 13.3 bits (rounded down to 13)
         [ "222F", "16" ],
         [ "FFFF", "16" ],
+        [ "0000101017", "33" ], // 10 events at 3.32 bits per event
     ]
     // use entropy
     page.evaluate(function(e) {
@@ -2518,11 +2518,10 @@ page.open(url, function(status) {
         // check the number of bits of entropy is shown
         waitForEntropyFeedback(function() {
             var entropyText = page.evaluate(function() {
-                return $(".entropy-error").text();
+                return $(".entropy-feedback").text();
             });
-            if (entropyText.indexOf("Have " + expected + " bits of entropy") == -1) {
+            if (entropyText.replace(/\s/g,"").indexOf("Bits" + expected) == -1) {
                 console.log("Accumulated entropy is not shown correctly for " + entropy);
-                console.log(entropyText);
                 fail();
             }
             var isLastTest = i == tests.length - 1;
@@ -2538,28 +2537,6 @@ page.open(url, function(status) {
 });
 },
 
-// The number of bits of entropy to reach the next mnemonic strength is shown
-function() {
-page.open(url, function(status) {
-    // use entropy
-    page.evaluate(function() {
-        $(".use-entropy").prop("checked", true).trigger("change");
-        $(".entropy").val("7654321").trigger("input");
-    });
-    // check the amount of additional entropy required is shown
-    waitForEntropyFeedback(function() {
-        var entropyText = page.evaluate(function() {
-            return $(".entropy-container").text();
-        });
-        if (entropyText.indexOf("3 more base 10 chars required") == -1) {
-            console.log("Additional entropy requirement is not shown");
-            fail();
-        }
-        next();
-    });
-});
-},
-
 // The next strength above 0-word mnemonics is considered extremely weak
 // The next strength above 3-word mnemonics is considered very weak
 // The next strength above 6-word mnemonics is considered weak
@@ -2572,37 +2549,42 @@ page.open(url, function(status) {
         {
             entropy: "A",
             words: 0,
-            nextStrength: "an extremely weak",
+            strength: "extremely weak",
         },
         {
             entropy: "AAAAAAAA",
             words: 3,
-            nextStrength: "a very weak",
+            strength: "extremely weak",
         },
         {
             entropy: "AAAAAAAA B",
             words: 3,
-            nextStrength: "a very weak",
+            strength: "extremely weak",
         },
         {
             entropy: "AAAAAAAA BBBBBBBB",
             words: 6,
-            nextStrength: "a weak",
+            strength: "very weak",
         },
         {
             entropy: "AAAAAAAA BBBBBBBB CCCCCCCC",
             words: 9,
-            nextStrength: "a strong",
+            strength: "weak",
         },
         {
             entropy: "AAAAAAAA BBBBBBBB CCCCCCCC DDDDDDDD",
             words: 12,
-            nextStrength: "a very strong",
+            strength: "strong",
         },
         {
             entropy: "AAAAAAAA BBBBBBBB CCCCCCCC DDDDDDDD EEEEEEEE",
             words: 15,
-            nextStrength: "an extremely strong",
+            strength: "very strong",
+        },
+        {
+            entropy: "AAAAAAAA BBBBBBBB CCCCCCCC DDDDDDDD EEEEEEEE FFFFFFFF",
+            words: 18,
+            strength: "extremely strong",
         }
     ];
     // use entropy
@@ -2621,7 +2603,7 @@ page.open(url, function(status) {
                 return $(".phrase").val();
             });
             if (mnemonic.length > 0) {
-                console.log("Mnemonic length for " + test.nextStrength + " strength is not " + test.words);
+                console.log("Mnemonic length for " + test.strength + " strength is not " + test.words);
                 console.log("Mnemonic: " + mnemonic);
                 fail();
             }
@@ -2635,21 +2617,21 @@ page.open(url, function(status) {
         }
         else {
             waitForGenerate(function() {
-                // check the strength of the current mnemonic
+                // check the number of words in the current mnemonic
                 var mnemonic = page.evaluate(function() {
                     return $(".phrase").val();
                 });
                 if (mnemonic.split(" ").length != test.words) {
-                    console.log("Mnemonic length for " + test.nextStrength + " strength is not " + test.words);
+                    console.log("Mnemonic length for " + test.strength + " strength is not " + test.words);
                     console.log("Mnemonic: " + mnemonic);
                     fail();
                 }
-                // check the strength of the next mnemonic is shown
+                // check the strength of the mnemonic is shown
                 var entropyText = page.evaluate(function() {
                     return $(".entropy-container").text();
                 });
-                if (entropyText.indexOf("required to generate " + test.nextStrength + " mnemonic") == -1) {
-                    console.log("Strength indicator for " + test.nextStrength + " mnemonic is incorrect");
+                if (entropyText.indexOf(test.strength) == -1) {
+                    console.log("Strength indicator for " + test.strength + " mnemonic is incorrect");
                     fail();
                 }
                 var isLastTest = i == tests.length - 1;
