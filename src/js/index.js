@@ -804,6 +804,17 @@
         if (entropy.binaryStr.length >= 192) {
             strength = "extremely strong";
         }
+        // If time to crack is less than one day, and password is considered
+        // strong or better based on the number of bits, rename strength to
+        // 'easily cracked'.
+        var z = zxcvbn(entropy.cleanStr);
+        var timeToCrack = z.crack_times_seconds.offline_fast_hashing_1e10_per_second;
+        if (timeToCrack < 86400 && entropy.binaryStr.length >= 128) {
+            strength = "easily cracked";
+            if (z.feedback.warning != "") {
+                strength = strength + " - " + z.feedback.warning;
+            };
+        }
         var bitsStr = entropy.binaryStr.length;
         if (entropy.base.asInt != 2) {
             bitsStr += " (" + entropy.binaryStr + ")";
