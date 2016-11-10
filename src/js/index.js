@@ -68,6 +68,7 @@
         DOM.network.on("change", networkChanged);
         DOM.useEntropy.on("change", setEntropyVisibility);
         DOM.entropy.on("input", delayedEntropyChanged);
+        DOM.entropyMnemonicLength.on("change", entropyChanged);
         DOM.phrase.on("input", delayedPhraseChanged);
         DOM.passphrase.on("input", delayedPhraseChanged);
         DOM.generate.on("click", generateClicked);
@@ -744,9 +745,25 @@
         }
         // Show entropy details
         showEntropyFeedback(entropy);
+        // Use entropy hash if not using raw entropy
+        var bits = entropy.binaryStr;
+        var mnemonicLength = DOM.entropyMnemonicLength.val();
+        if (mnemonicLength != "raw") {
+            // Get bits by hashing entropy with SHA256
+            var hash = sjcl.hash.sha256.hash(entropy.cleanStr);
+            var hex = sjcl.codec.hex.fromBits(hash);
+            bits = BigInteger.parse(hex, 16).toString(2);
+            for (var i=0; i<256-bits.length; i++) {
+                bits = "0" + bits;
+            }
+            // Truncate hash to suit number of words
+            mnemonicLength = parseInt(mnemonicLength);
+            var numberOfBits = 32 * mnemonicLength / 3;
+            bits = bits.substring(0, numberOfBits);
+        }
         // Discard trailing entropy
-        var bitsToUse = Math.floor(entropy.binaryStr.length / 32) * 32;
-        var binaryStr = entropy.binaryStr.substring(0, bitsToUse);
+        var bitsToUse = Math.floor(bits.length / 32) * 32;
+        var binaryStr = bits.substring(0, bitsToUse);
         // Convert entropy string to numeric array
         var entropyArr = [];
         for (var i=0; i<binaryStr.length / 8; i++) {

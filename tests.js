@@ -2774,6 +2774,31 @@ page.open(url, function(status) {
 });
 },
 
+// Mnemonic length can be selected even for weak entropy
+function() {
+page.open(url, function(status) {
+    // use entropy
+    page.evaluate(function() {
+        $(".use-entropy").prop("checked", true).trigger("change");
+        $(".entropy").val("012345");
+        $(".mnemonic-length").val("18").trigger("change");
+    });
+    // check the mnemonic is the correct length
+    waitForGenerate(function() {
+        var phrase = page.evaluate(function() {
+            return $(".phrase").val();
+        });
+        var numberOfWords = phrase.split(/\s/g).length;
+        if (numberOfWords != 18) {
+            console.log("Weak entropy cannot be overridden to give 18 word mnemonic");
+            console.log(phrase);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // If you wish to add more tests, do so here...
 
 // Here is a blank test template
