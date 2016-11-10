@@ -2304,6 +2304,7 @@ page.open(url, function(status) {
         "dice",
         "base 10",
         "hexadecimal",
+        "cards",
     ];
     for (var i=0; i<options.length; i++) {
         var option = options[i];

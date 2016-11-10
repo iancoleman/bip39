@@ -97,7 +97,7 @@
                         <div class="entropy-container hidden">
                             <div class="form-group">
                                 <label for="entropy" class="col-sm-2 control-label">Entropy</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-6">
                                     <input id="entropy" class="entropy form-control" placeholder="Accepts binary, base 6, 6-sided dice, base 10, hexadecimal, cards">
                                     <span class="help-block">
                                         <div class="text-danger">
@@ -106,6 +106,17 @@
                                         <a href="#entropy-notes">Read more</a>
                                         </div>
                                    </span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <p>Valid entropy values include:</p>
+                                    <ul>
+                                        <li>Binary: [0-1] eg 101010011</li>
+                                        <li>Base 6: [0-5] eg 123434014</li>
+                                        <li>Dice: [1-6] eg 62535634</li>
+                                        <li>Base 10: [0-9] eg 90834528</li>
+                                        <li>Hex: [0-9A-F] eg 4187a8bfd9</li>
+                                        <li>Card: [A2-9TJQK][CDHS] eg AHQS9DTC</li>
+                                    </ul>
                                 </div>
                             </div>
                             <div class="entropy-feedback">
