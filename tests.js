@@ -2537,76 +2537,142 @@ page.open(url, function(status) {
 });
 },
 
-// The next strength above 0-word mnemonics is considered extremely weak
-// The next strength above 3-word mnemonics is considered very weak
-// The next strength above 6-word mnemonics is considered weak
-// The next strength above 9-word mnemonics is considered strong
-// The next strength above 12-word mnemonics is considered very strong
-// The next strength above 15-word mnemonics is considered extremely strong
+// There is feedback provided about the supplied entropy
 function() {
 page.open(url, function(status) {
     var tests = [
         {
             entropy: "A",
+            filtered: "A",
+            type: "hexadecimal",
+            events: 1,
+            bits: 4,
             words: 0,
             strength: "extremely weak",
         },
         {
             entropy: "AAAAAAAA",
+            filtered: "AAAAAAAA",
+            type: "hexadecimal",
+            events: 8,
+            bits: 32,
             words: 3,
             strength: "extremely weak",
         },
         {
             entropy: "AAAAAAAA B",
+            filtered: "AAAAAAAAB",
+            type: "hexadecimal",
+            events: 9,
+            bits: 36,
             words: 3,
             strength: "extremely weak",
         },
         {
             entropy: "AAAAAAAA BBBBBBBB",
+            filtered: "AAAAAAAABBBBBBBB",
+            type: "hexadecimal",
+            events: 16,
+            bits: 64,
             words: 6,
             strength: "very weak",
         },
         {
             entropy: "AAAAAAAA BBBBBBBB CCCCCCCC",
+            filtered: "AAAAAAAABBBBBBBBCCCCCCCC",
+            type: "hexadecimal",
+            events: 24,
+            bits: 96,
             words: 9,
             strength: "weak",
         },
         {
             entropy: "AAAAAAAA BBBBBBBB CCCCCCCC DDDDDDDD",
+            filtered: "AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD",
+            type: "hexadecimal",
+            events: 32,
+            bits: 128,
             words: 12,
             strength: "strong",
         },
         {
             entropy: "AAAAAAAA BBBBBBBB CCCCCCCC DDDDDDDD EEEEEEEE",
+            filtered: "AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDDEEEEEEEE",
+            type: "hexadecimal",
+            events: 40,
+            bits: 160,
             words: 15,
             strength: "very strong",
         },
         {
             entropy: "AAAAAAAA BBBBBBBB CCCCCCCC DDDDDDDD EEEEEEEE FFFFFFFF",
+            filtered: "AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDDEEEEEEEEFFFFFFFF",
+            type: "hexadecimal",
+            events: 48,
+            bits: 192,
             words: 18,
             strength: "extremely strong",
-        }
+        },
     ];
     // use entropy
     page.evaluate(function() {
         $(".use-entropy").prop("checked", true).trigger("change");
     });
     var nextTest = function runNextTest(i) {
+        function getFeedbackError(expected, actual) {
+            if (actual.indexOf(expected.filtered) == -1) {
+                return "Filtered value not in feedback";
+            }
+            if (actual.indexOf(expected.type) == -1) {
+                return "Entropy type not in feedback";
+            }
+            if (actual.indexOf(expected.events) == -1) {
+                return "Event count not in feedback";
+            }
+            if (actual.indexOf(expected.bits) == -1) {
+                return "Bit count not in feedback";
+            }
+            if (actual.indexOf(expected.strength) == -1) {
+                return "Strength not in feedback";
+            }
+            return false;
+        }
         test = tests[i];
         page.evaluate(function(e) {
             $(".addresses").empty();
             $(".phrase").val("");
             $(".entropy").val(e).trigger("input");
         }, test.entropy);
-        if (test.words == 0) {
+        waitForEntropyFeedback(function() {
             var mnemonic = page.evaluate(function() {
                 return $(".phrase").val();
             });
-            if (mnemonic.length > 0) {
-                console.log("Mnemonic length for " + test.strength + " strength is not " + test.words);
-                console.log("Mnemonic: " + mnemonic);
+            // Check mnemonic length
+            if (test.words == 0) {
+                if (mnemonic.length > 0) {
+                    console.log("Mnemonic length for " + test.strength + " strength is not " + test.words);
+                    console.log("Mnemonic: " + mnemonic);
+                    fail();
+                }
+            }
+            else {
+                if (mnemonic.split(" ").length != test.words) {
+                    console.log("Mnemonic length for " + test.strength + " strength is not " + test.words);
+                    console.log("Mnemonic: " + mnemonic);
+                    fail();
+                }
+            }
+            // check feedback
+            var feedback = page.evaluate(function() {
+                return $(".entropy-feedback").text();
+            });
+            var feedbackError = getFeedbackError(test, feedback);
+            if (feedbackError) {
+                console.log("Entropy feedback for " + test.entropy + " returned error");
+                console.log(feedbackError);
                 fail();
             }
+            // Run next test
             var isLastTest = i == tests.length - 1;
             if (isLastTest) {
                 next();
@@ -2614,35 +2680,7 @@ page.open(url, function(status) {
             else {
                 runNextTest(i+1);
             }
-        }
-        else {
-            waitForGenerate(function() {
-                // check the number of words in the current mnemonic
-                var mnemonic = page.evaluate(function() {
-                    return $(".phrase").val();
-                });
-                if (mnemonic.split(" ").length != test.words) {
-                    console.log("Mnemonic length for " + test.strength + " strength is not " + test.words);
-                    console.log("Mnemonic: " + mnemonic);
-                    fail();
-                }
-                // check the strength of the mnemonic is shown
-                var entropyText = page.evaluate(function() {
-                    return $(".entropy-container").text();
-                });
-                if (entropyText.indexOf(test.strength) == -1) {
-                    console.log("Strength indicator for " + test.strength + " mnemonic is incorrect");
-                    fail();
-                }
-                var isLastTest = i == tests.length - 1;
-                if (isLastTest) {
-                    next();
-                }
-                else {
-                    runNextTest(i+1);
-                }
-            });
-        }
+        });
     }
     nextTest(0);
 });
