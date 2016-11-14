@@ -764,7 +764,8 @@
         }
         // Discard trailing entropy
         var bitsToUse = Math.floor(bits.length / 32) * 32;
-        var binaryStr = bits.substring(0, bitsToUse);
+        var start = bits.length - bitsToUse;
+        var binaryStr = bits.substring(start);
         // Convert entropy string to numeric array
         var entropyArr = [];
         for (var i=0; i<binaryStr.length / 8; i++) {

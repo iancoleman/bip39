@@ -2696,15 +2696,15 @@ page.open(url, function(status) {
 });
 },
 
-// Entropy is truncated from the right
+// Entropy is truncated from the left
 function() {
 page.open(url, function(status) {
-    var expected = "abandon abandon ability";
+    var expected = "avocado zoo zone";
     // use entropy
     page.evaluate(function() {
         $(".use-entropy").prop("checked", true).trigger("change");
         var entropy  = "00000000 00000000 00000000 00000000";
-            entropy += "11111111 11111111 11111111 1111"; // Missing last byte, only first 8 bytes are used
+            entropy += "11111111 11111111 11111111 1111"; // Missing last byte
         $(".entropy").val(entropy).trigger("input");
     });
     // check the entropy is truncated from the right
@@ -2755,8 +2755,6 @@ page.open(url, function(status) {
 // https://bip32jp.github.io/english/index.html
 // NOTES:
 // Is incompatible with:
-//     base 6 with leading zeros
-//     base 6 wth 12 words / 53 chars
 //     base 20
 function() {
 page.open(url, function(status) {
