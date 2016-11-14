@@ -80,7 +80,7 @@ function waitForEntropyFeedback(fn, maxTime) {
         maxTime = testMaxTime;
     }
     var origFeedback = page.evaluate(function() {
-        return $(".entropy-feedback").text();
+        return $(".entropy-container").text();
     });
     var start = new Date().getTime();
     var wait = function keepWaiting() {
@@ -92,7 +92,7 @@ function waitForEntropyFeedback(fn, maxTime) {
             return;
         }
         var feedback = page.evaluate(function() {
-            return $(".entropy-feedback").text();
+            return $(".entropy-container").text();
         });
         var hasFinished = feedback != origFeedback;
         if (hasFinished) {
@@ -2519,7 +2519,7 @@ page.open(url, function(status) {
         // check the number of bits of entropy is shown
         waitForEntropyFeedback(function() {
             var entropyText = page.evaluate(function() {
-                return $(".entropy-feedback").text();
+                return $(".entropy-container").text();
             });
             if (entropyText.replace(/\s/g,"").indexOf("Bits" + expected) == -1) {
                 console.log("Accumulated entropy is not shown correctly for " + entropy);
@@ -2674,7 +2674,7 @@ page.open(url, function(status) {
             }
             // check feedback
             var feedback = page.evaluate(function() {
-                return $(".entropy-feedback").text();
+                return $(".entropy-container").text();
             });
             var feedbackError = getFeedbackError(test, feedback);
             if (feedbackError) {
