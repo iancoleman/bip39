@@ -47,7 +47,7 @@
             .phrase {
                 word-break: keep-all;
             }
-            .strength {
+            .generate-container .strength {
                 /* override mobile width from bootstrap */
                 width: auto!important;
                 display: inline-block;
@@ -57,6 +57,29 @@
             }
             .monospace {
                 font-family: monospace;
+            }
+            .entropy-container .filtered,
+            .entropy-container .binary {
+                word-wrap: break-word;
+            }
+            .entropy-container li {
+                padding-bottom: 5px;
+            }
+            .card-suit {
+                font-size: 19px;
+                line-height: 0;
+            }
+            .card-suit.club {
+                color: #009F00;
+            }
+            .card-suit.diamond {
+                color: #3D5DC4;
+            }
+            .card-suit.heart {
+                color: #F00;
+            }
+            .card-suit.spade {
+                color: #000;
             }
         </style>
     </head>
@@ -99,58 +122,36 @@
                             </div>
                         </div>
                         <div class="entropy-container hidden">
-                            <div class="form-group">
-                                <label for="entropy" class="col-sm-2 control-label">Entropy</label>
-                                <div class="col-sm-6">
-                                    <textarea id="entropy" rows="6" class="entropy form-control" placeholder="Accepts binary, base 6, 6-sided dice, base 10, hexadecimal, cards"></textarea>
-                                    <span class="help-block">
-                                        <div class="text-danger">
-                                        This is an advanced feature.
-                                        Your mnemonic may be insecure if this feature is used incorrectly.
-                                        <a href="#entropy-notes">Read more</a>
-                                        </div>
-                                   </span>
-                                </div>
-                                <div class="pull-right col-sm-4">
-                                    <p>Valid entropy values include:</p>
-                                    <ul>
-                                        <li>Binary: [0-1] eg 101010011</li>
-                                        <li>Base 6: [0-5] eg 123434014</li>
-                                        <li>Dice: [1-6] eg 62535634</li>
-                                        <li>Base 10: [0-9] eg 90834528</li>
-                                        <li>Hex: [0-9A-F] eg 4187a8bfd9</li>
-                                        <li>Card: [A2-9TJQK][CDHS] eg AHQS9DTC</li>
-                                    </ul>
+                            <div class="form-group text-danger">
+                                <label class="col-sm-2 control-label">Warning</label>
+                                <div class="col-sm-10 form-control-static">
+                                    Entropy is an advanced feature.
+                                    Your mnemonic may be insecure if this feature is used incorrectly.
+                                    <a href="#entropy-notes">Read more</a>
                                 </div>
                             </div>
-                            <div class="entropy-feedback">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Filtered</label>
-                                    <div class="filtered col-sm-10 form-control-static"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Type</label>
-                                    <div class="type col-sm-10 form-control-static"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Strength</label>
-                                    <div class="strength col-sm-10 form-control-static"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Event Count</label>
-                                    <div class="event-count col-sm-10 form-control-static"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Bits Per Event</label>
-                                    <div class="bits-per-event col-sm-10 form-control-static"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Bits</label>
-                                    <div class="bits col-sm-10 form-control-static"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Mnemonic Length</label>
-                                    <div class="col-sm-10">
+                            <div class="form-group">
+                                <label for="entropy" class="col-sm-2 control-label">Entropy</label>
+                                <div class="col-sm-7">
+                                    <textarea id="entropy" rows="2" class="entropy form-control" placeholder="Accepts binary, base 6, 6-sided dice, base 10, hexadecimal, cards"></textarea>
+                                    <label class="col-sm-3 control-label">Strength</label>
+                                    <div class="strength col-sm-3 form-control-static"></div>
+                                    <label class="col-sm-3 control-label">Event Count</label>
+                                    <div class="event-count col-sm-3 form-control-static"></div>
+                                    <label class="col-sm-3 control-label">Entropy Type</label>
+                                    <div class="type col-sm-3 form-control-static"></div>
+                                    <label class="col-sm-3 control-label">Bits Per Event</label>
+                                    <div class="bits-per-event col-sm-3 form-control-static"></div>
+                                    <label class="col-sm-3 control-label">Word Count</label>
+                                    <div class="word-count col-sm-3 form-control-static"></div>
+                                    <label class="col-sm-3 control-label">Total Bits</label>
+                                    <div class="bits col-sm-3 form-control-static"></div>
+                                    <label class="col-sm-3 control-label">Filtered Entropy</label>
+                                    <div class="filtered col-sm-9 form-control-static"></div>
+                                    <label class="col-sm-3 control-label">Raw Binary</label>
+                                    <div class="binary col-sm-9 form-control-static"></div>
+                                    <label class="col-sm-3 control-label">Mnemonic Length</label>
+                                    <div class="col-sm-9">
                                         <select class="mnemonic-length form-control">
                                             <option value="raw">From entropy length (3 words per 32 bits)</option>
                                             <option value="12">12 Words</option>
@@ -160,6 +161,17 @@
                                             <option value="24">24 Words</option>
                                         </select>
                                     </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <p>Valid entropy values include:</p>
+                                    <ul>
+                                        <li><strong>Binary</strong> [0-1]<br>101010011</li>
+                                        <li><strong>Base 6</strong> [0-5]<br>123434014</li>
+                                        <li><strong>Dice</strong> [1-6]<br>62535634</li>
+                                        <li><strong>Base 10</strong> [0-9]<br>90834528</li>
+                                        <li><strong>Hex</strong> [0-9A-F]<br>4187a8bfd9</li>
+                                        <li><strong>Card</strong> [A2-9TJQK][CDHS]<br>ahqs9dtc</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -16387,6 +16399,7 @@ window.Entropy = new (function() {
             return {
                 binaryStr: "",
                 cleanStr: "",
+                cleanHtml: "",
                 base: base,
             };
         }
@@ -16412,16 +16425,23 @@ window.Entropy = new (function() {
         }
         // Supply a 'filtered' entropy string for display purposes
         var entropyClean = base.parts.join("");
+        var entropyHtml = base.parts.join("");
         if (base.asInt == 52) {
             entropyClean = base.parts.join(" ").toUpperCase();
             entropyClean = entropyClean.replace(/C/g, "\u2663");
             entropyClean = entropyClean.replace(/D/g, "\u2666");
             entropyClean = entropyClean.replace(/H/g, "\u2665");
             entropyClean = entropyClean.replace(/S/g, "\u2660");
+            entropyHtml = base.parts.join(" ").toUpperCase();
+            entropyHtml = entropyHtml.replace(/C/g, "<span class='card-suit club'>\u2663</span>");
+            entropyHtml = entropyHtml.replace(/D/g, "<span class='card-suit diamond'>\u2666</span>");
+            entropyHtml = entropyHtml.replace(/H/g, "<span class='card-suit heart'>\u2665</span>");
+            entropyHtml = entropyHtml.replace(/S/g, "<span class='card-suit spade'>\u2660</span>");
         }
         var e = {
             binaryStr: entropyBin,
             cleanStr: entropyClean,
+            cleanHtml: entropyHtml,
             base: base,
         }
         return e;
@@ -18162,14 +18182,15 @@ exports.BigInteger = BigInteger;
     DOM.useEntropy = $(".use-entropy");
     DOM.entropyContainer = $(".entropy-container");
     DOM.entropy = $(".entropy");
-    DOM.entropyFeedback = $(".entropy-feedback");
-    DOM.entropyFiltered = DOM.entropyFeedback.find(".filtered");
-    DOM.entropyType = DOM.entropyFeedback.find(".type");
-    DOM.entropyStrength = DOM.entropyFeedback.find(".strength");
-    DOM.entropyEventCount = DOM.entropyFeedback.find(".event-count");
-    DOM.entropyBits = DOM.entropyFeedback.find(".bits");
-    DOM.entropyBitsPerEvent = DOM.entropyFeedback.find(".bits-per-event");
-    DOM.entropyMnemonicLength = DOM.entropyFeedback.find(".mnemonic-length");
+    DOM.entropyFiltered = DOM.entropyContainer.find(".filtered");
+    DOM.entropyType = DOM.entropyContainer.find(".type");
+    DOM.entropyStrength = DOM.entropyContainer.find(".strength");
+    DOM.entropyEventCount = DOM.entropyContainer.find(".event-count");
+    DOM.entropyBits = DOM.entropyContainer.find(".bits");
+    DOM.entropyBitsPerEvent = DOM.entropyContainer.find(".bits-per-event");
+    DOM.entropyWordCount = DOM.entropyContainer.find(".word-count");
+    DOM.entropyBinary = DOM.entropyContainer.find(".binary");
+    DOM.entropyMnemonicLength = DOM.entropyContainer.find(".mnemonic-length");
     DOM.phrase = $(".phrase");
     DOM.passphrase = $(".passphrase");
     DOM.generateContainer = $(".generate-container");
@@ -18299,7 +18320,7 @@ exports.BigInteger = BigInteger;
         // If blank entropy, clear mnemonic, addresses, errors
         if (DOM.entropy.val().trim().length == 0) {
             clearDisplay();
-            hideEntropyFeedback();
+            clearEntropyFeedback();
             DOM.phrase.val("");
             showValidationError("Blank entropy");
             return;
@@ -18873,7 +18894,7 @@ exports.BigInteger = BigInteger;
     }
 
     function setMnemonicFromEntropy() {
-        hideEntropyFeedback();
+        clearEntropyFeedback();
         // Get entropy value
         var entropyStr = DOM.entropy.val();
         // Work out minimum base for entropy
@@ -18901,7 +18922,8 @@ exports.BigInteger = BigInteger;
         }
         // Discard trailing entropy
         var bitsToUse = Math.floor(bits.length / 32) * 32;
-        var binaryStr = bits.substring(0, bitsToUse);
+        var start = bits.length - bitsToUse;
+        var binaryStr = bits.substring(start);
         // Convert entropy string to numeric array
         var entropyArr = [];
         for (var i=0; i<binaryStr.length / 8; i++) {
@@ -18915,14 +18937,15 @@ exports.BigInteger = BigInteger;
         DOM.phrase.val(phrase);
     }
 
-    function hideEntropyFeedback() {
-        DOM.entropyFeedback.addClass("hidden");
-        DOM.entropyFiltered.text("");
+    function clearEntropyFeedback() {
+        DOM.entropyStrength.text("...");
         DOM.entropyType.text("");
-        DOM.entropyStrength.text("");
-        DOM.entropyEventCount.text("");
-        DOM.entropyBits.text("");
-        DOM.entropyBitsPerEvent.text("");
+        DOM.entropyWordCount.text("0");
+        DOM.entropyEventCount.text("0");
+        DOM.entropyBitsPerEvent.text("0");
+        DOM.entropyBits.text("0");
+        DOM.entropyFiltered.html("&nbsp;");
+        DOM.entropyBinary.html("&nbsp;");
     }
 
     function showEntropyFeedback(entropy) {
@@ -18954,16 +18977,15 @@ exports.BigInteger = BigInteger;
             };
         }
         var bitsStr = entropy.binaryStr.length;
-        if (entropy.base.asInt != 2) {
-            bitsStr += " (" + entropy.binaryStr + ")";
-        }
-        DOM.entropyFiltered.text(entropy.cleanStr);
+        var wordCount = Math.floor(entropy.binaryStr.length / 32) * 3;
+        DOM.entropyFiltered.html(entropy.cleanHtml);
         DOM.entropyType.text(entropy.base.str);
         DOM.entropyStrength.text(strength);
         DOM.entropyEventCount.text(entropy.base.ints.length);
         DOM.entropyBits.text(bitsStr);
+        DOM.entropyWordCount.text(wordCount);
+        DOM.entropyBinary.text(entropy.binaryStr);
         DOM.entropyBitsPerEvent.text(Math.log2(entropy.base.asInt).toFixed(2));
-        DOM.entropyFeedback.removeClass("hidden");
     }
 
     var networks = [
