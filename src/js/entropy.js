@@ -93,6 +93,7 @@ window.Entropy = new (function() {
             return {
                 binaryStr: "",
                 cleanStr: "",
+                cleanHtml: "",
                 base: base,
             };
         }
@@ -118,16 +119,23 @@ window.Entropy = new (function() {
         }
         // Supply a 'filtered' entropy string for display purposes
         var entropyClean = base.parts.join("");
+        var entropyHtml = base.parts.join("");
         if (base.asInt == 52) {
             entropyClean = base.parts.join(" ").toUpperCase();
             entropyClean = entropyClean.replace(/C/g, "\u2663");
             entropyClean = entropyClean.replace(/D/g, "\u2666");
             entropyClean = entropyClean.replace(/H/g, "\u2665");
             entropyClean = entropyClean.replace(/S/g, "\u2660");
+            entropyHtml = base.parts.join(" ").toUpperCase();
+            entropyHtml = entropyHtml.replace(/C/g, "<span class='card-suit club'>\u2663</span>");
+            entropyHtml = entropyHtml.replace(/D/g, "<span class='card-suit diamond'>\u2666</span>");
+            entropyHtml = entropyHtml.replace(/H/g, "<span class='card-suit heart'>\u2665</span>");
+            entropyHtml = entropyHtml.replace(/S/g, "<span class='card-suit spade'>\u2660</span>");
         }
         var e = {
             binaryStr: entropyBin,
             cleanStr: entropyClean,
+            cleanHtml: entropyHtml,
             base: base,
         }
         return e;

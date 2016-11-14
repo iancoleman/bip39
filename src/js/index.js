@@ -819,7 +819,7 @@
         }
         var bitsStr = entropy.binaryStr.length;
         var wordCount = Math.floor(entropy.binaryStr.length / 32) * 3;
-        DOM.entropyFiltered.text(entropy.cleanStr);
+        DOM.entropyFiltered.html(entropy.cleanHtml);
         DOM.entropyType.text(entropy.base.str);
         DOM.entropyStrength.text(strength);
         DOM.entropyEventCount.text(entropy.base.ints.length);
