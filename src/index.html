@@ -43,7 +43,7 @@
             .phrase {
                 word-break: keep-all;
             }
-            .strength {
+            .generate-container .strength {
                 /* override mobile width from bootstrap */
                 width: auto!important;
                 display: inline-block;
@@ -53,6 +53,13 @@
             }
             .monospace {
                 font-family: monospace;
+            }
+            .entropy-container .filtered,
+            .entropy-container .binary {
+                word-wrap: break-word;
+            }
+            .entropy-container li {
+                padding-bottom: 5px;
             }
         </style>
     </head>
@@ -95,58 +102,36 @@
                             </div>
                         </div>
                         <div class="entropy-container hidden">
-                            <div class="form-group">
-                                <label for="entropy" class="col-sm-2 control-label">Entropy</label>
-                                <div class="col-sm-6">
-                                    <textarea id="entropy" rows="6" class="entropy form-control" placeholder="Accepts binary, base 6, 6-sided dice, base 10, hexadecimal, cards"></textarea>
-                                    <span class="help-block">
-                                        <div class="text-danger">
-                                        This is an advanced feature.
-                                        Your mnemonic may be insecure if this feature is used incorrectly.
-                                        <a href="#entropy-notes">Read more</a>
-                                        </div>
-                                   </span>
-                                </div>
-                                <div class="pull-right col-sm-4">
-                                    <p>Valid entropy values include:</p>
-                                    <ul>
-                                        <li>Binary: [0-1] eg 101010011</li>
-                                        <li>Base 6: [0-5] eg 123434014</li>
-                                        <li>Dice: [1-6] eg 62535634</li>
-                                        <li>Base 10: [0-9] eg 90834528</li>
-                                        <li>Hex: [0-9A-F] eg 4187a8bfd9</li>
-                                        <li>Card: [A2-9TJQK][CDHS] eg AHQS9DTC</li>
-                                    </ul>
+                            <div class="form-group text-danger">
+                                <label class="col-sm-2 control-label">Warning</label>
+                                <div class="col-sm-10 form-control-static">
+                                    Entropy is an advanced feature.
+                                    Your mnemonic may be insecure if this feature is used incorrectly.
+                                    <a href="#entropy-notes">Read more</a>
                                 </div>
                             </div>
-                            <div class="entropy-feedback">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Filtered</label>
-                                    <div class="filtered col-sm-10 form-control-static"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Type</label>
-                                    <div class="type col-sm-10 form-control-static"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Strength</label>
-                                    <div class="strength col-sm-10 form-control-static"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Event Count</label>
-                                    <div class="event-count col-sm-10 form-control-static"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Bits Per Event</label>
-                                    <div class="bits-per-event col-sm-10 form-control-static"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Bits</label>
-                                    <div class="bits col-sm-10 form-control-static"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Mnemonic Length</label>
-                                    <div class="col-sm-10">
+                            <div class="form-group">
+                                <label for="entropy" class="col-sm-2 control-label">Entropy</label>
+                                <div class="col-sm-7">
+                                    <textarea id="entropy" rows="2" class="entropy form-control" placeholder="Accepts binary, base 6, 6-sided dice, base 10, hexadecimal, cards"></textarea>
+                                    <label class="col-sm-3 control-label">Strength</label>
+                                    <div class="strength col-sm-3 form-control-static"></div>
+                                    <label class="col-sm-3 control-label">Event Count</label>
+                                    <div class="event-count col-sm-3 form-control-static"></div>
+                                    <label class="col-sm-3 control-label">Entropy Type</label>
+                                    <div class="type col-sm-3 form-control-static"></div>
+                                    <label class="col-sm-3 control-label">Bits Per Event</label>
+                                    <div class="bits-per-event col-sm-3 form-control-static"></div>
+                                    <label class="col-sm-3 control-label">Word Count</label>
+                                    <div class="word-count col-sm-3 form-control-static"></div>
+                                    <label class="col-sm-3 control-label">Total Bits</label>
+                                    <div class="bits col-sm-3 form-control-static"></div>
+                                    <label class="col-sm-3 control-label">Filtered Entropy</label>
+                                    <div class="filtered col-sm-9 form-control-static"></div>
+                                    <label class="col-sm-3 control-label">Raw Binary</label>
+                                    <div class="binary col-sm-9 form-control-static"></div>
+                                    <label class="col-sm-3 control-label">Mnemonic Length</label>
+                                    <div class="col-sm-9">
                                         <select class="mnemonic-length form-control">
                                             <option value="raw">From entropy length (3 words per 32 bits)</option>
                                             <option value="12">12 Words</option>
@@ -156,6 +141,17 @@
                                             <option value="24">24 Words</option>
                                         </select>
                                     </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <p>Valid entropy values include:</p>
+                                    <ul>
+                                        <li><strong>Binary</strong> [0-1]<br>101010011</li>
+                                        <li><strong>Base 6</strong> [0-5]<br>123434014</li>
+                                        <li><strong>Dice</strong> [1-6]<br>62535634</li>
+                                        <li><strong>Base 10</strong> [0-9]<br>90834528</li>
+                                        <li><strong>Hex</strong> [0-9A-F]<br>4187a8bfd9</li>
+                                        <li><strong>Card</strong> [A2-9TJQK][CDHS]<br>ahqs9dtc</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>

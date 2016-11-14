@@ -24,14 +24,15 @@
     DOM.useEntropy = $(".use-entropy");
     DOM.entropyContainer = $(".entropy-container");
     DOM.entropy = $(".entropy");
-    DOM.entropyFeedback = $(".entropy-feedback");
-    DOM.entropyFiltered = DOM.entropyFeedback.find(".filtered");
-    DOM.entropyType = DOM.entropyFeedback.find(".type");
-    DOM.entropyStrength = DOM.entropyFeedback.find(".strength");
-    DOM.entropyEventCount = DOM.entropyFeedback.find(".event-count");
-    DOM.entropyBits = DOM.entropyFeedback.find(".bits");
-    DOM.entropyBitsPerEvent = DOM.entropyFeedback.find(".bits-per-event");
-    DOM.entropyMnemonicLength = DOM.entropyFeedback.find(".mnemonic-length");
+    DOM.entropyFiltered = DOM.entropyContainer.find(".filtered");
+    DOM.entropyType = DOM.entropyContainer.find(".type");
+    DOM.entropyStrength = DOM.entropyContainer.find(".strength");
+    DOM.entropyEventCount = DOM.entropyContainer.find(".event-count");
+    DOM.entropyBits = DOM.entropyContainer.find(".bits");
+    DOM.entropyBitsPerEvent = DOM.entropyContainer.find(".bits-per-event");
+    DOM.entropyWordCount = DOM.entropyContainer.find(".word-count");
+    DOM.entropyBinary = DOM.entropyContainer.find(".binary");
+    DOM.entropyMnemonicLength = DOM.entropyContainer.find(".mnemonic-length");
     DOM.phrase = $(".phrase");
     DOM.passphrase = $(".passphrase");
     DOM.generateContainer = $(".generate-container");
@@ -161,7 +162,7 @@
         // If blank entropy, clear mnemonic, addresses, errors
         if (DOM.entropy.val().trim().length == 0) {
             clearDisplay();
-            hideEntropyFeedback();
+            clearEntropyFeedback();
             DOM.phrase.val("");
             showValidationError("Blank entropy");
             return;
@@ -735,7 +736,7 @@
     }
 
     function setMnemonicFromEntropy() {
-        hideEntropyFeedback();
+        clearEntropyFeedback();
         // Get entropy value
         var entropyStr = DOM.entropy.val();
         // Work out minimum base for entropy
@@ -777,14 +778,15 @@
         DOM.phrase.val(phrase);
     }
 
-    function hideEntropyFeedback() {
-        DOM.entropyFeedback.addClass("hidden");
-        DOM.entropyFiltered.text("");
+    function clearEntropyFeedback() {
+        DOM.entropyStrength.text("...");
         DOM.entropyType.text("");
-        DOM.entropyStrength.text("");
-        DOM.entropyEventCount.text("");
-        DOM.entropyBits.text("");
-        DOM.entropyBitsPerEvent.text("");
+        DOM.entropyWordCount.text("0");
+        DOM.entropyEventCount.text("0");
+        DOM.entropyBitsPerEvent.text("0");
+        DOM.entropyBits.text("0");
+        DOM.entropyFiltered.html("&nbsp;");
+        DOM.entropyBinary.html("&nbsp;");
     }
 
     function showEntropyFeedback(entropy) {
@@ -816,16 +818,15 @@
             };
         }
         var bitsStr = entropy.binaryStr.length;
-        if (entropy.base.asInt != 2) {
-            bitsStr += " (" + entropy.binaryStr + ")";
-        }
+        var wordCount = Math.floor(entropy.binaryStr.length / 32) * 3;
         DOM.entropyFiltered.text(entropy.cleanStr);
         DOM.entropyType.text(entropy.base.str);
         DOM.entropyStrength.text(strength);
         DOM.entropyEventCount.text(entropy.base.ints.length);
         DOM.entropyBits.text(bitsStr);
+        DOM.entropyWordCount.text(wordCount);
+        DOM.entropyBinary.text(entropy.binaryStr);
         DOM.entropyBitsPerEvent.text(Math.log2(entropy.base.asInt).toFixed(2));
-        DOM.entropyFeedback.removeClass("hidden");
     }
 
     var networks = [
