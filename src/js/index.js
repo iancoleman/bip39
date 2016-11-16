@@ -846,9 +846,13 @@
         // eg the second last card can be only one of two, not one of fifty two
         // so the added entropy for that card is only one bit at most
         if (entropy.base.asInt == 52) {
-            var totalCombos = factorial(52);
-            var remainingCards = 52 - entropy.base.parts.length;
-            var remainingCombos = factorial(remainingCards);
+            var totalDecks = Math.ceil(entropy.base.parts.length / 52);
+            var totalCards = totalDecks * 52;
+            var totalCombos = factorial(52).pow(totalDecks);
+            var totalRemainingCards = totalCards - entropy.base.parts.length;
+            var remainingDecks = Math.floor(totalRemainingCards / 52);
+            var remainingCards = totalRemainingCards % 52;
+            var remainingCombos = factorial(52).pow(remainingDecks) * factorial(remainingCards);
             var currentCombos = totalCombos.divide(remainingCombos);
             bitsStr = currentCombos.toString(2).length.toString();
         }
