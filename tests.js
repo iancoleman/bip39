@@ -4,7 +4,7 @@
 
 var page = require('webpage').create();
 var url = 'src/index.html';
-var testMaxTime = 5000;
+var testMaxTime = 10000;
 
 page.onResourceError = function(e) {
     console.log("Error loading " + e.url);
