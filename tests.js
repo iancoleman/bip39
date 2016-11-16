@@ -2503,6 +2503,7 @@ page.open(url, function(status) {
         [ "222F", "16" ],
         [ "FFFF", "16" ],
         [ "0000101017", "33" ], // 10 events at 3.32 bits per event
+        [ "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks", "226" ], // cards are not replaced, so a full deck is not 52^52 entropy which is 296 bits, it's 52!, which is 226 bits
     ]
     // use entropy
     page.evaluate(function(e) {

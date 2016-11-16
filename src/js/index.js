@@ -818,7 +818,7 @@
                 strength = strength + " - " + z.feedback.warning;
             };
         }
-        var bitsStr = entropy.binaryStr.length;
+        var bitsStr = getNumberOfEntropyBits(entropy);
         var wordCount = Math.floor(entropy.binaryStr.length / 32) * 3;
         DOM.entropyFiltered.html(entropy.cleanHtml);
         DOM.entropyType.text(entropy.base.str);
@@ -828,6 +828,35 @@
         DOM.entropyWordCount.text(wordCount);
         DOM.entropyBinary.text(entropy.binaryStr);
         DOM.entropyBitsPerEvent.text(Math.log2(entropy.base.asInt).toFixed(2));
+    }
+
+    function getNumberOfEntropyBits(entropy) {
+        var bitsStr = entropy.binaryStr.length.toString();
+        // If using cards, assume they are not reused, thus additional entropy
+        // decreases as more cards are used. This means entropy is measured
+        // using n!, not base^n.
+        // eg the second last card can be only one of two, not one of fifty two
+        // so the added entropy for that card is only one bit at most
+        if (entropy.base.asInt == 52) {
+            var totalCombos = factorial(52);
+            var remainingCards = 52 - entropy.base.parts.length;
+            var remainingCombos = factorial(remainingCards);
+            var currentCombos = totalCombos.divide(remainingCombos);
+            bitsStr = currentCombos.toString(2).length.toString();
+        }
+        return bitsStr
+    }
+
+    // Depends on BigInteger
+    function factorial(n) {
+        if (n == 0) {
+            return 1;
+        }
+        f = BigInteger.ONE;
+        for (var i=1; i<=n; i++) {
+            f = f.multiply(new BigInteger(i));
+        }
+        return f;
     }
 
     var networks = [
