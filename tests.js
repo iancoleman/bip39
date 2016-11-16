@@ -2624,6 +2624,46 @@ page.open(url, function(status) {
             words: 18,
             strength: "extremely strong",
         },
+        {
+            entropy: "7d",
+            type: "card",
+            events: 1,
+            bits: 5,
+            words: 0,
+            strength: "extremely weak",
+        },
+        {
+            entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks",
+            type: "card (full deck)",
+            events: 52,
+            bits: 226,
+            words: 27,
+            strength: "extremely strong",
+        },
+        {
+            entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks3d",
+            type: "card (full deck, 1 duplicate: 3d)",
+            events: 53,
+            bits: 226,
+            words: 27,
+            strength: "extremely strong",
+        },
+        {
+            entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqs3d4d",
+            type: "card (2 duplicates: 3d 4d)",
+            events: 53,
+            bits: 226,
+            words: 27,
+            strength: "extremely strong",
+        },
+        {
+            entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqs3d4d5d6d",
+            type: "card (4 duplicates: 3d 4d 5d...)",
+            events: 53,
+            bits: 226,
+            words: 27,
+            strength: "extremely strong",
+        },
     ];
     // use entropy
     page.evaluate(function() {
@@ -2631,7 +2671,7 @@ page.open(url, function(status) {
     });
     var nextTest = function runNextTest(i) {
         function getFeedbackError(expected, actual) {
-            if (actual.indexOf(expected.filtered) == -1) {
+            if ("filtered" in expected && actual.indexOf(expected.filtered) == -1) {
                 return "Filtered value not in feedback";
             }
             if (actual.indexOf(expected.type) == -1) {

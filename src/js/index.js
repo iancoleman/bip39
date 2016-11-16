@@ -820,8 +820,9 @@
         }
         var bitsStr = getNumberOfEntropyBits(entropy);
         var wordCount = Math.floor(entropy.binaryStr.length / 32) * 3;
+        var entropyTypeStr = getEntropyTypeStr(entropy);
         DOM.entropyFiltered.html(entropy.cleanHtml);
-        DOM.entropyType.text(entropy.base.str);
+        DOM.entropyType.text(entropyTypeStr);
         DOM.entropyStrength.text(strength);
         DOM.entropyEventCount.text(entropy.base.ints.length);
         DOM.entropyBits.text(bitsStr);
@@ -845,6 +846,48 @@
             bitsStr = currentCombos.toString(2).length.toString();
         }
         return bitsStr
+    }
+
+    function getEntropyTypeStr(entropy) {
+        var typeStr = entropy.base.str;
+        // Add some detail if these are cards
+        if (entropy.base.asInt == 52) {
+            var cardDetail = []; // array of message strings
+            // Detect duplicates
+            var dupes = [];
+            var dupeTracker = {};
+            for (var i=0; i<entropy.base.parts.length; i++) {
+                var card = entropy.base.parts[i];
+                if (card in dupeTracker) {
+                    dupes.push(card);
+                }
+                dupeTracker[card] = true;
+            }
+            if (dupes.length > 0) {
+                var dupeWord = "duplicates";
+                if (dupes.length == 1) {
+                    dupeWord = "duplicate";
+                }
+                var msg = dupes.length + " " + dupeWord + ": " + dupes.slice(0,3).join(" ");
+                if (dupes.length > 3) {
+                    msg += "...";
+                }
+                cardDetail.push(msg);
+            }
+            // Detect full deck
+            var uniqueCards = [];
+            for (var uniqueCard in dupeTracker) {
+                uniqueCards.push(uniqueCard);
+            }
+            if (uniqueCards.length == 52) {
+                cardDetail.unshift("full deck");
+            }
+            // Add card details to typeStr
+            if (cardDetail.length > 0) {
+                typeStr += " (" + cardDetail.join(", ") + ")";
+            }
+        }
+        return typeStr;
     }
 
     // Depends on BigInteger
