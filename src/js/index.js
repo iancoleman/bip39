@@ -810,13 +810,20 @@
         // If time to crack is less than one day, and password is considered
         // strong or better based on the number of bits, rename strength to
         // 'easily cracked'.
-        var z = zxcvbn(entropy.cleanStr);
-        var timeToCrack = z.crack_times_seconds.offline_fast_hashing_1e10_per_second;
-        if (timeToCrack < 86400 && entropy.binaryStr.length >= 128) {
-            strength = "easily cracked";
-            if (z.feedback.warning != "") {
-                strength = strength + " - " + z.feedback.warning;
-            };
+        try {
+            var z = zxcvbn(entropy.base.parts.join(""));
+            var timeToCrack = z.crack_times_seconds.offline_fast_hashing_1e10_per_second;
+            if (timeToCrack < 86400 && entropy.binaryStr.length >= 128) {
+                strength = "easily cracked";
+                if (z.feedback.warning != "") {
+                    strength = strength + " - " + z.feedback.warning;
+                };
+            }
+        }
+        catch (e) {
+            strength = "unknown";
+            console.log("Error detecting entropy strength with zxcvbn:");
+            console.log(e);
         }
         var bitsStr = getNumberOfEntropyBits(entropy);
         var wordCount = Math.floor(entropy.binaryStr.length / 32) * 3;

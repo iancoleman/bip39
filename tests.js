@@ -2664,6 +2664,15 @@ page.open(url, function(status) {
             words: 27,
             strength: "extremely strong",
         },
+        // Next test was throwing uncaught error in zxcvbn
+        {
+            entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsksac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks",
+            type: "card (full deck, 52 duplicates: ac 2c 3c...)",
+            events: 104,
+            bits: 226,
+            words: 54,
+            strength: "extremely strong",
+        },
     ];
     // use entropy
     page.evaluate(function() {
