@@ -869,10 +869,11 @@
             var dupeTracker = {};
             for (var i=0; i<entropy.base.parts.length; i++) {
                 var card = entropy.base.parts[i];
-                if (card in dupeTracker) {
+                var cardUpper = card.toUpperCase();
+                if (cardUpper in dupeTracker) {
                     dupes.push(card);
                 }
-                dupeTracker[card] = true;
+                dupeTracker[cardUpper] = true;
             }
             if (dupes.length > 0) {
                 var dupeWord = "duplicates";

@@ -2673,6 +2673,23 @@ page.open(url, function(status) {
             words: 54,
             strength: "extremely strong",
         },
+        // Case insensitivity to duplicate cards
+        {
+            entropy: "asAS",
+            type: "card (1 duplicate: AS)",
+            events: 2,
+            bits: 12,
+            words: 0,
+            strength: "extremely weak",
+        },
+        {
+            entropy: "ASas",
+            type: "card (1 duplicate: as)",
+            events: 2,
+            bits: 12,
+            words: 0,
+            strength: "extremely weak",
+        },
     ];
     // use entropy
     page.evaluate(function() {
