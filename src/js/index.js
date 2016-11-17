@@ -894,6 +894,26 @@
             if (uniqueCards.length == 52) {
                 cardDetail.unshift("full deck");
             }
+            // Detect missing cards
+            var values = "A23456789TJQK";
+            var suits = "CDHS";
+            var missingCards = [];
+            for (var i=0; i<suits.length; i++) {
+                for (var j=0; j<values.length; j++) {
+                    var card = values[j] + suits[i];
+                    if (!(card in dupeTracker)) {
+                        missingCards.push(card);
+                    }
+                }
+            }
+            // Display missing cards if six or less, ie clearly going for full deck
+            if (missingCards.length > 0 && missingCards.length <= 6) {
+                var msg = missingCards.length + " missing: " + missingCards.slice(0,3).join(" ");
+                if (missingCards.length > 3) {
+                    msg += "...";
+                }
+                cardDetail.push(msg);
+            }
             // Add card details to typeStr
             if (cardDetail.length > 0) {
                 typeStr += " (" + cardDetail.join(", ") + ")";

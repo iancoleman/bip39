@@ -2650,7 +2650,7 @@ page.open(url, function(status) {
         },
         {
             entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqs3d4d",
-            type: "card (2 duplicates: 3d 4d)",
+            type: "card (2 duplicates: 3d 4d, 1 missing: KS)",
             events: 53,
             bits: 232,
             words: 27,
@@ -2658,7 +2658,7 @@ page.open(url, function(status) {
         },
         {
             entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqs3d4d5d6d",
-            type: "card (4 duplicates: 3d 4d 5d...)",
+            type: "card (4 duplicates: 3d 4d 5d..., 1 missing: KS)",
             events: 53,
             bits: 243,
             words: 27,
@@ -2689,6 +2689,40 @@ page.open(url, function(status) {
             bits: 12,
             words: 0,
             strength: "extremely weak",
+        },
+        // Missing cards are detected
+        {
+            entropy: "ac2c3c4c5c6c7c8c  tcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks",
+            type: "card (1 missing: 9C)",
+            events: 51,
+            bits: 226,
+            words: 27,
+            strength: "extremely strong",
+        },
+        {
+            entropy: "ac2c3c4c5c6c7c8c  tcjcqckcad2d3d4d  6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks",
+            type: "card (2 missing: 9C 5D)",
+            events: 50,
+            bits: 225,
+            words: 24,
+            strength: "extremely strong",
+        },
+        {
+            entropy: "ac2c3c4c5c6c7c8c  tcjcqckcad2d3d4d  6d7d8d9dtdjd  kdah2h3h  5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks",
+            type: "card (4 missing: 9C 5D QD...)",
+            events: 48,
+            bits: 221,
+            words: 24,
+            strength: "extremely strong",
+        },
+        // More than six missing cards does not show message
+        {
+            entropy: "ac2c3c4c5c6c7c8c  tcjcqckcad2d3d4d  6d  8d9d  jd  kdah2h3h  5h6h7h8h9hthjhqhkh  2s3s4s5s6s7s8s9stsjsqsks",
+            type: "card",
+            events: 45,
+            bits: 214,
+            words: 24,
+            strength: "extremely strong",
         },
     ];
     // use entropy
