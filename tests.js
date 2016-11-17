@@ -2185,10 +2185,9 @@ page.open(url, function(status) {
         try {
             var cards = [
                 [ "ac", "00000" ],
-                [ "acac", "00000000000" ],
-                [ "acac2c", "00000000000000001" ],
-                [ "acks", "00000110011" ],
-                [ "acacks", "00000000000110011" ],
+                [ "acqs", "00000110001" ],
+                [ "acks", "00000110010" ],
+                [ "2cac", "00000110011" ],
                 [ "2c", "00001" ],
                 [ "3d", "01111" ],
                 [ "4h", "11101" ],
@@ -2201,8 +2200,8 @@ page.open(url, function(status) {
                 [ "jd", "10111" ],
                 [ "qh", "100101" ],
                 [ "ks", "110011" ],
-                [ "ks2c", "101001011101" ],
-                [ "KS2C", "101001011101" ],
+                [ "ks2c", "101000101001" ],
+                [ "KS2C", "101000101001" ],
             ];
             for (var i=0; i<cards.length; i++) {
                 var card = cards[i][0];
@@ -2503,7 +2502,7 @@ page.open(url, function(status) {
         [ "222F", "16" ],
         [ "FFFF", "16" ],
         [ "0000101017", "33" ], // 10 events at 3.32 bits per event
-        [ "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks", "226" ], // cards are not replaced, so a full deck is not 52^52 entropy which is 296 bits, it's 52!, which is 226 bits
+        [ "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks", "225" ], // cards are not replaced, so a full deck is not 52^52 entropy which is 296 bits, it's 52!, which is 225 bits
     ]
     // use entropy
     page.evaluate(function(e) {
@@ -2636,41 +2635,42 @@ page.open(url, function(status) {
             entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks",
             type: "card (full deck)",
             events: 52,
-            bits: 226,
-            words: 27,
+            bits: 225,
+            words: 21,
             strength: "extremely strong",
         },
         {
             entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks3d",
             type: "card (full deck, 1 duplicate: 3d)",
             events: 53,
-            bits: 232,
-            words: 27,
+            bits: 231,
+            words: 21,
             strength: "extremely strong",
         },
         {
             entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqs3d4d",
             type: "card (2 duplicates: 3d 4d, 1 missing: KS)",
             events: 53,
-            bits: 232,
-            words: 27,
+            bits: 231,
+            words: 21,
             strength: "extremely strong",
         },
         {
             entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqs3d4d5d6d",
             type: "card (4 duplicates: 3d 4d 5d..., 1 missing: KS)",
             events: 53,
-            bits: 243,
-            words: 27,
+            bits: 242,
+            words: 21,
             strength: "extremely strong",
         },
         // Next test was throwing uncaught error in zxcvbn
+        // Also tests 451 bits, ie Math.log2(52!)*2 = 225.58 * 2
         {
             entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsksac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks",
             type: "card (full deck, 52 duplicates: ac 2c 3c...)",
             events: 104,
-            bits: 452,
-            words: 54,
+            bits: 451,
+            words: 42,
             strength: "extremely strong",
         },
         // Case insensitivity to duplicate cards
@@ -2695,24 +2695,24 @@ page.open(url, function(status) {
             entropy: "ac2c3c4c5c6c7c8c  tcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks",
             type: "card (1 missing: 9C)",
             events: 51,
-            bits: 226,
-            words: 27,
+            bits: 225,
+            words: 21,
             strength: "extremely strong",
         },
         {
             entropy: "ac2c3c4c5c6c7c8c  tcjcqckcad2d3d4d  6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks",
             type: "card (2 missing: 9C 5D)",
             events: 50,
-            bits: 225,
-            words: 24,
+            bits: 224,
+            words: 21,
             strength: "extremely strong",
         },
         {
             entropy: "ac2c3c4c5c6c7c8c  tcjcqckcad2d3d4d  6d7d8d9dtdjd  kdah2h3h  5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks",
             type: "card (4 missing: 9C 5D QD...)",
             events: 48,
-            bits: 221,
-            words: 24,
+            bits: 220,
+            words: 18,
             strength: "extremely strong",
         },
         // More than six missing cards does not show message
@@ -2720,8 +2720,8 @@ page.open(url, function(status) {
             entropy: "ac2c3c4c5c6c7c8c  tcjcqckcad2d3d4d  6d  8d9d  jd  kdah2h3h  5h6h7h8h9hthjhqhkh  2s3s4s5s6s7s8s9stsjsqsks",
             type: "card",
             events: 45,
-            bits: 214,
-            words: 24,
+            bits: 213,
+            words: 18,
             strength: "extremely strong",
         },
     ];

@@ -791,20 +791,21 @@
     }
 
     function showEntropyFeedback(entropy) {
+        var numberOfBits = entropy.binaryStr.length;
         var strength = "extremely weak";
-        if (entropy.binaryStr.length >= 64) {
+        if (numberOfBits >= 64) {
             strength = "very weak";
         }
-        if (entropy.binaryStr.length >= 96) {
+        if (numberOfBits >= 96) {
             strength = "weak";
         }
-        if (entropy.binaryStr.length >= 128) {
+        if (numberOfBits >= 128) {
             strength = "strong";
         }
-        if (entropy.binaryStr.length >= 160) {
+        if (numberOfBits >= 160) {
             strength = "very strong";
         }
-        if (entropy.binaryStr.length >= 192) {
+        if (numberOfBits >= 192) {
             strength = "extremely strong";
         }
         // If time to crack is less than one day, and password is considered
@@ -825,38 +826,17 @@
             console.log("Error detecting entropy strength with zxcvbn:");
             console.log(e);
         }
-        var bitsStr = getNumberOfEntropyBits(entropy);
-        var wordCount = Math.floor(entropy.binaryStr.length / 32) * 3;
         var entropyTypeStr = getEntropyTypeStr(entropy);
+        var wordCount = Math.floor(numberOfBits / 32) * 3;
+        var bitsPerEvent = Math.log2(entropy.base.asInt).toFixed(2);
         DOM.entropyFiltered.html(entropy.cleanHtml);
         DOM.entropyType.text(entropyTypeStr);
         DOM.entropyStrength.text(strength);
         DOM.entropyEventCount.text(entropy.base.ints.length);
-        DOM.entropyBits.text(bitsStr);
+        DOM.entropyBits.text(numberOfBits);
         DOM.entropyWordCount.text(wordCount);
         DOM.entropyBinary.text(entropy.binaryStr);
-        DOM.entropyBitsPerEvent.text(Math.log2(entropy.base.asInt).toFixed(2));
-    }
-
-    function getNumberOfEntropyBits(entropy) {
-        var bitsStr = entropy.binaryStr.length.toString();
-        // If using cards, assume they are not reused, thus additional entropy
-        // decreases as more cards are used. This means entropy is measured
-        // using n!, not base^n.
-        // eg the second last card can be only one of two, not one of fifty two
-        // so the added entropy for that card is only one bit at most
-        if (entropy.base.asInt == 52) {
-            var totalDecks = Math.ceil(entropy.base.parts.length / 52);
-            var totalCards = totalDecks * 52;
-            var totalCombos = factorial(52).pow(totalDecks);
-            var totalRemainingCards = totalCards - entropy.base.parts.length;
-            var remainingDecks = Math.floor(totalRemainingCards / 52);
-            var remainingCards = totalRemainingCards % 52;
-            var remainingCombos = factorial(52).pow(remainingDecks) * factorial(remainingCards);
-            var currentCombos = totalCombos.divide(remainingCombos);
-            bitsStr = currentCombos.toString(2).length.toString();
-        }
-        return bitsStr
+        DOM.entropyBitsPerEvent.text(bitsPerEvent);
     }
 
     function getEntropyTypeStr(entropy) {
@@ -920,18 +900,6 @@
             }
         }
         return typeStr;
-    }
-
-    // Depends on BigInteger
-    function factorial(n) {
-        if (n == 0) {
-            return 1;
-        }
-        f = BigInteger.ONE;
-        for (var i=1; i<=n; i++) {
-            f = f.multiply(new BigInteger(i));
-        }
-        return f;
     }
 
     var networks = [

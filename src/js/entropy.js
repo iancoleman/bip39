@@ -117,6 +117,40 @@ window.Entropy = new (function() {
         while (entropyBin.length < expectedBits) {
             entropyBin = "0" + entropyBin;
         }
+        // Assume cards are NOT replaced.
+        // Additional entropy decreases as more cards are used. This means
+        // entropy is measured using n!, not base^n.
+        // eg the second last card can be only one of two, not one of fifty two
+        // so the added entropy for that card is only one bit at most
+        if (base.asInt == 52) {
+            // Get the maximum value without replacement
+            var totalDecks = Math.ceil(base.parts.length / 52);
+            var totalCards = totalDecks * 52;
+            var totalCombos = factorial(52).pow(totalDecks);
+            var totalRemainingCards = totalCards - base.parts.length;
+            var remainingDecks = Math.floor(totalRemainingCards / 52);
+            var remainingCards = totalRemainingCards % 52;
+            var remainingCombos = factorial(52).pow(remainingDecks).multiply(factorial(remainingCards));
+            var currentCombos = totalCombos.divide(remainingCombos);
+            var numberOfBits = Math.log2(currentCombos);
+            var maxWithoutReplace = BigInteger.pow(2, numberOfBits);
+            // aggresive flooring of numberOfBits by BigInteger.pow means a
+            // more accurate result can be had for small numbers using the
+            // built-in Math.pow function.
+            if (numberOfBits < 32) {
+                maxWithoutReplace = BigInteger(Math.round(Math.pow(2, numberOfBits)));
+            }
+            // Get the maximum value with replacement
+            var maxWithReplace = BigInteger.pow(52, base.parts.length);
+            // Calculate the new value by scaling the original value down
+            var withoutReplace = entropyInt.multiply(maxWithoutReplace).divide(maxWithReplace);
+            // Left pad with zeros based on number of bits
+            var entropyBin = withoutReplace.toString(2);
+            var numberOfBitsInt = Math.floor(numberOfBits);
+            while (entropyBin.length < numberOfBitsInt) {
+                entropyBin = "0" + entropyBin;
+            }
+        }
         // Supply a 'filtered' entropy string for display purposes
         var entropyClean = base.parts.join("");
         var entropyHtml = base.parts.join("");
@@ -220,5 +254,17 @@ window.Entropy = new (function() {
         // So instead use the BigInteger library to get it right.
         return BigInteger.log(x) / BigInteger.log(2);
     };
+
+    // Depends on BigInteger
+    function factorial(n) {
+        if (n == 0) {
+            return 1;
+        }
+        f = BigInteger.ONE;
+        for (var i=1; i<=n; i++) {
+            f = f.multiply(new BigInteger(i));
+        }
+        return f;
+    }
 
 })();
