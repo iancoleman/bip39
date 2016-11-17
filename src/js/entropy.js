@@ -7,6 +7,7 @@
  * dice 6 [1-6]
  * decimal [0-9]
  * hexadecimal [0-9A-F]
+ * card [A2-9TJQK][CDHS]
  *
  * Automatically uses lowest entropy to avoid issues such as interpretting 0101
  * as hexadecimal which would be 16 bits when really it's only 4 bits of binary
@@ -119,11 +120,11 @@ window.Entropy = new (function() {
         }
         // Assume cards are NOT replaced.
         // Additional entropy decreases as more cards are used. This means
-        // entropy is measured using n!, not base^n.
+        // total possible entropy is measured using n!, not base^n.
         // eg the second last card can be only one of two, not one of fifty two
         // so the added entropy for that card is only one bit at most
         if (base.asInt == 52) {
-            // Get the maximum value without replacement
+            // Get the maximum value WITHOUT replacement
             var totalDecks = Math.ceil(base.parts.length / 52);
             var totalCards = totalDecks * 52;
             var totalCombos = factorial(52).pow(totalDecks);
@@ -140,7 +141,7 @@ window.Entropy = new (function() {
             if (numberOfBits < 32) {
                 maxWithoutReplace = BigInteger(Math.round(Math.pow(2, numberOfBits)));
             }
-            // Get the maximum value with replacement
+            // Get the maximum value WITH replacement
             var maxWithReplace = BigInteger.pow(52, base.parts.length);
             // Calculate the new value by scaling the original value down
             var withoutReplace = entropyInt.multiply(maxWithoutReplace).divide(maxWithReplace);
@@ -166,6 +167,7 @@ window.Entropy = new (function() {
             entropyHtml = entropyHtml.replace(/H/g, "<span class='card-suit heart'>\u2665</span>");
             entropyHtml = entropyHtml.replace(/S/g, "<span class='card-suit spade'>\u2660</span>");
         }
+        // Return the result
         var e = {
             binaryStr: entropyBin,
             cleanStr: entropyClean,
