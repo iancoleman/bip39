@@ -829,6 +829,9 @@
         var entropyTypeStr = getEntropyTypeStr(entropy);
         var wordCount = Math.floor(numberOfBits / 32) * 3;
         var bitsPerEvent = Math.log2(entropy.base.asInt).toFixed(2);
+        if (entropy.base.asInt == 52) {
+            bitsPerEvent = bitsPerEvent + " (or less)";
+        }
         DOM.entropyFiltered.html(entropy.cleanHtml);
         DOM.entropyType.text(entropyTypeStr);
         DOM.entropyStrength.text(strength);
