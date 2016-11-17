@@ -17940,6 +17940,7 @@ var time_estimates;time_estimates={estimate_attack_times:function(e){var t,n,s,o
  * dice 6 [1-6]
  * decimal [0-9]
  * hexadecimal [0-9A-F]
+ * card [A2-9TJQK][CDHS]
  *
  * Automatically uses lowest entropy to avoid issues such as interpretting 0101
  * as hexadecimal which would be 16 bits when really it's only 4 bits of binary
@@ -18050,6 +18051,40 @@ window.Entropy = new (function() {
         while (entropyBin.length < expectedBits) {
             entropyBin = "0" + entropyBin;
         }
+        // Assume cards are NOT replaced.
+        // Additional entropy decreases as more cards are used. This means
+        // total possible entropy is measured using n!, not base^n.
+        // eg the second last card can be only one of two, not one of fifty two
+        // so the added entropy for that card is only one bit at most
+        if (base.asInt == 52) {
+            // Get the maximum value WITHOUT replacement
+            var totalDecks = Math.ceil(base.parts.length / 52);
+            var totalCards = totalDecks * 52;
+            var totalCombos = factorial(52).pow(totalDecks);
+            var totalRemainingCards = totalCards - base.parts.length;
+            var remainingDecks = Math.floor(totalRemainingCards / 52);
+            var remainingCards = totalRemainingCards % 52;
+            var remainingCombos = factorial(52).pow(remainingDecks).multiply(factorial(remainingCards));
+            var currentCombos = totalCombos.divide(remainingCombos);
+            var numberOfBits = Math.log2(currentCombos);
+            var maxWithoutReplace = BigInteger.pow(2, numberOfBits);
+            // aggresive flooring of numberOfBits by BigInteger.pow means a
+            // more accurate result can be had for small numbers using the
+            // built-in Math.pow function.
+            if (numberOfBits < 32) {
+                maxWithoutReplace = BigInteger(Math.round(Math.pow(2, numberOfBits)));
+            }
+            // Get the maximum value WITH replacement
+            var maxWithReplace = BigInteger.pow(52, base.parts.length);
+            // Calculate the new value by scaling the original value down
+            var withoutReplace = entropyInt.multiply(maxWithoutReplace).divide(maxWithReplace);
+            // Left pad with zeros based on number of bits
+            var entropyBin = withoutReplace.toString(2);
+            var numberOfBitsInt = Math.floor(numberOfBits);
+            while (entropyBin.length < numberOfBitsInt) {
+                entropyBin = "0" + entropyBin;
+            }
+        }
         // Supply a 'filtered' entropy string for display purposes
         var entropyClean = base.parts.join("");
         var entropyHtml = base.parts.join("");
@@ -18065,6 +18100,7 @@ window.Entropy = new (function() {
             entropyHtml = entropyHtml.replace(/H/g, "<span class='card-suit heart'>\u2665</span>");
             entropyHtml = entropyHtml.replace(/S/g, "<span class='card-suit spade'>\u2660</span>");
         }
+        // Return the result
         var e = {
             binaryStr: entropyBin,
             cleanStr: entropyClean,
@@ -18153,6 +18189,18 @@ window.Entropy = new (function() {
         // So instead use the BigInteger library to get it right.
         return BigInteger.log(x) / BigInteger.log(2);
     };
+
+    // Depends on BigInteger
+    function factorial(n) {
+        if (n == 0) {
+            return 1;
+        }
+        f = BigInteger.ONE;
+        for (var i=1; i<=n; i++) {
+            f = f.multiply(new BigInteger(i));
+        }
+        return f;
+    }
 
 })();
 </script>
@@ -18949,20 +18997,21 @@ window.Entropy = new (function() {
     }
 
     function showEntropyFeedback(entropy) {
+        var numberOfBits = entropy.binaryStr.length;
         var strength = "extremely weak";
-        if (entropy.binaryStr.length >= 64) {
+        if (numberOfBits >= 64) {
             strength = "very weak";
         }
-        if (entropy.binaryStr.length >= 96) {
+        if (numberOfBits >= 96) {
             strength = "weak";
         }
-        if (entropy.binaryStr.length >= 128) {
+        if (numberOfBits >= 128) {
             strength = "strong";
         }
-        if (entropy.binaryStr.length >= 160) {
+        if (numberOfBits >= 160) {
             strength = "very strong";
         }
-        if (entropy.binaryStr.length >= 192) {
+        if (numberOfBits >= 192) {
             strength = "extremely strong";
         }
         // If time to crack is less than one day, and password is considered
@@ -18983,38 +19032,20 @@ window.Entropy = new (function() {
             console.log("Error detecting entropy strength with zxcvbn:");
             console.log(e);
         }
-        var bitsStr = getNumberOfEntropyBits(entropy);
-        var wordCount = Math.floor(entropy.binaryStr.length / 32) * 3;
         var entropyTypeStr = getEntropyTypeStr(entropy);
+        var wordCount = Math.floor(numberOfBits / 32) * 3;
+        var bitsPerEvent = Math.log2(entropy.base.asInt).toFixed(2);
+        if (entropy.base.asInt == 52) {
+            bitsPerEvent = bitsPerEvent + " (or less)";
+        }
         DOM.entropyFiltered.html(entropy.cleanHtml);
         DOM.entropyType.text(entropyTypeStr);
         DOM.entropyStrength.text(strength);
         DOM.entropyEventCount.text(entropy.base.ints.length);
-        DOM.entropyBits.text(bitsStr);
+        DOM.entropyBits.text(numberOfBits);
         DOM.entropyWordCount.text(wordCount);
         DOM.entropyBinary.text(entropy.binaryStr);
-        DOM.entropyBitsPerEvent.text(Math.log2(entropy.base.asInt).toFixed(2));
-    }
-
-    function getNumberOfEntropyBits(entropy) {
-        var bitsStr = entropy.binaryStr.length.toString();
-        // If using cards, assume they are not reused, thus additional entropy
-        // decreases as more cards are used. This means entropy is measured
-        // using n!, not base^n.
-        // eg the second last card can be only one of two, not one of fifty two
-        // so the added entropy for that card is only one bit at most
-        if (entropy.base.asInt == 52) {
-            var totalDecks = Math.ceil(entropy.base.parts.length / 52);
-            var totalCards = totalDecks * 52;
-            var totalCombos = factorial(52).pow(totalDecks);
-            var totalRemainingCards = totalCards - entropy.base.parts.length;
-            var remainingDecks = Math.floor(totalRemainingCards / 52);
-            var remainingCards = totalRemainingCards % 52;
-            var remainingCombos = factorial(52).pow(remainingDecks) * factorial(remainingCards);
-            var currentCombos = totalCombos.divide(remainingCombos);
-            bitsStr = currentCombos.toString(2).length.toString();
-        }
-        return bitsStr
+        DOM.entropyBitsPerEvent.text(bitsPerEvent);
     }
 
     function getEntropyTypeStr(entropy) {
@@ -19027,10 +19058,11 @@ window.Entropy = new (function() {
             var dupeTracker = {};
             for (var i=0; i<entropy.base.parts.length; i++) {
                 var card = entropy.base.parts[i];
-                if (card in dupeTracker) {
+                var cardUpper = card.toUpperCase();
+                if (cardUpper in dupeTracker) {
                     dupes.push(card);
                 }
-                dupeTracker[card] = true;
+                dupeTracker[cardUpper] = true;
             }
             if (dupes.length > 0) {
                 var dupeWord = "duplicates";
@@ -19051,24 +19083,32 @@ window.Entropy = new (function() {
             if (uniqueCards.length == 52) {
                 cardDetail.unshift("full deck");
             }
+            // Detect missing cards
+            var values = "A23456789TJQK";
+            var suits = "CDHS";
+            var missingCards = [];
+            for (var i=0; i<suits.length; i++) {
+                for (var j=0; j<values.length; j++) {
+                    var card = values[j] + suits[i];
+                    if (!(card in dupeTracker)) {
+                        missingCards.push(card);
+                    }
+                }
+            }
+            // Display missing cards if six or less, ie clearly going for full deck
+            if (missingCards.length > 0 && missingCards.length <= 6) {
+                var msg = missingCards.length + " missing: " + missingCards.slice(0,3).join(" ");
+                if (missingCards.length > 3) {
+                    msg += "...";
+                }
+                cardDetail.push(msg);
+            }
             // Add card details to typeStr
             if (cardDetail.length > 0) {
                 typeStr += " (" + cardDetail.join(", ") + ")";
             }
         }
         return typeStr;
-    }
-
-    // Depends on BigInteger
-    function factorial(n) {
-        if (n == 0) {
-            return 1;
-        }
-        f = BigInteger.ONE;
-        for (var i=1; i<=n; i++) {
-            f = f.multiply(new BigInteger(i));
-        }
-        return f;
     }
 
     var networks = [
