@@ -161,7 +161,7 @@
                                         <select class="mnemonic-length form-control">
                                             <option value="raw">From entropy length (3 words per 32 bits)</option>
                                             <option value="12">12 Words</option>
-                                            <option value="15">15 Words</option>
+                                            <option value="15" selected>15 Words</option>
                                             <option value="18">18 Words</option>
                                             <option value="21">21 Words</option>
                                             <option value="24">24 Words</option>
@@ -17949,6 +17949,8 @@ var time_estimates;time_estimates={estimate_attack_times:function(e){var t,n,s,o
 
 window.Entropy = new (function() {
 
+    var TWO = new BigInteger(2);
+
     // matchers returns an array of the matched events for each type of entropy.
     // eg
     // matchers.binary("010") returns ["0", "1", "0"]
@@ -18057,7 +18059,6 @@ window.Entropy = new (function() {
         // eg the second last card can be only one of two, not one of fifty two
         // so the added entropy for that card is only one bit at most
         if (base.asInt == 52) {
-            // Get the maximum value WITHOUT replacement
             var totalDecks = Math.ceil(base.parts.length / 52);
             var totalCards = totalDecks * 52;
             var totalCombos = factorial(52).pow(totalDecks);
@@ -18068,18 +18069,77 @@ window.Entropy = new (function() {
             var currentCombos = totalCombos.divide(remainingCombos);
             var numberOfBits = Math.log2(currentCombos);
             var maxWithoutReplace = BigInteger.pow(2, numberOfBits);
-            // aggresive flooring of numberOfBits by BigInteger.pow means a
-            // more accurate result can be had for small numbers using the
-            // built-in Math.pow function.
-            if (numberOfBits < 32) {
-                maxWithoutReplace = BigInteger(Math.round(Math.pow(2, numberOfBits)));
+            // Use a bunch of sorted decks to measure entropy from, populated
+            // as needed.
+            var sortedDecks = [];
+            // Initialize the final entropy value for these cards
+            var entropyInt = BigInteger.ZERO;
+            // Track how many instances of each card have been used, and thus
+            // how many decks are in use.
+            var cardCounts = {};
+            // Track the total bits of entropy that remain, which diminishes as
+            // each card is drawn.
+            var totalBitsLeft = numberOfBits;
+            // Work out entropy contribution of each card drawn
+            for (var i=0; i<base.parts.length; i++) {
+                // Get the card that was drawn
+                var cardLower = base.parts[i];
+                var card = cardLower.toUpperCase();
+                // Initialize the deck for this card if needed, to track how
+                // much entropy it adds.
+                if (!(card in cardCounts)) {
+                    cardCounts[card] = 0;
+                }
+                // Get the deck this card is from
+                var deckIndex = cardCounts[card];
+                while (deckIndex > sortedDecks.length-1) {
+                    sortedDecks.push(getSortedDeck());
+                }
+                // See how many bits this card contributes (depends on how many
+                // are left in the deck it's from)
+                var deckForCard = sortedDecks[deckIndex];
+                var cardsLeftInDeck = deckForCard.length;
+                var additionalBits = Math.log2(cardsLeftInDeck);
+                // Work out the min and max value for this card
+                var nextTotalBitsLeft = totalBitsLeft - additionalBits;
+                var minPossibleNewEntropy = TWO.pow(nextTotalBitsLeft).subtract(1);
+                var maxPossibleNewEntropy = TWO.pow(totalBitsLeft).subtract(1);
+                var diff = maxPossibleNewEntropy.subtract(minPossibleNewEntropy);
+                // BigInteger aggresively floors numbers which greatly affects
+                // the small numbers. In that case, use native Math library
+                var useBigInt = totalBitsLeft >= 32;
+                if (!useBigInt) {
+                    minPossibleNewEntropy = Math.round(Math.pow(2, nextTotalBitsLeft)-1);
+                    maxPossibleNewEntropy = Math.round(Math.pow(2, totalBitsLeft)-1);
+                    diff = maxPossibleNewEntropy - minPossibleNewEntropy;
+                }
+                // Scale the value between possible min and max depending on
+                // this card value
+                var thisCardIndex = deckForCard.indexOf(card);
+                var toAdd = BigInteger.ZERO;
+                if (cardsLeftInDeck > 1) {
+                    if (useBigInt) {
+                        toAdd = diff.multiply(thisCardIndex)
+                            .divide(deckForCard.length - 1)
+                            .add(minPossibleNewEntropy);
+                    }
+                    else {
+                        var ratio = thisCardIndex / (deckForCard.length -1);
+                        var f = diff * ratio;
+                        toAdd = new BigInteger(f).add(minPossibleNewEntropy);
+                    }
+                }
+                // Add this card entropy to existing entropy
+                entropyInt = entropyInt.add(toAdd);
+                // Remove this card from the deck it comes from
+                deckForCard.splice(thisCardIndex,1);
+                // Ensure the next insance of this card uses the next deck
+                cardCounts[card] = cardCounts[card] + 1;
+                // Next card drawn has less total remaining bits to work with
+                totalBitsLeft = nextTotalBitsLeft;
             }
-            // Get the maximum value WITH replacement
-            var maxWithReplace = BigInteger.pow(52, base.parts.length);
-            // Calculate the new value by scaling the original value down
-            var withoutReplace = entropyInt.multiply(maxWithoutReplace).divide(maxWithReplace);
-            // Left pad with zeros based on number of bits
-            var entropyBin = withoutReplace.toString(2);
+            // Convert to binary
+            var entropyBin = entropyInt.toString(2);
             var numberOfBitsInt = Math.floor(numberOfBits);
             while (entropyBin.length < numberOfBitsInt) {
                 entropyBin = "0" + entropyBin;
@@ -18108,6 +18168,18 @@ window.Entropy = new (function() {
             base: base,
         }
         return e;
+    }
+
+    function getSortedDeck() {
+        var s = [];
+        var suits = "CDHS";
+        var values = "A23456789TJQK";
+        for (var i=0; i<suits.length; i++) {
+            for (var j=0; j<values.length; j++) {
+                s.push(values[j]+suits[i]);
+            }
+        }
+        return s;
     }
 
     function getBase(str) {
