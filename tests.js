@@ -3089,6 +3089,7 @@ page.open(url, function(status) {
     // use entropy
     page.evaluate(function() {
         $(".use-entropy").prop("checked", true).trigger("change");
+        $(".mnemonic-length").val("raw");
         $(".entropy").val("7S 9H 9S QH 8C KS AS 7D 7C QD 4S 4D TC 2D 5S JS 3D 8S 8H 4C 3C AC 3S QC 9C JC 7H AD TD JD 6D KH 5C QS 2S 6S 6H JH KD 9D-6C TS TH 4H KC 5H 2H AH 2C 8D 3H 5D").trigger("input");
     });
     // get the mnemonic
@@ -3106,6 +3107,19 @@ page.open(url, function(status) {
             var newPhrase = page.evaluate(function() {
                 return $(".phrase").val();
             });
+            // check raw entropy is in use, ie the first bits should remain the same
+            var startLength = 20;
+            var originalPhraseStart = originalPhrase.substring(0,startLength);
+            var newPhraseStart = newPhrase.substring(0,startLength);
+            if (newPhraseStart != originalPhraseStart) {
+                console.log("Changing last 12 cards changed first portion of mnemonic");
+                console.log("Original:");
+                console.log(originalPhrase);
+                console.log("New:");
+                console.log(newPhrase);
+                fail();
+            }
+            // check the phrase has changed
             if (newPhrase == originalPhrase) {
                 console.log("Changing last 12 cards does not change mnemonic");
                 console.log("Original:");
