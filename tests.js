@@ -2185,9 +2185,9 @@ page.open(url, function(status) {
         try {
             var cards = [
                 [ "ac", "00000" ],
-                [ "acqs", "00000110001" ],
-                [ "acks", "00000110010" ],
-                [ "2cac", "00000110011" ],
+                [ "acqs", "00001100011" ],
+                [ "acks", "00001100100" ],
+                [ "2cac", "00001100101" ],
                 [ "2c", "00001" ],
                 [ "3d", "01111" ],
                 [ "4h", "11101" ],
@@ -2200,8 +2200,8 @@ page.open(url, function(status) {
                 [ "jd", "10111" ],
                 [ "qh", "100101" ],
                 [ "ks", "110011" ],
-                [ "ks2c", "101000101001" ],
-                [ "KS2C", "101000101001" ],
+                [ "ks2c", "101001011100" ],
+                [ "KS2C", "101001011100" ],
             ];
             for (var i=0; i<cards.length; i++) {
                 var card = cards[i][0];
@@ -2209,7 +2209,7 @@ page.open(url, function(status) {
                 e = Entropy.fromString(card);
                 console.log(e.binary + " " + result);
                 if (e.binaryStr !== result) {
-                    return "card entropy not parsed correctly: " + result + " != " + e.binaryStr;
+                    return "card entropy " + card + " not parsed correctly: " + result + " != " + e.binaryStr;
                 }
             }
         }
@@ -2724,6 +2724,136 @@ page.open(url, function(status) {
             words: 18,
             strength: "extremely strong",
         },
+        // Additional entropy from each card decreases as deck is depleted.
+        // Check the boundaries of this depletion
+        // See table at https://github.com/iancoleman/bip39/issues/33#issuecomment-262855862
+        // for following values of 'events, bits, words'
+        // 2 cards remaining = 21 words
+        {
+            entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjs",
+            type: "card (2 missing: QS KS)",
+            events: 50,
+            bits: 224,
+            words: 21,
+            strength: "extremely strong",
+        },
+        // 3 cards remaining = 18 words
+        {
+            entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9sts",
+            type: "card (3 missing: JS QS KS)",
+            events: 49,
+            bits: 222, // table uses different rounding - 222.99604
+            words: 18,
+            strength: "extremely strong",
+        },
+        // 13 cards remaining = 18 words
+        {
+            entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkh",
+            type: "card",
+            events: 39,
+            bits: 193,
+            words: 18,
+            strength: "extremely strong",
+        },
+        // 14 cards remaining = 15 words
+        {
+            entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqh",
+            type: "card",
+            events: 38,
+            bits: 189,
+            words: 15,
+            strength: "very strong",
+        },
+        // 21 cards remaining = 15 words
+        {
+            entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h",
+            type: "card",
+            events: 31,
+            bits: 160,
+            words: 15,
+            strength: "very strong",
+        },
+        // 22 cards remaining = 12 words
+        {
+            entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h",
+            type: "card",
+            events: 30,
+            bits: 155,
+            words: 12,
+            strength: "strong",
+        },
+        // 27 cards remaining = 12 words
+        {
+            entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqd",
+            type: "card",
+            events: 25,
+            bits: 132,
+            words: 12,
+            strength: "strong",
+        },
+        // 28 cards remaining = 9 words
+        {
+            entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjd",
+            type: "card",
+            events: 24,
+            bits: 127,
+            words: 9,
+            strength: "weak",
+        },
+        // 34 cards remaining = 9 words
+        {
+            entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d",
+            type: "card",
+            events: 18,
+            bits: 97,
+            words: 9,
+            strength: "weak",
+        },
+        // 35 cards remaining = 6 words
+        {
+            entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d",
+            type: "card",
+            events: 17,
+            bits: 92,
+            words: 6,
+            strength: "very weak",
+        },
+        // 40 cards remaining = 6 words
+        {
+            entropy: "ac2c3c4c5c6c7c8c9ctcjcqc",
+            type: "card",
+            events: 12,
+            bits: 66,
+            words: 6,
+            strength: "very weak",
+        },
+        // 41 cards remaining = 3 words
+        {
+            entropy: "ac2c3c4c5c6c7c8c9ctcjc",
+            type: "card",
+            events: 11,
+            bits: 61,
+            words: 3,
+            strength: "extremely weak",
+        },
+        // 46 cards remaining = 3 words
+        {
+            entropy: "ac2c3c4c5c6c",
+            type: "card",
+            events: 6,
+            bits: 33,
+            words: 3,
+            strength: "extremely weak",
+        },
+        // 47 cards remaining = 0 words
+        {
+            entropy: "ac2c3c4c5c",
+            type: "card",
+            events: 5,
+            bits: 28,
+            words: 0,
+            strength: "extremely weak",
+        },
     ];
     // use entropy
     page.evaluate(function() {
@@ -2945,6 +3075,46 @@ page.open(url, function(status) {
     });
 });
 },
+
+// Github issue 33
+// https://github.com/iancoleman/bip39/issues/33
+// Final cards should contribute entropy
+function() {
+page.open(url, function(status) {
+    // use entropy
+    page.evaluate(function() {
+        $(".use-entropy").prop("checked", true).trigger("change");
+        $(".entropy").val("7S 9H 9S QH 8C KS AS 7D 7C QD 4S 4D TC 2D 5S JS 3D 8S 8H 4C 3C AC 3S QC 9C JC 7H AD TD JD 6D KH 5C QS 2S 6S 6H JH KD 9D-6C TS TH 4H KC 5H 2H AH 2C 8D 3H 5D").trigger("input");
+    });
+    // get the mnemonic
+    waitForGenerate(function() {
+        var originalPhrase = page.evaluate(function() {
+            return $(".phrase").val();
+        });
+        // Set the last 12 cards to be AS
+        page.evaluate(function() {
+            $(".addresses").empty();
+            $(".entropy").val("7S 9H 9S QH 8C KS AS 7D 7C QD 4S 4D TC 2D 5S JS 3D 8S 8H 4C 3C AC 3S QC 9C JC 7H AD TD JD 6D KH 5C QS 2S 6S 6H JH KD 9D-AS AS AS AS AS AS AS AS AS AS AS AS").trigger("input");
+        });
+        // get the new mnemonic
+        waitForGenerate(function() {
+            var newPhrase = page.evaluate(function() {
+                return $(".phrase").val();
+            });
+            if (newPhrase == originalPhrase) {
+                console.log("Changing last 12 cards does not change mnemonic");
+                console.log("Original:");
+                console.log(originalPhrase);
+                console.log("New:");
+                console.log(newPhrase);
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
+
 
 // If you wish to add more tests, do so here...
 
