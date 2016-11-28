@@ -44,3 +44,8 @@ Run tests from the command-line
 ```
 $ phantomjs tests.js
 ```
+
+# License
+
+This BIP39 tool is released under the terms of the MIT license. See LICENSE for
+more information or see https://opensource.org/licenses/MIT.
