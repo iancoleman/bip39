@@ -320,19 +320,21 @@
                                     </label>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">Hive Wallet</label>
-                                    <div class="col-sm-10">
-                                        <p class="form-control no-border">
-                                        Use path <code>m/0'/0</code>.
-                                        For more info see the <a href="https://www.hivewallet.com/" target="_blank">Hive Wallet homepage</a>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="form-group">
                                     <label for="mycelium-path" class="col-sm-2 control-label">Mycelium Wallet</label>
                                     <div class="col-sm-10">
                                         <p class="form-control no-border">
-                                        Use path <code>m/44'/0'/0'/0</code>.
+                                        <code>m/44'/0'/0'</code> generates extended keys for import / export.
+                                        </p>
+                                        <p class="form-control no-border">
+                                        <code>m/44'/0'/1'</code> to generate the next account. Continue incrementing for more accounts (most use a single account).
+                                        </p>
+                                        <p class="form-control no-border">
+                                        <code>m/44'/0'/0'/0</code> to generate public addresses.
+                                        </p>
+                                        <p class="form-control no-border">
+                                        <code>m/44'/0'/0'/1</code> to generate change addresses.
+                                        </p>
+                                        <p class="form-control no-border">
                                         For more info see the <a href="http://www.mycelium.com/" target="_blank">Mycelium Wallet homepage</a>
                                         </p>
                                     </div>
@@ -342,6 +344,8 @@
                                     <div class="col-sm-10">
                                         <p class="form-control no-border">
                                         Use path <code>m/0'/0'</code> with hardened addresses.
+                                        </p>
+                                        <p class="form-control no-border">
                                         For more info see the <a href="https://github.com/bitcoin/bitcoin/pull/8035" target="_blank">Bitcoin Core BIP32 implementation</a>
                                         </p>
                                     </div>
@@ -351,7 +355,10 @@
                                     <div class="col-sm-10">
                                         <p class="form-control no-border">
                                         Use path <code>m/44'/0'/0'</code>.
-                                        Only enter the <code>xpub</code> extended key into block explorer search fields, never the <code>xpriv</code> key.
+                                        Only enter the <code>xpub</code> extended key into block explorer search fields, never the <code>xprv</code> key.
+                                        </p>
+                                        <p class="form-control no-border">
+                                        Supported by <a href="https://blockchain.info/" target="_blank">blockchain.info</a>.
                                         </p>
                                     </div>
                                 </div>
@@ -409,11 +416,11 @@
                             </th>
                         </thead>
                         <tbody class="addresses monospace">
-                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
                         </tbody>
                     </table>
                 </div>
