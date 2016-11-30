@@ -120,9 +120,13 @@ window.Entropy = new (function() {
         while (entropyBin.length < expectedBits) {
             entropyBin = "0" + entropyBin;
         }
+        // Calculate the number of bits per event
+        var bitsPerEvent = Math.log2(base.asInt);
         // Cards binary must be handled differently, since they're not replaced
         if (base.asInt == 52) {
-            entropyBin = getCardBinary(base.parts);
+            var cardEntropy = processCardEntropy(base.parts);
+            entropyBin = cardEntropy.binaryStr;
+            bitsPerEvent = cardEntropy.bitsPerEvent;
         }
         // Supply a 'filtered' entropy string for display purposes
         var entropyClean = base.parts.join("");
@@ -144,6 +148,7 @@ window.Entropy = new (function() {
             binaryStr: entropyBin,
             cleanStr: entropyClean,
             cleanHtml: entropyHtml,
+            bitsPerEvent: bitsPerEvent,
             base: base,
         }
         return e;
@@ -236,7 +241,7 @@ window.Entropy = new (function() {
     // total possible entropy is measured using n!, not base^n.
     // eg the second last card can be only one of two, not one of fifty two
     // so the added entropy for that card is only one bit at most
-    function getCardBinary(cards) {
+    function processCardEntropy(cards) {
         // Track how many instances of each card have been used, and thus
         // how many decks are in use.
         var cardCounts = {};
@@ -305,7 +310,12 @@ window.Entropy = new (function() {
         }
         // Truncate to the appropriate number of bits.
         entropyBin = entropyBin.substring(0, numberOfBits);
-        return entropyBin;
+        // Get the number of bits per event
+        bitsPerEvent = maxBits / totalCards;
+        return {
+            binaryStr: entropyBin,
+            bitsPerEvent: bitsPerEvent,
+        }
     }
 
     // Polyfill for Math.log2

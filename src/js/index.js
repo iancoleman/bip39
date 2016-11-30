@@ -828,10 +828,7 @@
         }
         var entropyTypeStr = getEntropyTypeStr(entropy);
         var wordCount = Math.floor(numberOfBits / 32) * 3;
-        var bitsPerEvent = Math.log2(entropy.base.asInt).toFixed(2);
-        if (entropy.base.asInt == 52) {
-            bitsPerEvent = (4.3381).toFixed(2); // log2(52! / 52)
-        }
+        var bitsPerEvent = entropy.bitsPerEvent.toFixed(2);
         DOM.entropyFiltered.html(entropy.cleanHtml);
         DOM.entropyType.text(entropyTypeStr);
         DOM.entropyStrength.text(strength);
