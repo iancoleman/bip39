@@ -830,7 +830,7 @@
         var wordCount = Math.floor(numberOfBits / 32) * 3;
         var bitsPerEvent = Math.log2(entropy.base.asInt).toFixed(2);
         if (entropy.base.asInt == 52) {
-            bitsPerEvent = bitsPerEvent + " (or less)";
+            bitsPerEvent = (4.3381).toFixed(2); // log2(52! / 52)
         }
         DOM.entropyFiltered.html(entropy.cleanHtml);
         DOM.entropyType.text(entropyTypeStr);
