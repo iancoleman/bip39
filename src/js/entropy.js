@@ -120,97 +120,9 @@ window.Entropy = new (function() {
         while (entropyBin.length < expectedBits) {
             entropyBin = "0" + entropyBin;
         }
-        // Assume cards are NOT replaced.
-        // Additional entropy decreases as more cards are used. This means
-        // total possible entropy is measured using n!, not base^n.
-        // eg the second last card can be only one of two, not one of fifty two
-        // so the added entropy for that card is only one bit at most
+        // Cards binary must be handled differently, since they're not replaced
         if (base.asInt == 52) {
-            var totalDecks = Math.ceil(base.parts.length / 52);
-            var totalCards = totalDecks * 52;
-            var totalCombos = factorial(52).pow(totalDecks);
-            var totalRemainingCards = totalCards - base.parts.length;
-            var remainingDecks = Math.floor(totalRemainingCards / 52);
-            var remainingCards = totalRemainingCards % 52;
-            var remainingCombos = factorial(52).pow(remainingDecks).multiply(factorial(remainingCards));
-            var currentCombos = totalCombos.divide(remainingCombos);
-            var numberOfBits = Math.log2(currentCombos);
-            var maxWithoutReplace = BigInteger.pow(2, numberOfBits);
-            // Use a bunch of sorted decks to measure entropy from, populated
-            // as needed.
-            var sortedDecks = [];
-            // Initialize the final entropy value for these cards
-            var entropyInt = BigInteger.ZERO;
-            // Track how many instances of each card have been used, and thus
-            // how many decks are in use.
-            var cardCounts = {};
-            // Track the total bits of entropy that remain, which diminishes as
-            // each card is drawn.
-            var totalBitsLeft = numberOfBits;
-            // Work out entropy contribution of each card drawn
-            for (var i=0; i<base.parts.length; i++) {
-                // Get the card that was drawn
-                var cardLower = base.parts[i];
-                var card = cardLower.toUpperCase();
-                // Initialize the deck for this card if needed, to track how
-                // much entropy it adds.
-                if (!(card in cardCounts)) {
-                    cardCounts[card] = 0;
-                }
-                // Get the deck this card is from
-                var deckIndex = cardCounts[card];
-                while (deckIndex > sortedDecks.length-1) {
-                    sortedDecks.push(getSortedDeck());
-                }
-                // See how many bits this card contributes (depends on how many
-                // are left in the deck it's from)
-                var deckForCard = sortedDecks[deckIndex];
-                var cardsLeftInDeck = deckForCard.length;
-                var additionalBits = Math.log2(cardsLeftInDeck);
-                // Work out the min and max value for this card
-                var nextTotalBitsLeft = totalBitsLeft - additionalBits;
-                var minPossibleNewEntropy = TWO.pow(nextTotalBitsLeft).subtract(1);
-                var maxPossibleNewEntropy = TWO.pow(totalBitsLeft).subtract(1);
-                var diff = maxPossibleNewEntropy.subtract(minPossibleNewEntropy);
-                // BigInteger aggresively floors numbers which greatly affects
-                // the small numbers. In that case, use native Math library
-                var useBigInt = totalBitsLeft >= 32;
-                if (!useBigInt) {
-                    minPossibleNewEntropy = Math.round(Math.pow(2, nextTotalBitsLeft)-1);
-                    maxPossibleNewEntropy = Math.round(Math.pow(2, totalBitsLeft)-1);
-                    diff = maxPossibleNewEntropy - minPossibleNewEntropy;
-                }
-                // Scale the value between possible min and max depending on
-                // this card value
-                var thisCardIndex = deckForCard.indexOf(card);
-                var toAdd = BigInteger.ZERO;
-                if (cardsLeftInDeck > 1) {
-                    if (useBigInt) {
-                        toAdd = diff.multiply(thisCardIndex)
-                            .divide(deckForCard.length - 1)
-                            .add(minPossibleNewEntropy);
-                    }
-                    else {
-                        var ratio = thisCardIndex / (deckForCard.length -1);
-                        var f = diff * ratio;
-                        toAdd = new BigInteger(f).add(minPossibleNewEntropy);
-                    }
-                }
-                // Add this card entropy to existing entropy
-                entropyInt = entropyInt.add(toAdd);
-                // Remove this card from the deck it comes from
-                deckForCard.splice(thisCardIndex,1);
-                // Ensure the next insance of this card uses the next deck
-                cardCounts[card] = cardCounts[card] + 1;
-                // Next card drawn has less total remaining bits to work with
-                totalBitsLeft = nextTotalBitsLeft;
-            }
-            // Convert to binary
-            var entropyBin = entropyInt.toString(2);
-            var numberOfBitsInt = Math.floor(numberOfBits);
-            while (entropyBin.length < numberOfBitsInt) {
-                entropyBin = "0" + entropyBin;
-            }
+            entropyBin = getCardBinary(base.parts);
         }
         // Supply a 'filtered' entropy string for display purposes
         var entropyClean = base.parts.join("");
@@ -317,6 +229,83 @@ window.Entropy = new (function() {
             asInt: 16,
             str: "hexadecimal",
         }
+    }
+
+    // Assume cards are NOT replaced.
+    // Additional entropy decreases as more cards are used. This means
+    // total possible entropy is measured using n!, not base^n.
+    // eg the second last card can be only one of two, not one of fifty two
+    // so the added entropy for that card is only one bit at most
+    function getCardBinary(cards) {
+        // Track how many instances of each card have been used, and thus
+        // how many decks are in use.
+        var cardCounts = {};
+        var numberOfDecks = 0;
+        // Work out number of decks by max(duplicates)
+        for (var i=0; i<cards.length; i++) {
+            // Get the card that was drawn
+            var cardLower = cards[i];
+            var card = cardLower.toUpperCase();
+            // Initialize the count for this card if needed
+            if (!(card in cardCounts)) {
+                cardCounts[card] = 0;
+            }
+            cardCounts[card] += 1;
+            // See if this is max(duplicates)
+            if (cardCounts[card] > numberOfDecks) {
+                numberOfDecks = cardCounts[card];
+            }
+        }
+        // Work out the total number of bits for this many decks
+        // See http://crypto.stackexchange.com/q/41886
+        var gainedBits = Math.log2(factorial(52 * numberOfDecks));
+        var lostBits = 52 * Math.log2(factorial(numberOfDecks));
+        var maxBits = gainedBits - lostBits;
+        // Convert the drawn cards to a binary representation.
+        // The exact technique for doing this is unclear.
+        // See
+        // http://crypto.stackexchange.com/a/41896
+        // "I even doubt that this is well defined (only the average entropy
+        // is, I believe)."
+        // See
+        // https://github.com/iancoleman/bip39/issues/33#issuecomment-263021856
+        // "The binary representation can be the first log(permutations,2) bits
+        // of the sha-2 hash of the normalized deck string."
+        //
+        // In this specific implementation, the first N bits of the hash of the
+        // normalized cards string is being used. Uppercase, no spaces; eg
+        // sha256("AH8DQSTC2H")
+        var totalCards = numberOfDecks * 52;
+        var percentUsed = cards.length / totalCards;
+        // Calculate the average number of bits of entropy for the number of
+        // cards drawn.
+        var numberOfBits = Math.floor(maxBits * percentUsed);
+        // Create a normalized string of the selected cards
+        var normalizedCards = cards.join("").toUpperCase();
+        // Convert to binary using the SHA256 hash of the normalized cards.
+        // If the number of bits is more than 256, multiple rounds of hashing
+        // are used until the required number of bits is reached.
+        var entropyBin = "";
+        var iterations = 0;
+        while (entropyBin.length < numberOfBits) {
+            var hashedCards = sjcl.hash.sha256.hash(normalizedCards);
+            for (var j=0; j<iterations; j++) {
+                hashedCards = sjcl.hash.sha256.hash(hashedCards);
+            }
+            var hashHex = sjcl.codec.hex.fromBits(hashedCards);
+            for (var i=0; i<hashHex.length; i++) {
+                var decimal = parseInt(hashHex[i], 16);
+                var binary = decimal.toString(2);
+                while (binary.length < 4) {
+                    binary = "0" + binary;
+                }
+                entropyBin = entropyBin + binary;
+            }
+            iterations = iterations + 1;
+        }
+        // Truncate to the appropriate number of bits.
+        entropyBin = entropyBin.substring(0, numberOfBits);
+        return entropyBin;
     }
 
     // Polyfill for Math.log2
