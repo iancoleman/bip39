@@ -2726,6 +2726,50 @@ page.open(url, function(status) {
             words: 18,
             strength: "extremely strong",
         },
+        // Multiple decks of cards increases bits per event
+        {
+            entropy: "3d",
+            events: 1,
+            bits: 4,
+            bitsPerEvent: 4.34,
+        },
+        {
+            entropy: "3d3d",
+            events: 2,
+            bits: 9,
+            bitsPerEvent: 4.80,
+        },
+        {
+            entropy: "3d3d3d",
+            events: 3,
+            bits: 15,
+            bitsPerEvent: 5.01,
+        },
+        {
+            entropy: "3d3d3d3d",
+            events: 4,
+            bits: 20,
+            bitsPerEvent: 5.14,
+        },
+        {
+            entropy: "3d3d3d3d3d",
+            events: 5,
+            bits: 26,
+            bitsPerEvent: 5.22,
+        },
+        {
+            entropy: "3d3d3d3d3d3d",
+            events: 6,
+            bits: 31,
+            bitsPerEvent: 5.28,
+        },
+        {
+            entropy: "3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d",
+            events: 33,
+            bits: 184,
+            bitsPerEvent: 5.59,
+            strength: 'easily cracked - Repeats like "abcabcabc" are only slightly harder to guess than "abc"',
+        },
     ];
     // use entropy
     page.evaluate(function() {
@@ -2737,17 +2781,20 @@ page.open(url, function(status) {
             if ("filtered" in expected && actual.indexOf(expected.filtered) == -1) {
                 return "Filtered value not in feedback";
             }
-            if (actual.indexOf(expected.type) == -1) {
+            if ("type" in expected && actual.indexOf(expected.type) == -1) {
                 return "Entropy type not in feedback";
             }
-            if (actual.indexOf(expected.events) == -1) {
+            if ("events" in expected && actual.indexOf(expected.events) == -1) {
                 return "Event count not in feedback";
             }
-            if (actual.indexOf(expected.bits) == -1) {
+            if ("bits" in expected && actual.indexOf(expected.bits) == -1) {
                 return "Bit count not in feedback";
             }
-            if (actual.indexOf(expected.strength) == -1) {
+            if ("strength" in expected && actual.indexOf(expected.strength) == -1) {
                 return "Strength not in feedback";
+            }
+            if ("bitsPerEvent" in expected && actual.indexOf(expected.bitsPerEvent) == -1) {
+                return "bitsPerEvent not in feedback";
             }
             return false;
         }
@@ -2762,7 +2809,7 @@ page.open(url, function(status) {
                 return $(".phrase").val();
             });
             // Check mnemonic length
-            if (test.words == 0) {
+            if ("words" in test && test.words == 0) {
                 if (mnemonic.length > 0) {
                     console.log("Mnemonic length for " + test.strength + " strength is not " + test.words);
                     console.log("Entropy: " + test.entropy);
@@ -2770,7 +2817,7 @@ page.open(url, function(status) {
                     fail();
                 }
             }
-            else {
+            else if ("words" in test) {
                 if (mnemonic.split(" ").length != test.words) {
                     console.log("Mnemonic length for " + test.strength + " strength is not " + test.words);
                     console.log("Entropy: " + test.entropy);

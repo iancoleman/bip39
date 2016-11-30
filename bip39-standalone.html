@@ -18467,7 +18467,12 @@ window.Entropy = new (function() {
         }
         // Work out the total number of bits for this many decks
         // See http://crypto.stackexchange.com/q/41886
-        var gainedBits = Math.log2(factorial(52 * numberOfDecks));
+        var gainedBits = 0;
+        // Equivalent of Math.log2(factorial(52*numberOfDecks))
+        // which becomes infinity for numberOfDecks > 4
+        for (var i=1; i<=52*numberOfDecks; i++) {
+            gainedBits = gainedBits + Math.log2(i);
+        }
         var lostBits = 52 * Math.log2(factorial(numberOfDecks));
         var maxBits = gainedBits - lostBits;
         // Convert the drawn cards to a binary representation.
