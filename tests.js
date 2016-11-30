@@ -6,6 +6,11 @@ var page = require('webpage').create();
 var url = 'src/index.html';
 var testMaxTime = 10000;
 
+page.viewportSize = {
+    width: 1024,
+    height: 720
+};
+
 page.onResourceError = function(e) {
     console.log("Error loading " + e.url);
     phantom.exit();
@@ -3038,6 +3043,45 @@ page.open(url, function(status) {
             }
             next();
         });
+    });
+});
+},
+
+// Github issue 35
+// https://github.com/iancoleman/bip39/issues/35
+// QR Code support
+function() {
+page.open(url, function(status) {
+    // use entropy
+    page.evaluate(function() {
+        $(".generate").click();
+    });
+    waitForGenerate(function() {
+        var p = page.evaluate(function() {
+            // get position of mnemonic element
+            return $(".phrase").offset();
+        });
+        p.top = Math.ceil(p.top);
+        p.left = Math.ceil(p.left);
+        // check the qr code shows
+        page.sendEvent("mousemove", p.left+4, p.top+4);
+        var qrShowing = page.evaluate(function() {
+            return $(".qr-container").find("canvas").length > 0;
+        });
+        if (!qrShowing) {
+            console.log("QR Code does not show");
+            fail();
+        }
+        // check the qr code hides
+        page.sendEvent("mousemove", p.left-4, p.top-4);
+        var qrHidden = page.evaluate(function() {
+            return $(".qr-container").find("canvas").length == 0;
+        });
+        if (!qrHidden) {
+            console.log("QR Code does not hide");
+            fail();
+        }
+        next();
     });
 });
 },

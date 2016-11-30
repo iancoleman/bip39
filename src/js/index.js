@@ -13,6 +13,7 @@
     var showAddress = true;
     var showPubKey = true;
     var showPrivKey = true;
+    var showQr = true;
 
     var entropyChangeTimeoutEvent = null;
     var phraseChangeTimeoutEvent = null;
@@ -63,6 +64,10 @@
     DOM.publicKeyToggle = $(".public-key-toggle");
     DOM.privateKeyToggle = $(".private-key-toggle");
     DOM.languages = $(".languages a");
+    DOM.qrContainer = $(".qr-container");
+    DOM.qrImage = DOM.qrContainer.find(".qr-image");
+    DOM.qrHint = DOM.qrContainer.find(".qr-hint");
+    DOM.showQrEls = $("[data-show-qr]");
 
     function init() {
         // Events
@@ -87,6 +92,7 @@
         DOM.publicKeyToggle.on("click", togglePublicKeys);
         DOM.privateKeyToggle.on("click", togglePrivateKeys);
         DOM.languages.on("click", languageChanged);
+        setQrEvents(DOM.showQrEls);
         disableForms();
         hidePending();
         hideValidationError();
@@ -555,6 +561,8 @@
             privkeyCell.addClass("invisible");
         }
         DOM.addresses.append(row);
+        var rowShowQrEls = row.find("[data-show-qr]");
+        setQrEvents(rowShowQrEls);
     }
 
     function hasStrongRandom() {
@@ -900,6 +908,35 @@
             }
         }
         return typeStr;
+    }
+
+    function setQrEvents(els) {
+        els.on("mouseenter", createQr);
+        els.on("mouseleave", destroyQr);
+        els.on("click", toggleQr);
+    }
+
+    function createQr(e) {
+        var content = e.target.textContent || e.target.value;
+        if (content) {
+            var size = 130;
+            DOM.qrImage.qrcode({width: size, height: size, text: content});
+            if (!showQr) {
+                DOM.qrImage.addClass("hidden");
+            }
+            DOM.qrContainer.removeClass("hidden");
+        }
+    }
+
+    function destroyQr() {
+        DOM.qrImage.text("");
+        DOM.qrContainer.addClass("hidden");
+    }
+
+    function toggleQr() {
+        showQr = !showQr;
+        DOM.qrImage.toggleClass("hidden");
+        DOM.qrHint.toggleClass("hidden");
     }
 
     var networks = [
