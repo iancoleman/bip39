@@ -238,7 +238,7 @@
             showValidationError(errorText);
             return;
         }
-        calcBip32ExtendedKey(derivationPath);
+        bip32ExtendedKey = calcBip32ExtendedKey(derivationPath);
         displayBip32Info();
         hidePending();
     }
@@ -318,7 +318,7 @@
     }
 
     function calcBip32ExtendedKey(path) {
-        bip32ExtendedKey = bip32RootKey;
+        var extendedKey = bip32RootKey;
         // Derive the key from the path
         var pathBits = path.split("/");
         for (var i=0; i<pathBits.length; i++) {
@@ -329,12 +329,13 @@
             }
             var hardened = bit[bit.length-1] == "'";
             if (hardened) {
-                bip32ExtendedKey = bip32ExtendedKey.deriveHardened(index);
+                extendedKey = extendedKey.deriveHardened(index);
             }
             else {
-                bip32ExtendedKey = bip32ExtendedKey.derive(index);
+                extendedKey = extendedKey.derive(index);
             }
         }
+        return extendedKey
     }
 
     function showValidationError(errorText) {
