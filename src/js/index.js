@@ -388,7 +388,7 @@
     }
 
     function getDerivationPath() {
-        if (DOM.bip44tab.hasClass("active")) {
+        if (bip44TabSelected()) {
             var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
             var coin = parseIntNoNaN(DOM.bip44coin.val(), 0);
             var account = parseIntNoNaN(DOM.bip44account.val(), 0);
@@ -403,7 +403,7 @@
             console.log("Using derivation path from BIP44 tab: " + derivationPath);
             return derivationPath;
         }
-        else if (DOM.bip32tab.hasClass("active")) {
+        else if (bip32TabSelected()) {
             var derivationPath = DOM.bip32path.val();
             console.log("Using derivation path from BIP32 tab: " + derivationPath);
             return derivationPath;
@@ -938,6 +938,14 @@
         showQr = !showQr;
         DOM.qrImage.toggleClass("hidden");
         DOM.qrHint.toggleClass("hidden");
+    }
+
+    function bip44TabSelected() {
+        return DOM.bip44tab.hasClass("active");
+    }
+
+    function bip32TabSelected() {
+        return DOM.bip32tab.hasClass("active");
     }
 
     var networks = [
