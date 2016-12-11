@@ -51,6 +51,8 @@
     DOM.bip44purpose = $("#bip44 .purpose");
     DOM.bip44coin = $("#bip44 .coin");
     DOM.bip44account = $("#bip44 .account");
+    DOM.bip44accountXprv = $("#bip44 .account-xprv");
+    DOM.bip44accountXpub = $("#bip44 .account-xpub");
     DOM.bip44change = $("#bip44 .change");
     DOM.generatedStrength = $(".generate-container .strength");
     DOM.hardenedAddresses = $(".hardened-addresses");
@@ -239,6 +241,9 @@
             return;
         }
         bip32ExtendedKey = calcBip32ExtendedKey(derivationPath);
+        if (bip44TabSelected()) {
+            displayBip44Info();
+        }
         displayBip32Info();
         hidePending();
     }
@@ -448,6 +453,24 @@
             }
         }
         return false;
+    }
+
+    function displayBip44Info() {
+        // Get the derivation path for the account
+        var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
+        var coin = parseIntNoNaN(DOM.bip44coin.val(), 0);
+        var account = parseIntNoNaN(DOM.bip44account.val(), 0);
+        var path = "m/";
+        path += purpose + "'/";
+        path += coin + "'/";
+        path += account + "'/";
+        // Calculate the account extended keys
+        var accountExtendedKey = calcBip32ExtendedKey(path);
+        var accountXprv = accountExtendedKey.toBase58();
+        var accountXpub = accountExtendedKey.toBase58(false);
+        // Display the extended keys
+        DOM.bip44accountXprv.val(accountXprv);
+        DOM.bip44accountXpub.val(accountXpub);
     }
 
     function displayBip32Info() {

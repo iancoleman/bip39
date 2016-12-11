@@ -3086,6 +3086,58 @@ page.open(url, function(status) {
 });
 },
 
+// BIP44 account extendend private key is shown
+// github issue 37 - compatibility with electrum
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "xprv9yzrnt4zWVJUr1k2VxSPy9ettKz5PpeDMgaVG7UKedhqnw1tDkxP2UyYNhuNSumk2sLE5ctwKZs9vwjsq3e1vo9egCK6CzP87H2cVYXpfwQ";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // check the BIP44 account extended private key
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".account-xprv").val();
+        });
+        if (actual != expected) {
+            console.log("BIP44 account extended private key is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
+// BIP44 account extendend public key is shown
+// github issue 37 - compatibility with electrum
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "xpub6CzDCPbtLrrn4VpVbyyQLHbdSMpZoHN4iuW64VswCyEpfjM2mJGdaHJ2DyuZwtst96E16VvcERb8BBeJdHSCVmAq9RhtRQg6eAZFrTKCNqf";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // check the BIP44 account extended public key
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".account-xpub").val();
+        });
+        if (actual != expected) {
+            console.log("BIP44 account extended public key is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 
 // If you wish to add more tests, do so here...
 
