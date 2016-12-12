@@ -317,6 +317,36 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="col-sm-2 control-label">
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <p data-translate>The account extendend keys can be used for importing to most BIP44 compatible wallets, such as mycelium or electrum.</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="account-xprv" class="col-sm-2 control-label">
+                                        <span data-translate>Account Extended Private Key</span>
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <textarea id="account-xprv" type="text" class="account-xprv form-control" readonly data-show-qr></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="account-xpub" class="col-sm-2 control-label">
+                                        <span data-translate>Account Extended Public Key</span>
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <textarea id="account-xpub" type="text" class="account-xpub form-control" readonly data-show-qr></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <p data-translate>The BIP32 derivation path and extended keys are the basis for the derived addresses.</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label for="bip44-path" class="col-sm-2 control-label" data-translate>BIP32 Derivation Path</label>
                                     <div class="col-sm-10">
                                         <input id="bip44-path" type="text" class="path form-control" value="m/44'/0'/0'/0" readonly="readonly">
@@ -348,27 +378,6 @@
                                     </label>
                                 </div>
                                 <div class="form-group">
-                                    <label for="mycelium-path" class="col-sm-2 control-label" data-translate>Mycelium Wallet</label>
-                                    <div class="col-sm-10">
-                                        <p class="form-control no-border" data-translate-html>
-                                            <code>m/44'/0'/0'</code> generates extended keys for import / export
-                                        </p>
-                                        <p class="form-control no-border" data-translate-html>
-                                            <code>m/44'/0'/1'</code> for the next account. Continue incrementing for more accounts (most use a single account).
-                                        </p>
-                                        <p class="form-control no-border" data-translate-html>
-                                            <code>m/44'/0'/0'/0</code> generates public addresses
-                                        </p>
-                                        <p class="form-control no-border" data-translate-html>
-                                            <code>m/44'/0'/0'/1</code> generates change addresses
-                                        </p>
-                                        <p class="form-control no-border" data-translate-html>
-                                            For more info see the
-                                            <a href="http://www.mycelium.com/" target="_blank">Mycelium Wallet homepage</a>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="form-group">
                                     <label for="core-path" class="col-sm-2 control-label" data-translate>Bitcoin Core</label>
                                     <div class="col-sm-10">
                                         <p class="form-control no-border" data-translate-html>
@@ -398,13 +407,13 @@
                     </div>
                     <form class="form-horizontal" role="form">
                         <div class="form-group">
-                            <label for="extended-priv-key" class="col-sm-2 control-label" data-translate>BIP32 Extended Key</label>
+                            <label for="extended-priv-key" class="col-sm-2 control-label" data-translate>BIP32 Extended Private Key</label>
                             <div class="col-sm-10">
                                 <textarea id="extended-priv-key" class="extended-priv-key form-control" readonly="readonly" data-show-qr></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="extended-pub-key" class="col-sm-2 control-label" data-translate>BIP32 Extended Key (addresses only)</label>
+                            <label for="extended-pub-key" class="col-sm-2 control-label" data-translate>BIP32 Extended Public Key</label>
                             <div class="col-sm-10">
                                 <textarea id="extended-pub-key" class="extended-pub-key form-control" readonly="readonly" data-show-qr></textarea>
                             </div>
@@ -18653,6 +18662,8 @@ window.Entropy = new (function() {
     DOM.bip44purpose = $("#bip44 .purpose");
     DOM.bip44coin = $("#bip44 .coin");
     DOM.bip44account = $("#bip44 .account");
+    DOM.bip44accountXprv = $("#bip44 .account-xprv");
+    DOM.bip44accountXpub = $("#bip44 .account-xpub");
     DOM.bip44change = $("#bip44 .change");
     DOM.generatedStrength = $(".generate-container .strength");
     DOM.hardenedAddresses = $(".hardened-addresses");
@@ -18840,7 +18851,10 @@ window.Entropy = new (function() {
             showValidationError(errorText);
             return;
         }
-        calcBip32ExtendedKey(derivationPath);
+        bip32ExtendedKey = calcBip32ExtendedKey(derivationPath);
+        if (bip44TabSelected()) {
+            displayBip44Info();
+        }
         displayBip32Info();
         hidePending();
     }
@@ -18920,7 +18934,7 @@ window.Entropy = new (function() {
     }
 
     function calcBip32ExtendedKey(path) {
-        bip32ExtendedKey = bip32RootKey;
+        var extendedKey = bip32RootKey;
         // Derive the key from the path
         var pathBits = path.split("/");
         for (var i=0; i<pathBits.length; i++) {
@@ -18931,12 +18945,13 @@ window.Entropy = new (function() {
             }
             var hardened = bit[bit.length-1] == "'";
             if (hardened) {
-                bip32ExtendedKey = bip32ExtendedKey.deriveHardened(index);
+                extendedKey = extendedKey.deriveHardened(index);
             }
             else {
-                bip32ExtendedKey = bip32ExtendedKey.derive(index);
+                extendedKey = extendedKey.derive(index);
             }
         }
+        return extendedKey
     }
 
     function showValidationError(errorText) {
@@ -18989,7 +19004,7 @@ window.Entropy = new (function() {
     }
 
     function getDerivationPath() {
-        if (DOM.bip44tab.hasClass("active")) {
+        if (bip44TabSelected()) {
             var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
             var coin = parseIntNoNaN(DOM.bip44coin.val(), 0);
             var account = parseIntNoNaN(DOM.bip44account.val(), 0);
@@ -19004,7 +19019,7 @@ window.Entropy = new (function() {
             console.log("Using derivation path from BIP44 tab: " + derivationPath);
             return derivationPath;
         }
-        else if (DOM.bip32tab.hasClass("active")) {
+        else if (bip32TabSelected()) {
             var derivationPath = DOM.bip32path.val();
             console.log("Using derivation path from BIP32 tab: " + derivationPath);
             return derivationPath;
@@ -19049,6 +19064,24 @@ window.Entropy = new (function() {
             }
         }
         return false;
+    }
+
+    function displayBip44Info() {
+        // Get the derivation path for the account
+        var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
+        var coin = parseIntNoNaN(DOM.bip44coin.val(), 0);
+        var account = parseIntNoNaN(DOM.bip44account.val(), 0);
+        var path = "m/";
+        path += purpose + "'/";
+        path += coin + "'/";
+        path += account + "'/";
+        // Calculate the account extended keys
+        var accountExtendedKey = calcBip32ExtendedKey(path);
+        var accountXprv = accountExtendedKey.toBase58();
+        var accountXpub = accountExtendedKey.toBase58(false);
+        // Display the extended keys
+        DOM.bip44accountXprv.val(accountXprv);
+        DOM.bip44accountXpub.val(accountXpub);
     }
 
     function displayBip32Info() {
@@ -19539,6 +19572,14 @@ window.Entropy = new (function() {
         showQr = !showQr;
         DOM.qrImage.toggleClass("hidden");
         DOM.qrHint.toggleClass("hidden");
+    }
+
+    function bip44TabSelected() {
+        return DOM.bip44tab.hasClass("active");
+    }
+
+    function bip32TabSelected() {
+        return DOM.bip32tab.hasClass("active");
     }
 
     var networks = [
