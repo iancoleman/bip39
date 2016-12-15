@@ -13,7 +13,7 @@
     var showAddress = true;
     var showPubKey = true;
     var showPrivKey = true;
-    var showQr = true;
+    var showQr = false;
 
     var entropyChangeTimeoutEvent = null;
     var phraseChangeTimeoutEvent = null;
