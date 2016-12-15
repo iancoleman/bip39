@@ -6,7 +6,8 @@
 //
 //   <div data-translate>Test</div>
 //   <div data-translate-html><em>keep em tag</em></div>
-//   <input data-translate-placeholder placeholder="Example text">
+//   <input data-translate-placeholder placeholder="Example placeholder">
+//   <span data-translate-title title="Example title"></span>
 //
 // Obtain all the phrases to be translated via js debug console:
 //
@@ -21,7 +22,8 @@
 //   Translate.loadForeignPhrases("es", {
 //       "Test": "Test in Spanish",
 //       "<em>keep em tag</em>": "<em>keep em tag in Spanish</em>",
-//       "Example text": "Example text in Spanish"
+//       "Example placeholder": "Example placeholder in Spanish"
+//       "Example title": "Example title in Spanish"
 //   });
 //
 // In your UI put a listener for clicking on the Spanish button:
@@ -72,10 +74,21 @@ Translate = new (function() {
         },
     }
 
+    var title = {
+        selector: "[data-translate-title]",
+        getKey: function() {
+            return this.getAttribute("title").trim().replace(/\s+/g, " ");
+        },
+        setPhrase: function(p) {
+            this.setAttribute("title", p);
+        },
+    }
+
     // Get elements to be translated
     var allEls = getEls(text)
         .concat(getEls(html))
-        .concat(getEls(placeholder));
+        .concat(getEls(placeholder))
+        .concat(getEls(title));
 
     // Provides access to phrases from a non-default language.
     // See phrases_en.js for example usage.
