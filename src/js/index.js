@@ -67,6 +67,7 @@
     DOM.privateKeyToggle = $(".private-key-toggle");
     DOM.languages = $(".languages a");
     DOM.qrContainer = $(".qr-container");
+    DOM.qrHider = DOM.qrContainer.find(".qr-hider");
     DOM.qrImage = DOM.qrContainer.find(".qr-image");
     DOM.qrHint = DOM.qrContainer.find(".qr-hint");
     DOM.showQrEls = $("[data-show-qr]");
@@ -946,7 +947,10 @@
             var size = 130;
             DOM.qrImage.qrcode({width: size, height: size, text: content});
             if (!showQr) {
-                DOM.qrImage.addClass("hidden");
+                DOM.qrHider.addClass("hidden");
+            }
+            else {
+                DOM.qrHider.removeClass("hidden");
             }
             DOM.qrContainer.removeClass("hidden");
         }
@@ -959,7 +963,7 @@
 
     function toggleQr() {
         showQr = !showQr;
-        DOM.qrImage.toggleClass("hidden");
+        DOM.qrHider.toggleClass("hidden");
         DOM.qrHint.toggleClass("hidden");
     }
 
