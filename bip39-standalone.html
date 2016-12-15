@@ -96,8 +96,15 @@
             .qr-image {
                 margin: 5px;
             }
-            .qr-hint {
+            .qr-hint,
+            .qr-warning {
                 padding: 2px;
+                max-width: 150px;
+            }
+            .more-info {
+                cursor: help;
+                border-bottom: 1px dashed #000;
+                text-decoration: none;
             }
         </style>
     </head>
@@ -169,7 +176,7 @@
                                     <div class="row">
                                         <label class="col-sm-3 control-label" data-translate>Word Count</label>
                                         <div class="word-count col-sm-3 form-control-static"></div>
-                                        <label class="col-sm-3 control-label" data-translate>Total Bits</label>
+                                        <label class="col-sm-3 control-label" data-translate><span class="more-info" data-translate-title title="Total bits of entropy may be less than indicated if any entropy event uses a weak source.">Total Bits</span></label>
                                         <div class="bits col-sm-3 form-control-static"></div>
                                     </div>
                                     <label class="col-sm-3 control-label" data-translate>Filtered Entropy</label>
@@ -526,6 +533,12 @@
                     <p>
                         <a href="https://bitcointalk.org/index.php?topic=311000.msg3345309#msg3345309" target="_blank" data-translate>You are not a good source of entropy.</a>
                     </p>
+                    <h3 data-translate>License</h3>
+                    <p>
+                    <span data-translate-html>Please refer to <a href="https://github.com/iancoleman/bip39/blob/master/LICENSE" target="_blank">the software license</a> for more detail.
+                    </span>
+                    </p>
+                    <p data-translate>The software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.</p>
                 </div>
             </div>
 
@@ -614,9 +627,12 @@
         </div>
 
         <div class="qr-container hidden">
-            <div class="qr-hint bg-primary" data-translate>Click field to hide QR</div>
-            <div class="qr-hint bg-primary hidden" data-translate>Click field to show QR</div>
-            <div class="qr-image"></div>
+            <div class="qr-hint bg-primary hidden" data-translate>Click field to hide QR</div>
+            <div class="qr-hint bg-primary" data-translate>Click field to show QR</div>
+            <div class="qr-hider hidden">
+                <div class="qr-image"></div>
+                <div class="qr-warning bg-primary" data-translate>Caution: Scanner may keep history</div>
+            </div>
         </div>
 
         <div class="feedback-container">
@@ -14702,7 +14718,8 @@ sjcl.hash.sha256.prototype = {
 //
 //   <div data-translate>Test</div>
 //   <div data-translate-html><em>keep em tag</em></div>
-//   <input data-translate-placeholder placeholder="Example text">
+//   <input data-translate-placeholder placeholder="Example placeholder">
+//   <span data-translate-title title="Example title"></span>
 //
 // Obtain all the phrases to be translated via js debug console:
 //
@@ -14717,7 +14734,8 @@ sjcl.hash.sha256.prototype = {
 //   Translate.loadForeignPhrases("es", {
 //       "Test": "Test in Spanish",
 //       "<em>keep em tag</em>": "<em>keep em tag in Spanish</em>",
-//       "Example text": "Example text in Spanish"
+//       "Example placeholder": "Example placeholder in Spanish"
+//       "Example title": "Example title in Spanish"
 //   });
 //
 // In your UI put a listener for clicking on the Spanish button:
@@ -14768,10 +14786,21 @@ Translate = new (function() {
         },
     }
 
+    var title = {
+        selector: "[data-translate-title]",
+        getKey: function() {
+            return this.getAttribute("title").trim().replace(/\s+/g, " ");
+        },
+        setPhrase: function(p) {
+            this.setAttribute("title", p);
+        },
+    }
+
     // Get elements to be translated
     var allEls = getEls(text)
         .concat(getEls(html))
-        .concat(getEls(placeholder));
+        .concat(getEls(placeholder))
+        .concat(getEls(title));
 
     // Provides access to phrases from a non-default language.
     // See phrases_en.js for example usage.
@@ -18624,7 +18653,7 @@ window.Entropy = new (function() {
     var showAddress = true;
     var showPubKey = true;
     var showPrivKey = true;
-    var showQr = true;
+    var showQr = false;
 
     var entropyChangeTimeoutEvent = null;
     var phraseChangeTimeoutEvent = null;
@@ -18678,6 +18707,7 @@ window.Entropy = new (function() {
     DOM.privateKeyToggle = $(".private-key-toggle");
     DOM.languages = $(".languages a");
     DOM.qrContainer = $(".qr-container");
+    DOM.qrHider = DOM.qrContainer.find(".qr-hider");
     DOM.qrImage = DOM.qrContainer.find(".qr-image");
     DOM.qrHint = DOM.qrContainer.find(".qr-hint");
     DOM.showQrEls = $("[data-show-qr]");
@@ -19557,7 +19587,10 @@ window.Entropy = new (function() {
             var size = 130;
             DOM.qrImage.qrcode({width: size, height: size, text: content});
             if (!showQr) {
-                DOM.qrImage.addClass("hidden");
+                DOM.qrHider.addClass("hidden");
+            }
+            else {
+                DOM.qrHider.removeClass("hidden");
             }
             DOM.qrContainer.removeClass("hidden");
         }
@@ -19570,7 +19603,7 @@ window.Entropy = new (function() {
 
     function toggleQr() {
         showQr = !showQr;
-        DOM.qrImage.toggleClass("hidden");
+        DOM.qrHider.toggleClass("hidden");
         DOM.qrHint.toggleClass("hidden");
     }
 
