@@ -95,6 +95,11 @@
             .qr-hint {
                 padding: 2px;
             }
+            .more-info {
+                cursor: help;
+                border-bottom: 1px dashed #000;
+                text-decoration: none;
+            }
         </style>
     </head>
     <body>
@@ -165,7 +170,7 @@
                                     <div class="row">
                                         <label class="col-sm-3 control-label" data-translate>Word Count</label>
                                         <div class="word-count col-sm-3 form-control-static"></div>
-                                        <label class="col-sm-3 control-label" data-translate>Total Bits</label>
+                                        <label class="col-sm-3 control-label" data-translate><span class="more-info" data-translate-title title="Total bits of entropy may be less than indicated if any entropy event uses a weak source.">Total Bits</span></label>
                                         <div class="bits col-sm-3 form-control-static"></div>
                                     </div>
                                     <label class="col-sm-3 control-label" data-translate>Filtered Entropy</label>
