@@ -3138,6 +3138,109 @@ page.open(url, function(status) {
 });
 },
 
+// github issue 40
+// BIP32 root key can be set as an xpub
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    page.evaluate(function() {
+        // set xpub for account 0 of bip44 for 'abandon abandon ability'
+        var bip44AccountXpub = "xpub6CzDCPbtLrrn4VpVbyyQLHbdSMpZoHN4iuW64VswCyEpfjM2mJGdaHJ2DyuZwtst96E16VvcERb8BBeJdHSCVmAq9RhtRQg6eAZFrTKCNqf";
+        $("#root-key").val(bip44AccountXpub);
+        $("#root-key").trigger("input");
+    });
+    waitForFeedback(function() {
+        page.evaluate(function() {
+            // Use bip32 tab
+            $("#bip32-tab a").click();
+        });
+        waitForGenerate(function() {
+            page.evaluate(function() {
+                // derive external addresses for this xpub
+                var firstAccountDerivationPath = "m/0";
+                $("#bip32-path").val(firstAccountDerivationPath);
+                $("#bip32-path").trigger("input");
+            });
+            waitForGenerate(function() {
+                // check the addresses are generated
+                var expected = "1Di3Vp7tBWtyQaDABLAjfWtF6V7hYKJtug";
+                var actual = page.evaluate(function() {
+                    return $(".address:first").text();
+                });
+                if (actual != expected) {
+                    console.log("xpub key does not generate addresses in table");
+                    console.log("Expected: " + expected);
+                    console.log("Actual: " + actual);
+                    fail();
+                }
+                // check the xprv key is not set
+                var expected = "NA";
+                var actual = page.evaluate(function() {
+                    return $(".extended-priv-key").val();
+                });
+                if (actual != expected) {
+                    console.log("xpub key as root shows derived bip32 xprv key");
+                    console.log("Expected: " + expected);
+                    console.log("Actual: " + actual);
+                    fail();
+                }
+                // check the private key is not set
+                var expected = "NA";
+                var actual = page.evaluate(function() {
+                    return $(".privkey:first").text();
+                });
+                if (actual != expected) {
+                    console.log("xpub key generates private key in addresses table");
+                    console.log("Expected: " + expected);
+                    console.log("Actual: " + actual);
+                    fail();
+                }
+                next();
+            });
+        });
+    });
+});
+},
+
+// github issue 40
+// xpub for bip32 root key will not work with hardened derivation paths
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    page.evaluate(function() {
+        // set xpub for account 0 of bip44 for 'abandon abandon ability'
+        var bip44AccountXpub = "xpub6CzDCPbtLrrn4VpVbyyQLHbdSMpZoHN4iuW64VswCyEpfjM2mJGdaHJ2DyuZwtst96E16VvcERb8BBeJdHSCVmAq9RhtRQg6eAZFrTKCNqf";
+        $("#root-key").val(bip44AccountXpub);
+        $("#root-key").trigger("input");
+    });
+    waitForFeedback(function() {
+        // Check feedback is correct
+        var expected = "Hardened derivation path is invalid with xpub key";
+        var actual = page.evaluate(function() {
+            return $(".feedback").text();
+        });
+        if (actual != expected) {
+            console.log("xpub key with hardened derivation path does not show feedback");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        // Check no addresses are shown
+        var expected = 0;
+        var actual = page.evaluate(function() {
+            return $(".addresses tr").length;
+        });
+        if (actual != expected) {
+            console.log("addresses still show after setting xpub key with hardened derivation path");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 
 // If you wish to add more tests, do so here...
 

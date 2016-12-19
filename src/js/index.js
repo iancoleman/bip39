@@ -228,11 +228,11 @@
         // Calculate and display
         calcBip32RootKeyFromBase58(rootKeyBase58);
         calcForDerivationPath();
-        hidePending();
     }
 
     function calcForDerivationPath() {
         showPending();
+        clearAddressesList();
         hideValidationError();
         // Get the derivation path
         var derivationPath = getDerivationPath();
@@ -334,7 +334,12 @@
                 continue;
             }
             var hardened = bit[bit.length-1] == "'";
-            if (hardened) {
+            var isPriv = "privKey" in extendedKey;
+            var invalidDerivationPath = hardened && !isPriv;
+            if (invalidDerivationPath) {
+                extendedKey = null;
+            }
+            else if (hardened) {
                 extendedKey = extendedKey.deriveHardened(index);
             }
             else {
@@ -453,6 +458,12 @@
                 }
             }
         }
+        // Check no hardened derivation path when using xpub keys
+        var hardened = path.indexOf("'") > -1;
+        var isXpubkey = !("privKey" in bip32RootKey);
+        if (hardened && isXpubkey) {
+            return "Hardened derivation path is invalid with xpub key";
+        }
         return false;
     }
 
@@ -479,7 +490,11 @@
         DOM.seed.val(seed);
         var rootKey = bip32RootKey.toBase58();
         DOM.rootKey.val(rootKey);
-        var extendedPrivKey = bip32ExtendedKey.toBase58();
+        var xprvkeyB58 = "NA";
+        if (bip32ExtendedKey.privKey) {
+            xprvkeyB58 = bip32ExtendedKey.toBase58();
+        }
+        var extendedPrivKey = xprvkeyB58;
         DOM.extendedPrivKey.val(extendedPrivKey);
         var extendedPubKey = bip32ExtendedKey.toBase58(false);
         DOM.extendedPubKey.val(extendedPubKey);
@@ -513,7 +528,10 @@
                     key = bip32ExtendedKey.derive(index);
                 }
                 var address = key.getAddress().toString();
-                var privkey = key.privKey.toWIF(network);
+                var privkey = "NA";
+                if (key.privKey) {
+                    privkey = key.privKey.toWIF(network);
+                }
                 var pubkey = key.pubKey.toHex();
                 var indexText = getDerivationPath() + "/" + index;
                 if (useHardenedAddresses) {
