@@ -3241,6 +3241,30 @@ page.open(url, function(status) {
 });
 },
 
+// github issue 39
+// no root key shows feedback
+function() {
+page.open(url, function(status) {
+    // click the bip32 tab on fresh page
+    page.evaluate(function() {
+        $("#bip32-tab a").click();
+    });
+    waitForFeedback(function() {
+        // Check feedback is correct
+        var expected = "No root key";
+        var actual = page.evaluate(function() {
+            return $(".feedback").text();
+        });
+        if (actual != expected) {
+            console.log("Blank root key not detected");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
 
 // If you wish to add more tests, do so here...
 

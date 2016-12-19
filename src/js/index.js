@@ -324,6 +324,10 @@
     }
 
     function calcBip32ExtendedKey(path) {
+        // Check there's a root key to derive from
+        if (!bip32RootKey) {
+            return bip32RootKey;
+        }
         var extendedKey = bip32RootKey;
         // Derive the key from the path
         var pathBits = path.split("/");
@@ -457,6 +461,10 @@
                     return "Value of " + indexValue + " at depth " + depth + " must be less than " + maxIndexValue;
                 }
             }
+        }
+        // Check root key exists or else derivation path is useless!
+        if (!bip32RootKey) {
+            return "No root key";
         }
         // Check no hardened derivation path when using xpub keys
         var hardened = path.indexOf("'") > -1;
