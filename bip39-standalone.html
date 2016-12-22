@@ -522,6 +522,14 @@
                         </span>
                     </p>
                     <p>
+                        <strong><span data-translate>Do not store entropy.</span></strong>
+                    </p>
+                    <p>
+                        <span data-translate>Storing entropy (such as keeping a deck of cards in a specific shuffled order) is unreliable compared to storing a mnemonic.</span>
+                        <span data-translate>Instead of storing entropy, store the mnemonic generated from the entropy.</span>
+                        <span data-translate-html><a href="https://en.wikipedia.org/wiki/Steganography#Physical" target="_blank">Steganography</a> may be beneficial when storing the mnemonic.</span>
+                    </p>
+                    <p>
                         <span data-translate-html>
                             The random mnemonic generator on this page uses a
                             <a href="https://developer.mozilla.org/en-US/docs/Web/API/RandomSource/getRandomValues" target="_blank">cryptographically secure random number generator</a>.
@@ -18584,15 +18592,12 @@ window.Entropy = new (function() {
         // Create a normalized string of the selected cards
         var normalizedCards = cards.join("").toUpperCase();
         // Convert to binary using the SHA256 hash of the normalized cards.
-        // If the number of bits is more than 256, multiple rounds of hashing
+        // If the number of bits is more than 256, multiple hashes
         // are used until the required number of bits is reached.
         var entropyBin = "";
         var iterations = 0;
         while (entropyBin.length < numberOfBits) {
-            var hashedCards = sjcl.hash.sha256.hash(normalizedCards);
-            for (var j=0; j<iterations; j++) {
-                hashedCards = sjcl.hash.sha256.hash(hashedCards);
-            }
+            var hashedCards = sjcl.hash.sha256.hash(normalizedCards + ":" + iterations);
             var hashHex = sjcl.codec.hex.fromBits(hashedCards);
             for (var i=0; i<hashHex.length; i++) {
                 var decimal = parseInt(hashHex[i], 16);
