@@ -2155,10 +2155,10 @@ page.open(url, function(status) {
             return e.message;
         }
         // Leading zeros for card entropy as binary string.
-        // Card entropy is hashed so 2c does not produce leading zeros.
+        // Card entropy is hashed so 2c does not necessarily produce leading zeros.
         try {
-            e = Entropy.fromString("4c");
-            if (e.binaryStr != "0001") {
+            e = Entropy.fromString("2c");
+            if (e.binaryStr != "0010") {
                 return "Card entropy as binary has leading zeros";
             }
         }
@@ -2190,24 +2190,24 @@ page.open(url, function(status) {
         // [ cards, binary ]
         try {
             var cards = [
-                [ "ac", "0100" ],
-                [ "acqs", "10111101" ],
-                [ "acks", "11110000" ],
-                [ "2cac", "11000010" ],
-                [ "2c", "1000" ],
-                [ "3d", "1111" ],
-                [ "4h", "0011" ],
+                [ "ac", "0101" ],
+                [ "acqs", "11011100" ],
+                [ "acks", "01011100" ],
+                [ "2cac", "11111000" ],
+                [ "2c", "0010" ],
+                [ "3d", "0001" ],
+                [ "4h", "1001" ],
                 [ "5s", "1001" ],
-                [ "6c", "1011" ],
-                [ "7d", "1101" ],
+                [ "6c", "0000" ],
+                [ "7d", "0001" ],
                 [ "8h", "1011" ],
-                [ "9s", "1010" ],
-                [ "tc", "1101" ],
-                [ "jd", "1101" ],
-                [ "qh", "1100" ],
-                [ "ks", "1111" ],
-                [ "ks2c", "10000001" ],
-                [ "KS2C", "10000001" ],
+                [ "9s", "0010" ],
+                [ "tc", "1001" ],
+                [ "jd", "1111" ],
+                [ "qh", "0010" ],
+                [ "ks", "0101" ],
+                [ "ks2c", "01010100" ],
+                [ "KS2C", "01010100" ],
             ];
             for (var i=0; i<cards.length; i++) {
                 var card = cards[i][0];

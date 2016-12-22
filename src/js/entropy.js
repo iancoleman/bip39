@@ -293,15 +293,12 @@ window.Entropy = new (function() {
         // Create a normalized string of the selected cards
         var normalizedCards = cards.join("").toUpperCase();
         // Convert to binary using the SHA256 hash of the normalized cards.
-        // If the number of bits is more than 256, multiple rounds of hashing
+        // If the number of bits is more than 256, multiple hashes
         // are used until the required number of bits is reached.
         var entropyBin = "";
         var iterations = 0;
         while (entropyBin.length < numberOfBits) {
-            var hashedCards = sjcl.hash.sha256.hash(normalizedCards);
-            for (var j=0; j<iterations; j++) {
-                hashedCards = sjcl.hash.sha256.hash(hashedCards);
-            }
+            var hashedCards = sjcl.hash.sha256.hash(normalizedCards + ":" + iterations);
             var hashHex = sjcl.codec.hex.fromBits(hashedCards);
             for (var i=0; i<hashHex.length; i++) {
                 var decimal = parseInt(hashHex[i], 16);
