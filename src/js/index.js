@@ -3,7 +3,7 @@
     // mnemonics is populated as required by getLanguage
     var mnemonics = { "english": new Mnemonic("english") };
     var mnemonic = mnemonics["english"];
-    var seed = null
+    var seed = null;
     var bip32RootKey = null;
     var bip32ExtendedKey = null;
     var network = bitcoin.networks.bitcoin;
@@ -18,6 +18,8 @@
     var entropyChangeTimeoutEvent = null;
     var phraseChangeTimeoutEvent = null;
     var rootKeyChangedTimeoutEvent = null;
+
+    var wordlistLookups = {};
 
     var DOM = {};
     DOM.network = $(".network");
@@ -100,6 +102,7 @@
         hidePending();
         hideValidationError();
         populateNetworkSelect();
+        createWordlistLookups();
     }
 
     // Event handlers
@@ -642,6 +645,10 @@
 
     function findNearestWord(word) {
         var language = getLanguage();
+        if (word in wordlistLookups[language]) {
+            return wordlistLookups[language][word];
+        }
+
         var words = WORDLISTS[language];
         var minDistance = 99;
         var closestWord = words[0];
@@ -685,6 +692,50 @@
             language = defaultLanguage;
         }
         return language;
+    }
+
+    function getPrefix(word) {
+        // for most languages, 4 characters is enough to determine the word
+        var charactersToTake = 4;
+        var prefix = '';
+
+        var characters = word.split('');
+        for (var i = 0; i < characters.length; i++) {
+            var c = characters[i];
+            if (c.charCodeAt(0) > 122) charactersToTake += 1;
+            if (prefix.length < charactersToTake) prefix += c;
+            else break;
+        }
+        return prefix;
+    }
+
+    function canLookup(wordlist) {
+        // can't perform a lookup for languages which have characters past latin diacritical
+        const maxCharCode = 879;
+
+        for (var wi = 0; wi < wordlist.length; wi++) {
+            var word = wordlist[wi];
+            for (var ci = 0; ci < word.length; ci++) {
+                if (word.charCodeAt(ci) > maxCharCode) return false;
+            }
+        }
+        return true;
+    }
+
+    function createWordlistLookups() {
+        for (var l in WORDLISTS) {
+            const words = WORDLISTS[l];
+
+            if (!canLookup(words)) {
+                wordlistLookups[l] = {};
+                continue;
+            }
+
+            wordlistLookups[l] = words.reduce(function (prefixes, word) {
+                if (word.length > 4) prefixes[getPrefix(word)] = word;
+                return prefixes;
+            }, {});
+        }
     }
 
     function getLanguageFromPhrase(phrase) {
