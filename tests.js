@@ -1562,6 +1562,31 @@ page.open(url, function(status) {
 });
 },
 
+// Github pull request 48
+// First four letters of word shows that word, not closest
+// since first four letters gives unique word in BIP39 wordlist
+// eg ille should show illegal, not idle
+function() {
+page.open(url, function(status) {
+    // set the incomplete word
+    page.evaluate(function() {
+        $(".phrase").val("ille").trigger("input");
+    });
+    // check there is a suggestion shown
+    waitForFeedback(function() {
+        var feedback = page.evaluate(function() {
+            return $(".feedback").text();
+        });
+        if (feedback.indexOf("did you mean illegal?") < 0) {
+            console.log("Start of word does not show correct suggestion");
+            console.log("Error: " + error);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // Incorrect BIP32 root key shows error
 function() {
 page.open(url, function(status) {

@@ -647,8 +647,9 @@
         var closestWord = words[0];
         for (var i=0; i<words.length; i++) {
             var comparedTo = words[i];
-            if (comparedTo.indexOf(word) == 0) return comparedTo;
-
+            if (comparedTo.indexOf(word) == 0) {
+                return comparedTo;
+            }
             var distance = Levenshtein.get(word, comparedTo);
             if (distance < minDistance) {
                 closestWord = comparedTo;
