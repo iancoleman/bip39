@@ -3,7 +3,7 @@
     // mnemonics is populated as required by getLanguage
     var mnemonics = { "english": new Mnemonic("english") };
     var mnemonic = mnemonics["english"];
-    var seed = null
+    var seed = null;
     var bip32RootKey = null;
     var bip32ExtendedKey = null;
     var network = bitcoin.networks.bitcoin;
@@ -647,6 +647,8 @@
         var closestWord = words[0];
         for (var i=0; i<words.length; i++) {
             var comparedTo = words[i];
+            if (comparedTo.indexOf(word) == 0) return comparedTo;
+
             var distance = Levenshtein.get(word, comparedTo);
             if (distance < minDistance) {
                 closestWord = comparedTo;
