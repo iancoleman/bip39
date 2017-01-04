@@ -19,6 +19,8 @@
     var phraseChangeTimeoutEvent = null;
     var rootKeyChangedTimeoutEvent = null;
 
+    var generationProcesses = [];
+
     var DOM = {};
     DOM.network = $(".network");
     DOM.phraseNetwork = $("#network-phrase");
@@ -512,14 +514,28 @@
     }
 
     function displayAddresses(start, total) {
-        for (var i=0; i<total; i++) {
-            var index = i + start;
-            new TableRow(index);
-        }
+        generationProcesses.push(new (function() {
+
+            var rows = [];
+
+            this.stop = function() {
+                for (var i=0; i<rows.length; i++) {
+                    rows[i].shouldGenerate = false;
+                }
+            }
+
+            for (var i=0; i<total; i++) {
+                var index = i + start;
+                rows.push(new TableRow(index));
+            }
+
+        })());
     }
 
     function TableRow(index) {
 
+        var self = this;
+        this.shouldGenerate = true;
         var useHardenedAddresses = DOM.hardenedAddresses.prop("checked");
 
         function init() {
@@ -528,6 +544,9 @@
 
         function calculateValues() {
             setTimeout(function() {
+                if (!self.shouldGenerate) {
+                    return;
+                }
                 var key = "";
                 if (useHardenedAddresses) {
                     key = bip32ExtendedKey.deriveHardened(index);
@@ -578,6 +597,14 @@
 
     function clearAddressesList() {
         DOM.addresses.empty();
+        stopGenerating();
+    }
+
+    function stopGenerating() {
+        while (generationProcesses.length > 0) {
+            var generation = generationProcesses.shift();
+            generation.stop();
+        }
     }
 
     function clearKey() {

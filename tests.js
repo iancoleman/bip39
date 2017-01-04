@@ -3291,6 +3291,50 @@ page.open(url, function(status) {
 });
 },
 
+// Github issue 44
+// display error switching tabs while addresses are generating
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability").trigger("input");
+    });
+    waitForGenerate(function() {
+        // set to generate 500 more addresses
+        // generate more addresses
+        // change tabs which should cancel the previous generating
+        page.evaluate(function() {
+            $(".rows-to-add").val("100");
+            $(".more").click();
+            $("#bip32-tab a").click();
+        });
+        // check the derivation paths are in order and of the right quantity
+        waitForGenerate(function() {
+            var paths = page.evaluate(function() {
+                return $(".index").map(function(i, e) {
+                    return $(e).text();
+                });
+            });
+            for (var i=0; i<paths.length; i++) {
+                var expected = "m/0/" + i;
+                var actual = paths[i];
+                if (actual != expected) {
+                    console.log("Path " + i + " is not in correct order");
+                    console.log("Expected: " + expected);
+                    console.log("Actual: " + actual);
+                    fail();
+                }
+            }
+            if (paths.length != 20) {
+                console.log("Generation was not cancelled by new action");
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
+
 // If you wish to add more tests, do so here...
 
 // Here is a blank test template
