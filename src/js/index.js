@@ -843,7 +843,7 @@
             var hash = sjcl.hash.sha256.hash(entropy.cleanStr);
             var hex = sjcl.codec.hex.fromBits(hash);
             bits = BigInteger.parse(hex, 16).toString(2);
-            for (var i=0; i<256-bits.length; i++) {
+            while (bits.length % 256 != 0) {
                 bits = "0" + bits;
             }
             // Truncate hash to suit number of words

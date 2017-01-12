@@ -3335,6 +3335,35 @@ page.open(url, function(status) {
 });
 },
 
+// Github issue 49
+// padding for binary should give length with multiple of 256
+// hashed entropy 1111 is length 252, so requires 4 leading zeros
+// prior to issue 49 it would only generate 2 leading zeros, ie missing 2
+function() {
+page.open(url, function(status) {
+    expected = "avocado valid quantum cross link predict excuse edit street able flame large galaxy ginger nuclear"
+    // use entropy
+    page.evaluate(function() {
+        $(".use-entropy").prop("checked", true).trigger("change");
+        $(".entropy").val("1111").trigger("input");
+    });
+    waitForGenerate(function() {
+        // get the mnemonic
+        var actual = page.evaluate(function() {
+            return $(".phrase").val();
+        });
+        // check the mnemonic is correct
+        if (actual != expected) {
+            console.log("Left padding error for entropy");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // If you wish to add more tests, do so here...
 
 // Here is a blank test template
