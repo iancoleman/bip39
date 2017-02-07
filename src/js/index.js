@@ -23,7 +23,9 @@
 
     var DOM = {};
     DOM.network = $(".network");
+    DOM.client = $(".client");
     DOM.phraseNetwork = $("#network-phrase");
+    DOM.phraseClient = $("#client-phrase");
     DOM.useEntropy = $(".use-entropy");
     DOM.entropyContainer = $(".entropy-container");
     DOM.entropy = $(".entropy");
@@ -77,6 +79,7 @@
     function init() {
         // Events
         DOM.network.on("change", networkChanged);
+        DOM.client.on("change", clientChanged);
         DOM.useEntropy.on("change", setEntropyVisibility);
         DOM.entropy.on("input", delayedEntropyChanged);
         DOM.entropyMnemonicLength.on("change", entropyChanged);
@@ -102,6 +105,7 @@
         hidePending();
         hideValidationError();
         populateNetworkSelect();
+        populateClientSelect();
     }
 
     // Event handlers
@@ -109,6 +113,17 @@
     function networkChanged(e) {
         var networkIndex = e.target.value;
         networks[networkIndex].onSelect();
+        if (seed != null) {
+            phraseChanged();
+        }
+        else {
+            rootKeyChanged();
+        }
+    }
+    
+    function clientChanged(e) {
+        var clientIndex = e.target.value;
+        clients[clientIndex].onSelect();
         if (seed != null) {
             phraseChanged();
         }
@@ -701,6 +716,16 @@
             DOM.phraseNetwork.append(option);
         }
     }
+    
+    function populateClientSelect() {
+        for (var i=0; i<clients.length; i++) {
+            var client = clients[i];
+            var option = $("<option>");
+            option.attr("value", i);
+            option.text(client.name);
+            DOM.phraseClient.append(option);
+        }
+    }
 
     function getLanguage() {
         var defaultLanguage = "english";
@@ -1123,6 +1148,30 @@
                 DOM.bip44coin.val(6);
             },
         },
+    ]
+    
+    var clients = [
+        {
+            name: "Bitcoin Core",
+            onSelect: function() {
+                DOM.bip32path.val("m/0'/0'");
+                DOM.hardenedAddresses.prop('checked', true);
+            },
+        },
+        {
+            name: "blockchain.info",
+            onSelect: function() {
+                DOM.bip32path.val("m/44'/0'/0'");
+                DOM.hardenedAddresses.prop('checked', false);
+            },
+        },
+        {
+            name: "MultiBit HD",
+            onSelect: function() {
+                DOM.bip32path.val("m/0'/0");
+                DOM.hardenedAddresses.prop('checked', false);
+            },
+        }
     ]
 
     init();
