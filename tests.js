@@ -2268,7 +2268,6 @@ page.open(url, function(status) {
     // use entropy
     page.evaluate(function() {
         $(".use-entropy").prop("checked", true).trigger("change");
-        $(".mnemonic-length").val("raw");
         $(".entropy").val("00000000 00000000 00000000 00000000").trigger("input");
     });
     // check the mnemonic is set and address is correct
@@ -2804,7 +2803,6 @@ page.open(url, function(status) {
     // use entropy
     page.evaluate(function() {
         $(".use-entropy").prop("checked", true).trigger("change");
-        $(".mnemonic-length").val("raw");
     });
     var nextTest = function runNextTest(i) {
         function getFeedbackError(expected, actual) {
@@ -2886,7 +2884,6 @@ page.open(url, function(status) {
     // use entropy
     page.evaluate(function() {
         $(".use-entropy").prop("checked", true).trigger("change");
-        $(".mnemonic-length").val("raw");
         var entropy  = "00000000 00000000 00000000 00000000";
             entropy += "11111111 11111111 11111111 1111"; // Missing last byte
         $(".entropy").val(entropy).trigger("input");
@@ -2913,7 +2910,6 @@ page.open(url, function(status) {
     // use entropy
     page.evaluate(function() {
         $(".use-entropy").prop("checked", true).trigger("change");
-        $(".mnemonic-length").val("raw");
         var entropy  = "";
         // Generate a very long entropy string
         for (var i=0; i<33; i++) {
@@ -2947,7 +2943,6 @@ page.open(url, function(status) {
     // use entropy
     page.evaluate(function() {
         $(".use-entropy").prop("checked", true).trigger("change");
-        $(".mnemonic-length").val("raw");
         var entropy  = "543210543210543210543210543210543210543210543210543210543210543210543210543210543210543210543210543";
         $(".entropy").val(entropy).trigger("input");
     });
@@ -3039,7 +3034,6 @@ page.open(url, function(status) {
     // use entropy
     page.evaluate(function() {
         $(".use-entropy").prop("checked", true).trigger("change");
-        $(".mnemonic-length").val("raw");
         $(".entropy").val("7S 9H 9S QH 8C KS AS 7D 7C QD 4S 4D TC 2D 5S JS 3D 8S 8H 4C 3C AC 3S QC 9C JC 7H AD TD JD 6D KH 5C QS 2S 6S 6H JH KD 9D-6C TS TH 4H KC 5H 2H AH 2C 8D 3H 5D").trigger("input");
     });
     // get the mnemonic
@@ -3345,6 +3339,7 @@ page.open(url, function(status) {
     // use entropy
     page.evaluate(function() {
         $(".use-entropy").prop("checked", true).trigger("change");
+        $(".mnemonic-length").val("15");
         $(".entropy").val("1111").trigger("input");
     });
     waitForGenerate(function() {
