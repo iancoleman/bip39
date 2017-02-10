@@ -45,7 +45,7 @@ If the list is too difficult to choose from, the EFF is a good choice.
 [Electronic Frontier Foundation](https://supporters.eff.org/donate)
 
 or for a direct bitcoin address, consider donating to the
-[Free Software Foundation](https://my.fsf.org/civicrm/contribute/transact)
+[Free Software Foundation](https://www.fsf.org/about/ways-to-donate/)
 at 1PC9aZC4hNX2rmmrt7uHTfYAS3hRbph4UN
 
 ![alt text](https://static.fsf.org/nosvn/images/bitcoin_qrcodes/fsf.png "FSF Bitcoin Address")
