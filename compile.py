@@ -45,4 +45,4 @@ f = open('bip39-standalone.html', 'w')
 f.write(page)
 f.close()
 
-print "%s - DONE" % datetime.datetime.now()
+print("%s - DONE" % datetime.datetime.now())
