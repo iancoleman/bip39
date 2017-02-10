@@ -564,6 +564,13 @@
                 if (useHardenedAddresses) {
                     indexText = indexText + "'";
                 }
+                // Ethereum values are different
+                if (networks[DOM.network.val()].name == "Ethereum") {
+                    var privKeyBuffer = key.privKey.d.toBuffer();
+                    privkey = privKeyBuffer.toString('hex');
+                    var addressBuffer = ethUtil.privateToAddress(privKeyBuffer);
+                    address = "0x" + addressBuffer.toString('hex');
+                }
                 addAddressToList(indexText, address, pubkey, privkey);
             }, 50)
         }
@@ -1121,6 +1128,13 @@
             onSelect: function() {
                 network = bitcoin.networks.peercoin;
                 DOM.bip44coin.val(6);
+            },
+        },
+        {
+            name: "Ethereum",
+            onSelect: function() {
+                network = bitcoin.networks.bitcoin;
+                DOM.bip44coin.val(60);
             },
         },
     ]
