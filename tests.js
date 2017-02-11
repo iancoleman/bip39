@@ -4,7 +4,7 @@
 
 var page = require('webpage').create();
 var url = 'src/index.html';
-var testMaxTime = 10000;
+var testMaxTime = 20000;
 
 page.viewportSize = {
     width: 1024,
