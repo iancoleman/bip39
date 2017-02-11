@@ -607,6 +607,66 @@ page.open(url, function(status) {
 });
 },
 
+// Network can be set to ethereum
+function() {
+
+page.open(url, function(status) {
+
+    // set the phrase and coin
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option[value=13]").prop("selected", true);
+        $(".network").trigger("change");
+    });
+    waitForGenerate(function() {
+        // check the address is generated correctly
+        // this value comes from
+        // https://www.myetherwallet.com/#view-wallet-info
+        // I do not understand the capitalization scheme for this hex encoding
+        var expected = "0xe5815d5902Ad612d49283DEdEc02100Bd44C2772";
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected.toLowerCase()) {
+            console.log("Ethereum address is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        // check the private key is correct
+        // this private key can be imported into
+        // https://www.myetherwallet.com/#view-wallet-info
+        // and it should correlate to the address above
+        var expected = "8f253078b73d7498302bb78c171b23ce7a8fb511987d2b2702b731638a4a15e7";
+        var actual = page.evaluate(function() {
+            return $(".privkey:first").text();
+        });
+        if (actual != expected) {
+            console.log("Ethereum privkey is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        // check the public key is correct
+        // TODO
+        // don't have any third-party source to generate the expected value
+        //var expected = "?";
+        //var actual = page.evaluate(function() {
+        //    return $(".pubkey:first").text();
+        //});
+        //if (actual != expected) {
+        //    console.log("Ethereum privkey is incorrect");
+        //    console.log("Expected: " + expected);
+        //    console.log("Actual: " + actual);
+        //    fail();
+        //}
+        next();
+    });
+});
+},
+
 // BIP39 seed is set from phrase
 function() {
 page.open(url, function(status) {
