@@ -624,12 +624,12 @@ page.open(url, function(status) {
         // check the address is generated correctly
         // this value comes from
         // https://www.myetherwallet.com/#view-wallet-info
-        // I do not understand the capitalization scheme for this hex encoding
+        // Unusual capitalization is due to checksum
         var expected = "0xe5815d5902Ad612d49283DEdEc02100Bd44C2772";
         var actual = page.evaluate(function() {
             return $(".address:first").text();
         });
-        if (actual != expected.toLowerCase()) {
+        if (actual != expected) {
             console.log("Ethereum address is incorrect");
             console.log("Expected: " + expected);
             console.log("Actual: " + actual);

@@ -569,7 +569,9 @@
                     var privKeyBuffer = key.privKey.d.toBuffer();
                     privkey = privKeyBuffer.toString('hex');
                     var addressBuffer = ethUtil.privateToAddress(privKeyBuffer);
-                    address = "0x" + addressBuffer.toString('hex');
+                    var hexAddress = addressBuffer.toString('hex');
+                    var checksumAddress = ethUtil.toChecksumAddress(hexAddress);
+                    address = ethUtil.addHexPrefix(checksumAddress);
                 }
                 addAddressToList(indexText, address, pubkey, privkey);
             }, 50)
