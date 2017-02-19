@@ -23,9 +23,8 @@
 
     var DOM = {};
     DOM.network = $(".network");
-    DOM.client = $(".client");
+    DOM.bip32Client = $("#bip32-client");
     DOM.phraseNetwork = $("#network-phrase");
-    DOM.phraseClient = $("#client-phrase");
     DOM.useEntropy = $(".use-entropy");
     DOM.entropyContainer = $(".entropy-container");
     DOM.entropy = $(".entropy");
@@ -79,7 +78,7 @@
     function init() {
         // Events
         DOM.network.on("change", networkChanged);
-        DOM.client.on("change", clientChanged);
+        DOM.bip32Client.on("change", bip32ClientChanged);
         DOM.useEntropy.on("change", setEntropyVisibility);
         DOM.entropy.on("input", delayedEntropyChanged);
         DOM.entropyMnemonicLength.on("change", entropyChanged);
@@ -120,15 +119,21 @@
             rootKeyChanged();
         }
     }
-    
-    function clientChanged(e) {
-        var clientIndex = e.target.value;
-        clients[clientIndex].onSelect();
-        if (seed != null) {
-            phraseChanged();
+
+    function bip32ClientChanged(e) {
+        var clientIndex = DOM.bip32Client.val();
+        if (clientIndex == "custom") {
+            DOM.bip32path.prop("readonly", false);
         }
         else {
-            rootKeyChanged();
+            DOM.bip32path.prop("readonly", true);
+            clients[clientIndex].onSelect();
+            if (seed != null) {
+                phraseChanged();
+            }
+            else {
+                rootKeyChanged();
+            }
         }
     }
 
@@ -725,14 +730,14 @@
             DOM.phraseNetwork.append(option);
         }
     }
-    
+
     function populateClientSelect() {
         for (var i=0; i<clients.length; i++) {
             var client = clients[i];
             var option = $("<option>");
             option.attr("value", i);
             option.text(client.name);
-            DOM.phraseClient.append(option);
+            DOM.bip32Client.append(option);
         }
     }
 
