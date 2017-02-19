@@ -372,6 +372,15 @@
                                     </p>
                                 </div>
                                 <div class="form-group">
+                                    <label for="bip32-client" class="col-sm-2 control-label" data-translate>Client</label>
+                                    <div class="col-sm-10">
+                                        <select id="bip32-client" class="client form-control">
+                                            <option value="custom">Custom derivation path</option>
+                                            <!-- populated by javascript -->
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label for="bip32-path" class="col-sm-2 control-label" data-translate>BIP32 Derivation Path</label>
                                     <div class="col-sm-10">
                                         <input id="bip32-path" type="text" class="path form-control" value="m/0">
@@ -393,6 +402,18 @@
                                         <p class="form-control no-border" data-translate-html>
                                             For more info see the
                                             <a href="https://github.com/bitcoin/bitcoin/pull/8035" target="_blank">Bitcoin Core BIP32 implementation</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="core-path" class="col-sm-2 control-label" data-translate>Multibit</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control no-border">
+                                            <span data-translate-html>Use path <code>m/0'/0</code>.</span>
+                                        </p>
+                                        <p class="form-control no-border">
+                                            <span data-translate>For more info see</span>
+                                            <a href="https://multibit.org/" target="_blank">MultiBit HD</a>
                                         </p>
                                     </div>
                                 </div>
@@ -41224,6 +41245,7 @@ window.Entropy = new (function() {
 
     var DOM = {};
     DOM.network = $(".network");
+    DOM.bip32Client = $("#bip32-client");
     DOM.phraseNetwork = $("#network-phrase");
     DOM.useEntropy = $(".use-entropy");
     DOM.entropyContainer = $(".entropy-container");
@@ -41278,6 +41300,7 @@ window.Entropy = new (function() {
     function init() {
         // Events
         DOM.network.on("change", networkChanged);
+        DOM.bip32Client.on("change", bip32ClientChanged);
         DOM.useEntropy.on("change", setEntropyVisibility);
         DOM.entropy.on("input", delayedEntropyChanged);
         DOM.entropyMnemonicLength.on("change", entropyChanged);
@@ -41303,6 +41326,7 @@ window.Entropy = new (function() {
         hidePending();
         hideValidationError();
         populateNetworkSelect();
+        populateClientSelect();
     }
 
     // Event handlers
@@ -41315,6 +41339,23 @@ window.Entropy = new (function() {
         }
         else {
             rootKeyChanged();
+        }
+    }
+
+    function bip32ClientChanged(e) {
+        var clientIndex = DOM.bip32Client.val();
+        if (clientIndex == "custom") {
+            DOM.bip32path.prop("readonly", false);
+        }
+        else {
+            DOM.bip32path.prop("readonly", true);
+            clients[clientIndex].onSelect();
+            if (seed != null) {
+                phraseChanged();
+            }
+            else {
+                rootKeyChanged();
+            }
         }
     }
 
@@ -41912,6 +41953,16 @@ window.Entropy = new (function() {
         }
     }
 
+    function populateClientSelect() {
+        for (var i=0; i<clients.length; i++) {
+            var client = clients[i];
+            var option = $("<option>");
+            option.attr("value", i);
+            option.text(client.name);
+            DOM.bip32Client.append(option);
+        }
+    }
+
     function getLanguage() {
         var defaultLanguage = "english";
         // Try to get from existing phrase
@@ -42340,6 +42391,30 @@ window.Entropy = new (function() {
                 DOM.bip44coin.val(60);
             },
         },
+    ]
+
+    var clients = [
+        {
+            name: "Bitcoin Core",
+            onSelect: function() {
+                DOM.bip32path.val("m/0'/0'");
+                DOM.hardenedAddresses.prop('checked', true);
+            },
+        },
+        {
+            name: "blockchain.info",
+            onSelect: function() {
+                DOM.bip32path.val("m/44'/0'/0'");
+                DOM.hardenedAddresses.prop('checked', false);
+            },
+        },
+        {
+            name: "MultiBit HD",
+            onSelect: function() {
+                DOM.bip32path.val("m/0'/0");
+                DOM.hardenedAddresses.prop('checked', false);
+            },
+        }
     ]
 
     init();
