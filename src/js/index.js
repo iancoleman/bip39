@@ -1170,7 +1170,7 @@
             },
         },
     ]
-    
+
     var clients = [
         {
             name: "Bitcoin Core",
