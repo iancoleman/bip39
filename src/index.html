@@ -254,14 +254,6 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="client-phrase" class="col-sm-2 control-label" data-translate>Client</label>
-                            <div class="col-sm-10">
-                                <select id="client-phrase" class="client form-control">
-                                    <!-- populated by javascript -->
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label for="root-key" class="col-sm-2 control-label" data-translate>BIP32 Root Key</label>
                             <div class="col-sm-10">
                                 <textarea id="root-key" class="root-key form-control" data-show-qr></textarea>
@@ -374,6 +366,14 @@
                                         For more info see the
                                         <a href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki" target="_blank">BIP32 spec</a>
                                     </p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="client-phrase" class="col-sm-2 control-label" data-translate>Client</label>
+                                    <div class="col-sm-10">
+                                        <select id="client-phrase" class="client form-control">
+                                            <!-- populated by javascript -->
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="bip32-path" class="col-sm-2 control-label" data-translate>BIP32 Derivation Path</label>
