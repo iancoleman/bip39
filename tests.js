@@ -3419,6 +3419,102 @@ page.open(url, function(status) {
 });
 },
 
+// Github pull request 55
+// https://github.com/iancoleman/bip39/pull/55
+// Client select
+function() {
+page.open(url, function(status) {
+    // set mnemonic and select bip32 tab
+    page.evaluate(function() {
+        $("#bip32-tab a").click();
+        $(".phrase").val("abandon abandon ability").trigger("input");
+    });
+    waitForGenerate(function() {
+        // BITCOIN CORE
+        // set bip32 client to bitcoin core
+        page.evaluate(function() {
+            var bitcoinCoreIndex = "0";
+            $("#bip32-client").val(bitcoinCoreIndex).trigger("change");
+        });
+        waitForGenerate(function() {
+            // get the derivation path
+            var actual = page.evaluate(function() {
+                return $("#bip32-path").val();
+            });
+            // check the derivation path is correct
+            expected = "m/0'/0'"
+            if (actual != expected) {
+                console.log("Selecting Bitcoin Core client does not set correct derivation path");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + actual);
+                fail();
+            }
+            // get hardened addresses
+            var usesHardenedAddresses = page.evaluate(function() {
+                return $(".hardened-addresses").prop("checked");
+            });
+            // check hardened addresses is selected
+            if(!usesHardenedAddresses) {
+                console.log("Selecting Bitcoin Core client does not use hardened addresses");
+                fail();
+            }
+            // check input is readonly
+            var pathIsReadonly = page.evaluate(function() {
+                return $("#bip32-path").prop("readonly");
+            });
+            if (!pathIsReadonly) {
+                console.log("Selecting Bitcoin Core client does not set derivation path to readonly");
+                fail();
+            }
+            // MULTIBIT
+            // set bip32 client to multibit
+            page.evaluate(function() {
+                var multibitIndex = "2";
+                $("#bip32-client").val(multibitIndex).trigger("change");
+            });
+            waitForGenerate(function() {
+                // get the derivation path
+                var actual = page.evaluate(function() {
+                    return $("#bip32-path").val();
+                });
+                // check the derivation path is correct
+                expected = "m/0'/0"
+                if (actual != expected) {
+                    console.log("Selecting Multibit client does not set correct derivation path");
+                    console.log("Expected: " + expected);
+                    console.log("Actual: " + actual);
+                    fail();
+                }
+                // get hardened addresses
+                var usesHardenedAddresses = page.evaluate(function() {
+                    return $(".hardened-addresses").prop("checked");
+                });
+                // check hardened addresses is selected
+                if(usesHardenedAddresses) {
+                    console.log("Selecting Multibit client does not uncheck hardened addresses");
+                    fail();
+                }
+                // CUSTOM DERIVATION PATH
+                // check input is not readonly
+                page.evaluate(function() {
+                    $("#bip32-client").val("custom").trigger("change");
+                });
+                // do not wait for generate, since there is no change to the
+                // derivation path there is no new generation performed
+                var pathIsReadonly = page.evaluate(function() {
+                    return $("#bip32-path").prop("readonly");
+                });
+                if (pathIsReadonly) {
+                    console.log("Selecting Custom Derivation Path does not allow derivation path input");
+                    fail();
+                }
+                next();
+            });
+        });
+    });
+});
+},
+
 // If you wish to add more tests, do so here...
 
 // Here is a blank test template
