@@ -280,7 +280,9 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
-        $(".network option[value=1]").prop("selected", true);
+        $(".network option").filter(function() {
+            return $(this).html() == "Bitcoin Testnet";
+        }).prop("selected", true);
         $(".network").trigger("change");
     });
     // check the address is generated correctly
@@ -308,7 +310,9 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
-        $(".network option[value=2]").prop("selected", true);
+        $(".network option").filter(function() {
+            return $(this).html() == "Litecoin";
+        }).prop("selected", true);
         $(".network").trigger("change");
     });
     // check the address is generated correctly
@@ -336,7 +340,9 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
-        $(".network option[value=3]").prop("selected", true);
+        $(".network option").filter(function() {
+            return $(this).html() == "Dogecoin";
+        }).prop("selected", true);
         $(".network").trigger("change");
     });
     // check the address is generated correctly
@@ -364,7 +370,9 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
-        $(".network option[value=4]").prop("selected", true);
+        $(".network option").filter(function() {
+            return $(this).html() == "ShadowCash";
+        }).prop("selected", true);
         $(".network").trigger("change");
     });
     // check the address is generated correctly
@@ -392,7 +400,9 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
-        $(".network option[value=5]").prop("selected", true);
+        $(".network option").filter(function() {
+            return $(this).html() == "ShadowCash Testnet";
+        }).prop("selected", true);
         $(".network").trigger("change");
     });
     // check the address is generated correctly
@@ -420,7 +430,9 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
-        $(".network option[value=6]").prop("selected", true);
+        $(".network option").filter(function() {
+            return $(this).html() == "Viacoin";
+        }).prop("selected", true);
         $(".network").trigger("change");
     });
     // check the address is generated correctly
@@ -448,7 +460,9 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
-        $(".network option[value=7]").prop("selected", true);
+        $(".network option").filter(function() {
+            return $(this).html() == "Viacoin Testnet";
+        }).prop("selected", true);
         $(".network").trigger("change");
     });
     // check the address is generated correctly
@@ -476,7 +490,9 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
-        $(".network option[value=8]").prop("selected", true);
+        $(".network option").filter(function() {
+            return $(this).html() == "Jumbucks";
+        }).prop("selected", true);
         $(".network").trigger("change");
     });
     // check the address is generated correctly
@@ -504,7 +520,9 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
-        $(".network option[value=9]").prop("selected", true);
+        $(".network option").filter(function() {
+            return $(this).html() == "CLAM";
+        }).prop("selected", true);
         $(".network").trigger("change");
     });
     // check the address is generated correctly
@@ -532,7 +550,9 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
-        $(".network option[value=10]").prop("selected", true);
+        $(".network option").filter(function() {
+            return $(this).html() == "DASH";
+        }).prop("selected", true);
         $(".network").trigger("change");
     });
     // check the address is generated correctly
@@ -560,7 +580,9 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
-        $(".network option[value=11]").prop("selected", true);
+        $(".network option").filter(function() {
+            return $(this).html() == "Namecoin";
+        }).prop("selected", true);
         $(".network").trigger("change");
     });
     // check the address is generated correctly
@@ -588,7 +610,9 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
-        $(".network option[value=12]").prop("selected", true);
+        $(".network option").filter(function() {
+            return $(this).html() == "Peercoin";
+        }).prop("selected", true);
         $(".network").trigger("change");
     });
     // check the address is generated correctly
@@ -617,7 +641,9 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
-        $(".network option[value=13]").prop("selected", true);
+        $(".network option").filter(function() {
+            return $(this).html() == "Ethereum";
+        }).prop("selected", true);
         $(".network").trigger("change");
     });
     waitForGenerate(function() {
@@ -1838,7 +1864,10 @@ page.open(url, function(status) {
         waitForGenerate(function() {
             // 4) switch from bitcoin to litecoin
             page.evaluate(function() {
-                $(".network").val("2").trigger("change");
+                $(".network option").filter(function() {
+                    return $(this).html() == "Litecoin";
+                }).prop("selected", true);
+                $(".network").trigger("change");
             });
             waitForGenerate(function() {
                 // 5) Check derivation path is displayed correctly
@@ -1881,7 +1910,10 @@ page.open(url, function(status) {
     waitForGenerate(function() {
         // switch from bitcoin to clam
         page.evaluate(function() {
-            $(".network").val("9").trigger("change");
+            $(".network option").filter(function() {
+                return $(this).html() == "CLAM";
+            }).prop("selected", true);
+            $(".network").trigger("change");
         });
         waitForGenerate(function() {
             // check derivation path is displayed correctly
@@ -1912,7 +1944,10 @@ page.open(url, function(status) {
     waitForGenerate(function() {
         // 4) switch from bitcoin to viacoin
         page.evaluate(function() {
-            $(".network").val("6").trigger("change");
+            $(".network option").filter(function() {
+                return $(this).html() == "Viacoin";
+            }).prop("selected", true);
+            $(".network").trigger("change");
         });
         waitForGenerate(function() {
             // 5) ensure the derived address is correct

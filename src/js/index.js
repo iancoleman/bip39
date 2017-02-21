@@ -1086,10 +1086,10 @@
             },
         },
         {
-            name: "Litecoin",
+            name: "CLAM",
             onSelect: function() {
-                network = bitcoin.networks.litecoin;
-                DOM.bip44coin.val(2);
+                network = bitcoin.networks.clam;
+                DOM.bip44coin.val(23);
             },
         },
         {
@@ -1097,6 +1097,48 @@
             onSelect: function() {
                 network = bitcoin.networks.dogecoin;
                 DOM.bip44coin.val(3);
+            },
+        },
+        {
+            name: "DASH",
+            onSelect: function() {
+                network = bitcoin.networks.dash;
+                DOM.bip44coin.val(5);
+            },
+        },
+        {
+            name: "Ethereum",
+            onSelect: function() {
+                network = bitcoin.networks.bitcoin;
+                DOM.bip44coin.val(60);
+            },
+        },
+        {
+            name: "Jumbucks",
+            onSelect: function() {
+                network = bitcoin.networks.jumbucks;
+                DOM.bip44coin.val(26);
+            },
+        },
+        {
+            name: "Litecoin",
+            onSelect: function() {
+                network = bitcoin.networks.litecoin;
+                DOM.bip44coin.val(2);
+            },
+        },
+        {
+            name: "Namecoin",
+            onSelect: function() {
+                network = bitcoin.networks.namecoin;
+                DOM.bip44coin.val(7);
+            },
+        },
+        {
+            name: "Peercoin",
+            onSelect: function() {
+                network = bitcoin.networks.peercoin;
+                DOM.bip44coin.val(6);
             },
         },
         {
@@ -1125,48 +1167,6 @@
             onSelect: function() {
                 network = bitcoin.networks.viacointestnet;
                 DOM.bip44coin.val(1);
-            },
-        },
-        {
-            name: "Jumbucks",
-            onSelect: function() {
-                network = bitcoin.networks.jumbucks;
-                DOM.bip44coin.val(26);
-            },
-        },
-        {
-            name: "CLAM",
-            onSelect: function() {
-                network = bitcoin.networks.clam;
-                DOM.bip44coin.val(23);
-            },
-        },
-        {
-            name: "DASH",
-            onSelect: function() {
-                network = bitcoin.networks.dash;
-                DOM.bip44coin.val(5);
-            },
-        },
-        {
-            name: "Namecoin",
-            onSelect: function() {
-                network = bitcoin.networks.namecoin;
-                DOM.bip44coin.val(7);
-            },
-        },
-        {
-            name: "Peercoin",
-            onSelect: function() {
-                network = bitcoin.networks.peercoin;
-                DOM.bip44coin.val(6);
-            },
-        },
-        {
-            name: "Ethereum",
-            onSelect: function() {
-                network = bitcoin.networks.bitcoin;
-                DOM.bip44coin.val(60);
             },
         },
     ]
