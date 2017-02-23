@@ -3550,6 +3550,38 @@ page.open(url, function(status) {
 });
 },
 
+// github issue 58
+// https://github.com/iancoleman/bip39/issues/58
+// bip32 derivation is correct, does not drop leading zeros
+// see also
+// https://medium.com/@alexberegszaszi/why-do-my-bip32-wallets-disagree-6f3254cc5846
+function() {
+page.open(url, function(status) {
+    // set the phrase and passphrase
+    var expected = "17rxURoF96VhmkcEGCj5LNQkmN9HVhWb7F";
+    // Note that bitcore generates an incorrect address
+    // 13EuKhffWkBE2KUwcbkbELZb1MpzbimJ3Y
+    // see the medium.com link above for more details
+    page.evaluate(function() {
+        $(".phrase").val("fruit wave dwarf banana earth journey tattoo true farm silk olive fence");
+        $(".passphrase").val("banana").trigger("input");
+    });
+    // check the address is generated correctly
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("BIP32 derivation is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // If you wish to add more tests, do so here...
 
 // Here is a blank test template
