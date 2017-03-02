@@ -3582,6 +3582,35 @@ page.open(url, function(status) {
 });
 },
 
+
+// github issue 60
+// Japanese mnemonics generate incorrect bip32 seed
+// BIP39 seed is set from phrase
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "a262d6fb6122ecf45be09c50492b31f92e9beb7d9a845987a02cefda57a15f9c467a17872029a9e92299b5cbdf306e3a0ee620245cbd508959b6cb7ca637bd55";
+    page.evaluate(function() {
+        $(".phrase").val("あいこくしん　あいこくしん　あいこくしん　あいこくしん　あいこくしん　あいこくしん　あいこくしん　あいこくしん　あいこくしん　あいこくしん　あいこくしん　あおぞら");
+        $("#passphrase").val("メートルガバヴァぱばぐゞちぢ十人十色");
+        $("#passphrase").trigger("input");
+    });
+    // check the seed is generated correctly
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".seed").val();
+        });
+        if (actual != expected) {
+            console.log("BIP39 seed is incorrectly generated from Japanese mnemonic");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // If you wish to add more tests, do so here...
 
 // Here is a blank test template
