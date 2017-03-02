@@ -244,17 +244,23 @@
                             </th>
                             <th>
                                 <div class="input-group">
+                                    Public Key&nbsp;&nbsp;
+                                    <button class="public-key-toggle">Toggle</button>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="input-group">
                                     Private Key&nbsp;&nbsp;
                                     <button class="private-key-toggle">Toggle</button>
                                 </div>
                             </th>
                         </thead>
                         <tbody class="addresses">
-                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -393,6 +399,7 @@
             <tr>
                 <td class="index"><span></span></td>
                 <td class="address"><span></span></td>
+                <td class="pubkey"><span></span></td>
                 <td class="privkey"><span></span></td>
             </tr>
         </script>
@@ -15102,6 +15109,7 @@ var Mnemonic = function(language) {
 
     var showIndex = true;
     var showAddress = true;
+    var showPubKey = true;
     var showPrivKey = true;
 
     var phraseChangeTimeoutEvent = null;
@@ -15133,6 +15141,7 @@ var Mnemonic = function(language) {
     DOM.tab = $(".derivation-type a");
     DOM.indexToggle = $(".index-toggle");
     DOM.addressToggle = $(".address-toggle");
+    DOM.publicKeyToggle = $(".public-key-toggle");
     DOM.privateKeyToggle = $(".private-key-toggle");
 
     var derivationPath = $(".tab-pane.active .path").val();
@@ -15152,6 +15161,7 @@ var Mnemonic = function(language) {
         DOM.tab.on("click", tabClicked);
         DOM.indexToggle.on("click", toggleIndexes);
         DOM.addressToggle.on("click", toggleAddresses);
+        DOM.publicKeyToggle.on("click", togglePublicKeys)
         DOM.privateKeyToggle.on("click", togglePrivateKeys);
         disableForms();
         hidePending();
@@ -15240,6 +15250,11 @@ var Mnemonic = function(language) {
     function toggleAddresses() {
         showAddress = !showAddress;
         $("td.address span").toggleClass("invisible");
+    }
+
+    function togglePublicKeys() {
+        showPubKey = !showPubKey;
+        $("td.pubkey span").toggleClass("invisible");
     }
 
     function togglePrivateKeys() {
@@ -15358,8 +15373,9 @@ var Mnemonic = function(language) {
             setTimeout(function() {
                 var key = bip32ExtendedKey.derive(index);
                 var address = key.getAddress().toString();
+                var pubkey = key.pubKey.toHex();
                 var privkey = key.privKey.toWIF(network);
-                addAddressToList(index, address, privkey);
+                addAddressToList(index, address, pubkey, privkey);
             }, 50)
         }
 
@@ -15400,16 +15416,18 @@ var Mnemonic = function(language) {
         DOM.extendedPubKey.val("");
     }
 
-    function addAddressToList(index, address, privkey) {
+    function addAddressToList(index, address, pubkey, privkey) {
         var row = $(addressRowTemplate.html());
         // Elements
         var indexCell = row.find(".index span");
         var addressCell = row.find(".address span");
+        var pubkeyCell = row.find(".pubkey span");
         var privkeyCell = row.find(".privkey span");
         // Content
         var indexText = derivationPath + "/" + index;
         indexCell.text(indexText);
         addressCell.text(address);
+        pubkeyCell.text(pubkey)
         privkeyCell.text(privkey);
         // Visibility
         if (!showIndex) {
@@ -15417,6 +15435,9 @@ var Mnemonic = function(language) {
         }
         if (!showAddress) {
             addressCell.addClass("invisible");
+        }
+        if (!showPubKey) {
+            pubkeyCell.addClass("invisible");
         }
         if (!showPrivKey) {
             privkeyCell.addClass("invisible");
