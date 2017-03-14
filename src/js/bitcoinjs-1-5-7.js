@@ -11108,7 +11108,7 @@ var networks = {
     feePerKb: 0,
     estimateFee: estimateFee('digitbyte')
   },
-  clubcoin: {
+  digitalcoin: {
     magicPrefix: '\x19Digitalcoin Signed Message:\n',
     bip32: {
       public: 0x0488b21e,

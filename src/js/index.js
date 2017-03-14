@@ -435,42 +435,7 @@
             },
         },
         {
-            name: "ShadowCash",
-            onSelect: function() {
-                network = bitcoin.networks.shadow;
-                DOM.bip44coin.val(35);
-            },
-        },
-        {
-            name: "ShadowCash Testnet",
-            onSelect: function() {
-                network = bitcoin.networks.shadowtn;
-                DOM.bip44coin.val(1);
-            },
-        },
-        {
-            name: "Viacoin",
-            onSelect: function() {
-                network = bitcoin.networks.viacoin;
-                DOM.bip44coin.val(14);
-            },
-        },
-        {
-            name: "Viacoin Testnet",
-            onSelect: function() {
-                network = bitcoin.networks.viacointestnet;
-                DOM.bip44coin.val(1);
-            },
-        },
-        {
-            name: "Jumbucks",
-            onSelect: function() {
-                network = bitcoin.networks.jumbucks;
-                DOM.bip44coin.val(26);
-            },
-        },
-        {
-            name: "CLAM",
+            name: "Clams",
             onSelect: function() {
                 network = bitcoin.networks.clam;
                 DOM.bip44coin.val(23);
@@ -596,6 +561,13 @@
             },
         },
         {
+            name: "Jumbucks",
+            onSelect: function() {
+                network = bitcoin.networks.jumbucks;
+                DOM.bip44coin.val(26);
+            },
+        },
+        {
             name: "Monacoin",
             onSelect: function() {
                 network = bitcoin.networks.monacoin;
@@ -658,6 +630,20 @@
                 DOM.bip44coin.val(16);
             },
         },
+                {
+            name: "ShadowCash",
+            onSelect: function() {
+                network = bitcoin.networks.shadow;
+                DOM.bip44coin.val(35);
+            },
+        },
+        {
+            name: "ShadowCash Testnet",
+            onSelect: function() {
+                network = bitcoin.networks.shadowtn;
+                DOM.bip44coin.val(1);
+            },
+        },
         {
             name: "Smileycoin",
             onSelect: function() {
@@ -698,6 +684,20 @@
             onSelect: function() {
                 network = bitcoin.networks.vertcoin;
                 DOM.bip44coin.val(28);
+            },
+        },
+                {
+            name: "Viacoin",
+            onSelect: function() {
+                network = bitcoin.networks.viacoin;
+                DOM.bip44coin.val(14);
+            },
+        },
+        {
+            name: "Viacoin Testnet",
+            onSelect: function() {
+                network = bitcoin.networks.viacointestnet;
+                DOM.bip44coin.val(1);
             },
         },
         {
