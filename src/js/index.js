@@ -1169,6 +1169,13 @@
                 DOM.bip44coin.val(1);
             },
         },
+        {
+            name: "Particl",
+            onSelect: function() {
+                network = bitcoin.networks.particl;
+                DOM.bip44coin.val(44);
+            },
+        },        
     ]
 
     var clients = [
