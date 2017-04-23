@@ -1114,6 +1114,13 @@
             },
         },
         {
+            name: "GAME",
+            onSelect: function() {
+                network = bitcoin.networks.game;
+                DOM.bip44coin.val(101);
+            },
+        },
+        {
             name: "Jumbucks",
             onSelect: function() {
                 network = bitcoin.networks.jumbucks;
