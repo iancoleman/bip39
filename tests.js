@@ -571,6 +571,36 @@ page.open(url, function(status) {
 });
 },
 
+// Network can be set to game
+function() {
+page.open(url, function(status) {
+    // set the phrase and coin
+    var expected = "GSMY9bAp36cMR4zyT4uGVS7GFjpdXbao5Q";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option").filter(function() {
+            return $(this).html() == "GAME";
+        }).prop("selected", true);
+        $(".network").trigger("change");
+    });
+    // check the address is generated correctly
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("GAME address is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // Network can be set to namecoin
 function() {
 page.open(url, function(status) {
