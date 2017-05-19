@@ -4,6 +4,8 @@
         <meta charset="utf-8" />
         <title>BIP39 - Mnemonic Code</title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/keyboard.css">
+        <link rel="stylesheet" href="css/customkeyboard.css">
         <meta content="Mnemonic code for generating deterministic keys" name="description"/>
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta content="bitcoin mnemonic converter" name="description" />
@@ -157,7 +159,7 @@
                             <div class="form-group">
                                 <label for="entropy" class="col-sm-2 control-label" data-translate>Entropy</label>
                                 <div class="col-sm-7">
-                                    <textarea id="entropy" rows="2" class="entropy form-control" placeholder="Accepts binary, base 6, 6-sided dice, base 10, hexadecimal, cards" data-translate-placeholder></textarea>
+                                    <textarea id="entropy" rows="2" class="entropy form-control virtual-keyboard" placeholder="Accepts binary, base 6, 6-sided dice, base 10, hexadecimal, cards" data-translate-placeholder></textarea>
                                     <div class="row">
                                         <label class="col-sm-3 control-label" data-translate>Strength</label>
                                         <div class="strength col-sm-3 form-control-static"></div>
@@ -696,6 +698,9 @@
         <script src="js/biginteger.js"></script>
         <script src="js/zxcvbn.js"></script>
         <script src="js/entropy.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script src="js/jquery.keyboard.js"></script>
+        <script src="js/virtualkeyboard.js"></script>
         <script src="js/index.js"></script>
     </body>
 </html>

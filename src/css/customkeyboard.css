@@ -1,0 +1,6 @@
+.ui-keyboard-has-focus {
+	background: #eeeeee 50% bottom repeat-x;
+    border-style: solid;
+    border-width: 1px;
+	border-color: #cccccc;
+}
