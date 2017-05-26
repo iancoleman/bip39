@@ -723,6 +723,66 @@ page.open(url, function(status) {
 });
 },
 
+// Network can be set to Slimcoin
+function() {
+page.open(url, function(status) {
+    // set the phrase and coin
+    var expected = "SNzPi1CafHFm3WWjRo43aMgiaEEj3ogjww";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option").filter(function() {
+            return $(this).html() == "Slimcoin";
+        }).prop("selected", true);
+        $(".network").trigger("change");
+    });
+    // check the address is generated correctly
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("Slimcoin address is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
+// Network can be set to Slimcointn
+function() {
+page.open(url, function(status) {
+    // set the phrase and coin
+    var expected = "n3nMgWufTek5QQAr6uwMhg5xbzj8xqc4Dq";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option").filter(function() {
+            return $(this).html() == "Slimcoin Testnet";
+        }).prop("selected", true);
+        $(".network").trigger("change");
+    });
+    // check the address is generated correctly
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("Slimcoin testnet address is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // BIP39 seed is set from phrase
 function() {
 page.open(url, function(status) {

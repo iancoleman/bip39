@@ -75,3 +75,23 @@ bitcoin.networks.peercoin = {
   wif: 0xb7,
 };
 
+bitcoin.networks.slimcoin = {
+  bip32: {
+    public: 0xef6adf10,
+    private: 0xef69ea80
+  },
+  pubKeyHash: 0x3f,
+  scriptHash: 0x7d,
+  wif: 0x46,
+};
+
+bitcoin.networks.slimcointn = {
+  bip32: {
+    public: 0x043587CF,
+    private: 0x04358394
+  },
+  pubKeyHash: 0x6f,
+  scriptHash: 0xc4,
+  wif: 0x57,
+};
+

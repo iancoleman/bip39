@@ -1163,6 +1163,20 @@
             },
         },
         {
+            name: "Slimcoin",
+            onSelect: function() {
+                network = bitcoin.networks.slimcoin;
+                DOM.bip44coin.val(63);
+            },
+        },
+        {
+            name: "Slimcoin Testnet",
+            onSelect: function() {
+                network = bitcoin.networks.slimcointn;
+                DOM.bip44coin.val(111);
+            },
+        },
+        {
             name: "Viacoin",
             onSelect: function() {
                 network = bitcoin.networks.viacoin;
