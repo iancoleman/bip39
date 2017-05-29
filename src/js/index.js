@@ -295,13 +295,16 @@
                     }
                 }
                 var privkey;
+
+                var pubkey = key.pubKey.toHex();
                 if (!network.ethereum) {
                     privkey = key.privKey.toWIF(network);
                 }
                 else {
                     privkey = "0x" + key.privKey.d.toString(16);
+                    pubkey = "0x" + pubkey;
                 }
-                addAddressToList(index, address, privkey);
+                addAddressToList(index, address, pubkey, privkey);
             }, 50)
         }
 
@@ -762,6 +765,118 @@
             onSelect: function() {
                 network = bitcoin.networks.pivx;
                 DOM.bip44coin.val(119);
+            },
+        },
+        {
+            name: "Abncoin",
+            onSelect: function() {
+                network = bitcoin.networks.abncoin;
+                DOM.bip44coin.val(141);
+            },
+        },
+        {
+            name: "Asiancoin",
+            onSelect: function() {
+                network = bitcoin.networks.asiacoin;
+                DOM.bip44coin.val(51);
+            },
+        },
+        {
+            name: "BitcoinPlus",
+            onSelect: function() {
+                network = bitcoin.networks.bitcoinplus;
+                DOM.bip44coin.val(65);
+            },
+        },
+        {
+            name: "Canada eCoin",
+            onSelect: function() {
+                network = bitcoin.networks.canadaecoin;
+                DOM.bip44coin.val(34);
+            },
+        },
+        {
+            name: "Einsteinium",
+            onSelect: function() {
+                network = bitcoin.networks.einsteinium;
+                DOM.bip44coin.val(41);
+            },
+        },
+        {
+            name: "Expanse",
+            onSelect: function() {
+                network = bitcoin.networks.expanse;
+                DOM.bip44coin.val(40);
+            },
+        },
+        {
+            name: "Gamecredits",
+            onSelect: function() {
+                network = bitcoin.networks.gamecredits;
+                DOM.bip44coin.val(101);
+            },
+        },
+        {
+            name: "Internet of People",
+            onSelect: function() {
+                network = bitcoin.networks.iop;
+                DOM.bip44coin.val(66);
+            },
+        },
+        {
+            name: "IXCoin",
+            onSelect: function() {
+                network = bitcoin.networks.ixcoin;
+                DOM.bip44coin.val(86);
+            },
+        },
+        {
+            name: "Landcoin",
+            onSelect: function() {
+                network = bitcoin.networks.landcoin;
+                DOM.bip44coin.val(63);
+            },
+        },
+        {
+            name: "Namecoin",
+            onSelect: function() {
+                network = bitcoin.networks.namecoin;
+                DOM.bip44coin.val(7);
+            },
+        },
+        {
+            name: "Navcoin",
+            onSelect: function() {
+                network = bitcoin.networks.navoin;
+                DOM.bip44coin.val(130);
+            },
+        },
+        {
+            name: "OKCash",
+            onSelect: function() {
+                network = bitcoin.networks.okcash;
+                DOM.bip44coin.val(69);
+            },
+        },
+        {
+            name: "POSWcoin",
+            onSelect: function() {
+                network = bitcoin.networks.posw;
+                DOM.bip44coin.val(47);
+            },
+        },
+        {
+            name: "Stratis",
+            onSelect: function() {
+                network = bitcoin.networks.stratis;
+                DOM.bip44coin.val(105);
+            },
+        },
+        {
+            name: "ZCash",
+            onSelect: function() {
+                network = bitcoin.networks.zcash;
+                DOM.bip44coin.val(133);
             },
         },
         

@@ -152,8 +152,8 @@ bitcoin.networks.bitcoin = {
     feePerKb: 100000,
     estimateFee: estimateFee('viacointestnet')
   };
-  bitcoin.networks.gamerscoin = {
-    magicPrefix: '\x19Gamerscoin Signed Message:\n',
+  bitcoin.networks.gemecredits = {
+    magicPrefix: '\x19Gamecredits Signed Message:\n',
     bip32: {
       public: 0x019da462,
       private: 0x019d9cfe
@@ -164,7 +164,7 @@ bitcoin.networks.bitcoin = {
     dustThreshold: 0, // https://github.com/gamers-coin/gamers-coinv3/blob/master/src/main.cpp#L358-L363
     dustSoftThreshold: 100000, // https://github.com/gamers-coin/gamers-coinv3/blob/master/src/main.cpp#L51
     feePerKb: 100000, // https://github.com/gamers-coin/gamers-coinv3/blob/master/src/main.cpp#L54
-    estimateFee: estimateFee('gamerscoin')
+    estimateFee: estimateFee('gamecredits')
   };
   bitcoin.networks.jumbucks = {
     magicPrefix: '\x19Jumbucks Signed Message:\n',
@@ -677,6 +677,7 @@ bitcoin.networks.pivx = {
   wif: 212
 }
 
+
 bitcoin.networks.eth = {
   bip32: {
     public: 0xffffffff,
@@ -696,3 +697,176 @@ bitcoin.networks.etc = {
   wif: 0xff,    
   ethereum : true
 };
+
+
+
+bitcoin.networks.abncoin = {
+  magicPrefix: '\x19Abncoin Signed Message:\n',
+  bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+  pubKeyHash:25,
+  scriptHash:85,
+  wif: 153
+}
+
+bitcoin.networks.asiacoin = {
+  magicPrefix: '\x19Asiacoin Signed Message:\n',
+  bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+  pubKeyHash:23,
+  scriptHash:8,
+  wif: 151
+}
+
+bitcoin.networks.bitcoinplus = {
+  magicPrefix: '\x19Bitcoinplus Signed Message:\n',
+  bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+  pubKeyHash:25,
+  scriptHash:85,
+  wif: 153
+}
+
+bitcoin.networks.canadaecoin = {
+  magicPrefix: '\x19Canada eCoin Signed Message:\n',
+  bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+  pubKeyHash:28,
+  scriptHash:5,
+  wif: 156
+}
+
+bitcoin.networks.einsteinium = {
+  magicPrefix: '\x19Einsteinium Signed Message:\n',
+  bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+  pubKeyHash:33,
+  scriptHash:5,
+  wif: 161
+}
+
+bitcoin.networks.expanse = {
+  bip32: {
+    public: 0xffffffff,
+    private: 0xffffffff
+  },
+  pubKeyHash: 0xff,
+  wif: 0xff,    
+  ethereum : true
+};
+
+bitcoin.networks.iop = {
+  magicPrefix: '\x19Internet of People Signed Message:\n',
+  bip32: {
+      public: 0x2780915f,
+      private: 0xae3416f6
+    },
+  pubKeyHash:117,
+  scriptHash:174,
+  wif: 49
+}
+
+
+bitcoin.networks.ixcoin = {
+  magicPrefix: '\x19Ixcoin Signed Message:\n',
+  bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+  pubKeyHash:138,
+  scriptHash:5,
+  wif: 128
+}
+
+bitcoin.networks.landcoin = {
+  magicPrefix: '\x19Landcoin Signed Message:\n',
+  bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+  pubKeyHash:48,
+  scriptHash:122,
+  wif: 176
+}
+
+bitcoin.networks.namecoin = {
+  magicPrefix: '\x19Namecoin Signed Message:\n',
+  bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+  pubKeyHash:52,
+  scriptHash:13,
+  wif: 180
+}
+
+bitcoin.networks.navcoin = {
+  magicPrefix: '\x19Navcoin Signed Message:\n',
+  bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+  pubKeyHash:53,
+  scriptHash:85,
+  wif: 150
+}
+
+bitcoin.networks.okcash = {
+  magicPrefix: '\x19Okcash Signed Message:\n',
+  bip32: {
+      public: 0x03cc23d7,
+      private: 0x03cc1c73
+    },
+  pubKeyHash:55,
+  scriptHash:28,
+  wif: 183
+}
+
+
+bitcoin.networks.posw = {
+  magicPrefix: '\x19POSWcoin Signed Message:\n',
+  bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+  pubKeyHash:55,
+  scriptHash:85,
+  wif: 183
+}
+
+bitcoin.networks.stratis = {
+  magicPrefix: '\x19Stratis Signed Message:\n',
+  bip32: {
+      public: 0x0488b21e,
+      private: 0x0488b2dd
+    },
+  pubKeyHash:63,
+  scriptHash:125,
+  wif: 191
+}
+
+bitcoin.networks.zcash = {
+  magicPrefix: '\x19Zcas hSigned Message:\n',
+  bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+  pubKeyHash:0x1cb8,
+  scriptHash:0x1cbd,
+  wif: 128
+}
+
+
+
+
+
