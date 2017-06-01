@@ -4,7 +4,7 @@
 
 var page = require('webpage').create();
 var url = 'src/index.html';
-var testMaxTime = 10000;
+var testMaxTime = 20000;
 
 page.viewportSize = {
     width: 1024,
@@ -280,7 +280,9 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
-        $(".network option[value=1]").prop("selected", true);
+        $(".network option").filter(function() {
+            return $(this).html() == "Bitcoin Testnet";
+        }).prop("selected", true);
         $(".network").trigger("change");
     });
     // check the address is generated correctly
@@ -308,7 +310,9 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
-        $(".network option[value=2]").prop("selected", true);
+        $(".network option").filter(function() {
+            return $(this).html() == "Litecoin";
+        }).prop("selected", true);
         $(".network").trigger("change");
     });
     // check the address is generated correctly
@@ -336,7 +340,9 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
-        $(".network option[value=3]").prop("selected", true);
+        $(".network option").filter(function() {
+            return $(this).html() == "Dogecoin";
+        }).prop("selected", true);
         $(".network").trigger("change");
     });
     // check the address is generated correctly
@@ -364,7 +370,9 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
-        $(".network option[value=4]").prop("selected", true);
+        $(".network option").filter(function() {
+            return $(this).html() == "ShadowCash";
+        }).prop("selected", true);
         $(".network").trigger("change");
     });
     // check the address is generated correctly
@@ -392,7 +400,9 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
-        $(".network option[value=5]").prop("selected", true);
+        $(".network option").filter(function() {
+            return $(this).html() == "ShadowCash Testnet";
+        }).prop("selected", true);
         $(".network").trigger("change");
     });
     // check the address is generated correctly
@@ -420,7 +430,9 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
-        $(".network option[value=6]").prop("selected", true);
+        $(".network option").filter(function() {
+            return $(this).html() == "Viacoin";
+        }).prop("selected", true);
         $(".network").trigger("change");
     });
     // check the address is generated correctly
@@ -448,7 +460,9 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
-        $(".network option[value=7]").prop("selected", true);
+        $(".network option").filter(function() {
+            return $(this).html() == "Viacoin Testnet";
+        }).prop("selected", true);
         $(".network").trigger("change");
     });
     // check the address is generated correctly
@@ -476,7 +490,9 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
-        $(".network option[value=8]").prop("selected", true);
+        $(".network option").filter(function() {
+            return $(this).html() == "Jumbucks";
+        }).prop("selected", true);
         $(".network").trigger("change");
     });
     // check the address is generated correctly
@@ -504,7 +520,9 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
-        $(".network option[value=9]").prop("selected", true);
+        $(".network option").filter(function() {
+            return $(this).html() == "CLAM";
+        }).prop("selected", true);
         $(".network").trigger("change");
     });
     // check the address is generated correctly
@@ -532,7 +550,9 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
-        $(".network option[value=10]").prop("selected", true);
+        $(".network option").filter(function() {
+            return $(this).html() == "DASH";
+        }).prop("selected", true);
         $(".network").trigger("change");
     });
     // check the address is generated correctly
@@ -551,6 +571,36 @@ page.open(url, function(status) {
 });
 },
 
+// Network can be set to game
+function() {
+page.open(url, function(status) {
+    // set the phrase and coin
+    var expected = "GSMY9bAp36cMR4zyT4uGVS7GFjpdXbao5Q";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option").filter(function() {
+            return $(this).html() == "GAME";
+        }).prop("selected", true);
+        $(".network").trigger("change");
+    });
+    // check the address is generated correctly
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("GAME address is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // Network can be set to namecoin
 function() {
 page.open(url, function(status) {
@@ -560,7 +610,9 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
-        $(".network option[value=11]").prop("selected", true);
+        $(".network option").filter(function() {
+            return $(this).html() == "Namecoin";
+        }).prop("selected", true);
         $(".network").trigger("change");
     });
     // check the address is generated correctly
@@ -588,7 +640,9 @@ page.open(url, function(status) {
         $(".phrase").val("abandon abandon ability");
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
-        $(".network option[value=12]").prop("selected", true);
+        $(".network option").filter(function() {
+            return $(this).html() == "Peercoin";
+        }).prop("selected", true);
         $(".network").trigger("change");
     });
     // check the address is generated correctly
@@ -602,6 +656,68 @@ page.open(url, function(status) {
             console.log("Actual: " + actual);
             fail();
         }
+        next();
+    });
+});
+},
+
+// Network can be set to ethereum
+function() {
+
+page.open(url, function(status) {
+
+    // set the phrase and coin
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option").filter(function() {
+            return $(this).html() == "Ethereum";
+        }).prop("selected", true);
+        $(".network").trigger("change");
+    });
+    waitForGenerate(function() {
+        // check the address is generated correctly
+        // this value comes from
+        // https://www.myetherwallet.com/#view-wallet-info
+        // Unusual capitalization is due to checksum
+        var expected = "0xe5815d5902Ad612d49283DEdEc02100Bd44C2772";
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("Ethereum address is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        // check the private key is correct
+        // this private key can be imported into
+        // https://www.myetherwallet.com/#view-wallet-info
+        // and it should correlate to the address above
+        var expected = "8f253078b73d7498302bb78c171b23ce7a8fb511987d2b2702b731638a4a15e7";
+        var actual = page.evaluate(function() {
+            return $(".privkey:first").text();
+        });
+        if (actual != expected) {
+            console.log("Ethereum privkey is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        // check the public key is correct
+        // TODO
+        // don't have any third-party source to generate the expected value
+        //var expected = "?";
+        //var actual = page.evaluate(function() {
+        //    return $(".pubkey:first").text();
+        //});
+        //if (actual != expected) {
+        //    console.log("Ethereum privkey is incorrect");
+        //    console.log("Expected: " + expected);
+        //    console.log("Actual: " + actual);
+        //    fail();
+        //}
         next();
     });
 });
@@ -1778,7 +1894,10 @@ page.open(url, function(status) {
         waitForGenerate(function() {
             // 4) switch from bitcoin to litecoin
             page.evaluate(function() {
-                $(".network").val("2").trigger("change");
+                $(".network option").filter(function() {
+                    return $(this).html() == "Litecoin";
+                }).prop("selected", true);
+                $(".network").trigger("change");
             });
             waitForGenerate(function() {
                 // 5) Check derivation path is displayed correctly
@@ -1821,7 +1940,10 @@ page.open(url, function(status) {
     waitForGenerate(function() {
         // switch from bitcoin to clam
         page.evaluate(function() {
-            $(".network").val("9").trigger("change");
+            $(".network option").filter(function() {
+                return $(this).html() == "CLAM";
+            }).prop("selected", true);
+            $(".network").trigger("change");
         });
         waitForGenerate(function() {
             // check derivation path is displayed correctly
@@ -1852,7 +1974,10 @@ page.open(url, function(status) {
     waitForGenerate(function() {
         // 4) switch from bitcoin to viacoin
         page.evaluate(function() {
-            $(".network").val("6").trigger("change");
+            $(".network option").filter(function() {
+                return $(this).html() == "Viacoin";
+            }).prop("selected", true);
+            $(".network").trigger("change");
         });
         waitForGenerate(function() {
             // 5) ensure the derived address is correct
@@ -2268,7 +2393,6 @@ page.open(url, function(status) {
     // use entropy
     page.evaluate(function() {
         $(".use-entropy").prop("checked", true).trigger("change");
-        $(".mnemonic-length").val("raw");
         $(".entropy").val("00000000 00000000 00000000 00000000").trigger("input");
     });
     // check the mnemonic is set and address is correct
@@ -2804,7 +2928,6 @@ page.open(url, function(status) {
     // use entropy
     page.evaluate(function() {
         $(".use-entropy").prop("checked", true).trigger("change");
-        $(".mnemonic-length").val("raw");
     });
     var nextTest = function runNextTest(i) {
         function getFeedbackError(expected, actual) {
@@ -2886,7 +3009,6 @@ page.open(url, function(status) {
     // use entropy
     page.evaluate(function() {
         $(".use-entropy").prop("checked", true).trigger("change");
-        $(".mnemonic-length").val("raw");
         var entropy  = "00000000 00000000 00000000 00000000";
             entropy += "11111111 11111111 11111111 1111"; // Missing last byte
         $(".entropy").val(entropy).trigger("input");
@@ -2913,7 +3035,6 @@ page.open(url, function(status) {
     // use entropy
     page.evaluate(function() {
         $(".use-entropy").prop("checked", true).trigger("change");
-        $(".mnemonic-length").val("raw");
         var entropy  = "";
         // Generate a very long entropy string
         for (var i=0; i<33; i++) {
@@ -2947,7 +3068,6 @@ page.open(url, function(status) {
     // use entropy
     page.evaluate(function() {
         $(".use-entropy").prop("checked", true).trigger("change");
-        $(".mnemonic-length").val("raw");
         var entropy  = "543210543210543210543210543210543210543210543210543210543210543210543210543210543210543210543210543";
         $(".entropy").val(entropy).trigger("input");
     });
@@ -3039,7 +3159,6 @@ page.open(url, function(status) {
     // use entropy
     page.evaluate(function() {
         $(".use-entropy").prop("checked", true).trigger("change");
-        $(".mnemonic-length").val("raw");
         $(".entropy").val("7S 9H 9S QH 8C KS AS 7D 7C QD 4S 4D TC 2D 5S JS 3D 8S 8H 4C 3C AC 3S QC 9C JC 7H AD TD JD 6D KH 5C QS 2S 6S 6H JH KD 9D-6C TS TH 4H KC 5H 2H AH 2C 8D 3H 5D").trigger("input");
     });
     // get the mnemonic
@@ -3345,6 +3464,7 @@ page.open(url, function(status) {
     // use entropy
     page.evaluate(function() {
         $(".use-entropy").prop("checked", true).trigger("change");
+        $(".mnemonic-length").val("15");
         $(".entropy").val("1111").trigger("input");
     });
     waitForGenerate(function() {
@@ -3355,6 +3475,163 @@ page.open(url, function(status) {
         // check the mnemonic is correct
         if (actual != expected) {
             console.log("Left padding error for entropy");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
+// Github pull request 55
+// https://github.com/iancoleman/bip39/pull/55
+// Client select
+function() {
+page.open(url, function(status) {
+    // set mnemonic and select bip32 tab
+    page.evaluate(function() {
+        $("#bip32-tab a").click();
+        $(".phrase").val("abandon abandon ability").trigger("input");
+    });
+    waitForGenerate(function() {
+        // BITCOIN CORE
+        // set bip32 client to bitcoin core
+        page.evaluate(function() {
+            var bitcoinCoreIndex = "0";
+            $("#bip32-client").val(bitcoinCoreIndex).trigger("change");
+        });
+        waitForGenerate(function() {
+            // get the derivation path
+            var actual = page.evaluate(function() {
+                return $("#bip32-path").val();
+            });
+            // check the derivation path is correct
+            expected = "m/0'/0'"
+            if (actual != expected) {
+                console.log("Selecting Bitcoin Core client does not set correct derivation path");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + actual);
+                fail();
+            }
+            // get hardened addresses
+            var usesHardenedAddresses = page.evaluate(function() {
+                return $(".hardened-addresses").prop("checked");
+            });
+            // check hardened addresses is selected
+            if(!usesHardenedAddresses) {
+                console.log("Selecting Bitcoin Core client does not use hardened addresses");
+                fail();
+            }
+            // check input is readonly
+            var pathIsReadonly = page.evaluate(function() {
+                return $("#bip32-path").prop("readonly");
+            });
+            if (!pathIsReadonly) {
+                console.log("Selecting Bitcoin Core client does not set derivation path to readonly");
+                fail();
+            }
+            // MULTIBIT
+            // set bip32 client to multibit
+            page.evaluate(function() {
+                var multibitIndex = "2";
+                $("#bip32-client").val(multibitIndex).trigger("change");
+            });
+            waitForGenerate(function() {
+                // get the derivation path
+                var actual = page.evaluate(function() {
+                    return $("#bip32-path").val();
+                });
+                // check the derivation path is correct
+                expected = "m/0'/0"
+                if (actual != expected) {
+                    console.log("Selecting Multibit client does not set correct derivation path");
+                    console.log("Expected: " + expected);
+                    console.log("Actual: " + actual);
+                    fail();
+                }
+                // get hardened addresses
+                var usesHardenedAddresses = page.evaluate(function() {
+                    return $(".hardened-addresses").prop("checked");
+                });
+                // check hardened addresses is selected
+                if(usesHardenedAddresses) {
+                    console.log("Selecting Multibit client does not uncheck hardened addresses");
+                    fail();
+                }
+                // CUSTOM DERIVATION PATH
+                // check input is not readonly
+                page.evaluate(function() {
+                    $("#bip32-client").val("custom").trigger("change");
+                });
+                // do not wait for generate, since there is no change to the
+                // derivation path there is no new generation performed
+                var pathIsReadonly = page.evaluate(function() {
+                    return $("#bip32-path").prop("readonly");
+                });
+                if (pathIsReadonly) {
+                    console.log("Selecting Custom Derivation Path does not allow derivation path input");
+                    fail();
+                }
+                next();
+            });
+        });
+    });
+});
+},
+
+// github issue 58
+// https://github.com/iancoleman/bip39/issues/58
+// bip32 derivation is correct, does not drop leading zeros
+// see also
+// https://medium.com/@alexberegszaszi/why-do-my-bip32-wallets-disagree-6f3254cc5846
+function() {
+page.open(url, function(status) {
+    // set the phrase and passphrase
+    var expected = "17rxURoF96VhmkcEGCj5LNQkmN9HVhWb7F";
+    // Note that bitcore generates an incorrect address
+    // 13EuKhffWkBE2KUwcbkbELZb1MpzbimJ3Y
+    // see the medium.com link above for more details
+    page.evaluate(function() {
+        $(".phrase").val("fruit wave dwarf banana earth journey tattoo true farm silk olive fence");
+        $(".passphrase").val("banana").trigger("input");
+    });
+    // check the address is generated correctly
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("BIP32 derivation is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
+
+// github issue 60
+// Japanese mnemonics generate incorrect bip32 seed
+// BIP39 seed is set from phrase
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "a262d6fb6122ecf45be09c50492b31f92e9beb7d9a845987a02cefda57a15f9c467a17872029a9e92299b5cbdf306e3a0ee620245cbd508959b6cb7ca637bd55";
+    page.evaluate(function() {
+        $(".phrase").val("あいこくしん　あいこくしん　あいこくしん　あいこくしん　あいこくしん　あいこくしん　あいこくしん　あいこくしん　あいこくしん　あいこくしん　あいこくしん　あおぞら");
+        $("#passphrase").val("メートルガバヴァぱばぐゞちぢ十人十色");
+        $("#passphrase").trigger("input");
+    });
+    // check the seed is generated correctly
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".seed").val();
+        });
+        if (actual != expected) {
+            console.log("BIP39 seed is incorrectly generated from Japanese mnemonic");
             console.log("Expected: " + expected);
             console.log("Actual: " + actual);
             fail();

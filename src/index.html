@@ -8,6 +8,7 @@
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta content="bitcoin mnemonic converter" name="description" />
         <meta content="Ian Coleman" name="author" />
+        <link type="image/x-icon" rel="icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAF0lEQVRIx2NgGAWjYBSMglEwCkbBSAcACBAAAeaR9cIAAAAASUVORK5CYII=" />
 
         <style>
             body {
@@ -182,9 +183,9 @@
                                     <label class="col-sm-3 control-label" data-translate>Mnemonic Length</label>
                                     <div class="col-sm-9">
                                         <select class="mnemonic-length form-control">
-                                            <option value="raw" data-translate>From entropy length (3 words per 32 bits)</option>
+                                            <option value="raw" selected data-translate>Use Raw Entropy (3 words per 32 bits)</option>
                                             <option value="12">12 <span data-translate>Words</span></option>
-                                            <option value="15" selected>15 <span data-translate>Words</option>
+                                            <option value="15">15 <span data-translate>Words</option>
                                             <option value="18">18 <span data-translate>Words</span></option>
                                             <option value="21">21 <span data-translate>Words</span></option>
                                             <option value="24">24 <span data-translate>Words</span></option>
@@ -368,6 +369,15 @@
                                     </p>
                                 </div>
                                 <div class="form-group">
+                                    <label for="bip32-client" class="col-sm-2 control-label" data-translate>Client</label>
+                                    <div class="col-sm-10">
+                                        <select id="bip32-client" class="client form-control">
+                                            <option value="custom">Custom derivation path</option>
+                                            <!-- populated by javascript -->
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label for="bip32-path" class="col-sm-2 control-label" data-translate>BIP32 Derivation Path</label>
                                     <div class="col-sm-10">
                                         <input id="bip32-path" type="text" class="path form-control" value="m/0">
@@ -389,6 +399,18 @@
                                         <p class="form-control no-border" data-translate-html>
                                             For more info see the
                                             <a href="https://github.com/bitcoin/bitcoin/pull/8035" target="_blank">Bitcoin Core BIP32 implementation</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="core-path" class="col-sm-2 control-label" data-translate>Multibit</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control no-border">
+                                            <span data-translate-html>Use path <code>m/0'/0</code>.</span>
+                                        </p>
+                                        <p class="form-control no-border">
+                                            <span data-translate>For more info see</span>
+                                            <a href="https://multibit.org/" target="_blank">MultiBit HD</a>
                                         </p>
                                     </div>
                                 </div>
@@ -651,12 +673,17 @@
                 <td class="privkey"><span data-show-qr></span></td>
             </tr>
         </script>
+        <script src="js/polyfill.es6.js"></script>
+        <script src="js/basex.js"></script>
+        <script src="js/unorm.js"></script>
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/levenshtein.js"></script>
         <script src="js/jquery.qrcode.min.js"></script>
         <script src="js/bitcoinjs-1-5-7.js"></script>
         <script src="js/bitcoinjs-extensions.js"></script>
+        <script src="js/ethereumjs-util.js"></script>
+        <script src="js/ripple-util.js"></script>
         <script src="js/sjcl-bip39.js"></script>
         <script src="js/translate.js"></script>
         <script src="js/phrases_en.js"></script>
