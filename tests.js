@@ -331,6 +331,36 @@ page.open(url, function(status) {
 });
 },
 
+// Network can be set to ripple
+function() {
+page.open(url, function(status) {
+    // set the phrase and coin
+    var expected = "rLTFnqbmCVPGx6VfaygdtuKWJgcN4v1zRS";
+    page.evaluate(function() {
+        $(".phrase").val("ill clump only blind unit burden thing track silver cloth review awake useful craft whale all satisfy else trophy sunset walk vanish hope valve");
+        $(".phrase").trigger("input");
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option").filter(function() {
+            return $(this).html() == "Ripple";
+        }).prop("selected", true);
+        $(".network").trigger("change");
+    });
+    // check the address is generated correctly
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("Litecoin address is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // Network can be set to dogecoin
 function() {
 page.open(url, function(status) {
