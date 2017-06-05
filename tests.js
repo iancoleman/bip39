@@ -351,7 +351,7 @@ page.open(url, function(status) {
             return $(".address:first").text();
         });
         if (actual != expected) {
-            console.log("Litecoin address is incorrect");
+            console.log("Ripple address is incorrect");
             console.log("Expected: " + expected);
             console.log("Actual: " + actual);
             fail();
