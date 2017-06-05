@@ -5,6 +5,6 @@ function convertRippleAdrr(address) {
       }
 
 function convertRipplePriv(priv)   {
-        return window.basex('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz').decode(priv).toString("hex").slice(2,-4)
+        return window.basex('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz').decode(priv).toString("hex").slice(2,66)
 }   
       
