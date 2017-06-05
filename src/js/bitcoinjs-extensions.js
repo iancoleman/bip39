@@ -35,6 +35,16 @@ bitcoin.networks.clam = {
   wif: 0x85,
 };
 
+bitcoin.networks.particl = {
+  bip32: {
+    public: 0x696e82d1,
+    private: 0x8f1daeb8
+  },
+  pubKeyHash: 0x38,
+  scriptHash: 0x3C,
+  wif: 0x6C,
+};
+
 bitcoin.networks.dash = {
   bip32: {
     public: 0x0488b21e,
