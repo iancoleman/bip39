@@ -593,6 +593,11 @@
                     var checksumAddress = ethUtil.toChecksumAddress(hexAddress);
                     address = ethUtil.addHexPrefix(checksumAddress);
                 }
+                // Ripple values are different
+                if (networks[DOM.network.val()].name == "Ripple") {
+                    privkey = convertRipplePriv(privkey);
+                    address = convertRippleAdrr(address);
+                }
                 addAddressToList(indexText, address, pubkey, privkey);
             }, 50)
         }
@@ -1146,6 +1151,13 @@
             onSelect: function() {
                 network = bitcoin.networks.peercoin;
                 DOM.bip44coin.val(6);
+            },
+        },
+        {
+            name: "Ripple",
+            onSelect: function() {
+                network = bitcoin.networks.bitcoin;
+                DOM.bip44coin.val(144);
             },
         },
         {
