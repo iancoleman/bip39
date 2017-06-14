@@ -2,3 +2,4 @@
 
 Add changelog
 Display version number in top right
+Add hex prefix to ethereum keys
