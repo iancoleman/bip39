@@ -725,7 +725,7 @@ page.open(url, function(status) {
         // this private key can be imported into
         // https://www.myetherwallet.com/#view-wallet-info
         // and it should correlate to the address above
-        var expected = "8f253078b73d7498302bb78c171b23ce7a8fb511987d2b2702b731638a4a15e7";
+        var expected = "0x8f253078b73d7498302bb78c171b23ce7a8fb511987d2b2702b731638a4a15e7";
         var actual = page.evaluate(function() {
             return $(".privkey:first").text();
         });
