@@ -107,12 +107,18 @@
                 border-bottom: 1px dashed #000;
                 text-decoration: none;
             }
+            .version {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+            }
         </style>
     </head>
     <body>
         <div class="container">
 
             <h1 class="text-center">Mnemonic Code Converter</h1>
+            <p class="version">v0.1.0</p>
             <hr>
             <div class="row">
                 <div class="col-md-12">
@@ -38726,7 +38732,7 @@ module.exports = function stripHexPrefix(str) {
       }
 
 function convertRipplePriv(priv)   {
-        return window.basex('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz').decode(priv).toString("hex").slice(2)
+        return window.basex('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz').decode(priv).toString("hex").slice(2,66)
 }   
       
 </script>
@@ -44310,6 +44316,8 @@ window.Entropy = new (function() {
                     var hexAddress = addressBuffer.toString('hex');
                     var checksumAddress = ethUtil.toChecksumAddress(hexAddress);
                     address = ethUtil.addHexPrefix(checksumAddress);
+                    privkey = ethUtil.addHexPrefix(privkey);
+                    pubkey = ethUtil.addHexPrefix(pubkey);
                 }
                 // Ripple values are different
                 if (networks[DOM.network.val()].name == "Ripple") {
