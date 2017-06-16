@@ -2824,7 +2824,7 @@ page.open(url, function(status) {
             events: 1,
             bits: 4,
             words: 0,
-            strength: "extremely weak",
+            strength: "less than a second",
         },
         {
             entropy: "AAAAAAAA",
@@ -2833,7 +2833,7 @@ page.open(url, function(status) {
             events: 8,
             bits: 32,
             words: 3,
-            strength: "extremely weak",
+            strength: "less than a second - Repeats like \"aaa\" are easy to guess",
         },
         {
             entropy: "AAAAAAAA B",
@@ -2842,7 +2842,7 @@ page.open(url, function(status) {
             events: 9,
             bits: 36,
             words: 3,
-            strength: "extremely weak",
+            strength: "less than a second - Repeats like \"aaa\" are easy to guess",
         },
         {
             entropy: "AAAAAAAA BBBBBBBB",
@@ -2851,7 +2851,7 @@ page.open(url, function(status) {
             events: 16,
             bits: 64,
             words: 6,
-            strength: "very weak",
+            strength: "less than a second - Repeats like \"aaa\" are easy to guess",
         },
         {
             entropy: "AAAAAAAA BBBBBBBB CCCCCCCC",
@@ -2860,7 +2860,7 @@ page.open(url, function(status) {
             events: 24,
             bits: 96,
             words: 9,
-            strength: "weak",
+            strength: "less than a second",
         },
         {
             entropy: "AAAAAAAA BBBBBBBB CCCCCCCC DDDDDDDD",
@@ -2869,7 +2869,7 @@ page.open(url, function(status) {
             events: 32,
             bits: 128,
             words: 12,
-            strength: "easily cracked",
+            strength: "2 minutes",
         },
         {
             entropy: "AAAAAAAA BBBBBBBB CCCCCCCC DDDDDDDA",
@@ -2878,7 +2878,7 @@ page.open(url, function(status) {
             events: 32,
             bits: 128,
             words: 12,
-            strength: "strong",
+            strength: "2 days",
         },
         {
             entropy: "AAAAAAAA BBBBBBBB CCCCCCCC DDDDDDDA EEEEEEEE",
@@ -2887,7 +2887,7 @@ page.open(url, function(status) {
             events: 40,
             bits: 160,
             words: 15,
-            strength: "very strong",
+            strength: "3 years",
         },
         {
             entropy: "AAAAAAAA BBBBBBBB CCCCCCCC DDDDDDDA EEEEEEEE FFFFFFFF",
@@ -2896,7 +2896,7 @@ page.open(url, function(status) {
             events: 48,
             bits: 192,
             words: 18,
-            strength: "extremely strong",
+            strength: "centuries",
         },
         {
             entropy: "7d",
@@ -2904,7 +2904,7 @@ page.open(url, function(status) {
             events: 1,
             bits: 5,
             words: 0,
-            strength: "extremely weak",
+            strength: "less than a second",
         },
         {
             entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks",
@@ -2912,7 +2912,7 @@ page.open(url, function(status) {
             events: 52,
             bits: 225,
             words: 21,
-            strength: "extremely strong",
+            strength: "centuries",
         },
         {
             entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks3d",
@@ -2920,7 +2920,7 @@ page.open(url, function(status) {
             events: 53,
             bits: 254,
             words: 21,
-            strength: "extremely strong",
+            strength: "centuries",
         },
         {
             entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqs3d4d",
@@ -2928,7 +2928,7 @@ page.open(url, function(status) {
             events: 53,
             bits: 254,
             words: 21,
-            strength: "extremely strong",
+            strength: "centuries",
         },
         {
             entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqs3d4d5d6d",
@@ -2936,7 +2936,7 @@ page.open(url, function(status) {
             events: 53,
             bits: 264,
             words: 24,
-            strength: "extremely strong",
+            strength: "centuries",
         },
         // Next test was throwing uncaught error in zxcvbn
         // Also tests 451 bits, ie Math.log2(52!)*2 = 225.58 * 2
@@ -2946,7 +2946,7 @@ page.open(url, function(status) {
             events: 104,
             bits: 499,
             words: 45,
-            strength: "extremely strong",
+            strength: "centuries",
         },
         // Case insensitivity to duplicate cards
         {
@@ -2955,7 +2955,7 @@ page.open(url, function(status) {
             events: 2,
             bits: 9,
             words: 0,
-            strength: "extremely weak",
+            strength: "less than a second",
         },
         {
             entropy: "ASas",
@@ -2963,7 +2963,7 @@ page.open(url, function(status) {
             events: 2,
             bits: 9,
             words: 0,
-            strength: "extremely weak",
+            strength: "less than a second",
         },
         // Missing cards are detected
         {
@@ -2972,7 +2972,7 @@ page.open(url, function(status) {
             events: 51,
             bits: 221,
             words: 18,
-            strength: "extremely strong",
+            strength: "centuries",
         },
         {
             entropy: "ac2c3c4c5c6c7c8c  tcjcqckcad2d3d4d  6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks",
@@ -2980,7 +2980,7 @@ page.open(url, function(status) {
             events: 50,
             bits: 216,
             words: 18,
-            strength: "extremely strong",
+            strength: "centuries",
         },
         {
             entropy: "ac2c3c4c5c6c7c8c  tcjcqckcad2d3d4d  6d7d8d9dtdjd  kdah2h3h  5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks",
@@ -2988,7 +2988,7 @@ page.open(url, function(status) {
             events: 48,
             bits: 208,
             words: 18,
-            strength: "extremely strong",
+            strength: "centuries",
         },
         // More than six missing cards does not show message
         {
@@ -2997,7 +2997,7 @@ page.open(url, function(status) {
             events: 45,
             bits: 195,
             words: 18,
-            strength: "extremely strong",
+            strength: "centuries",
         },
         // Multiple decks of cards increases bits per event
         {
@@ -3041,7 +3041,7 @@ page.open(url, function(status) {
             events: 33,
             bits: 184,
             bitsPerEvent: 5.59,
-            strength: 'easily cracked - Repeats like "abcabcabc" are only slightly harder to guess than "abc"',
+            strength: 'less than a second - Repeats like "abcabcabc" are only slightly harder to guess than "abc"',
         },
     ];
     // use entropy

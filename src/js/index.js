@@ -30,7 +30,7 @@
     DOM.entropy = $(".entropy");
     DOM.entropyFiltered = DOM.entropyContainer.find(".filtered");
     DOM.entropyType = DOM.entropyContainer.find(".type");
-    DOM.entropyStrength = DOM.entropyContainer.find(".strength");
+    DOM.entropyCrackTime = DOM.entropyContainer.find(".crack-time");
     DOM.entropyEventCount = DOM.entropyContainer.find(".event-count");
     DOM.entropyBits = DOM.entropyContainer.find(".bits");
     DOM.entropyBitsPerEvent = DOM.entropyContainer.find(".bits-per-event");
@@ -915,7 +915,7 @@
     }
 
     function clearEntropyFeedback() {
-        DOM.entropyStrength.text("...");
+        DOM.entropyCrackTime.text("...");
         DOM.entropyType.text("");
         DOM.entropyWordCount.text("0");
         DOM.entropyEventCount.text("0");
@@ -927,37 +927,15 @@
 
     function showEntropyFeedback(entropy) {
         var numberOfBits = entropy.binaryStr.length;
-        var strength = "extremely weak";
-        if (numberOfBits >= 64) {
-            strength = "very weak";
-        }
-        if (numberOfBits >= 96) {
-            strength = "weak";
-        }
-        if (numberOfBits >= 128) {
-            strength = "strong";
-        }
-        if (numberOfBits >= 160) {
-            strength = "very strong";
-        }
-        if (numberOfBits >= 192) {
-            strength = "extremely strong";
-        }
-        // If time to crack is less than one day, and password is considered
-        // strong or better based on the number of bits, rename strength to
-        // 'easily cracked'.
+        var timeToCrack = "unknown";
         try {
             var z = zxcvbn(entropy.base.parts.join(""));
-            var timeToCrack = z.crack_times_seconds.offline_fast_hashing_1e10_per_second;
-            if (timeToCrack < 86400 && entropy.binaryStr.length >= 128) {
-                strength = "easily cracked";
-                if (z.feedback.warning != "") {
-                    strength = strength + " - " + z.feedback.warning;
-                };
-            }
+            timeToCrack = z.crack_times_display.offline_fast_hashing_1e10_per_second;
+            if (z.feedback.warning != "") {
+                timeToCrack = timeToCrack + " - " + z.feedback.warning;
+            };
         }
         catch (e) {
-            strength = "unknown";
             console.log("Error detecting entropy strength with zxcvbn:");
             console.log(e);
         }
@@ -966,7 +944,7 @@
         var bitsPerEvent = entropy.bitsPerEvent.toFixed(2);
         DOM.entropyFiltered.html(entropy.cleanHtml);
         DOM.entropyType.text(entropyTypeStr);
-        DOM.entropyStrength.text(strength);
+        DOM.entropyCrackTime.text(timeToCrack);
         DOM.entropyEventCount.text(entropy.base.ints.length);
         DOM.entropyBits.text(numberOfBits);
         DOM.entropyWordCount.text(wordCount);
