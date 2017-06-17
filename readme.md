@@ -26,6 +26,11 @@ See the table for a list of addresses generated from the phrase.
 Toggle columns to blank to easily copy/paste a single column of data, eg to
 import private keys into a wallet or supply someone with a list of addresses.
 
+Click the addresses or keys to toggle view of a QR code of same address.
+
+Click the Show QR buttons by the root key and extended public and private keys to show a qr code suitable 
+for importing into a wallet on a mobile device.
+
 The BIP32 keys can be used at [bip32.org](https://bip32.org) if desired.
 
 ## Making changes
