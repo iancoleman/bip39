@@ -107,12 +107,18 @@
                 border-bottom: 1px dashed #000;
                 text-decoration: none;
             }
+            .version {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+            }
         </style>
     </head>
     <body>
         <div class="container">
 
             <h1 class="text-center">Mnemonic Code Converter</h1>
+            <p class="version">v0.1.0</p>
             <hr>
             <div class="row">
                 <div class="col-md-12">
@@ -19906,6 +19912,16 @@ bitcoin.networks.dash = {
   wif: 0xcc,
 };
 
+bitcoin.networks.dashtn = {
+  bip32: {
+    public: 0x043587cf,
+    private: 0x04358394
+  },
+  pubKeyHash: 0x8c,
+  scriptHash: 0x13,
+  wif: 0xef,
+};
+
 bitcoin.networks.game = {
   bip32: {
     public: 0x0488b21e,
@@ -38726,7 +38742,7 @@ module.exports = function stripHexPrefix(str) {
       }
 
 function convertRipplePriv(priv)   {
-        return window.basex('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz').decode(priv).toString("hex").slice(2)
+        return window.basex('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz').decode(priv).toString("hex").slice(2,66)
 }   
       
 </script>
@@ -44310,6 +44326,8 @@ window.Entropy = new (function() {
                     var hexAddress = addressBuffer.toString('hex');
                     var checksumAddress = ethUtil.toChecksumAddress(hexAddress);
                     address = ethUtil.addHexPrefix(checksumAddress);
+                    privkey = ethUtil.addHexPrefix(privkey);
+                    pubkey = ethUtil.addHexPrefix(pubkey);
                 }
                 // Ripple values are different
                 if (networks[DOM.network.val()].name == "Ripple") {
@@ -44827,6 +44845,13 @@ window.Entropy = new (function() {
             onSelect: function() {
                 network = bitcoin.networks.dash;
                 DOM.bip44coin.val(5);
+            },
+        },
+        {
+            name: "DASH Testnet",
+            onSelect: function() {
+                network = bitcoin.networks.dashtn;
+                DOM.bip44coin.val(1);
             },
         },
         {

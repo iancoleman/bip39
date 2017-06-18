@@ -592,6 +592,8 @@
                     var hexAddress = addressBuffer.toString('hex');
                     var checksumAddress = ethUtil.toChecksumAddress(hexAddress);
                     address = ethUtil.addHexPrefix(checksumAddress);
+                    privkey = ethUtil.addHexPrefix(privkey);
+                    pubkey = ethUtil.addHexPrefix(pubkey);
                 }
                 // Ripple values are different
                 if (networks[DOM.network.val()].name == "Ripple") {
@@ -1109,6 +1111,13 @@
             onSelect: function() {
                 network = bitcoin.networks.dash;
                 DOM.bip44coin.val(5);
+            },
+        },
+        {
+            name: "DASH Testnet",
+            onSelect: function() {
+                network = bitcoin.networks.dashtn;
+                DOM.bip44coin.val(1);
             },
         },
         {

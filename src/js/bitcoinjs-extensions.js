@@ -45,6 +45,16 @@ bitcoin.networks.dash = {
   wif: 0xcc,
 };
 
+bitcoin.networks.dashtn = {
+  bip32: {
+    public: 0x043587cf,
+    private: 0x04358394
+  },
+  pubKeyHash: 0x8c,
+  scriptHash: 0x13,
+  wif: 0xef,
+};
+
 bitcoin.networks.game = {
   bip32: {
     public: 0x0488b21e,

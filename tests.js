@@ -351,7 +351,7 @@ page.open(url, function(status) {
             return $(".address:first").text();
         });
         if (actual != expected) {
-            console.log("Litecoin address is incorrect");
+            console.log("Ripple address is incorrect");
             console.log("Expected: " + expected);
             console.log("Actual: " + actual);
             fail();
@@ -601,6 +601,35 @@ page.open(url, function(status) {
 });
 },
 
+function() {
+page.open(url, function(status) {
+    // set the phrase and coin
+    var expected = "yaR52EN4oojdJfBgzWJTymC4uuCLPT29Gw";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option").filter(function() {
+            return $(this).html() == "DASH Testnet";
+        }).prop("selected", true);
+        $(".network").trigger("change");
+    });
+    // check the address is generated correctly
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("DASH Testnet address is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // Network can be set to game
 function() {
 page.open(url, function(status) {
@@ -725,7 +754,7 @@ page.open(url, function(status) {
         // this private key can be imported into
         // https://www.myetherwallet.com/#view-wallet-info
         // and it should correlate to the address above
-        var expected = "8f253078b73d7498302bb78c171b23ce7a8fb511987d2b2702b731638a4a15e7";
+        var expected = "0x8f253078b73d7498302bb78c171b23ce7a8fb511987d2b2702b731638a4a15e7";
         var actual = page.evaluate(function() {
             return $(".privkey:first").text();
         });
