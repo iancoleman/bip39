@@ -420,7 +420,11 @@
             .hide();
     }
 
+
+
     function populateNetworkSelect() {
+        networks = networks.sort(function(a,b) {return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);} ); 
+
         for (var i=0; i<networks.length; i++) {
             var network = networks[i];
             var option = $("<option>");
@@ -431,11 +435,33 @@
     }
 
     var networks = [
+
+        {
+            name: "Auroracoin",
+            onSelect: function() {
+                network = bitcoin.networks.auroracoin;
+                DOM.bip44coin.val(85);
+            },
+        },
+        {
+            name: "Bata",
+            onSelect: function() {
+                network = bitcoin.networks.batacoin;
+                DOM.bip44coin.val(89);
+            },
+        },
         {
             name: "Bitcoin",
             onSelect: function() {
                 network = bitcoin.networks.bitcoin;
                 DOM.bip44coin.val(0);
+            },
+        },
+        {
+            name: "Blackcoin",
+            onSelect: function() {
+                network = bitcoin.networks.blackcoin;
+                DOM.bip44coin.val(10);
             },
         },
         {
@@ -446,17 +472,10 @@
             },
         },
         {
-            name: "Litecoin",
+            name: "Clams",
             onSelect: function() {
-                network = bitcoin.networks.litecoin;
-                DOM.bip44coin.val(2);
-            },
-        },
-        {
-            name: "Dogecoin",
-            onSelect: function() {
-                network = bitcoin.networks.dogecoin;
-                DOM.bip44coin.val(3);
+                network = bitcoin.networks.clam;
+                DOM.bip44coin.val(23);
             },
         },
         {
@@ -467,10 +486,10 @@
             },
         },
         {
-            name: "Clams",
+            name: "Dogecoin",
             onSelect: function() {
-                network = bitcoin.networks.clam;
-                DOM.bip44coin.val(23);
+                network = bitcoin.networks.dogecoin;
+                DOM.bip44coin.val(3);
             },
         },
         {
@@ -488,10 +507,10 @@
             },
         },
         {
-            name: "Blackcoin",
+            name: "Litecoin",
             onSelect: function() {
-                network = bitcoin.networks.blackcoin;
-                DOM.bip44coin.val(10);
+                network = bitcoin.networks.litecoin;
+                DOM.bip44coin.val(2);
             },
         },
         {
@@ -509,24 +528,10 @@
             },
         },
         {
-            name: "Bata",
-            onSelect: function() {
-                network = bitcoin.networks.batacoin;
-                DOM.bip44coin.val(89);
-            },
-        },
-        {
             name: "Gridcoin",
             onSelect: function() {
                 network = bitcoin.networks.gridcoin;
                 DOM.bip44coin.val(84);
-            },
-        },
-        {
-            name: "Auroracoin",
-            onSelect: function() {
-                network = bitcoin.networks.auroracoin;
-                DOM.bip44coin.val(85);
             },
         },
         {
