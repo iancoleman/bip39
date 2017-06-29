@@ -884,6 +884,48 @@
                 DOM.bip44coin.val(133);
             },
         },
+        {
+            name: "Bela",
+            onSelect: function() {
+                network = bitcoin.networks.bela;
+                DOM.bip44coin.val(73);
+            },
+        },
+        {
+            name: "Britcoin",
+            onSelect: function() {
+                network = bitcoin.networks.britcoin;
+                DOM.bip44coin.val(70);
+            },
+        },
+        {
+            name: "Compcoin",
+            onSelect: function() {
+                network = bitcoin.networks.compcoin;
+                DOM.bip44coin.val(74);
+            },
+        },
+        {
+            name: "LBRY",
+            onSelect: function() {
+                network = bitcoin.networks.lbry;
+                DOM.bip44coin.val(140);
+            },
+        },
+        {
+            name: "ZCoin",
+            onSelect: function() {
+                network = bitcoin.networks.zcoin;
+                DOM.bip44coin.val(136);
+            },
+        },
+        {
+            name: "Insane",
+            onSelect: function() {
+                network = bitcoin.networks.insane;
+                DOM.bip44coin.val(68);
+            },
+        },
         
     ]
 

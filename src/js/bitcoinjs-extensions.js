@@ -832,7 +832,6 @@ bitcoin.networks.okcash = {
   wif: 183
 }
 
-
 bitcoin.networks.posw = {
   magicPrefix: '\x19POSWcoin Signed Message:\n',
   bip32: {
@@ -856,7 +855,7 @@ bitcoin.networks.stratis = {
 }
 
 bitcoin.networks.zcash = {
-  magicPrefix: '\x19Zcas hSigned Message:\n',
+  magicPrefix: '\x19Zcash Signed Message:\n',
   bip32: {
       public: 0x0488b21e,
       private: 0x0488ade4
@@ -865,6 +864,73 @@ bitcoin.networks.zcash = {
   scriptHash:0x1cbd,
   wif: 128
 }
+
+bitcoin.networks.lbry = {
+  magicPrefix: '\x19LBRYcrd Signed Message:\n',
+  bip32: {
+      public: 0x019c354f,
+      private: 0x019c3118
+    },
+  pubKeyHash:85,
+  scriptHash:122,
+  wif: 28
+}
+
+bitcoin.networks.bela = {
+  magicPrefix: '\x19Belacoin Signed Message:\n',
+  bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+  pubKeyHash:25,
+  scriptHash:5,
+  wif: 153
+}
+
+bitcoin.networks.britcoin = {
+  magicPrefix: '\x19Britcoin Signed Message:\n',
+  bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+  pubKeyHash:25,
+  scriptHash:85,
+  wif: 153
+}
+
+bitcoin.networks.compcoin = {
+  magicPrefix: '\x19Compcoin Signed Message:\n',
+  bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+  pubKeyHash:28,
+  scriptHash:5,
+  wif: 156
+}
+
+bitcoin.networks.zcoin = {
+  magicPrefix: '\x19ZCoin Signed Message:\n',
+  bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+  pubKeyHash:82,
+  scriptHash:7,
+  wif: 210
+}
+
+bitcoin.networks.insane = {
+  magicPrefix: '\x19Insanecoin Signed Message:\n',
+  bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+  pubKeyHash:102,
+  scriptHash:57,
+  wif: 55
+}
+
 
 
 
