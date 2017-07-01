@@ -1078,6 +1078,13 @@
             },
         },
         {
+            name: "CRW - Crown",
+            onSelect: function() {
+                network = bitcoin.networks.crown;
+                DOM.bip44coin.val(72);
+            },
+        },
+        {
             name: "Dogecoin",
             onSelect: function() {
                 network = bitcoin.networks.dogecoin;

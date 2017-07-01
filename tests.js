@@ -571,6 +571,36 @@ page.open(url, function(status) {
 });
 },
 
+// Network can be set to crown
+function() {
+page.open(url, function(status) {
+    // set the phrase and coin
+    var expected = "18pWSwSUAQdiwMHUfFZB1fM2xue9X1FqE5";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option").filter(function() {
+            return $(this).html() == "CRW - Crown";
+        }).prop("selected", true);
+        $(".network").trigger("change");
+    });
+    // check the address is generated correctly
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("CRW address is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // Network can be set to dash
 function() {
 page.open(url, function(status) {
