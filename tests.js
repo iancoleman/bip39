@@ -281,7 +281,7 @@ page.open(url, function(status) {
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
         $(".network option").filter(function() {
-            return $(this).html() == "Bitcoin Testnet";
+            return $(this).html() == "BTC - Bitcoin Testnet";
         }).prop("selected", true);
         $(".network").trigger("change");
     });
@@ -311,7 +311,7 @@ page.open(url, function(status) {
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
         $(".network option").filter(function() {
-            return $(this).html() == "Litecoin";
+            return $(this).html() == "LTC - Litecoin";
         }).prop("selected", true);
         $(".network").trigger("change");
     });
@@ -341,7 +341,7 @@ page.open(url, function(status) {
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
         $(".network option").filter(function() {
-            return $(this).html() == "Ripple";
+            return $(this).html() == "XRP - Ripple";
         }).prop("selected", true);
         $(".network").trigger("change");
     });
@@ -371,7 +371,7 @@ page.open(url, function(status) {
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
         $(".network option").filter(function() {
-            return $(this).html() == "Dogecoin";
+            return $(this).html() == "DOGE - Dogecoin";
         }).prop("selected", true);
         $(".network").trigger("change");
     });
@@ -401,7 +401,7 @@ page.open(url, function(status) {
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
         $(".network option").filter(function() {
-            return $(this).html() == "ShadowCash";
+            return $(this).html() == "SDC - ShadowCash";
         }).prop("selected", true);
         $(".network").trigger("change");
     });
@@ -431,7 +431,7 @@ page.open(url, function(status) {
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
         $(".network option").filter(function() {
-            return $(this).html() == "ShadowCash Testnet";
+            return $(this).html() == "SDC - ShadowCash Testnet";
         }).prop("selected", true);
         $(".network").trigger("change");
     });
@@ -461,7 +461,7 @@ page.open(url, function(status) {
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
         $(".network option").filter(function() {
-            return $(this).html() == "Viacoin";
+            return $(this).html() == "VIA - Viacoin";
         }).prop("selected", true);
         $(".network").trigger("change");
     });
@@ -491,7 +491,7 @@ page.open(url, function(status) {
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
         $(".network option").filter(function() {
-            return $(this).html() == "Viacoin Testnet";
+            return $(this).html() == "VIA - Viacoin Testnet";
         }).prop("selected", true);
         $(".network").trigger("change");
     });
@@ -521,7 +521,7 @@ page.open(url, function(status) {
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
         $(".network option").filter(function() {
-            return $(this).html() == "Jumbucks";
+            return $(this).html() == "JBS - Jumbucks";
         }).prop("selected", true);
         $(".network").trigger("change");
     });
@@ -551,7 +551,7 @@ page.open(url, function(status) {
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
         $(".network option").filter(function() {
-            return $(this).html() == "CLAM";
+            return $(this).html() == "CLAM - Clams";
         }).prop("selected", true);
         $(".network").trigger("change");
     });
@@ -611,7 +611,7 @@ page.open(url, function(status) {
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
         $(".network option").filter(function() {
-            return $(this).html() == "DASH";
+            return $(this).html() == "DASH - Dash";
         }).prop("selected", true);
         $(".network").trigger("change");
     });
@@ -640,7 +640,7 @@ page.open(url, function(status) {
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
         $(".network option").filter(function() {
-            return $(this).html() == "DASH Testnet";
+            return $(this).html() == "DASH - Dash Testnet";
         }).prop("selected", true);
         $(".network").trigger("change");
     });
@@ -670,7 +670,7 @@ page.open(url, function(status) {
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
         $(".network option").filter(function() {
-            return $(this).html() == "GAME";
+            return $(this).html() == "GAME - GameCredits";
         }).prop("selected", true);
         $(".network").trigger("change");
     });
@@ -700,7 +700,7 @@ page.open(url, function(status) {
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
         $(".network option").filter(function() {
-            return $(this).html() == "Namecoin";
+            return $(this).html() == "NMC - Namecoin";
         }).prop("selected", true);
         $(".network").trigger("change");
     });
@@ -730,7 +730,7 @@ page.open(url, function(status) {
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
         $(".network option").filter(function() {
-            return $(this).html() == "Peercoin";
+            return $(this).html() == "PPC - Peercoin";
         }).prop("selected", true);
         $(".network").trigger("change");
     });
@@ -761,7 +761,7 @@ page.open(url, function(status) {
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
         $(".network option").filter(function() {
-            return $(this).html() == "Ethereum";
+            return $(this).html() == "ETH - Ethereum";
         }).prop("selected", true);
         $(".network").trigger("change");
     });
@@ -822,7 +822,7 @@ page.open(url, function(status) {
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
         $(".network option").filter(function() {
-            return $(this).html() == "Slimcoin";
+            return $(this).html() == "SLM - Slimcoin";
         }).prop("selected", true);
         $(".network").trigger("change");
     });
@@ -852,7 +852,7 @@ page.open(url, function(status) {
         $(".phrase").trigger("input");
         $(".network option[selected]").removeAttr("selected");
         $(".network option").filter(function() {
-            return $(this).html() == "Slimcoin Testnet";
+            return $(this).html() == "SLM - Slimcoin Testnet";
         }).prop("selected", true);
         $(".network").trigger("change");
     });
@@ -2044,7 +2044,7 @@ page.open(url, function(status) {
             // 4) switch from bitcoin to litecoin
             page.evaluate(function() {
                 $(".network option").filter(function() {
-                    return $(this).html() == "Litecoin";
+                    return $(this).html() == "LTC - Litecoin";
                 }).prop("selected", true);
                 $(".network").trigger("change");
             });
@@ -2090,7 +2090,7 @@ page.open(url, function(status) {
         // switch from bitcoin to clam
         page.evaluate(function() {
             $(".network option").filter(function() {
-                return $(this).html() == "CLAM";
+                return $(this).html() == "CLAM - Clams";
             }).prop("selected", true);
             $(".network").trigger("change");
         });
@@ -2124,7 +2124,7 @@ page.open(url, function(status) {
         // 4) switch from bitcoin to viacoin
         page.evaluate(function() {
             $(".network option").filter(function() {
-                return $(this).html() == "Viacoin";
+                return $(this).html() == "VIA - Viacoin";
             }).prop("selected", true);
             $(".network").trigger("change");
         });

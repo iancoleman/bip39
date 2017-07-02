@@ -585,7 +585,7 @@
                     indexText = indexText + "'";
                 }
                 // Ethereum values are different
-                if (networks[DOM.network.val()].name == "Ethereum") {
+                if (networks[DOM.network.val()].name == "ETH - Ethereum") {
                     var privKeyBuffer = key.privKey.d.toBuffer();
                     privkey = privKeyBuffer.toString('hex');
                     var addressBuffer = ethUtil.privateToAddress(privKeyBuffer);
@@ -596,7 +596,7 @@
                     pubkey = ethUtil.addHexPrefix(pubkey);
                 }
                 // Ripple values are different
-                if (networks[DOM.network.val()].name == "Ripple") {
+                if (networks[DOM.network.val()].name == "XRP - Ripple") {
                     privkey = convertRipplePriv(privkey);
                     address = convertRippleAdrr(address);
                 }
@@ -1057,21 +1057,21 @@
 
     var networks = [
         {
-            name: "Bitcoin",
+            name: "BTC - Bitcoin",
             onSelect: function() {
                 network = bitcoin.networks.bitcoin;
                 DOM.bip44coin.val(0);
             },
         },
         {
-            name: "Bitcoin Testnet",
+            name: "BTC - Bitcoin Testnet",
             onSelect: function() {
                 network = bitcoin.networks.testnet;
                 DOM.bip44coin.val(1);
             },
         },
         {
-            name: "CLAM",
+            name: "CLAM - Clams",
             onSelect: function() {
                 network = bitcoin.networks.clam;
                 DOM.bip44coin.val(23);
@@ -1085,117 +1085,117 @@
             },
         },
         {
-            name: "Dogecoin",
-            onSelect: function() {
-                network = bitcoin.networks.dogecoin;
-                DOM.bip44coin.val(3);
-            },
-        },
-        {
-            name: "DASH",
+            name: "DASH - Dash",
             onSelect: function() {
                 network = bitcoin.networks.dash;
                 DOM.bip44coin.val(5);
             },
         },
         {
-            name: "DASH Testnet",
+            name: "DASH - Dash Testnet",
             onSelect: function() {
                 network = bitcoin.networks.dashtn;
                 DOM.bip44coin.val(1);
             },
         },
         {
-            name: "Ethereum",
+            name: "DOGE - Dogecoin",
+            onSelect: function() {
+                network = bitcoin.networks.dogecoin;
+                DOM.bip44coin.val(3);
+            },
+        },
+        {
+            name: "ETH - Ethereum",
             onSelect: function() {
                 network = bitcoin.networks.bitcoin;
                 DOM.bip44coin.val(60);
             },
         },
         {
-            name: "GAME",
+            name: "GAME - GameCredits",
             onSelect: function() {
                 network = bitcoin.networks.game;
                 DOM.bip44coin.val(101);
             },
         },
         {
-            name: "Jumbucks",
+            name: "JBS - Jumbucks",
             onSelect: function() {
                 network = bitcoin.networks.jumbucks;
                 DOM.bip44coin.val(26);
             },
         },
         {
-            name: "Litecoin",
+            name: "LTC - Litecoin",
             onSelect: function() {
                 network = bitcoin.networks.litecoin;
                 DOM.bip44coin.val(2);
             },
         },
         {
-            name: "Namecoin",
+            name: "NMC - Namecoin",
             onSelect: function() {
                 network = bitcoin.networks.namecoin;
                 DOM.bip44coin.val(7);
             },
         },
         {
-            name: "Peercoin",
+            name: "PPC - Peercoin",
             onSelect: function() {
                 network = bitcoin.networks.peercoin;
                 DOM.bip44coin.val(6);
             },
         },
         {
-            name: "Ripple",
-            onSelect: function() {
-                network = bitcoin.networks.bitcoin;
-                DOM.bip44coin.val(144);
-            },
-        },
-        {
-            name: "ShadowCash",
+            name: "SDC - ShadowCash",
             onSelect: function() {
                 network = bitcoin.networks.shadow;
                 DOM.bip44coin.val(35);
             },
         },
         {
-            name: "ShadowCash Testnet",
+            name: "SDC - ShadowCash Testnet",
             onSelect: function() {
                 network = bitcoin.networks.shadowtn;
                 DOM.bip44coin.val(1);
             },
         },
         {
-            name: "Slimcoin",
+            name: "SLM - Slimcoin",
             onSelect: function() {
                 network = bitcoin.networks.slimcoin;
                 DOM.bip44coin.val(63);
             },
         },
         {
-            name: "Slimcoin Testnet",
+            name: "SLM - Slimcoin Testnet",
             onSelect: function() {
                 network = bitcoin.networks.slimcointn;
                 DOM.bip44coin.val(111);
             },
         },
         {
-            name: "Viacoin",
+            name: "VIA - Viacoin",
             onSelect: function() {
                 network = bitcoin.networks.viacoin;
                 DOM.bip44coin.val(14);
             },
         },
         {
-            name: "Viacoin Testnet",
+            name: "VIA - Viacoin Testnet",
             onSelect: function() {
                 network = bitcoin.networks.viacointestnet;
                 DOM.bip44coin.val(1);
             },
         },
+        {
+            name: "XRP - Ripple",
+            onSelect: function() {
+                network = bitcoin.networks.bitcoin;
+                DOM.bip44coin.val(144);
+            },
+        }
     ]
 
     var clients = [
