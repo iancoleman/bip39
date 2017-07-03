@@ -3062,6 +3062,7 @@ Buffer.prototype.writeUInt8 = function writeUInt8 (value, offset, noAssert) {
   return offset + 1
 }
 
+
 function objectWriteUInt16 (buf, value, offset, littleEndian) {
   if (value < 0) value = 0xffff + value + 1
   for (var i = 0, j = Math.min(buf.length - offset, 2); i < j; i++) {
@@ -9421,8 +9422,10 @@ function Address (hash, version) {
   typeForce('Buffer', hash)
 
   assert.strictEqual(hash.length, 20, 'Invalid hash length')
-  assert.strictEqual(version & 0xff, version, 'Invalid version byte')
-
+  //console.log("Hello", version) 
+  //assert.strictEqual(version & 0xff, version, 'Invalid version byte')
+  if (version<128) assert.strictEqual(version & 0xff, version, 'Invalid version byte')
+  else assert.strictEqual(version & 0xffff, version, 'Invalid version byte')
   this.hash = hash
   this.version = version
 }
@@ -9445,11 +9448,19 @@ Address.fromOutputScript = function (script, network) {
 }
 
 Address.prototype.toBase58Check = function () {
-  var payload = new Buffer(21)
-  payload.writeUInt8(this.version, 0)
-  this.hash.copy(payload, 1)
 
+  if (this.version<256) {
+    var payload = new Buffer(21)
+    payload.writeUInt8(this.version, 0)
+    this.hash.copy(payload, 1)
+  }
+  else {
+    var payload = new Buffer(22)
+    payload.writeUInt16BE(this.version, 0)
+    this.hash.copy(payload, 2)
+  }
   return base58check.encode(payload)
+
 }
 
 Address.prototype.toOutputScript = function () {

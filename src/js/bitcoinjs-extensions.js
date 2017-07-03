@@ -322,7 +322,7 @@ bitcoin.networks.bitcoin = {
       private: 0x0488ade4
     },
     pubKeyHash: 8,
-    scriptHash: 28,
+    scriptHash: 20,
     wif: 136,
     dustThreshold: 0,
     dustSoftThreshold: 0,
@@ -930,6 +930,54 @@ bitcoin.networks.insane = {
   scriptHash:57,
   wif: 55
 }
+
+bitcoin.networks.ultimatesecurecash = {
+  magicPrefix: '\x19Ultimate Secure Cash Signed Message:\n',
+  bip32: {
+      public: 0xee80286a,
+      private: 0xee8031e8
+    },
+  pubKeyHash:68,
+  scriptHash:125,
+  wif: 137
+}
+
+bitcoin.networks.neurocoin = {
+  magicPrefix: '\x19PPCoin Signed Message:\n',
+  bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+  pubKeyHash:53,
+  scriptHash:117,
+  wif: 181
+}
+
+bitcoin.networks.hempcoin = {
+    magicPrefix: '\x19Hempcoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 40,
+    scriptHash: 8,
+    wif: 168
+  }
+
+bitcoin.networks.linxcoin = {
+    magicPrefix: '\x19LinX Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 75,
+    scriptHash: 5,
+    wif: 203,
+    dustThreshold: 0, // https://github.com/litecoin-project/litecoin/blob/v0.8.7.2/src/main.cpp#L360-L365
+    dustSoftThreshold: 100000 // https://github.com/litecoin-project/litecoin/blob/v0.8.7.2/src/main.h#L53
+}
+
+
 
 
 

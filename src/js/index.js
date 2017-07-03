@@ -926,7 +926,34 @@
                 DOM.bip44coin.val(68);
             },
         },
-        
+        {
+            name: "Ultimatesecurecash",
+            onSelect: function() {
+                network = bitcoin.networks.ultimatesecurecash;
+                DOM.bip44coin.val(112);
+            },
+        },
+        {
+            name: "Neurocoin",
+            onSelect: function() {
+                network = bitcoin.networks.neurocoin;
+                DOM.bip44coin.val(110);
+            },
+        },
+        {
+            name: "Hempcoin",
+            onSelect: function() {
+                network = bitcoin.networks.hempcoin;
+                DOM.bip44coin.val(113);
+            },
+        },
+        {
+            name: "Linxcoin",
+            onSelect: function() {
+                network = bitcoin.networks.linxcoin;
+                DOM.bip44coin.val(114);
+            },
+        },
     ]
 
     init();
