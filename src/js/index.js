@@ -961,6 +961,13 @@
                 DOM.bip44coin.val(115);
             },
         },
+        {
+            name: "Denarius",
+            onSelect: function() {
+                network = bitcoin.networks.denarius;
+                DOM.bip44coin.val(116);
+            },
+        },
     ]
 
     init();
