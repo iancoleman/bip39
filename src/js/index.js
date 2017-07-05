@@ -954,6 +954,13 @@
                 DOM.bip44coin.val(114);
             },
         },
+        {
+            name: "Ecoin",
+            onSelect: function() {
+                network = bitcoin.networks.ecoin;
+                DOM.bip44coin.val(115);
+            },
+        },
     ]
 
     init();
