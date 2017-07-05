@@ -962,7 +962,7 @@ bitcoin.networks.hempcoin = {
     pubKeyHash: 40,
     scriptHash: 8,
     wif: 168
-  }
+}
 
 bitcoin.networks.linxcoin = {
     magicPrefix: '\x19LinX Signed Message:\n',
@@ -973,11 +973,18 @@ bitcoin.networks.linxcoin = {
     pubKeyHash: 75,
     scriptHash: 5,
     wif: 203,
-    dustThreshold: 0, // https://github.com/litecoin-project/litecoin/blob/v0.8.7.2/src/main.cpp#L360-L365
-    dustSoftThreshold: 100000 // https://github.com/litecoin-project/litecoin/blob/v0.8.7.2/src/main.h#L53
 }
 
-
+bitcoin.networks.ecoin = {
+    magicPrefix: '\x19eCoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 92,
+    scriptHash: 20,
+    wif: 220,
+}
 
 
 
