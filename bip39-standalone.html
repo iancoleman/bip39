@@ -13141,7 +13141,7 @@ bitcoin.networks.bitcoin = {
     feePerKb: 100000,
     estimateFee: estimateFee('viacointestnet')
   };
-  bitcoin.networks.gemecredits = {
+  bitcoin.networks.gamecredits = {
     magicPrefix: '\x19Gamecredits Signed Message:\n',
     bip32: {
       public: 0x019da462,
@@ -13973,6 +13973,17 @@ bitcoin.networks.ecoin = {
     pubKeyHash: 92,
     scriptHash: 20,
     wif: 220,
+}
+
+bitcoin.networks.denarius = {
+    magicPrefix: '\x19Denarius Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 30,
+    scriptHash: 90,
+    wif: 158,
 }
 
 
@@ -16890,6 +16901,13 @@ var Mnemonic = function(language) {
             onSelect: function() {
                 network = bitcoin.networks.ecoin;
                 DOM.bip44coin.val(115);
+            },
+        },
+        {
+            name: "Denarius",
+            onSelect: function() {
+                network = bitcoin.networks.denarius;
+                DOM.bip44coin.val(116);
             },
         },
     ]

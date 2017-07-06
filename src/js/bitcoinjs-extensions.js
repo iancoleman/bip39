@@ -152,7 +152,7 @@ bitcoin.networks.bitcoin = {
     feePerKb: 100000,
     estimateFee: estimateFee('viacointestnet')
   };
-  bitcoin.networks.gemecredits = {
+  bitcoin.networks.gamecredits = {
     magicPrefix: '\x19Gamecredits Signed Message:\n',
     bip32: {
       public: 0x019da462,
