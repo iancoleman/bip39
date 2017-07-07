@@ -997,6 +997,17 @@ bitcoin.networks.denarius = {
     wif: 158,
 }
 
+bitcoin.networks.pinkcoin = {
+    magicPrefix: '\x19Pinkcoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 3,
+    scriptHash: 28,
+    wif: 131,
+}
+
 
 
 

@@ -968,6 +968,13 @@
                 DOM.bip44coin.val(116);
             },
         },
+        {
+            name: "Pinkcoin",
+            onSelect: function() {
+                network = bitcoin.networks.pinkcoin;
+                DOM.bip44coin.val(117);
+            },
+        },
     ]
 
     init();

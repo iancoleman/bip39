@@ -13986,6 +13986,17 @@ bitcoin.networks.denarius = {
     wif: 158,
 }
 
+bitcoin.networks.pinkcoin = {
+    magicPrefix: '\x19Pinkcoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 3,
+    scriptHash: 28,
+    wif: 131,
+}
+
 
 
 
@@ -16908,6 +16919,13 @@ var Mnemonic = function(language) {
             onSelect: function() {
                 network = bitcoin.networks.denarius;
                 DOM.bip44coin.val(116);
+            },
+        },
+        {
+            name: "Pinkcoin",
+            onSelect: function() {
+                network = bitcoin.networks.pinkcoin;
+                DOM.bip44coin.val(117);
             },
         },
     ]
