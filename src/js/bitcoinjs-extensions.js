@@ -1008,6 +1008,17 @@ bitcoin.networks.pinkcoin = {
     wif: 131,
 }
 
+bitcoin.networks.flashcoin = {
+    magicPrefix: '\x19Flashcoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 68,
+    scriptHash: 130,
+    wif: 196,
+}
+
 
 
 

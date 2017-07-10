@@ -975,6 +975,13 @@
                 DOM.bip44coin.val(117);
             },
         },
+        {
+            name: "Flashcoin",
+            onSelect: function() {
+                network = bitcoin.networks.flashcoin;
+                DOM.bip44coin.val(120);
+            },
+        },
     ]
 
     init();
