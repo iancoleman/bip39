@@ -1019,6 +1019,16 @@ bitcoin.networks.flashcoin = {
     wif: 196,
 }
 
+bitcoin.networks.defcoin = {
+    magicPrefix: '\x19defcoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 30,
+    scriptHash: 5,
+    wif: 158,
+}
 
 
 

@@ -982,6 +982,13 @@
                 DOM.bip44coin.val(120);
             },
         },
+        {
+            name: "Defcoin",
+            onSelect: function() {
+                network = bitcoin.networks.defcoin;
+                DOM.bip44coin.val(1337);
+            },
+        },
     ]
 
     init();
