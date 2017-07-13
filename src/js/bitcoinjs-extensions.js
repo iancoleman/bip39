@@ -1030,6 +1030,17 @@ bitcoin.networks.defcoin = {
     wif: 158,
 }
 
+bitcoin.networks.zencash = {
+    magicPrefix: '\x19Zcash Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 0x2089,
+    scriptHash: 0x2096,
+    wif: 128,
+}
+
 
 
 

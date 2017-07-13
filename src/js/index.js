@@ -989,6 +989,13 @@
                 DOM.bip44coin.val(1337);
             },
         },
+        {
+            name: "Zencash",
+            onSelect: function() {
+                network = bitcoin.networks.zencash;
+                DOM.bip44coin.val(121);
+            },
+        },
     ]
 
     init();
