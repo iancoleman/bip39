@@ -567,7 +567,7 @@ bitcoin.networks.bitcoin = {
     feePerKb: 0,
     estimateFee: estimateFee('rubycoin')
   };
-  bitcoin.networks.rubycoin = {
+  bitcoin.networks.smileycoin = {
     magicPrefix: '\x19Smileycoin Signed Message:\n',
     bip32: {
       public: 0x0488b21e,
@@ -575,7 +575,7 @@ bitcoin.networks.bitcoin = {
     },
     pubKeyHash: 25,
     scriptHash: 5,
-    wif: 176,
+    wif: 153,
     dustThreshold: 0,
     dustSoftThreshold: 0,
     feePerKb: 0,
