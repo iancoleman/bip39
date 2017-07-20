@@ -1030,6 +1030,17 @@ bitcoin.networks.defcoin = {
     wif: 158,
 }
 
+bitcoin.networks.putincoin = {
+    magicPrefix: '\x19PutinCoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 55,
+    scriptHash: 20,
+    wif: 183,
+}
+
 bitcoin.networks.zencash = {
     magicPrefix: '\x19Zcash Signed Message:\n',
     bip32: {
