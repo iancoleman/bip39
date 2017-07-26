@@ -996,6 +996,13 @@
                 DOM.bip44coin.val(121);
             },
         },
+        {
+            name: "Putincoin",
+            onSelect: function() {
+                network = bitcoin.networks.putincoin;
+                DOM.bip44coin.val(122);
+            },
+        },
     ]
 
     init();
