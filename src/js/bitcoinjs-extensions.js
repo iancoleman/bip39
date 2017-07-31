@@ -1,5 +1,5 @@
-bitcoin.networks.shadow = {
-  magicPrefix: '\x19ShadowCash Signed Message:\n',
+bitcoinjs.bitcoin.networks.shadow = {
+  messagePrefix: "unused",
   bip32: {
     public: 0xEE80286A,
     private: 0xEE8031E8
@@ -7,13 +7,10 @@ bitcoin.networks.shadow = {
   pubKeyHash: 0x3f,
   scriptHash: 0x7d,
   wif: 0xbf,
-  dustThreshold: 0,
-  feePerKb: 1000,
-  estimateFee: function() { return "unused in this app" },
 };
 
-bitcoin.networks.shadowtn = {
-  magicPrefix: '\x19ShadowCash Signed Message:\n',
+bitcoinjs.bitcoin.networks.shadowtn = {
+  messagePrefix: "unused",
   bip32: {
     public: 0x76C0FDFB,
     private: 0x76C1077A
@@ -21,21 +18,21 @@ bitcoin.networks.shadowtn = {
   pubKeyHash: 0x7f,
   scriptHash: 0xc4,
   wif: 0xff,
-  dustThreshold: 0,
-  feePerKb: 1000,
-  estimateFee: function() { return "unused in this app" },
 };
 
-bitcoin.networks.clam = {
+bitcoinjs.bitcoin.networks.clam = {
+  messagePrefix: "unused",
   bip32: {
     public: 0xa8c26d64,
     private: 0xa8c17826
   },
   pubKeyHash: 0x89,
+  scriptHash: 0x00, // TODO set this correctly
   wif: 0x85,
 };
 
 bitcoin.networks.crown = {
+  messagePrefix: "unused",
   bip32: {
     public: 0x0488b21e,
     private: 0x0488ade4
@@ -46,6 +43,7 @@ bitcoin.networks.crown = {
 };
 
 bitcoin.networks.dash = {
+  messagePrefix: "unused",
   bip32: {
     public: 0x0488b21e,
     private: 0x0488ade4
@@ -55,7 +53,8 @@ bitcoin.networks.dash = {
   wif: 0xcc,
 };
 
-bitcoin.networks.dashtn = {
+bitcoinjs.bitcoin.networks.dashtn = {
+  messagePrefix: "unused",
   bip32: {
     public: 0x043587cf,
     private: 0x04358394
@@ -65,7 +64,8 @@ bitcoin.networks.dashtn = {
   wif: 0xef,
 };
 
-bitcoin.networks.game = {
+bitcoinjs.bitcoin.networks.game = {
+  messagePrefix: "unused",
   bip32: {
     public: 0x0488b21e,
     private: 0x0488ade4
@@ -75,27 +75,30 @@ bitcoin.networks.game = {
   wif: 0xa6,
 };
 
-bitcoin.networks.namecoin = {
+bitcoinjs.bitcoin.networks.namecoin = {
+  messagePrefix: "unused",
   bip32: {
     public: 0x0488b21e,
     private: 0x0488ade4
   },
   pubKeyHash: 0x34,
-  //scriptHash: 0x10,
+  scriptHash: 0x00, // TODO set this correctly
   wif: 0x80,
 };
 
-bitcoin.networks.peercoin = {
+bitcoinjs.bitcoin.networks.peercoin = {
+  messagePrefix: "unused",
   bip32: {
     public: 0x0488b21e,
     private: 0x0488ade4
   },
   pubKeyHash: 0x37,
-  //scriptHash: 0x10,
+  scriptHash: 0x00, // TODO set this correctly
   wif: 0xb7,
 };
 
-bitcoin.networks.slimcoin = {
+bitcoinjs.bitcoin.networks.slimcoin = {
+  messagePrefix: "unused",
   bip32: {
     public: 0xef6adf10,
     private: 0xef69ea80
@@ -105,7 +108,8 @@ bitcoin.networks.slimcoin = {
   wif: 0x46,
 };
 
-bitcoin.networks.slimcointn = {
+bitcoinjs.bitcoin.networks.slimcointn = {
+  messagePrefix: "unused",
   bip32: {
     public: 0x043587CF,
     private: 0x04358394
@@ -115,3 +119,68 @@ bitcoin.networks.slimcointn = {
   wif: 0x57,
 };
 
+bitcoinjs.bitcoin.networks.dogecoin = {
+  messagePrefix: '\x19Dogecoin Signed Message:\n',
+  bip32: {
+    public: 0x02facafd,
+    private: 0x02fac398
+  },
+  pubKeyHash: 0x1e,
+  scriptHash: 0x16,
+  wif: 0x9e,
+},
+
+bitcoinjs.bitcoin.networks.viacoin = {
+  messagePrefix: '\x18Viacoin Signed Message:\n',
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  },
+  pubKeyHash: 0x47,
+  scriptHash: 0x21,
+  wif: 0xc7,
+},
+
+bitcoinjs.bitcoin.networks.viacointestnet = {
+  messagePrefix: '\x18Viacoin Signed Message:\n',
+  bip32: {
+    public: 0x043587cf,
+    private: 0x04358394
+  },
+  pubKeyHash: 0x7f,
+  scriptHash: 0xc4,
+  wif: 0xff,
+},
+
+bitcoinjs.bitcoin.networks.gamerscoin = {
+  messagePrefix: '\x19Gamerscoin Signed Message:\n',
+  bip32: {
+    public: 0x019da462,
+    private: 0x019d9cfe
+  },
+  pubKeyHash: 0x26,
+  scriptHash: 0x05,
+  wif: 0xA6,
+},
+
+bitcoinjs.bitcoin.networks.jumbucks = {
+  messagePrefix: '\x19Jumbucks Signed Message:\n',
+  bip32: {
+    public: 0x037a689a,
+    private: 0x037a6460
+  },
+  pubKeyHash: 0x2b,
+  scriptHash: 0x05,
+  wif: 0xab,
+},
+
+bitcoinjs.bitcoin.networks.zetacoin = {
+  messagePrefix: '\x18Zetacoin Signed Message:\n',
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  },
+  pubKeyHash: 0x50,
+  scriptHash: 0x09,
+  wif: 0xe0,
+}

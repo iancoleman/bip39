@@ -6,7 +6,7 @@
     var seed = null;
     var bip32RootKey = null;
     var bip32ExtendedKey = null;
-    var network = bitcoin.networks.bitcoin;
+    var network = bitcoinjs.bitcoin.networks.bitcoin;
     var addressRowTemplate = $("#address-row-template");
 
     var showIndex = true;
@@ -338,11 +338,11 @@
 
     function calcBip32RootKeyFromSeed(phrase, passphrase) {
         seed = mnemonic.toSeed(phrase, passphrase);
-        bip32RootKey = bitcoin.HDNode.fromSeedHex(seed, network);
+        bip32RootKey = bitcoinjs.bitcoin.HDNode.fromSeedHex(seed, network);
     }
 
     function calcBip32RootKeyFromBase58(rootKeyBase58) {
-        bip32RootKey = bitcoin.HDNode.fromBase58(rootKeyBase58, network);
+        bip32RootKey = bitcoinjs.bitcoin.HDNode.fromBase58(rootKeyBase58, network);
     }
 
     function calcBip32ExtendedKey(path) {
@@ -360,7 +360,7 @@
                 continue;
             }
             var hardened = bit[bit.length-1] == "'";
-            var isPriv = "privKey" in extendedKey;
+            var isPriv = !(extendedKey.isNeutered());
             var invalidDerivationPath = hardened && !isPriv;
             if (invalidDerivationPath) {
                 extendedKey = null;
@@ -416,7 +416,7 @@
 
     function validateRootKey(rootKeyBase58) {
         try {
-            bitcoin.HDNode.fromBase58(rootKeyBase58);
+            bitcoinjs.bitcoin.HDNode.fromBase58(rootKeyBase58);
         }
         catch (e) {
             return "Invalid root key";
@@ -490,7 +490,7 @@
         }
         // Check no hardened derivation path when using xpub keys
         var hardened = path.indexOf("'") > -1;
-        var isXpubkey = !("privKey" in bip32RootKey);
+        var isXpubkey = bip32RootKey.isNeutered();
         if (hardened && isXpubkey) {
             return "Hardened derivation path is invalid with xpub key";
         }
@@ -509,7 +509,7 @@
         // Calculate the account extended keys
         var accountExtendedKey = calcBip32ExtendedKey(path);
         var accountXprv = accountExtendedKey.toBase58();
-        var accountXpub = accountExtendedKey.toBase58(false);
+        var accountXpub = accountExtendedKey.neutered().toBase58();
         // Display the extended keys
         DOM.bip44accountXprv.val(accountXprv);
         DOM.bip44accountXpub.val(accountXpub);
@@ -521,12 +521,12 @@
         var rootKey = bip32RootKey.toBase58();
         DOM.rootKey.val(rootKey);
         var xprvkeyB58 = "NA";
-        if (bip32ExtendedKey.privKey) {
+        if (!bip32ExtendedKey.isNeutered()) {
             xprvkeyB58 = bip32ExtendedKey.toBase58();
         }
         var extendedPrivKey = xprvkeyB58;
         DOM.extendedPrivKey.val(extendedPrivKey);
-        var extendedPubKey = bip32ExtendedKey.toBase58(false);
+        var extendedPubKey = bip32ExtendedKey.neutered().toBase58();
         DOM.extendedPubKey.val(extendedPubKey);
         // Display the addresses and privkeys
         clearAddressesList();
@@ -567,7 +567,7 @@
                 if (!self.shouldGenerate) {
                     return;
                 }
-                var key = "";
+                var key = "NA";
                 if (useHardenedAddresses) {
                     key = bip32ExtendedKey.deriveHardened(index);
                 }
@@ -576,17 +576,17 @@
                 }
                 var address = key.getAddress().toString();
                 var privkey = "NA";
-                if (key.privKey) {
-                    privkey = key.privKey.toWIF(network);
+                if (!key.isNeutered()) {
+                    privkey = key.keyPair.toWIF(network);
                 }
-                var pubkey = key.pubKey.toHex();
+                var pubkey = key.getPublicKeyBuffer().toString('hex');
                 var indexText = getDerivationPath() + "/" + index;
                 if (useHardenedAddresses) {
                     indexText = indexText + "'";
                 }
                 // Ethereum values are different
                 if (networks[DOM.network.val()].name == "ETH - Ethereum") {
-                    var privKeyBuffer = key.privKey.d.toBuffer();
+                    var privKeyBuffer = key.keyPair.d.toBuffer();
                     privkey = privKeyBuffer.toString('hex');
                     var addressBuffer = ethUtil.privateToAddress(privKeyBuffer);
                     var hexAddress = addressBuffer.toString('hex');
@@ -1059,21 +1059,21 @@
         {
             name: "BTC - Bitcoin",
             onSelect: function() {
-                network = bitcoin.networks.bitcoin;
+                network = bitcoinjs.bitcoin.networks.bitcoin;
                 DOM.bip44coin.val(0);
             },
         },
         {
             name: "BTC - Bitcoin Testnet",
             onSelect: function() {
-                network = bitcoin.networks.testnet;
+                network = bitcoinjs.bitcoin.networks.testnet;
                 DOM.bip44coin.val(1);
             },
         },
         {
             name: "CLAM - Clams",
             onSelect: function() {
-                network = bitcoin.networks.clam;
+                network = bitcoinjs.bitcoin.networks.clam;
                 DOM.bip44coin.val(23);
             },
         },
@@ -1087,14 +1087,14 @@
         {
             name: "DASH - Dash",
             onSelect: function() {
-                network = bitcoin.networks.dash;
+                network = bitcoinjs.bitcoin.networks.dash;
                 DOM.bip44coin.val(5);
             },
         },
         {
             name: "DASH - Dash Testnet",
             onSelect: function() {
-                network = bitcoin.networks.dashtn;
+                network = bitcoinjs.bitcoin.networks.dashtn;
                 DOM.bip44coin.val(1);
             },
         },
@@ -1108,84 +1108,84 @@
         {
             name: "ETH - Ethereum",
             onSelect: function() {
-                network = bitcoin.networks.bitcoin;
+                network = bitcoinjs.bitcoin.networks.bitcoin;
                 DOM.bip44coin.val(60);
             },
         },
         {
             name: "GAME - GameCredits",
             onSelect: function() {
-                network = bitcoin.networks.game;
+                network = bitcoinjs.bitcoin.networks.game;
                 DOM.bip44coin.val(101);
             },
         },
         {
             name: "JBS - Jumbucks",
             onSelect: function() {
-                network = bitcoin.networks.jumbucks;
+                network = bitcoinjs.bitcoin.networks.jumbucks;
                 DOM.bip44coin.val(26);
             },
         },
         {
             name: "LTC - Litecoin",
             onSelect: function() {
-                network = bitcoin.networks.litecoin;
+                network = bitcoinjs.bitcoin.networks.litecoin;
                 DOM.bip44coin.val(2);
             },
         },
         {
             name: "NMC - Namecoin",
             onSelect: function() {
-                network = bitcoin.networks.namecoin;
+                network = bitcoinjs.bitcoin.networks.namecoin;
                 DOM.bip44coin.val(7);
             },
         },
         {
             name: "PPC - Peercoin",
             onSelect: function() {
-                network = bitcoin.networks.peercoin;
+                network = bitcoinjs.bitcoin.networks.peercoin;
                 DOM.bip44coin.val(6);
             },
         },
         {
             name: "SDC - ShadowCash",
             onSelect: function() {
-                network = bitcoin.networks.shadow;
+                network = bitcoinjs.bitcoin.networks.shadow;
                 DOM.bip44coin.val(35);
             },
         },
         {
             name: "SDC - ShadowCash Testnet",
             onSelect: function() {
-                network = bitcoin.networks.shadowtn;
+                network = bitcoinjs.bitcoin.networks.shadowtn;
                 DOM.bip44coin.val(1);
             },
         },
         {
             name: "SLM - Slimcoin",
             onSelect: function() {
-                network = bitcoin.networks.slimcoin;
+                network = bitcoinjs.bitcoin.networks.slimcoin;
                 DOM.bip44coin.val(63);
             },
         },
         {
             name: "SLM - Slimcoin Testnet",
             onSelect: function() {
-                network = bitcoin.networks.slimcointn;
+                network = bitcoinjs.bitcoin.networks.slimcointn;
                 DOM.bip44coin.val(111);
             },
         },
         {
             name: "VIA - Viacoin",
             onSelect: function() {
-                network = bitcoin.networks.viacoin;
+                network = bitcoinjs.bitcoin.networks.viacoin;
                 DOM.bip44coin.val(14);
             },
         },
         {
             name: "VIA - Viacoin Testnet",
             onSelect: function() {
-                network = bitcoin.networks.viacointestnet;
+                network = bitcoinjs.bitcoin.networks.viacointestnet;
                 DOM.bip44coin.val(1);
             },
         },
