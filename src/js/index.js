@@ -625,7 +625,7 @@
 
     function clearDisplay() {
         clearAddressesList();
-        clearKey();
+        clearKeys();
         hideValidationError();
     }
 
@@ -641,10 +641,20 @@
         }
     }
 
-    function clearKey() {
+    function clearKeys() {
+        clearRootKey();
+        clearDerivedKeys();
+    }
+
+    function clearRootKey() {
         DOM.rootKey.val("");
+    }
+
+    function clearDerivedKeys() {
         DOM.extendedPrivKey.val("");
         DOM.extendedPubKey.val("");
+        DOM.bip44accountXprv.val("");
+        DOM.bip44accountXpub.val("");
     }
 
     function addAddressToList(indexText, address, pubkey, privkey) {
