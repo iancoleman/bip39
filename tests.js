@@ -3726,6 +3726,280 @@ page.open(url, function(status) {
 });
 },
 
+// BIP49 official test vectors
+// https://github.com/bitcoin/bips/blob/master/bip-0049.mediawiki#test-vectors
+function() {
+page.open(url, function(status) {
+    // set the phrase and select bitcoin testnet
+    var expected = "2Mww8dCYPUpKHofjgcXcBCEGmniw9CoaiD2";
+    page.evaluate(function() {
+        $("#bip49-tab a").click();
+        $(".phrase").val("abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about");
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option").filter(function() {
+            return $(this).html() == "BTC - Bitcoin Testnet";
+        }).prop("selected", true);
+        $(".network").trigger("change");
+        $(".phrase").trigger("input");
+    });
+    // check the first address
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("BIP49 address is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
+// BIP49 derivation path is shown
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "m/49'/0'/0'/0";
+    page.evaluate(function() {
+        $("#bip49-tab a").click();
+        $(".phrase").val("abandon abandon ability").trigger("input");
+    });
+    // check the derivation path of the first address
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $("#bip49 .path").val();
+        });
+        if (actual != expected) {
+            console.log("BIP49 derivation path is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
+// BIP49 extended private key is shown
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "xprvA1hukYsW7QfX9CVsaDAKde4eryajKa4DKWb6m9YjSnqkiZHrahFwwTJfEQTwBQ5kptWT5pZMkkusT1oK8dc1efQ8VFfq4SLSPAWd7Cpt423";
+    page.evaluate(function() {
+        $("#bip49-tab a").click();
+        $(".phrase").val("abandon abandon ability").trigger("input");
+    });
+    // check the BIP49 extended private key
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".extended-priv-key").val();
+        });
+        if (actual != expected) {
+            console.log("BIP49 extended private key is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
+// BIP49 extended public key is shown
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "xpub6EhGA4QPwnDpMgaLgEhKzn1PR1RDj2n4gjWhZXxM18NjbMd18EaCVFd95gkLARJaBD2rXAYJED2gdkUbGn1KkrSzCKR554AdABUELoainnt";
+    page.evaluate(function() {
+        $("#bip49-tab a").click();
+        $(".phrase").val("abandon abandon ability").trigger("input");
+    });
+    // check the BIP49 extended public key
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".extended-pub-key").val();
+        });
+        if (actual != expected) {
+            console.log("BIP49 extended public key is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
+// BIP49 account field changes address list
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "381wg1GGN4rP88rNC9v7QWsiww63yLVPsn";
+    page.evaluate(function() {
+        $("#bip49-tab a").click();
+        $(".phrase").val("abandon abandon ability").trigger("input");
+    });
+    waitForGenerate(function() {
+        // change the bip49 account field to 1
+        page.evaluate(function() {
+            $("#bip49 .account").val("1");
+            $("#bip49 .account").trigger("input");
+        });
+        waitForGenerate(function() {
+            // check the address for the new derivation path
+            var actual = page.evaluate(function() {
+                return $(".address:first").text();
+            });
+            if (actual != expected) {
+                console.log("BIP49 account field generates incorrect address");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + actual);
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
+
+// BIP49 change field changes address list
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "3PEM7MiKed5konBoN66PQhK8r3hjGhy9dT";
+    page.evaluate(function() {
+        $("#bip49-tab a").click();
+        $(".phrase").val("abandon abandon ability").trigger("input");
+    });
+    waitForGenerate(function() {
+        // change the bip49 change field to 1
+        page.evaluate(function() {
+            $("#bip49 .change").val("1");
+            $("#bip49 .change").trigger("input");
+        });
+        waitForGenerate(function() {
+            // check the address for the new derivation path
+            var actual = page.evaluate(function() {
+                return $(".address:first").text();
+            });
+            if (actual != expected) {
+                console.log("BIP49 change field generates incorrect address");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + actual);
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
+
+// BIP49 account extendend private key is shown
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "xprv9y3uhgQbfQZbj3o98nfgLDwGGuCJjUn7GKArSAZXjKgMjSdYHjQmTyf78s22g6jsGrxXvHB6HJeFyvFSPkuYZajeTGMZVXV6aNLWw2fagCn";
+    page.evaluate(function() {
+        $("#bip49-tab a").click();
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // check the BIP49 account extended private key
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $("#bip49 .account-xprv").val();
+        });
+        if (actual != expected) {
+            console.log("BIP49 account extended private key is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
+// BIP49 account extendend public key is shown
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    var expected = "xpub6C3G7BwVVn7twXscEpCghMszpw2o8wVxdY6TEYy9HfDLcExgqGj21myazAiq6HSmW2F1cBiFqJa3D1cqcDpSh8pbZF5x4iqpd4PyJvd3gjB";
+    page.evaluate(function() {
+        $("#bip49-tab a").click();
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    // check the BIP49 account extended public key
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $("#bip49 .account-xpub").val();
+        });
+        if (actual != expected) {
+            console.log("BIP49 account extended public key is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
+// Test selecting coin where bip49 is unavailable (eg CLAM)
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    page.evaluate(function() {
+        $("#bip49-tab a").click();
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    waitForGenerate(function() {
+        // select non-bip49 network, ie CLAM network
+        page.evaluate(function() {
+            $(".network option[selected]").removeAttr("selected");
+            $(".network option").filter(function() {
+                return $(this).html() == "CLAM - Clams";
+            }).prop("selected", true);
+            $(".network").trigger("change");
+        });
+        // check the BIP49 error is shown
+        var bip49ErrorShown = page.evaluate(function() {
+            var bip49hidden = $("#bip49 .available").hasClass("hidden");
+            bip49hidden = bip49hidden && !($("#bip49 .unavailable").hasClass("hidden"));
+            return bip49hidden;
+        });
+        if (!bip49ErrorShown) {
+            console.log("BIP49 error not shown for non-bip49 network");
+            fail();
+        }
+        // check there are no addresses shown
+        var addressCount = page.evaluate(function() {
+            return $(".address").length;
+        });
+        if (addressCount != 0) {
+            console.log("BIP49 address count for non-bip49 network is " + addressCount);
+            fail();
+        }
+        // check the derived keys are blank
+        var areBlank = page.evaluate(function() {
+            var prvKeyIsBlank = $(".extended-priv-key").val().length == 0;
+            var pubKeyIsBlank = $(".extended-pub-key").val().length == 0;
+            return prvKeyIsBlank && pubKeyIsBlank;
+        });
+        if (!areBlank) {
+            console.log("BIP49 extended keys for non-bip49 network are not blank ");
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // If you wish to add more tests, do so here...
 
 // Here is a blank test template

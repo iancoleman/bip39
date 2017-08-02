@@ -282,6 +282,9 @@
                         <li id="bip44-tab" class="active">
                             <a href="#bip44" role="tab" data-toggle="tab">BIP44</a>
                         </li>
+                        <li id="bip49-tab">
+                            <a href="#bip49" role="tab" data-toggle="tab">BIP49</a>
+                        </li>
                     </ul>
                     <div class="derivation-type tab-content">
                         <div id="bip44" class="tab-pane active">
@@ -431,6 +434,96 @@
                                             <span data-translate>Can be used with</span>:
                                             <a href="https://blockchain.info/" target="_blank">blockchain.info</a>
                                         </p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="bip49" class="tab-pane">
+                            <form class="form-horizontal" role="form">
+                                <br>
+                                <div class="unavailable hidden">
+                                    <div class="form-group">
+                                        <div class="col-sm-2"></div>
+                                        <div class="col-sm-10">
+                                            <p data-translate>BIP49 is unavailable for this coin.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="available">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-10">
+                                        <p data-translate-html>
+                                            For more info see the
+                                            <a href="https://github.com/bitcoin/bips/blob/master/bip-0049.mediawiki" target="_blank">BIP49 spec</a>.
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="purpose" class="col-sm-2 control-label">
+                                            <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#purpose" target="_blank" data-translate>Purpose</a>
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input id="purpose" type="text" class="purpose form-control" value="49" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="coin" class="col-sm-2 control-label">
+                                            <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#registered-coin-types" target="_blank" data-translate>Coin</a>
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input id="coin" type="text" class="coin form-control" value="0" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="account" class="col-sm-2 control-label">
+                                            <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#account" target="_blank" data-translate>Account</a>
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input id="account" type="text" class="account form-control" value="0">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="change" class="col-sm-2 control-label">
+                                            <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#change" target="_blank" data-translate>External / Internal</a>
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input id="change" type="text" class="change form-control" value="0">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <p data-translate>The account extended keys can be used for importing to most BIP49 compatible wallets.</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="account-xprv" class="col-sm-2 control-label">
+                                            <span data-translate>Account Extended Private Key</span>
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <textarea id="account-xprv" type="text" class="account-xprv form-control" readonly data-show-qr></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="account-xpub" class="col-sm-2 control-label">
+                                            <span data-translate>Account Extended Public Key</span>
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <textarea id="account-xpub" type="text" class="account-xpub form-control" readonly data-show-qr></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <p data-translate>The BIP32 derivation path and extended keys are the basis for the derived addresses.</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="bip49-path" class="col-sm-2 control-label" data-translate>BIP32 Derivation Path</label>
+                                        <div class="col-sm-10">
+                                            <input id="bip49-path" type="text" class="path form-control" value="m/49'/0'/0'/0" readonly="readonly">
+                                        </div>
                                     </div>
                                 </div>
                             </form>

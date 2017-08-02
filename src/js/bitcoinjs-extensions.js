@@ -31,7 +31,7 @@ bitcoinjs.bitcoin.networks.clam = {
   wif: 0x85,
 };
 
-bitcoin.networks.crown = {
+bitcoinjs.bitcoin.networks.crown = {
   messagePrefix: "unused",
   bip32: {
     public: 0x0488b21e,
@@ -42,7 +42,7 @@ bitcoin.networks.crown = {
   wif: 0x80,
 };
 
-bitcoin.networks.dash = {
+bitcoinjs.bitcoin.networks.dash = {
   messagePrefix: "unused",
   bip32: {
     public: 0x0488b21e,
