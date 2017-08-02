@@ -1028,70 +1028,6 @@ page.open(url, function(status) {
 });
 },
 
-// BIP44 purpose field changes address list
-function() {
-page.open(url, function(status) {
-    // set the phrase
-    var expected = "1JbDzRJ2cDT8aat2xwKd6Pb2zzavow5MhF";
-    page.evaluate(function() {
-        $(".phrase").val("abandon abandon ability");
-        $(".phrase").trigger("input");
-    });
-    waitForGenerate(function() {
-        // change the bip44 purpose field to 45
-        page.evaluate(function() {
-            $("#bip44 .purpose").val("45");
-            $("#bip44 .purpose").trigger("input");
-        });
-        waitForGenerate(function() {
-            // check the address for the new derivation path
-            var actual = page.evaluate(function() {
-                return $(".address:first").text();
-            });
-            if (actual != expected) {
-                console.log("BIP44 purpose field generates incorrect address");
-                console.log("Expected: " + expected);
-                console.log("Actual: " + actual);
-                fail();
-            }
-            next();
-        });
-    });
-});
-},
-
-// BIP44 coin field changes address list
-function() {
-page.open(url, function(status) {
-    // set the phrase
-    var expected = "1F6dB2djQYrxoyfZZmfr6D5voH8GkJTghk";
-    page.evaluate(function() {
-        $(".phrase").val("abandon abandon ability");
-        $(".phrase").trigger("input");
-    });
-    waitForGenerate(function() {
-        // change the bip44 purpose field to 45
-        page.evaluate(function() {
-            $("#bip44 .coin").val("1");
-            $("#bip44 .coin").trigger("input");
-        });
-        waitForGenerate(function() {
-            // check the address for the new derivation path
-            var actual = page.evaluate(function() {
-                return $(".address:first").text();
-            });
-            if (actual != expected) {
-                console.log("BIP44 coin field generates incorrect address");
-                console.log("Expected: " + expected);
-                console.log("Actual: " + actual);
-                fail();
-            }
-            next();
-        });
-    });
-});
-},
-
 // BIP44 account field changes address list
 function() {
 page.open(url, function(status) {
@@ -3392,7 +3328,7 @@ page.open(url, function(status) {
     // check the BIP44 account extended private key
     waitForGenerate(function() {
         var actual = page.evaluate(function() {
-            return $(".account-xprv").val();
+            return $("#bip44 .account-xprv").val();
         });
         if (actual != expected) {
             console.log("BIP44 account extended private key is incorrect");
@@ -3418,7 +3354,7 @@ page.open(url, function(status) {
     // check the BIP44 account extended public key
     waitForGenerate(function() {
         var actual = page.evaluate(function() {
-            return $(".account-xpub").val();
+            return $("#bip44 .account-xpub").val();
         });
         if (actual != expected) {
             console.log("BIP44 account extended public key is incorrect");

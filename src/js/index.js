@@ -88,8 +88,6 @@
         DOM.more.on("click", showMore);
         DOM.rootKey.on("input", delayedRootKeyChanged);
         DOM.bip32path.on("input", calcForDerivationPath);
-        DOM.bip44purpose.on("input", calcForDerivationPath);
-        DOM.bip44coin.on("input", calcForDerivationPath);
         DOM.bip44account.on("input", calcForDerivationPath);
         DOM.bip44change.on("input", calcForDerivationPath);
         DOM.tab.on("shown.bs.tab", calcForDerivationPath);
