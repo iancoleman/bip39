@@ -1167,6 +1167,14 @@
 
     var networks = [
         {
+            name: "BCH - Bitcoin Cash",
+            bip49available: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bitcoin;
+                setHdCoin(145);
+            },
+        },
+        {
             name: "BTC - Bitcoin",
             bip49available: true,
             onSelect: function() {

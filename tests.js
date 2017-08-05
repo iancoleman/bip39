@@ -872,6 +872,36 @@ page.open(url, function(status) {
 });
 },
 
+// Network can be set to bitcoin cash
+function() {
+page.open(url, function(status) {
+    // set the phrase and coin
+    var expected = "1JKvb6wKtsjNoCRxpZ4DGrbniML7z5U16A";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option").filter(function() {
+            return $(this).html() == "BCH - Bitcoin Cash";
+        }).prop("selected", true);
+        $(".network").trigger("change");
+    });
+    // check the address is generated correctly
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("Bitcoin Cash address is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // BIP39 seed is set from phrase
 function() {
 page.open(url, function(status) {
