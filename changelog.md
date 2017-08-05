@@ -1,3 +1,12 @@
+# 0.2.0
+
+* BitcoinJS library upgrded to v3.1.1
+* Tab order is alphabetical
+* BIP44 'purpose' and 'coin' fields are readonly
+* Refactor method to clear old data from the display
+* BIP49 support
+* Release process is documented
+
 # 0.1.2
 
 * Add Crown network
