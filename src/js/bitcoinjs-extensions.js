@@ -184,3 +184,13 @@ bitcoinjs.bitcoin.networks.zetacoin = {
   scriptHash: 0x09,
   wif: 0xe0,
 }
+
+bitcoinjs.bitcoin.networks.myriadcoin = {
+  messagePrefix: "unused",
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  },
+  pubKeyHash: 0x32,
+  wif: 0xb2,
+};
