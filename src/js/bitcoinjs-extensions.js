@@ -192,5 +192,6 @@ bitcoinjs.bitcoin.networks.myriadcoin = {
     private: 0x0488ade4
   },
   pubKeyHash: 0x32,
+  scriptHash: 0x00, // TODO set this correctly
   wif: 0xb2,
 };
