@@ -118,7 +118,7 @@
         <div class="container">
 
             <h1 class="text-center">Mnemonic Code Converter</h1>
-            <p class="version">v0.2.0</p>
+            <p class="version">v0.2.1</p>
             <hr>
             <div class="row">
                 <div class="col-md-12">
@@ -22291,6 +22291,17 @@ bitcoinjs.bitcoin.networks.zetacoin = {
   scriptHash: 0x09,
   wif: 0xe0,
 }
+
+bitcoinjs.bitcoin.networks.myriadcoin = {
+  messagePrefix: "unused",
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  },
+  pubKeyHash: 0x32,
+  scriptHash: 0x00, // TODO set this correctly
+  wif: 0xb2,
+};
 </script>
         <script>(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.ethUtil = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -46871,6 +46882,9 @@ window.Entropy = new (function() {
             var option = $("<option>");
             option.attr("value", i);
             option.text(network.name);
+            if (network.name == "BTC - Bitcoin") {
+                option.prop("selected", true);
+            }
             DOM.phraseNetwork.append(option);
         }
     }
@@ -47217,6 +47231,14 @@ window.Entropy = new (function() {
 
     var networks = [
         {
+            name: "BCH - Bitcoin Cash",
+            bip49available: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bitcoin;
+                setHdCoin(145);
+            },
+        },
+        {
             name: "BTC - Bitcoin",
             bip49available: true,
             onSelect: function() {
@@ -47366,6 +47388,14 @@ window.Entropy = new (function() {
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.viacointestnet;
                 setHdCoin(1);
+            },
+        },
+        {
+            name: "XMY - Myriadcoin",
+            bip49available: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.myriadcoin;
+                setHdCoin(90);
             },
         },
         {

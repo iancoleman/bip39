@@ -1,3 +1,9 @@
+# 0.2.1
+
+* BTC is the default coin
+* Add myriadcoin
+* Add Bitcon Cash
+
 # 0.2.0
 
 * BitcoinJS library upgrded to v3.1.1
