@@ -1322,6 +1322,14 @@
                 network = bitcoinjs.bitcoin.networks.bitcoin;
                 setHdCoin(144);
             },
+        },
+        {
+            name: "XMY - Myriadcoin",
+            bip49available: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.myriadcoin;
+                setHdCoin(90);
+            },
         }
     ]
 
