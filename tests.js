@@ -902,6 +902,36 @@ page.open(url, function(status) {
 });
 },
 
+// Network can be set to myriadcoin
+function() {
+page.open(url, function(status) {
+    // set the phrase and coin
+    var expected = "MJEswvRR46wh9BoiVj9DzKYMBkCramhoBV";
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option").filter(function() {
+            return $(this).html() == "XMY - Myriadcoin";
+        }).prop("selected", true);
+        $(".network").trigger("change");
+    });
+    // check the address is generated correctly
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("Myriadcoin address is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // BIP39 seed is set from phrase
 function() {
 page.open(url, function(status) {
