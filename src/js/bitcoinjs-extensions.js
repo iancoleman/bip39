@@ -1051,7 +1051,16 @@ bitcoin.networks.zencash = {
     scriptHash: 0x2096,
     wif: 128,
 }
-
+bitcoin.networks.smartcash = {
+    magicPrefix: '\x19SmartCash Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 63,
+    scriptHash: 18,
+    wif: 191,
+}
 
 
 

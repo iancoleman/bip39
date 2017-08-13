@@ -1003,6 +1003,13 @@
                 DOM.bip44coin.val(122);
             },
         },
+        {
+            name: "Smartcash",
+            onSelect: function() {
+                network = bitcoin.networks.smartcash;
+                DOM.bip44coin.val(125);
+            },
+        },
     ]
 
     init();
