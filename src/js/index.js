@@ -1271,6 +1271,22 @@
             },
         },
         {
+            name: "PIVX - PIVX",
+            bip49available: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.pivx;
+                setHdCoin(119);
+            },
+        },
+        {
+            name: "PIVX - PIVX Testnet",
+            bip49available: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.pivxtestnet;
+                setHdCoin(1);
+            },
+        },
+        {
             name: "PPC - Peercoin",
             bip49available: false,
             onSelect: function() {

@@ -195,3 +195,25 @@ bitcoinjs.bitcoin.networks.myriadcoin = {
   scriptHash: 0x00, // TODO set this correctly
   wif: 0xb2,
 };
+
+bitcoinjs.bitcoin.networks.pivx = {
+  messagePrefix: "unused",
+  bip32: {
+    public: 0x022d2533,
+    private: 0x0221312b
+  },
+  pubKeyHash: 0x1e,
+  scriptHash: 0x0d,
+  wif: 0xd4,
+};
+
+bitcoinjs.bitcoin.networks.pivxtestnet = {
+  messagePrefix: "unused",
+  bip32: {
+    public: 0x3a8061a0,
+    private: 0x3a805837
+  },
+  pubKeyHash: 0x8b,
+  scriptHash: 0x13,
+  wif: 0xef,
+};
