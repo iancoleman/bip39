@@ -1074,6 +1074,14 @@ bitcoin.networks.fujicoin = {
     wif: 164,
 }
 
-
+bitcoin.networks.link = {
+  bip32: {
+    public: 0xffffffff,
+    private: 0xffffffff
+  },
+  pubKeyHash: 0xff,
+  wif: 0xff,    
+  ethereum : true
+};
 
 

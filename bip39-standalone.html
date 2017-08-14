@@ -14063,7 +14063,15 @@ bitcoin.networks.fujicoin = {
     wif: 164,
 }
 
-
+bitcoin.networks.link = {
+  bip32: {
+    public: 0xffffffff,
+    private: 0xffffffff
+  },
+  pubKeyHash: 0xff,
+  wif: 0xff,    
+  ethereum : true
+};
 
 
 </script>
@@ -17032,6 +17040,13 @@ var Mnemonic = function(language) {
             onSelect: function() {
                 network = bitcoin.networks.fujicoin;
                 DOM.bip44coin.val(75);
+            },
+        },
+        {
+            name: "Link",
+            onSelect: function() {
+                network = bitcoin.networks.link;
+                DOM.bip44coin.val(76);
             },
         },
     ]

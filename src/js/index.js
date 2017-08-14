@@ -1017,6 +1017,13 @@
                 DOM.bip44coin.val(75);
             },
         },
+        {
+            name: "Link",
+            onSelect: function() {
+                network = bitcoin.networks.link;
+                DOM.bip44coin.val(76);
+            },
+        },
     ]
 
     init();
