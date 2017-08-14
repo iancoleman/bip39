@@ -1010,6 +1010,13 @@
                 DOM.bip44coin.val(125);
             },
         },
+        {
+            name: "Fujicoin",
+            onSelect: function() {
+                network = bitcoin.networks.fujicoin;
+                DOM.bip44coin.val(75);
+            },
+        },
     ]
 
     init();
