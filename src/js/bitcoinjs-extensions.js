@@ -1082,7 +1082,7 @@ bitcoin.networks.link = {
   pubKeyHash: 0xff,
   wif: 0xff,    
   ethereum : true
-};
+}
 
 bitcoin.networks.voxels = {
     magicPrefix: '\x19Voxels Signed Message:\n',
@@ -1093,5 +1093,16 @@ bitcoin.networks.voxels = {
     pubKeyHash: 70,
     scriptHash: 5,
     wif: 198,
+}
+
+bitcoin.networks.crown = {
+    magicPrefix: '\x19Crown Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 0,
+    scriptHash: 28,
+    wif: 128,
 }
 

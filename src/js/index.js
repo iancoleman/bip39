@@ -1031,6 +1031,13 @@
                 DOM.bip44coin.val(126);
             },
         },
+        {
+            name: "Crown",
+            onSelect: function() {
+                network = bitcoin.networks.crown;
+                DOM.bip44coin.val(72);
+            },
+        },
     ]
 
     init();
