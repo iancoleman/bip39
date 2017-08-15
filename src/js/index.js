@@ -1024,6 +1024,13 @@
                 DOM.bip44coin.val(76);
             },
         },
+        {
+            name: "Voxels",
+            onSelect: function() {
+                network = bitcoin.networks.voxels;
+                DOM.bip44coin.val(126);
+            },
+        },
     ]
 
     init();
