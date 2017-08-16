@@ -188,7 +188,6 @@
 
     function phraseChanged() {
         showPending();
-        hideValidationError();
         setMnemonicLanguage();
         // Get the mnemonic phrase
         var phrase = DOM.phrase.val();
@@ -201,7 +200,6 @@
         var passphrase = DOM.passphrase.val();
         calcBip32RootKeyFromSeed(phrase, passphrase);
         calcForDerivationPath();
-        hidePending();
     }
 
     function delayedEntropyChanged() {
@@ -277,10 +275,9 @@
     }
 
     function calcForDerivationPath() {
-        showPending();
         clearDerivedKeys();
         clearAddressesList();
-        hideValidationError();
+        showPending();
         // Don't show bip49 if it's selected but network doesn't support it
         if (bip49TabSelected() && !networkHasBip49()) {
             return;
@@ -300,7 +297,6 @@
             displayBip49Info();
         }
         displayBip32Info();
-        hidePending();
     }
 
     function generateClicked() {
@@ -607,17 +603,19 @@
                 for (var i=0; i<rows.length; i++) {
                     rows[i].shouldGenerate = false;
                 }
+                hidePending();
             }
 
             for (var i=0; i<total; i++) {
                 var index = i + start;
-                rows.push(new TableRow(index));
+                var isLast = i == total - 1;
+                rows.push(new TableRow(index, isLast));
             }
 
         })());
     }
 
-    function TableRow(index) {
+    function TableRow(index, isLast) {
 
         var self = this;
         this.shouldGenerate = true;
@@ -679,6 +677,9 @@
                     address = bitcoinjs.bitcoin.address.fromOutputScript(scriptpubkey, network)
                 }
                 addAddressToList(indexText, address, pubkey, privkey);
+                if (isLast) {
+                    hidePending();
+                }
             }, 50)
         }
 
