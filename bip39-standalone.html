@@ -118,7 +118,7 @@
         <div class="container">
 
             <h1 class="text-center">Mnemonic Code Converter</h1>
-            <p class="version">v0.2.1</p>
+            <p class="version">v0.2.2</p>
             <hr>
             <div class="row">
                 <div class="col-md-12">
@@ -22301,6 +22301,28 @@ bitcoinjs.bitcoin.networks.myriadcoin = {
   pubKeyHash: 0x32,
   scriptHash: 0x00, // TODO set this correctly
   wif: 0xb2,
+};
+
+bitcoinjs.bitcoin.networks.pivx = {
+  messagePrefix: "unused",
+  bip32: {
+    public: 0x022d2533,
+    private: 0x0221312b
+  },
+  pubKeyHash: 0x1e,
+  scriptHash: 0x0d,
+  wif: 0xd4,
+};
+
+bitcoinjs.bitcoin.networks.pivxtestnet = {
+  messagePrefix: "unused",
+  bip32: {
+    public: 0x3a8061a0,
+    private: 0x3a805837
+  },
+  pubKeyHash: 0x8b,
+  scriptHash: 0x13,
+  wif: 0xef,
 };
 </script>
         <script>(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.ethUtil = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -46239,6 +46261,10 @@ window.Entropy = new (function() {
 
     function delayedPhraseChanged() {
         hideValidationError();
+        seed = null;
+        bip32RootKey = null;
+        bip32ExtendedKey = null;
+        clearAddressesList();
         showPending();
         if (phraseChangeTimeoutEvent != null) {
             clearTimeout(phraseChangeTimeoutEvent);
@@ -46248,7 +46274,6 @@ window.Entropy = new (function() {
 
     function phraseChanged() {
         showPending();
-        hideValidationError();
         setMnemonicLanguage();
         // Get the mnemonic phrase
         var phrase = DOM.phrase.val();
@@ -46261,7 +46286,6 @@ window.Entropy = new (function() {
         var passphrase = DOM.passphrase.val();
         calcBip32RootKeyFromSeed(phrase, passphrase);
         calcForDerivationPath();
-        hidePending();
     }
 
     function delayedEntropyChanged() {
@@ -46337,10 +46361,9 @@ window.Entropy = new (function() {
     }
 
     function calcForDerivationPath() {
-        showPending();
         clearDerivedKeys();
         clearAddressesList();
-        hideValidationError();
+        showPending();
         // Don't show bip49 if it's selected but network doesn't support it
         if (bip49TabSelected() && !networkHasBip49()) {
             return;
@@ -46360,7 +46383,6 @@ window.Entropy = new (function() {
             displayBip49Info();
         }
         displayBip32Info();
-        hidePending();
     }
 
     function generateClicked() {
@@ -46667,17 +46689,19 @@ window.Entropy = new (function() {
                 for (var i=0; i<rows.length; i++) {
                     rows[i].shouldGenerate = false;
                 }
+                hidePending();
             }
 
             for (var i=0; i<total; i++) {
                 var index = i + start;
-                rows.push(new TableRow(index));
+                var isLast = i == total - 1;
+                rows.push(new TableRow(index, isLast));
             }
 
         })());
     }
 
-    function TableRow(index) {
+    function TableRow(index, isLast) {
 
         var self = this;
         this.shouldGenerate = true;
@@ -46739,6 +46763,9 @@ window.Entropy = new (function() {
                     address = bitcoinjs.bitcoin.address.fromOutputScript(scriptpubkey, network)
                 }
                 addAddressToList(indexText, address, pubkey, privkey);
+                if (isLast) {
+                    hidePending();
+                }
             }, 50)
         }
 
@@ -47332,6 +47359,22 @@ window.Entropy = new (function() {
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.namecoin;
                 setHdCoin(7);
+            },
+        },
+        {
+            name: "PIVX - PIVX",
+            bip49available: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.pivx;
+                setHdCoin(119);
+            },
+        },
+        {
+            name: "PIVX - PIVX Testnet",
+            bip49available: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.pivxtestnet;
+                setHdCoin(1);
             },
         },
         {

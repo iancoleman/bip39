@@ -1,3 +1,9 @@
+# 0.2.2
+
+* Improve showing feedback for pending calculations
+* Bugfix: Clear old seed when mnemonic is changed
+* Add PIVX network
+
 # 0.2.1
 
 * BTC is the default coin
