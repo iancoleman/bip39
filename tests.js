@@ -4120,6 +4120,41 @@ page.open(url, function(status) {
 });
 },
 
+// github issue 43
+// Cleared mnemonic and root key still allows addresses to be generated
+// https://github.com/iancoleman/bip39/issues/43
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    page.evaluate(function() {
+        $("#bip49-tab a").click();
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+    });
+    waitForGenerate(function() {
+        // clear the mnemonic and root key
+        page.evaluate(function() {
+            $(".phrase").val("");
+            $(".phrase").trigger("input");
+            $(".root-key").val("");
+            $(".root-key").trigger("input");
+            $(".more").click();
+        });
+        waitForFeedback(function() {
+            // check there are no addresses shown
+            var addressCount = page.evaluate(function() {
+                return $(".address").length;
+            });
+            if (addressCount != 0) {
+                console.log("Clearing mnemonic should not allow addresses to be generated");
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
+
 // If you wish to add more tests, do so here...
 
 // Here is a blank test template

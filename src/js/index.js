@@ -175,6 +175,10 @@
 
     function delayedPhraseChanged() {
         hideValidationError();
+        seed = null;
+        bip32RootKey = null;
+        bip32ExtendedKey = null;
+        clearAddressesList();
         showPending();
         if (phraseChangeTimeoutEvent != null) {
             clearTimeout(phraseChangeTimeoutEvent);
