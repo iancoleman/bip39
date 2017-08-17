@@ -1038,6 +1038,13 @@
                 DOM.bip44coin.val(72);
             },
         },
+        {
+            name: "Vcash",
+            onSelect: function() {
+                network = bitcoin.networks.vcash;
+                DOM.bip44coin.val(127);
+            },
+        },
     ]
 
     init();

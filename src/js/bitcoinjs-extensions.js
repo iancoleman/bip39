@@ -1106,3 +1106,14 @@ bitcoin.networks.crown = {
     wif: 128,
 }
 
+bitcoin.networks.vcash = {
+    magicPrefix: '\x19Vcash Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 71,
+    scriptHash: 8,
+    wif: 199,
+}
+
