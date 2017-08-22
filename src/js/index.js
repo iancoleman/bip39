@@ -1263,6 +1263,15 @@
             },
         },
         {
+            name: "MAZA - Maza",
+            bip49available: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.maza;
+                setHdCoin(13);
+            },
+        },
+
+        {
             name: "NMC - Namecoin",
             bip49available: false,
             onSelect: function() {
