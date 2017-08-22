@@ -53,6 +53,17 @@ bitcoinjs.bitcoin.networks.dash = {
   wif: 0xcc,
 };
 
+bitcoinjs.bitcoin.networks.maza = {
+  messagePrefix: "unused",
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  },
+  pubKeyHash: 0x32,
+  scriptHash: 0x09,
+  wif: 0xe0,
+};
+
 bitcoinjs.bitcoin.networks.dashtn = {
   messagePrefix: "unused",
   bip32: {
