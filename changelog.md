@@ -1,3 +1,7 @@
+# 0.2.3
+
+* Add maza coin
+
 # 0.2.2
 
 * Improve showing feedback for pending calculations
