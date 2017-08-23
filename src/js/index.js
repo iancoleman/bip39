@@ -532,7 +532,9 @@
             return "No root key";
         }
         // Check no hardened derivation path when using xpub keys
-        var hardened = path.indexOf("'") > -1;
+        var hardenedPath = path.indexOf("'") > -1;
+        var hardenedAddresses = bip32TabSelected() && DOM.hardenedAddresses.prop("checked");
+        var hardened = hardenedPath || hardenedAddresses;
         var isXpubkey = bip32RootKey.isNeutered();
         if (hardened && isXpubkey) {
             return "Hardened derivation path is invalid with xpub key";

@@ -4185,6 +4185,37 @@ page.open(url, function(status) {
 });
 },
 
+// Github issue 95
+// error trying to generate addresses from xpub with hardened derivation
+function() {
+page.open(url, function(status) {
+    // set the phrase
+    page.evaluate(function() {
+        // Use bip32 tab with hardened addresses
+        $(".hardened-addresses").prop("checked", true);
+        $("#bip32-tab a").click();
+        // set xpub for account 0 of bip44 for 'abandon abandon ability'
+        var bip44AccountXpub = "xpub6CzDCPbtLrrn4VpVbyyQLHbdSMpZoHN4iuW64VswCyEpfjM2mJGdaHJ2DyuZwtst96E16VvcERb8BBeJdHSCVmAq9RhtRQg6eAZFrTKCNqf";
+        $("#root-key").val(bip44AccountXpub);
+        $("#root-key").trigger("input");
+    });
+    waitForFeedback(function() {
+        // check the error message shows
+        var expected = "Hardened derivation path is invalid with xpub key";
+        var actual = page.evaluate(function() {
+            return $(".feedback").text();
+        });
+        if (actual != expected) {
+            console.log("xpub key with hardened addresses does not show feedback");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // If you wish to add more tests, do so here...
 
 // Here is a blank test template
