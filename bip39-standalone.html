@@ -118,7 +118,7 @@
         <div class="container">
 
             <h1 class="text-center">Mnemonic Code Converter</h1>
-            <p class="version">v0.2.3</p>
+            <p class="version">v0.2.4</p>
             <hr>
             <div class="row">
                 <div class="col-md-12">
@@ -268,6 +268,15 @@
                             <label for="root-key" class="col-sm-2 control-label" data-translate>BIP32 Root Key</label>
                             <div class="col-sm-10">
                                 <textarea id="root-key" class="root-key form-control" data-show-qr></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group litecoin-ltub-container hidden">
+                            <label for="litecoin-use-ltub" class="col-sm-2 control-label" data-translate>Prefixes</label>
+                            <div class="col-sm-10 checkbox">
+                                <label>
+                                    <input type="checkbox" id="litecoin-use-ltub" class="litecoin-use-ltub">
+                                    Use <code>Ltpv / Ltub</code> instead of <code>xprv / xpub</code>
+                                </label>
                             </div>
                         </div>
                     </form>
@@ -16928,6 +16937,16 @@ module.exports = {
   litecoin: {
     messagePrefix: '\x19Litecoin Signed Message:\n',
     bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4,
+    },
+    pubKeyHash: 0x30,
+    scriptHash: 0x32,
+    wif: 0xb0
+  },
+  litecoinLtub: {
+    messagePrefix: '\x19Litecoin Signed Message:\n',
+    bip32: {
       public: 0x019da462,
       private: 0x019d9cfe
     },
@@ -22104,7 +22123,8 @@ module.exports = {
 
 }).call(this,require("buffer").Buffer)
 },{"bs58check":80,"buffer":4}]},{},[33])(33)
-});</script>
+});
+</script>
         <script>bitcoinjs.bitcoin.networks.shadow = {
   messagePrefix: "unused",
   bip32: {
@@ -46111,6 +46131,7 @@ window.Entropy = new (function() {
     var showPubKey = true;
     var showPrivKey = true;
     var showQr = false;
+    var litecoinUseLtub = false;
 
     var entropyChangeTimeoutEvent = null;
     var phraseChangeTimeoutEvent = null;
@@ -46140,6 +46161,8 @@ window.Entropy = new (function() {
     DOM.generate = $(".generate");
     DOM.seed = $(".seed");
     DOM.rootKey = $(".root-key");
+    DOM.litecoinLtubContainer = $(".litecoin-ltub-container");
+    DOM.litecoinUseLtub = $(".litecoin-use-ltub");
     DOM.extendedPrivKey = $(".extended-priv-key");
     DOM.extendedPubKey = $(".extended-pub-key");
     DOM.bip32tab = $("#bip32-tab");
@@ -46195,6 +46218,7 @@ window.Entropy = new (function() {
         DOM.generate.on("click", generateClicked);
         DOM.more.on("click", showMore);
         DOM.rootKey.on("input", delayedRootKeyChanged);
+        DOM.litecoinUseLtub.on("change", litecoinUseLtubChanged);
         DOM.bip32path.on("input", calcForDerivationPath);
         DOM.bip44account.on("input", calcForDerivationPath);
         DOM.bip44change.on("input", calcForDerivationPath);
@@ -46220,6 +46244,7 @@ window.Entropy = new (function() {
     function networkChanged(e) {
         clearDerivedKeys();
         clearAddressesList();
+        DOM.litecoinLtubContainer.addClass("hidden");
         var networkIndex = e.target.value;
         var network = networks[networkIndex];
         network.onSelect();
@@ -46369,6 +46394,17 @@ window.Entropy = new (function() {
         // Calculate and display
         calcBip32RootKeyFromBase58(rootKeyBase58);
         calcForDerivationPath();
+    }
+
+    function litecoinUseLtubChanged() {
+        litecoinUseLtub = DOM.litecoinUseLtub.prop("checked");
+        if (litecoinUseLtub) {
+            network = bitcoinjs.bitcoin.networks.litecoinLtub;
+        }
+        else {
+            network = bitcoinjs.bitcoin.networks.litecoin;
+        }
+        phraseChanged();
     }
 
     function calcForDerivationPath() {
@@ -46629,7 +46665,9 @@ window.Entropy = new (function() {
             return "No root key";
         }
         // Check no hardened derivation path when using xpub keys
-        var hardened = path.indexOf("'") > -1;
+        var hardenedPath = path.indexOf("'") > -1;
+        var hardenedAddresses = bip32TabSelected() && DOM.hardenedAddresses.prop("checked");
+        var hardened = hardenedPath || hardenedAddresses;
         var isXpubkey = bip32RootKey.isNeutered();
         if (hardened && isXpubkey) {
             return "Hardened derivation path is invalid with xpub key";
@@ -47362,6 +47400,7 @@ window.Entropy = new (function() {
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.litecoin;
                 setHdCoin(2);
+                DOM.litecoinLtubContainer.removeClass("hidden");
             },
         },
         {

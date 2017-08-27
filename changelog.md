@@ -1,3 +1,8 @@
+# 0.2.4
+
+* Show error when using xpub with hardened addresses
+* Allow switching litecoin prefixes between xprv and Ltpv
+
 # 0.2.3
 
 * Add maza coin
