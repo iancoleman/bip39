@@ -14,6 +14,7 @@
     var showPubKey = true;
     var showPrivKey = true;
     var showQr = false;
+    var litecoinUseLtub = false;
 
     var entropyChangeTimeoutEvent = null;
     var phraseChangeTimeoutEvent = null;
@@ -43,6 +44,8 @@
     DOM.generate = $(".generate");
     DOM.seed = $(".seed");
     DOM.rootKey = $(".root-key");
+    DOM.litecoinLtubContainer = $(".litecoin-ltub-container");
+    DOM.litecoinUseLtub = $(".litecoin-use-ltub");
     DOM.extendedPrivKey = $(".extended-priv-key");
     DOM.extendedPubKey = $(".extended-pub-key");
     DOM.bip32tab = $("#bip32-tab");
@@ -98,6 +101,7 @@
         DOM.generate.on("click", generateClicked);
         DOM.more.on("click", showMore);
         DOM.rootKey.on("input", delayedRootKeyChanged);
+        DOM.litecoinUseLtub.on("change", litecoinUseLtubChanged);
         DOM.bip32path.on("input", calcForDerivationPath);
         DOM.bip44account.on("input", calcForDerivationPath);
         DOM.bip44change.on("input", calcForDerivationPath);
@@ -123,6 +127,7 @@
     function networkChanged(e) {
         clearDerivedKeys();
         clearAddressesList();
+        DOM.litecoinLtubContainer.addClass("hidden");
         var networkIndex = e.target.value;
         var network = networks[networkIndex];
         network.onSelect();
@@ -272,6 +277,17 @@
         // Calculate and display
         calcBip32RootKeyFromBase58(rootKeyBase58);
         calcForDerivationPath();
+    }
+
+    function litecoinUseLtubChanged() {
+        litecoinUseLtub = DOM.litecoinUseLtub.prop("checked");
+        if (litecoinUseLtub) {
+            network = bitcoinjs.bitcoin.networks.litecoinLtub;
+        }
+        else {
+            network = bitcoinjs.bitcoin.networks.litecoin;
+        }
+        phraseChanged();
     }
 
     function calcForDerivationPath() {
@@ -1267,6 +1283,7 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.litecoin;
                 setHdCoin(2);
+                DOM.litecoinLtubContainer.removeClass("hidden");
             },
         },
         {

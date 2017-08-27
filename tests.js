@@ -4216,6 +4216,57 @@ page.open(url, function(status) {
 });
 },
 
+// Litecoin uses xprv by default, and can optionally be set to ltpv
+// github issue 96
+// https://github.com/iancoleman/bip39/issues/96
+// Issue with extended keys on Litecoin
+function() {
+page.open(url, function(status) {
+    // set the phrase and coin
+    page.evaluate(function() {
+        $(".phrase").val("abandon abandon ability");
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option").filter(function() {
+            return $(this).html() == "LTC - Litecoin";
+        }).prop("selected", true);
+        $(".network").trigger("change");
+        $(".phrase").trigger("input");
+    });
+    // check the extended key is generated correctly
+    waitForGenerate(function() {
+        var expected = "xprv9s21ZrQH143K2jkGDCeTLgRewT9F2pH5JZs2zDmmjXes34geVnFiuNa8KTvY5WoYvdn4Ag6oYRoB6cXtc43NgJAEqDXf51xPm6fhiMCKwpi";
+        var actual = page.evaluate(function() {
+            return $(".root-key").val();
+        });
+        if (actual != expected) {
+            console.log("Litecoin root key does not default to xprv");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        // set litecoin to use ltub
+        page.evaluate(function() {
+            $(".addresses").empty();
+            $(".litecoin-use-ltub").prop("checked", true);
+            $(".litecoin-use-ltub").trigger("change");
+        });
+        waitForGenerate(function() {
+            var expected = "Ltpv71G8qDifUiNesiPqf6h5V6eQ8ic77oxQiYtawiACjBEx3sTXNR2HGDGnHETYxESjqkMLFBkKhWVq67ey1B2MKQXannUqNy1RZVHbmrEjnEU";
+            var actual = page.evaluate(function() {
+                return $(".root-key").val();
+            });
+            if (actual != expected) {
+                console.log("Litecoin root key cannot be set to use ltub");
+                console.log("Expected: " + expected);
+                console.log("Actual: " + actual);
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
+
 // If you wish to add more tests, do so here...
 
 // Here is a blank test template
