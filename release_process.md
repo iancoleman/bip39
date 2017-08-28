@@ -17,3 +17,5 @@ created with the following steps:
     1. attach the bip39-standalone.html file
 1. Add a new post to twitter from @bip39tool with the version, link and hash
 1. Publish to any hosted locations (eg iancoleman.github.io/bip39)
+1. Download the file from the release and confirm it hashes to the expected value
+1. Confirm the signature as posted to the release notes.
