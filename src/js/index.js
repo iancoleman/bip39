@@ -131,11 +131,11 @@
         var networkIndex = e.target.value;
         var network = networks[networkIndex];
         network.onSelect();
-        if (network.bip49available) {
-            showBip49();
+        if (network.p2wpkhNestedInP2shAvailable) {
+            showP2wpkhNestedInP2shAvailable();
         }
         else {
-            hideBip49();
+            showP2wpkhNestedInP2shUnavailable();
         }
         if (seed != null) {
             phraseChanged();
@@ -638,8 +638,8 @@
         var self = this;
         this.shouldGenerate = true;
         var useHardenedAddresses = DOM.hardenedAddresses.prop("checked");
-        var isBip49 = bip49TabSelected();
-        var bip49available = networkHasBip49();
+        var isP2wpkhNestedInP2sh = bip49TabSelected();
+        var p2wpkhNestedInP2shAvailable = networkHasBip49();
 
         function init() {
             calculateValues();
@@ -684,8 +684,8 @@
                     address = convertRippleAdrr(address);
                 }
                 // BIP49 addresses are different
-                if (isBip49) {
-                    if (!bip49available) {
+                if (isP2wpkhNestedInP2sh) {
+                    if (!p2wpkhNestedInP2shAvailable) {
                         return;
                     }
                     var keyhash = bitcoinjs.bitcoin.crypto.hash160(key.getPublicKeyBuffer());
@@ -1166,7 +1166,7 @@
     }
 
     function networkHasBip49() {
-        return networks[DOM.network.val()].bip49available;
+        return networks[DOM.network.val()].p2wpkhNestedInP2shAvailable;
     }
 
     function bip49TabSelected() {
@@ -1178,12 +1178,12 @@
         DOM.bip49coin.val(coinValue);
     }
 
-    function showBip49() {
+    function showP2wpkhNestedInP2shAvailable() {
         DOM.bip49unavailable.addClass("hidden");
         DOM.bip49available.removeClass("hidden");
     }
 
-    function hideBip49() {
+    function showP2wpkhNestedInP2shUnavailable() {
         DOM.bip49available.addClass("hidden");
         DOM.bip49unavailable.removeClass("hidden");
     }
@@ -1191,7 +1191,7 @@
     var networks = [
         {
             name: "BCH - Bitcoin Cash",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bitcoin;
                 setHdCoin(145);
@@ -1199,7 +1199,7 @@
         },
         {
             name: "BTC - Bitcoin",
-            bip49available: true,
+            p2wpkhNestedInP2shAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bitcoin;
                 setHdCoin(0);
@@ -1207,7 +1207,7 @@
         },
         {
             name: "BTC - Bitcoin Testnet",
-            bip49available: true,
+            p2wpkhNestedInP2shAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.testnet;
                 setHdCoin(1);
@@ -1215,7 +1215,7 @@
         },
         {
             name: "CLAM - Clams",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.clam;
                 setHdCoin(23);
@@ -1223,7 +1223,7 @@
         },
         {
             name: "CRW - Crown",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.crown;
                 setHdCoin(72);
@@ -1231,7 +1231,7 @@
         },
         {
             name: "DASH - Dash",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.dash;
                 setHdCoin(5);
@@ -1239,7 +1239,7 @@
         },
         {
             name: "DASH - Dash Testnet",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.dashtn;
                 setHdCoin(1);
@@ -1247,7 +1247,7 @@
         },
         {
             name: "DOGE - Dogecoin",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.dogecoin;
                 setHdCoin(3);
@@ -1255,7 +1255,7 @@
         },
         {
             name: "ETH - Ethereum",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bitcoin;
                 setHdCoin(60);
@@ -1263,7 +1263,7 @@
         },
         {
             name: "GAME - GameCredits",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.game;
                 setHdCoin(101);
@@ -1271,7 +1271,7 @@
         },
         {
             name: "JBS - Jumbucks",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.jumbucks;
                 setHdCoin(26);
@@ -1279,7 +1279,7 @@
         },
         {
             name: "LTC - Litecoin",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.litecoin;
                 setHdCoin(2);
@@ -1288,7 +1288,7 @@
         },
         {
             name: "MAZA - Maza",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.maza;
                 setHdCoin(13);
@@ -1297,7 +1297,7 @@
 
         {
             name: "NMC - Namecoin",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.namecoin;
                 setHdCoin(7);
@@ -1305,7 +1305,7 @@
         },
         {
             name: "PIVX - PIVX",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.pivx;
                 setHdCoin(119);
@@ -1313,7 +1313,7 @@
         },
         {
             name: "PIVX - PIVX Testnet",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.pivxtestnet;
                 setHdCoin(1);
@@ -1321,7 +1321,7 @@
         },
         {
             name: "PPC - Peercoin",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.peercoin;
                 setHdCoin(6);
@@ -1329,7 +1329,7 @@
         },
         {
             name: "SDC - ShadowCash",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.shadow;
                 setHdCoin(35);
@@ -1337,7 +1337,7 @@
         },
         {
             name: "SDC - ShadowCash Testnet",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.shadowtn;
                 setHdCoin(1);
@@ -1345,7 +1345,7 @@
         },
         {
             name: "SLM - Slimcoin",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.slimcoin;
                 setHdCoin(63);
@@ -1353,7 +1353,7 @@
         },
         {
             name: "SLM - Slimcoin Testnet",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.slimcointn;
                 setHdCoin(111);
@@ -1361,7 +1361,7 @@
         },
         {
             name: "VIA - Viacoin",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.viacoin;
                 setHdCoin(14);
@@ -1369,7 +1369,7 @@
         },
         {
             name: "VIA - Viacoin Testnet",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.viacointestnet;
                 setHdCoin(1);
@@ -1377,7 +1377,7 @@
         },
         {
             name: "XMY - Myriadcoin",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.myriadcoin;
                 setHdCoin(90);
@@ -1385,7 +1385,7 @@
         },
         {
             name: "XRP - Ripple",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bitcoin;
                 setHdCoin(144);
