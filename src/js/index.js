@@ -267,7 +267,6 @@
     function rootKeyChanged() {
         showPending();
         hideValidationError();
-        // Validate the root key TODO
         var rootKeyBase58 = DOM.rootKey.val();
         var errorText = validateRootKey(rootKeyBase58);
         if (errorText) {
@@ -460,7 +459,7 @@
 
     function validateRootKey(rootKeyBase58) {
         try {
-            bitcoinjs.bitcoin.HDNode.fromBase58(rootKeyBase58);
+            bitcoinjs.bitcoin.HDNode.fromBase58(rootKeyBase58, network);
         }
         catch (e) {
             return "Invalid root key";
