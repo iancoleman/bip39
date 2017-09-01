@@ -118,7 +118,7 @@
         <div class="container">
 
             <h1 class="text-center">Mnemonic Code Converter</h1>
-            <p class="version">v0.2.4</p>
+            <p class="version">v0.2.5</p>
             <hr>
             <div class="row">
                 <div class="col-md-12">
@@ -410,6 +410,13 @@
                                     <label class="col-sm-10">
                                         <input class="hardened-addresses" type="checkbox">
                                         <span data-translate>Use hardened addresses</span>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-2"></div>
+                                    <label class="col-sm-10">
+                                        <input class="p2wpkh-nested-in-p2sh" type="checkbox">
+                                        <span data-translate>Use SegWit addresses (ie P2WPKH Nested In P2SH)</span>
                                     </label>
                                 </div>
                                 <div class="form-group">
@@ -46190,6 +46197,7 @@ window.Entropy = new (function() {
     DOM.bip49change = $("#bip49 .change");
     DOM.generatedStrength = $(".generate-container .strength");
     DOM.hardenedAddresses = $(".hardened-addresses");
+    DOM.useP2wpkhNestedInP2sh = $(".p2wpkh-nested-in-p2sh");
     DOM.addresses = $(".addresses");
     DOM.rowsToAdd = $(".rows-to-add");
     DOM.more = $(".more");
@@ -46226,6 +46234,7 @@ window.Entropy = new (function() {
         DOM.bip49change.on("input", calcForDerivationPath);
         DOM.tab.on("shown.bs.tab", calcForDerivationPath);
         DOM.hardenedAddresses.on("change", calcForDerivationPath);
+        DOM.useP2wpkhNestedInP2sh.on("change", calcForDerivationPath);
         DOM.indexToggle.on("click", toggleIndexes);
         DOM.addressToggle.on("click", toggleAddresses);
         DOM.publicKeyToggle.on("click", togglePublicKeys);
@@ -46248,11 +46257,11 @@ window.Entropy = new (function() {
         var networkIndex = e.target.value;
         var network = networks[networkIndex];
         network.onSelect();
-        if (network.bip49available) {
-            showBip49();
+        if (network.p2wpkhNestedInP2shAvailable) {
+            showP2wpkhNestedInP2shAvailable();
         }
         else {
-            hideBip49();
+            showP2wpkhNestedInP2shUnavailable();
         }
         if (seed != null) {
             phraseChanged();
@@ -46384,7 +46393,6 @@ window.Entropy = new (function() {
     function rootKeyChanged() {
         showPending();
         hideValidationError();
-        // Validate the root key TODO
         var rootKeyBase58 = DOM.rootKey.val();
         var errorText = validateRootKey(rootKeyBase58);
         if (errorText) {
@@ -46577,7 +46585,7 @@ window.Entropy = new (function() {
 
     function validateRootKey(rootKeyBase58) {
         try {
-            bitcoinjs.bitcoin.HDNode.fromBase58(rootKeyBase58);
+            bitcoinjs.bitcoin.HDNode.fromBase58(rootKeyBase58, network);
         }
         catch (e) {
             return "Invalid root key";
@@ -46755,8 +46763,8 @@ window.Entropy = new (function() {
         var self = this;
         this.shouldGenerate = true;
         var useHardenedAddresses = DOM.hardenedAddresses.prop("checked");
-        var isBip49 = bip49TabSelected();
-        var bip49available = networkHasBip49();
+        var isP2wpkhNestedInP2sh = bip49TabSelected() || (bip32TabSelected() && useP2wpkhNestedInP2sh());
+        var p2wpkhNestedInP2shAvailable = networkHasBip49();
 
         function init() {
             calculateValues();
@@ -46801,8 +46809,8 @@ window.Entropy = new (function() {
                     address = convertRippleAdrr(address);
                 }
                 // BIP49 addresses are different
-                if (isBip49) {
-                    if (!bip49available) {
+                if (isP2wpkhNestedInP2sh) {
+                    if (!p2wpkhNestedInP2shAvailable) {
                         return;
                     }
                     var keyhash = bitcoinjs.bitcoin.crypto.hash160(key.getPublicKeyBuffer());
@@ -47282,8 +47290,12 @@ window.Entropy = new (function() {
         return DOM.bip32tab.hasClass("active");
     }
 
+    function useP2wpkhNestedInP2sh() {
+        return DOM.useP2wpkhNestedInP2sh.prop("checked");
+    }
+
     function networkHasBip49() {
-        return networks[DOM.network.val()].bip49available;
+        return networks[DOM.network.val()].p2wpkhNestedInP2shAvailable;
     }
 
     function bip49TabSelected() {
@@ -47295,20 +47307,23 @@ window.Entropy = new (function() {
         DOM.bip49coin.val(coinValue);
     }
 
-    function showBip49() {
+    function showP2wpkhNestedInP2shAvailable() {
         DOM.bip49unavailable.addClass("hidden");
         DOM.bip49available.removeClass("hidden");
+        DOM.useP2wpkhNestedInP2sh.prop("disabled", false);
     }
 
-    function hideBip49() {
+    function showP2wpkhNestedInP2shUnavailable() {
         DOM.bip49available.addClass("hidden");
         DOM.bip49unavailable.removeClass("hidden");
+        DOM.useP2wpkhNestedInP2sh.prop("disabled", true);
+        DOM.useP2wpkhNestedInP2sh.prop("checked", false);
     }
 
     var networks = [
         {
             name: "BCH - Bitcoin Cash",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bitcoin;
                 setHdCoin(145);
@@ -47316,7 +47331,7 @@ window.Entropy = new (function() {
         },
         {
             name: "BTC - Bitcoin",
-            bip49available: true,
+            p2wpkhNestedInP2shAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bitcoin;
                 setHdCoin(0);
@@ -47324,7 +47339,7 @@ window.Entropy = new (function() {
         },
         {
             name: "BTC - Bitcoin Testnet",
-            bip49available: true,
+            p2wpkhNestedInP2shAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.testnet;
                 setHdCoin(1);
@@ -47332,7 +47347,7 @@ window.Entropy = new (function() {
         },
         {
             name: "CLAM - Clams",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.clam;
                 setHdCoin(23);
@@ -47340,7 +47355,7 @@ window.Entropy = new (function() {
         },
         {
             name: "CRW - Crown",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.crown;
                 setHdCoin(72);
@@ -47348,7 +47363,7 @@ window.Entropy = new (function() {
         },
         {
             name: "DASH - Dash",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.dash;
                 setHdCoin(5);
@@ -47356,7 +47371,7 @@ window.Entropy = new (function() {
         },
         {
             name: "DASH - Dash Testnet",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.dashtn;
                 setHdCoin(1);
@@ -47364,7 +47379,7 @@ window.Entropy = new (function() {
         },
         {
             name: "DOGE - Dogecoin",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.dogecoin;
                 setHdCoin(3);
@@ -47372,7 +47387,7 @@ window.Entropy = new (function() {
         },
         {
             name: "ETH - Ethereum",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bitcoin;
                 setHdCoin(60);
@@ -47380,7 +47395,7 @@ window.Entropy = new (function() {
         },
         {
             name: "GAME - GameCredits",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.game;
                 setHdCoin(101);
@@ -47388,7 +47403,7 @@ window.Entropy = new (function() {
         },
         {
             name: "JBS - Jumbucks",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.jumbucks;
                 setHdCoin(26);
@@ -47396,7 +47411,7 @@ window.Entropy = new (function() {
         },
         {
             name: "LTC - Litecoin",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.litecoin;
                 setHdCoin(2);
@@ -47405,7 +47420,7 @@ window.Entropy = new (function() {
         },
         {
             name: "MAZA - Maza",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.maza;
                 setHdCoin(13);
@@ -47414,7 +47429,7 @@ window.Entropy = new (function() {
 
         {
             name: "NMC - Namecoin",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.namecoin;
                 setHdCoin(7);
@@ -47422,7 +47437,7 @@ window.Entropy = new (function() {
         },
         {
             name: "PIVX - PIVX",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.pivx;
                 setHdCoin(119);
@@ -47430,7 +47445,7 @@ window.Entropy = new (function() {
         },
         {
             name: "PIVX - PIVX Testnet",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.pivxtestnet;
                 setHdCoin(1);
@@ -47438,7 +47453,7 @@ window.Entropy = new (function() {
         },
         {
             name: "PPC - Peercoin",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.peercoin;
                 setHdCoin(6);
@@ -47446,7 +47461,7 @@ window.Entropy = new (function() {
         },
         {
             name: "SDC - ShadowCash",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.shadow;
                 setHdCoin(35);
@@ -47454,7 +47469,7 @@ window.Entropy = new (function() {
         },
         {
             name: "SDC - ShadowCash Testnet",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.shadowtn;
                 setHdCoin(1);
@@ -47462,7 +47477,7 @@ window.Entropy = new (function() {
         },
         {
             name: "SLM - Slimcoin",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.slimcoin;
                 setHdCoin(63);
@@ -47470,7 +47485,7 @@ window.Entropy = new (function() {
         },
         {
             name: "SLM - Slimcoin Testnet",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.slimcointn;
                 setHdCoin(111);
@@ -47478,7 +47493,7 @@ window.Entropy = new (function() {
         },
         {
             name: "VIA - Viacoin",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.viacoin;
                 setHdCoin(14);
@@ -47486,7 +47501,7 @@ window.Entropy = new (function() {
         },
         {
             name: "VIA - Viacoin Testnet",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.viacointestnet;
                 setHdCoin(1);
@@ -47494,7 +47509,7 @@ window.Entropy = new (function() {
         },
         {
             name: "XMY - Myriadcoin",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.myriadcoin;
                 setHdCoin(90);
@@ -47502,7 +47517,7 @@ window.Entropy = new (function() {
         },
         {
             name: "XRP - Ripple",
-            bip49available: false,
+            p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bitcoin;
                 setHdCoin(144);

@@ -1,3 +1,9 @@
+# 0.2.5
+
+* Rename variables for clarity between BIP49 and P2WPKH Nested In P2SH
+* Fix bug for validation of root key when using non-bitcoin networks
+* Add option to use P2WPKH Nested In P2SH addresses on BIP32 tab
+
 # 0.2.4
 
 * Show error when using xpub with hardened addresses
