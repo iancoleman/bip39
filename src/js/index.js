@@ -73,6 +73,7 @@
     DOM.bip49change = $("#bip49 .change");
     DOM.generatedStrength = $(".generate-container .strength");
     DOM.hardenedAddresses = $(".hardened-addresses");
+    DOM.useP2wpkhNestedInP2sh = $(".p2wpkh-nested-in-p2sh");
     DOM.addresses = $(".addresses");
     DOM.rowsToAdd = $(".rows-to-add");
     DOM.more = $(".more");
@@ -109,6 +110,7 @@
         DOM.bip49change.on("input", calcForDerivationPath);
         DOM.tab.on("shown.bs.tab", calcForDerivationPath);
         DOM.hardenedAddresses.on("change", calcForDerivationPath);
+        DOM.useP2wpkhNestedInP2sh.on("change", calcForDerivationPath);
         DOM.indexToggle.on("click", toggleIndexes);
         DOM.addressToggle.on("click", toggleAddresses);
         DOM.publicKeyToggle.on("click", togglePublicKeys);
@@ -637,7 +639,7 @@
         var self = this;
         this.shouldGenerate = true;
         var useHardenedAddresses = DOM.hardenedAddresses.prop("checked");
-        var isP2wpkhNestedInP2sh = bip49TabSelected();
+        var isP2wpkhNestedInP2sh = bip49TabSelected() || (bip32TabSelected() && useP2wpkhNestedInP2sh());
         var p2wpkhNestedInP2shAvailable = networkHasBip49();
 
         function init() {
@@ -1164,6 +1166,10 @@
         return DOM.bip32tab.hasClass("active");
     }
 
+    function useP2wpkhNestedInP2sh() {
+        return DOM.useP2wpkhNestedInP2sh.prop("checked");
+    }
+
     function networkHasBip49() {
         return networks[DOM.network.val()].p2wpkhNestedInP2shAvailable;
     }
@@ -1180,11 +1186,14 @@
     function showP2wpkhNestedInP2shAvailable() {
         DOM.bip49unavailable.addClass("hidden");
         DOM.bip49available.removeClass("hidden");
+        DOM.useP2wpkhNestedInP2sh.prop("disabled", false);
     }
 
     function showP2wpkhNestedInP2shUnavailable() {
         DOM.bip49available.addClass("hidden");
         DOM.bip49unavailable.removeClass("hidden");
+        DOM.useP2wpkhNestedInP2sh.prop("disabled", true);
+        DOM.useP2wpkhNestedInP2sh.prop("checked", false);
     }
 
     var networks = [

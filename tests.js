@@ -4267,6 +4267,45 @@ page.open(url, function(status) {
 });
 },
 
+// BIP32 tab can use P2WPKH Nested In P2SH
+// github issue 91 part 2
+// https://github.com/iancoleman/bip39/issues/91
+// generate new addresses from xpub?
+function() {
+page.open(url, function(status) {
+    // set the xpub and coin and select bip32 tab with p2wpkh addresses
+    page.evaluate(function() {
+        // use p2wpkh addresses
+        $(".p2wpkh-nested-in-p2sh").prop("checked", true);
+        // use bip32 tab
+        $("#bip32-tab a").click();
+        // use testnet
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option").filter(function() {
+            return $(this).html() == "BTC - Bitcoin Testnet";
+        }).prop("selected", true);
+        $(".network").trigger("change");
+        // Set root xpub to BIP49 official test vector account 0
+        $(".root-key").val("tpubDD7tXK8KeQ3YY83yWq755fHY2JW8Ha8Q765tknUM5rSvjPcGWfUppDFMpQ1ScziKfW3ZNtZvAD7M3u7bSs7HofjTD3KP3YxPK7X6hwV8Rk2");
+        $(".root-key").trigger("input");
+    });
+    // check the address is generated correctly
+    waitForGenerate(function() {
+        var expected = "2Mww8dCYPUpKHofjgcXcBCEGmniw9CoaiD2";
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("BIP32 tab cannot generate P2WPKH Nested In P2SH addresses");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // If you wish to add more tests, do so here...
 
 // Here is a blank test template
