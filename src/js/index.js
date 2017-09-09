@@ -1045,6 +1045,13 @@
                 DOM.bip44coin.val(127);
             },
         },
+        {
+            name: "Bridgecoin",
+            onSelect: function() {
+                network = bitcoin.networks.bridgecoin;
+                DOM.bip44coin.val(148);
+            },
+        },
     ]
 
     init();

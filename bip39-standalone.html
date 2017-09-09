@@ -14106,6 +14106,17 @@ bitcoin.networks.vcash = {
     wif: 199,
 }
 
+bitcoin.networks.bridgecoin = {
+    magicPrefix: '\x19bridgecoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 27,
+    scriptHash: 50,
+    wif: 176,
+}
+
 </script>
         <script>// Select components from sjcl to suit the crypto operations bip39 requires.
 
@@ -17100,6 +17111,13 @@ var Mnemonic = function(language) {
             onSelect: function() {
                 network = bitcoin.networks.vcash;
                 DOM.bip44coin.val(127);
+            },
+        },
+        {
+            name: "Bridgecoin",
+            onSelect: function() {
+                network = bitcoin.networks.bridgecoin;
+                DOM.bip44coin.val(148);
             },
         },
     ]

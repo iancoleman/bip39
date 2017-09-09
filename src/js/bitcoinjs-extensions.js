@@ -1117,3 +1117,14 @@ bitcoin.networks.vcash = {
     wif: 199,
 }
 
+bitcoin.networks.bridgecoin = {
+    magicPrefix: '\x19bridgecoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 27,
+    scriptHash: 50,
+    wif: 176,
+}
+
