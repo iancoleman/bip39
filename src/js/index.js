@@ -852,7 +852,7 @@
         {
             name: "Navcoin",
             onSelect: function() {
-                network = bitcoin.networks.navoin;
+                network = bitcoin.networks.navcoin;
                 DOM.bip44coin.val(130);
             },
         },
