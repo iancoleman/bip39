@@ -55,7 +55,10 @@ at 1PC9aZC4hNX2rmmrt7uHTfYAS3hRbph4UN
 Please do not make modifications to `bip39-standalone.html`, since they will
 be overwritten by `compile.py`.
 
-Make changes in `src/*` and apply them using the command `python compile.py`
+Make changes in `src/*`.
+
+Changes are applied during release using the command `python compile.py`, so
+please do not commit changes to `bip39-standalone.html`
 
 # Tests
 
