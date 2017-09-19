@@ -1198,14 +1198,6 @@
 
     var networks = [
         {
-            name: "BCH - Bitcoin Cash",
-            p2wpkhNestedInP2shAvailable: false,
-            onSelect: function() {
-                network = bitcoinjs.bitcoin.networks.bitcoin;
-                setHdCoin(145);
-            },
-        },
-        {
             name: "BTC - Bitcoin",
             p2wpkhNestedInP2shAvailable: true,
             onSelect: function() {
@@ -1219,6 +1211,14 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.testnet;
                 setHdCoin(1);
+            },
+        },
+        {
+            name: "BCH - Bitcoin Cash",
+            p2wpkhNestedInP2shAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bitcoin;
+                setHdCoin(145);
             },
         },
         {
