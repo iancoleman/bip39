@@ -1,6 +1,7 @@
 import os
 import re
 import datetime
+from io import open
 
 # This script generates the bip39-standalone.html file.
 
