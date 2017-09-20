@@ -118,7 +118,7 @@
         <div class="container">
 
             <h1 class="text-center">Mnemonic Code Converter</h1>
-            <p class="version">v0.2.5</p>
+            <p class="version">v0.2.6</p>
             <hr>
             <div class="row">
                 <div class="col-md-12">
@@ -167,7 +167,14 @@
                             <div class="form-group">
                                 <label for="entropy" class="col-sm-2 control-label" data-translate>Entropy</label>
                                 <div class="col-sm-7">
-                                    <textarea id="entropy" rows="2" class="entropy form-control" placeholder="Accepts binary, base 6, 6-sided dice, base 10, hexadecimal, cards" data-translate-placeholder></textarea>
+                                    <textarea id="entropy" rows="2" class="entropy form-control" placeholder="Accepts either binary, base 6, 6-sided dice, base 10, hexadecimal or cards" data-translate-placeholder></textarea>
+                                    <div class="row filter-warning text-danger hidden">
+                                        <p class="col-sm-12">
+                                        <strong>
+                                        Some characters have been discarded
+                                        </strong>
+                                        </p>
+                                    </div>
                                     <div class="row">
                                         <label class="col-sm-3 control-label" data-translate><span class="more-info" data-translate-title title="Based on estimates from zxcvbn using Filtered Entropy">Time To Crack</span></label>
                                         <div class="crack-time col-sm-3 form-control-static"></div>
@@ -46167,6 +46174,7 @@ window.Entropy = new (function() {
     DOM.entropyWordCount = DOM.entropyContainer.find(".word-count");
     DOM.entropyBinary = DOM.entropyContainer.find(".binary");
     DOM.entropyMnemonicLength = DOM.entropyContainer.find(".mnemonic-length");
+    DOM.entropyFilterWarning = DOM.entropyContainer.find(".filter-warning");
     DOM.phrase = $(".phrase");
     DOM.passphrase = $(".passphrase");
     DOM.generateContainer = $(".generate-container");
@@ -47190,6 +47198,16 @@ window.Entropy = new (function() {
         DOM.entropyWordCount.text(wordCount);
         DOM.entropyBinary.text(entropy.binaryStr);
         DOM.entropyBitsPerEvent.text(bitsPerEvent);
+        // detect and warn of filtering
+        var rawNoSpaces = DOM.entropy.val().replace(/\s/g, "");
+        var cleanNoSpaces = entropy.cleanStr.replace(/\s/g, "");
+        var isFiltered = rawNoSpaces.length != cleanNoSpaces.length;
+        if (isFiltered) {
+            DOM.entropyFilterWarning.removeClass('hidden');
+        }
+        else {
+            DOM.entropyFilterWarning.addClass('hidden');
+        }
     }
 
     function getEntropyTypeStr(entropy) {

@@ -1,3 +1,13 @@
+# 0.2.6
+
+* Detect and warn when entropy is filtered / discarded
+* Reword entropy text to indicate using a single source only
+* Add BIP49 to More Info section
+* Update compile script to work across python 2 and 3
+* QR Codes use correctLevel 3 instead of 2
+* Source map removed from zxcvbn
+* Tidy up code with consistent use of commas and semicolons
+
 # 0.2.5
 
 * Rename variables for clarity between BIP49 and P2WPKH Nested In P2SH
