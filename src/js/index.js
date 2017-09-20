@@ -38,6 +38,7 @@
     DOM.entropyWordCount = DOM.entropyContainer.find(".word-count");
     DOM.entropyBinary = DOM.entropyContainer.find(".binary");
     DOM.entropyMnemonicLength = DOM.entropyContainer.find(".mnemonic-length");
+    DOM.entropyFilterWarning = DOM.entropyContainer.find(".filter-warning");
     DOM.phrase = $(".phrase");
     DOM.passphrase = $(".passphrase");
     DOM.generateContainer = $(".generate-container");
@@ -1061,6 +1062,16 @@
         DOM.entropyWordCount.text(wordCount);
         DOM.entropyBinary.text(entropy.binaryStr);
         DOM.entropyBitsPerEvent.text(bitsPerEvent);
+        // detect and warn of filtering
+        var rawNoSpaces = DOM.entropy.val().replace(/\s/g, "");
+        var cleanNoSpaces = entropy.cleanStr.replace(/\s/g, "");
+        var isFiltered = rawNoSpaces.length != cleanNoSpaces.length;
+        if (isFiltered) {
+            DOM.entropyFilterWarning.removeClass('hidden');
+        }
+        else {
+            DOM.entropyFilterWarning.addClass('hidden');
+        }
     }
 
     function getEntropyTypeStr(entropy) {

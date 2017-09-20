@@ -4306,6 +4306,44 @@ page.open(url, function(status) {
 });
 },
 
+// github issue 99
+// https://github.com/iancoleman/bip39/issues/99#issuecomment-327094159
+// "warn me emphatically when they have detected invalid input" to the entropy field
+// A warning is shown when entropy is filtered and discarded
+function() {
+page.open(url, function(status) {
+    // use entropy
+    page.evaluate(function() {
+        $(".use-entropy").prop("checked", true).trigger("change");
+        $(".entropy").val("00000000 00000000 00000000 00000000").trigger("input");
+    });
+    // check the filter warning does not show
+    waitForGenerate(function() {
+        var warningIsHidden = page.evaluate(function() {
+            return $(".entropy-container .filter-warning").hasClass("hidden");
+        });
+        if (!warningIsHidden) {
+            console.log("Entropy filter warning is showing when it should not");
+            fail();
+        }
+        page.evaluate(function() {
+            $(".entropy").val("10000000 zxcvbn 00000000 00000000 00000000").trigger("input");
+        });
+        // check the filter warning shows
+        waitForEntropyFeedback(function() {
+            var warningIsHidden = page.evaluate(function() {
+                return $(".entropy-container .filter-warning").hasClass("hidden");
+            });
+            if (warningIsHidden) {
+                console.log("Entropy filter warning is not showing when it should");
+                fail();
+            }
+            next();
+        });
+    });
+});
+},
+
 // If you wish to add more tests, do so here...
 
 // Here is a blank test template
