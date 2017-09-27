@@ -1281,6 +1281,14 @@
             },
         },
         {
+            name: "FJC - Fujicoin",
+            p2wpkhNestedInP2shAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.fujicoin;
+                setHdCoin(75);
+            },
+        },
+        {
             name: "GAME - GameCredits",
             p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
