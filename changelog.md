@@ -1,3 +1,9 @@
+#0.2.7
+
+* Add Fujicoin
+* List alternative tools
+* Remove unused translations and library
+
 # 0.2.6
 
 * Detect and warn when entropy is filtered / discarded

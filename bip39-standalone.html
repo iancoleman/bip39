@@ -118,7 +118,7 @@
         <div class="container">
 
             <h1 class="text-center">Mnemonic Code Converter</h1>
-            <p class="version">v0.2.6</p>
+            <p class="version">v0.2.7</p>
             <hr>
             <div class="row">
                 <div class="col-md-12">
@@ -127,8 +127,8 @@
                         <div class="form-group">
                             <div class="col-sm-2"></div>
                             <div class="col-sm-10">
-                                <p data-translate>You can enter an existing BIP39 mnemonic, or generate a new random one. Typing your own twelve words will probably not work how you expect, since the words require a particular structure (the last word is a checksum).</p>
-                                <p data-translate-html>
+                                <p>You can enter an existing BIP39 mnemonic, or generate a new random one. Typing your own twelve words will probably not work how you expect, since the words require a particular structure (the last word is a checksum).</p>
+                                <p>
                                     For more info see the
                                     <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki" target="_blank">BIP39 spec</a>.
                                 </p>
@@ -139,7 +139,7 @@
                             <div class="col-sm-10">
                                 <div class="form-inline">
                                     <div class="input-group-inline">
-                                        <span data-translate>Generate a random mnemonic, or enter your own below</span>:
+                                        <span>Generate a random mnemonic, or enter your own below</span>:
                                         <button class="btn generate">Generate</button>
                                         <select id="strength" class="strength form-control">
                                             <option value="3">3</option>
@@ -151,23 +151,23 @@
                                             <option value="21">21</option>
                                             <option value="24">24</option>
                                         </select>
-                                        <span data-translate>words</span>
+                                        <span>words</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="entropy-container hidden">
                             <div class="form-group text-danger">
-                                <label class="col-sm-2 control-label" data-translate>Warning</label>
+                                <label class="col-sm-2 control-label">Warning</label>
                                 <div class="col-sm-10 form-control-static">
-                                    <span data-translate>Entropy is an advanced feature. Your mnemonic may be insecure if this feature is used incorrectly.</span>
-                                    <a href="#entropy-notes" data-translate>Read more</a>
+                                    <span>Entropy is an advanced feature. Your mnemonic may be insecure if this feature is used incorrectly.</span>
+                                    <a href="#entropy-notes">Read more</a>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="entropy" class="col-sm-2 control-label" data-translate>Entropy</label>
+                                <label for="entropy" class="col-sm-2 control-label">Entropy</label>
                                 <div class="col-sm-7">
-                                    <textarea id="entropy" rows="2" class="entropy form-control" placeholder="Accepts either binary, base 6, 6-sided dice, base 10, hexadecimal or cards" data-translate-placeholder></textarea>
+                                    <textarea id="entropy" rows="2" class="entropy form-control" placeholder="Accepts either binary, base 6, 6-sided dice, base 10, hexadecimal or cards"></textarea>
                                     <div class="row filter-warning text-danger hidden">
                                         <p class="col-sm-12">
                                         <strong>
@@ -176,48 +176,48 @@
                                         </p>
                                     </div>
                                     <div class="row">
-                                        <label class="col-sm-3 control-label" data-translate><span class="more-info" data-translate-title title="Based on estimates from zxcvbn using Filtered Entropy">Time To Crack</span></label>
+                                        <label class="col-sm-3 control-label"><span class="more-info" title="Based on estimates from zxcvbn using Filtered Entropy">Time To Crack</span></label>
                                         <div class="crack-time col-sm-3 form-control-static"></div>
-                                        <label class="col-sm-3 control-label" data-translate>Event Count</label>
+                                        <label class="col-sm-3 control-label">Event Count</label>
                                         <div class="event-count col-sm-3 form-control-static"></div>
                                     </div>
                                     <div class="row">
-                                        <label class="col-sm-3 control-label" data-translate>Entropy Type</label>
+                                        <label class="col-sm-3 control-label">Entropy Type</label>
                                         <div class="type col-sm-3 form-control-static"></div>
-                                        <label class="col-sm-3 control-label" data-translate>Bits Per Event</label>
+                                        <label class="col-sm-3 control-label">Bits Per Event</label>
                                         <div class="bits-per-event col-sm-3 form-control-static"></div>
                                     </div>
                                     <div class="row">
-                                        <label class="col-sm-3 control-label" data-translate>Raw Entropy Words</label>
+                                        <label class="col-sm-3 control-label">Raw Entropy Words</label>
                                         <div class="word-count col-sm-3 form-control-static"></div>
-                                        <label class="col-sm-3 control-label" data-translate><span class="more-info" data-translate-title title="Total bits of entropy may be less than indicated if any entropy event uses a weak source.">Total Bits</span></label>
+                                        <label class="col-sm-3 control-label"><span class="more-info" title="Total bits of entropy may be less than indicated if any entropy event uses a weak source.">Total Bits</span></label>
                                         <div class="bits col-sm-3 form-control-static"></div>
                                     </div>
-                                    <label class="col-sm-3 control-label" data-translate>Filtered Entropy</label>
+                                    <label class="col-sm-3 control-label">Filtered Entropy</label>
                                     <div class="filtered col-sm-9 form-control-static"></div>
-                                    <label class="col-sm-3 control-label" data-translate>Raw Binary</label>
+                                    <label class="col-sm-3 control-label">Raw Binary</label>
                                     <div class="binary col-sm-9 form-control-static"></div>
-                                    <label class="col-sm-3 control-label" data-translate>Mnemonic Length</label>
+                                    <label class="col-sm-3 control-label">Mnemonic Length</label>
                                     <div class="col-sm-9">
                                         <select class="mnemonic-length form-control">
-                                            <option value="raw" selected data-translate>Use Raw Entropy (3 words per 32 bits)</option>
-                                            <option value="12">12 <span data-translate>Words</span></option>
-                                            <option value="15">15 <span data-translate>Words</option>
-                                            <option value="18">18 <span data-translate>Words</span></option>
-                                            <option value="21">21 <span data-translate>Words</span></option>
-                                            <option value="24">24 <span data-translate>Words</span></option>
+                                            <option value="raw" selected>Use Raw Entropy (3 words per 32 bits)</option>
+                                            <option value="12">12 <span>Words</span></option>
+                                            <option value="15">15 <span>Words</option>
+                                            <option value="18">18 <span>Words</span></option>
+                                            <option value="21">21 <span>Words</span></option>
+                                            <option value="24">24 <span>Words</span></option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
-                                    <p data-translate>Valid entropy values include:</p>
+                                    <p>Valid entropy values include:</p>
                                     <ul>
-                                        <li><strong data-translate>Binary</strong> [0-1]<br>101010011</li>
-                                        <li><strong data-translate>Base 6</strong> [0-5]<br>123434014</li>
-                                        <li><strong data-translate>Dice</strong> [1-6]<br>62535634</li>
-                                        <li><strong data-translate>Base 10</strong> [0-9]<br>90834528</li>
-                                        <li><strong data-translate>Hex</strong> [0-9A-F]<br>4187a8bfd9</li>
-                                        <li><strong data-translate>Card</strong> [A2-9TJQK][CDHS]<br>ahqs9dtc</li>
+                                        <li><strong>Binary</strong> [0-1]<br>101010011</li>
+                                        <li><strong>Base 6</strong> [0-5]<br>123434014</li>
+                                        <li><strong>Dice</strong> [1-6]<br>62535634</li>
+                                        <li><strong>Base 10</strong> [0-9]<br>90834528</li>
+                                        <li><strong>Hex</strong> [0-9A-F]<br>4187a8bfd9</li>
+                                        <li><strong>Card</strong> [A2-9TJQK][CDHS]<br>ahqs9dtc</li>
                                     </ul>
                                 </div>
                             </div>
@@ -227,12 +227,12 @@
                             <div class="col-sm-10 checkbox">
                                 <label>
                                     <input type="checkbox" class="use-entropy">
-                                    <span data-translate>Supply my own source of entropy</span>
+                                    <span>Supply my own source of entropy</span>
                                 </label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" data-translate>Mnemonic Language</label>
+                            <label class="col-sm-2 control-label">Mnemonic Language</label>
                             <div class="col-sm-10 languages">
                                 <div class="form-control no-border">
                                     <a href="#english">English</a>
@@ -246,25 +246,25 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="phrase" class="col-sm-2 control-label" data-translate>BIP39 Mnemonic</label>
+                            <label for="phrase" class="col-sm-2 control-label">BIP39 Mnemonic</label>
                             <div class="col-sm-10">
                                 <textarea id="phrase" class="phrase form-control" data-show-qr></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="passphrase" class="col-sm-2 control-label" data-translate>BIP39 Passphrase (optional)</label>
+                            <label for="passphrase" class="col-sm-2 control-label">BIP39 Passphrase (optional)</label>
                             <div class="col-sm-10">
                                 <textarea id="passphrase" class="passphrase form-control"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="seed" class="col-sm-2 control-label" data-translate>BIP39 Seed</label>
+                            <label for="seed" class="col-sm-2 control-label">BIP39 Seed</label>
                             <div class="col-sm-10">
                                 <textarea id="seed" class="seed form-control" readonly="readonly" data-show-qr></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="network-phrase" class="col-sm-2 control-label" data-translate>Coin</label>
+                            <label for="network-phrase" class="col-sm-2 control-label">Coin</label>
                             <div class="col-sm-10">
                                 <select id="network-phrase" class="network form-control">
                                     <!-- populated by javascript -->
@@ -272,13 +272,13 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="root-key" class="col-sm-2 control-label" data-translate>BIP32 Root Key</label>
+                            <label for="root-key" class="col-sm-2 control-label">BIP32 Root Key</label>
                             <div class="col-sm-10">
                                 <textarea id="root-key" class="root-key form-control" data-show-qr></textarea>
                             </div>
                         </div>
                         <div class="form-group litecoin-ltub-container hidden">
-                            <label for="litecoin-use-ltub" class="col-sm-2 control-label" data-translate>Prefixes</label>
+                            <label for="litecoin-use-ltub" class="col-sm-2 control-label">Prefixes</label>
                             <div class="col-sm-10 checkbox">
                                 <label>
                                     <input type="checkbox" id="litecoin-use-ltub" class="litecoin-use-ltub">
@@ -312,14 +312,14 @@
                                 <br>
                                 <div class="col-sm-2"></div>
                                 <div class="col-sm-10">
-                                    <p data-translate-html>
+                                    <p>
                                         For more info see the
                                         <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki" target="_blank">BIP44 spec</a>.
                                     </p>
                                 </div>
                                 <div class="form-group">
                                     <label for="purpose" class="col-sm-2 control-label">
-                                        <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#purpose" target="_blank" data-translate>Purpose</a>
+                                        <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#purpose" target="_blank">Purpose</a>
                                     </label>
                                     <div class="col-sm-10">
                                         <input id="purpose" type="text" class="purpose form-control" value="44" readonly>
@@ -327,7 +327,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="coin" class="col-sm-2 control-label">
-                                        <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#registered-coin-types" target="_blank" data-translate>Coin</a>
+                                        <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#registered-coin-types" target="_blank">Coin</a>
                                     </label>
                                     <div class="col-sm-10">
                                         <input id="coin" type="text" class="coin form-control" value="0" readonly>
@@ -335,7 +335,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="account" class="col-sm-2 control-label">
-                                        <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#account" target="_blank" data-translate>Account</a>
+                                        <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#account" target="_blank">Account</a>
                                     </label>
                                     <div class="col-sm-10">
                                         <input id="account" type="text" class="account form-control" value="0">
@@ -343,7 +343,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="change" class="col-sm-2 control-label">
-                                        <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#change" target="_blank" data-translate>External / Internal</a>
+                                        <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#change" target="_blank">External / Internal</a>
                                     </label>
                                     <div class="col-sm-10">
                                         <input id="change" type="text" class="change form-control" value="0">
@@ -353,12 +353,12 @@
                                     <label class="col-sm-2 control-label">
                                     </label>
                                     <div class="col-sm-10">
-                                        <p data-translate>The account extended keys can be used for importing to most BIP44 compatible wallets, such as mycelium or electrum.</p>
+                                        <p>The account extended keys can be used for importing to most BIP44 compatible wallets, such as mycelium or electrum.</p>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="account-xprv" class="col-sm-2 control-label">
-                                        <span data-translate>Account Extended Private Key</span>
+                                        <span>Account Extended Private Key</span>
                                     </label>
                                     <div class="col-sm-10">
                                         <textarea id="account-xprv" type="text" class="account-xprv form-control" readonly data-show-qr></textarea>
@@ -366,7 +366,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="account-xpub" class="col-sm-2 control-label">
-                                        <span data-translate>Account Extended Public Key</span>
+                                        <span>Account Extended Public Key</span>
                                     </label>
                                     <div class="col-sm-10">
                                         <textarea id="account-xpub" type="text" class="account-xpub form-control" readonly data-show-qr></textarea>
@@ -376,11 +376,11 @@
                                     <label class="col-sm-2 control-label">
                                     </label>
                                     <div class="col-sm-10">
-                                        <p data-translate>The BIP32 derivation path and extended keys are the basis for the derived addresses.</p>
+                                        <p>The BIP32 derivation path and extended keys are the basis for the derived addresses.</p>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="bip44-path" class="col-sm-2 control-label" data-translate>BIP32 Derivation Path</label>
+                                    <label for="bip44-path" class="col-sm-2 control-label">BIP32 Derivation Path</label>
                                     <div class="col-sm-10">
                                         <input id="bip44-path" type="text" class="path form-control" value="m/44'/0'/0'/0" readonly="readonly">
                                     </div>
@@ -392,13 +392,13 @@
                                 <br>
                                 <div class="col-sm-2"></div>
                                 <div class="col-sm-10">
-                                    <p data-translate>
+                                    <p>
                                         For more info see the
                                         <a href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki" target="_blank">BIP32 spec</a>
                                     </p>
                                 </div>
                                 <div class="form-group">
-                                    <label for="bip32-client" class="col-sm-2 control-label" data-translate>Client</label>
+                                    <label for="bip32-client" class="col-sm-2 control-label">Client</label>
                                     <div class="col-sm-10">
                                         <select id="bip32-client" class="client form-control">
                                             <option value="custom">Custom derivation path</option>
@@ -407,7 +407,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="bip32-path" class="col-sm-2 control-label" data-translate>BIP32 Derivation Path</label>
+                                    <label for="bip32-path" class="col-sm-2 control-label">BIP32 Derivation Path</label>
                                     <div class="col-sm-10">
                                         <input id="bip32-path" type="text" class="path form-control" value="m/0">
                                     </div>
@@ -416,49 +416,49 @@
                                     <div class="col-sm-2"></div>
                                     <label class="col-sm-10">
                                         <input class="hardened-addresses" type="checkbox">
-                                        <span data-translate>Use hardened addresses</span>
+                                        <span>Use hardened addresses</span>
                                     </label>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-2"></div>
                                     <label class="col-sm-10">
                                         <input class="p2wpkh-nested-in-p2sh" type="checkbox">
-                                        <span data-translate>Use SegWit addresses (ie P2WPKH Nested In P2SH)</span>
+                                        <span>Use SegWit addresses (ie P2WPKH Nested In P2SH)</span>
                                     </label>
                                 </div>
                                 <div class="form-group">
-                                    <label for="core-path" class="col-sm-2 control-label" data-translate>Bitcoin Core</label>
+                                    <label for="core-path" class="col-sm-2 control-label">Bitcoin Core</label>
                                     <div class="col-sm-10">
-                                        <p class="form-control no-border" data-translate-html>
+                                        <p class="form-control no-border">
                                         Use path <code>m/0'/0'</code> with hardened addresses.
                                         </p>
-                                        <p class="form-control no-border" data-translate-html>
+                                        <p class="form-control no-border">
                                             For more info see the
                                             <a href="https://github.com/bitcoin/bitcoin/pull/8035" target="_blank">Bitcoin Core BIP32 implementation</a>
                                         </p>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="core-path" class="col-sm-2 control-label" data-translate>Multibit</label>
+                                    <label for="core-path" class="col-sm-2 control-label">Multibit</label>
                                     <div class="col-sm-10">
                                         <p class="form-control no-border">
-                                            <span data-translate-html>Use path <code>m/0'/0</code>.</span>
+                                            <span>Use path <code>m/0'/0</code>.</span>
                                         </p>
                                         <p class="form-control no-border">
-                                            <span data-translate>For more info see</span>
+                                            <span>For more info see</span>
                                             <a href="https://multibit.org/" target="_blank">MultiBit HD</a>
                                         </p>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label" data-translate>Block Explorers</label>
+                                    <label class="col-sm-2 control-label">Block Explorers</label>
                                     <div class="col-sm-10">
                                         <p class="form-control no-border">
-                                            <span data-translate-html>Use path <code>m/44'/0'/0'</code>.</span>
-                                            <span data-translate-html>Only enter the <code>xpub</code> extended key into block explorer search fields, never the <code>xprv</code> key.</span>
+                                            <span>Use path <code>m/44'/0'/0'</code>.</span>
+                                            <span>Only enter the <code>xpub</code> extended key into block explorer search fields, never the <code>xprv</code> key.</span>
                                         </p>
                                         <p class="form-control no-border">
-                                            <span data-translate>Can be used with</span>:
+                                            <span>Can be used with</span>:
                                             <a href="https://blockchain.info/" target="_blank">blockchain.info</a>
                                         </p>
                                     </div>
@@ -472,21 +472,21 @@
                                     <div class="form-group">
                                         <div class="col-sm-2"></div>
                                         <div class="col-sm-10">
-                                            <p data-translate>BIP49 is unavailable for this coin.</p>
+                                            <p>BIP49 is unavailable for this coin.</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="available">
                                     <div class="col-sm-2"></div>
                                     <div class="col-sm-10">
-                                        <p data-translate-html>
+                                        <p>
                                             For more info see the
                                             <a href="https://github.com/bitcoin/bips/blob/master/bip-0049.mediawiki" target="_blank">BIP49 spec</a>.
                                         </p>
                                     </div>
                                     <div class="form-group">
                                         <label for="purpose" class="col-sm-2 control-label">
-                                            <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#purpose" target="_blank" data-translate>Purpose</a>
+                                            <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#purpose" target="_blank">Purpose</a>
                                         </label>
                                         <div class="col-sm-10">
                                             <input id="purpose" type="text" class="purpose form-control" value="49" readonly>
@@ -494,7 +494,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="coin" class="col-sm-2 control-label">
-                                            <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#registered-coin-types" target="_blank" data-translate>Coin</a>
+                                            <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#registered-coin-types" target="_blank">Coin</a>
                                         </label>
                                         <div class="col-sm-10">
                                             <input id="coin" type="text" class="coin form-control" value="0" readonly>
@@ -502,7 +502,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="account" class="col-sm-2 control-label">
-                                            <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#account" target="_blank" data-translate>Account</a>
+                                            <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#account" target="_blank">Account</a>
                                         </label>
                                         <div class="col-sm-10">
                                             <input id="account" type="text" class="account form-control" value="0">
@@ -510,7 +510,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="change" class="col-sm-2 control-label">
-                                            <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#change" target="_blank" data-translate>External / Internal</a>
+                                            <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#change" target="_blank">External / Internal</a>
                                         </label>
                                         <div class="col-sm-10">
                                             <input id="change" type="text" class="change form-control" value="0">
@@ -520,12 +520,12 @@
                                         <label class="col-sm-2 control-label">
                                         </label>
                                         <div class="col-sm-10">
-                                            <p data-translate>The account extended keys can be used for importing to most BIP49 compatible wallets.</p>
+                                            <p>The account extended keys can be used for importing to most BIP49 compatible wallets.</p>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="account-xprv" class="col-sm-2 control-label">
-                                            <span data-translate>Account Extended Private Key</span>
+                                            <span>Account Extended Private Key</span>
                                         </label>
                                         <div class="col-sm-10">
                                             <textarea id="account-xprv" type="text" class="account-xprv form-control" readonly data-show-qr></textarea>
@@ -533,7 +533,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="account-xpub" class="col-sm-2 control-label">
-                                            <span data-translate>Account Extended Public Key</span>
+                                            <span>Account Extended Public Key</span>
                                         </label>
                                         <div class="col-sm-10">
                                             <textarea id="account-xpub" type="text" class="account-xpub form-control" readonly data-show-qr></textarea>
@@ -543,11 +543,11 @@
                                         <label class="col-sm-2 control-label">
                                         </label>
                                         <div class="col-sm-10">
-                                            <p data-translate>The BIP32 derivation path and extended keys are the basis for the derived addresses.</p>
+                                            <p>The BIP32 derivation path and extended keys are the basis for the derived addresses.</p>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="bip49-path" class="col-sm-2 control-label" data-translate>BIP32 Derivation Path</label>
+                                        <label for="bip49-path" class="col-sm-2 control-label">BIP32 Derivation Path</label>
                                         <div class="col-sm-10">
                                             <input id="bip49-path" type="text" class="path form-control" value="m/49'/0'/0'/0" readonly="readonly">
                                         </div>
@@ -558,13 +558,13 @@
                     </div>
                     <form class="form-horizontal" role="form">
                         <div class="form-group">
-                            <label for="extended-priv-key" class="col-sm-2 control-label" data-translate>BIP32 Extended Private Key</label>
+                            <label for="extended-priv-key" class="col-sm-2 control-label">BIP32 Extended Private Key</label>
                             <div class="col-sm-10">
                                 <textarea id="extended-priv-key" class="extended-priv-key form-control" readonly="readonly" data-show-qr></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="extended-pub-key" class="col-sm-2 control-label" data-translate>BIP32 Extended Public Key</label>
+                            <label for="extended-pub-key" class="col-sm-2 control-label">BIP32 Extended Public Key</label>
                             <div class="col-sm-10">
                                 <textarea id="extended-pub-key" class="extended-pub-key form-control" readonly="readonly" data-show-qr></textarea>
                             </div>
@@ -578,31 +578,31 @@
             <div class="row">
                 <div class="col-md-12">
                     <h2>Derived Addresses</h2>
-                    <p data-translate>Note these addreses are derived from the BIP32 Extended Key</p>
+                    <p>Note these addreses are derived from the BIP32 Extended Key</p>
                     <table class="table table-striped">
                         <thead>
                             <th>
                                 <div class="input-group">
-                                    <span data-translate>Path</span>&nbsp;&nbsp;
-                                    <button class="index-toggle" data-translate>Toggle</button>
+                                    <span>Path</span>&nbsp;&nbsp;
+                                    <button class="index-toggle">Toggle</button>
                                 </div>
                             </th>
                             <th>
                                 <div class="input-group">
-                                    <span data-translate>Address</span>&nbsp;&nbsp;
-                                    <button class="address-toggle" data-translate>Toggle</button>
+                                    <span>Address</span>&nbsp;&nbsp;
+                                    <button class="address-toggle">Toggle</button>
                                 </div>
                             </th>
                             <th>
                                 <div class="input-group">
-                                    <span data-translate>Public Key</span>&nbsp;&nbsp;
-                                    <button class="public-key-toggle" data-translate>Toggle</button>
+                                    <span>Public Key</span>&nbsp;&nbsp;
+                                    <button class="public-key-toggle">Toggle</button>
                                 </div>
                             </th>
                             <th>
                                 <div class="input-group">
-                                    <span data-translate>Private Key</span>&nbsp;&nbsp;
-                                    <button class="private-key-toggle" data-translate>Toggle</button>
+                                    <span>Private Key</span>&nbsp;&nbsp;
+                                    <button class="private-key-toggle">Toggle</button>
                                 </div>
                             </th>
                         </thead>
@@ -616,86 +616,101 @@
                     </table>
                 </div>
             </div>
-            <span data-translate>Show more rows</span>:
+            <span>Show more rows</span>:
             <input type="number" class="rows-to-add" value="20">
-            <button class="more" data-translate>Show</button>
+            <button class="more">Show</button>
 
             <hr>
 
             <div class="row">
                 <div class="col-md-12">
-                    <h2 data-translate>More info</h2>
-                    <h3>BIP39 <span class="small" data-translate>Mnemonic code for generating deterministic keys</span></h3>
-                    <p data-translate-html>
+                    <h2>More info</h2>
+                    <h3>BIP39 <span class="small">Mnemonic code for generating deterministic keys</span></h3>
+                    <p>
                         Read more at the
                         <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki">official BIP39 spec</a>
                     </p>
-                    <h3>BIP32 <span class="small" data-translate>Hierarchical Deterministic Wallets</span></h3>
-                    <p data-translate-html>
+                    <h3>BIP32 <span class="small">Hierarchical Deterministic Wallets</span></h3>
+                    <p>
                         Read more at the
                         <a href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki" target="_blank">official BIP32 spec</a>
                     </p>
-                    <p data-translate-html>
+                    <p>
                         See the demo at
                         <a href="http://bip32.org/" target="_blank">bip32.org</a>
                     </p>
-                    <h3>BIP44 <span class="small" data-translate>Multi-Account Hierarchy for Deterministic Wallets</span></h3>
-                    <p data-translate-html>
+                    <h3>BIP44 <span class="small">Multi-Account Hierarchy for Deterministic Wallets</span></h3>
+                    <p>
                         Read more at the
                         <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki" target="_blank">official BIP44 spec</a>
                     </p>
-                    <h3>BIP49 <span class="small" data-translate>Derivation scheme for P2WPKH-nested-in-P2SH based accounts</span></h3>
-                    <p data-translate-html>
+                    <h3>BIP49 <span class="small">Derivation scheme for P2WPKH-nested-in-P2SH based accounts</span></h3>
+                    <p>
                         Read more at the
                         <a href="https://github.com/bitcoin/bips/blob/master/bip-0049.mediawiki" target="_blank">official BIP49 spec</a>
                     </p>
-                    <h3 data-translate>Private Keys</h3>
+                    <h3>Private Keys</h3>
                     <p>
-                        <span data-translate-html>
+                        <span>
                             Use private keys at
                             <a href="https://web.archive.org/web/20150707020924/https://brainwallet.org/" target="_blank">brainwallet.org</a>.
                         </span>
-                        <span data-translate>Be careful - it can be easy to make mistakes if you don't know what you're doing.</span>
+                        <span>Be careful - it can be easy to make mistakes if you don't know what you're doing.</span>
                     </p>
-                    <h3 id="entropy-notes" data-translate>Entropy</h3>
+                    <h3 id="entropy-notes">Entropy</h3>
                     <p>
-                        <span data-translate-html>
+                        <span>
                             Entropy values must be sourced from a
                             <a href="https://en.wikipedia.org/wiki/Random_number_generation" target="_blank">strong source of randomness</a>.
                         </span>
-                        <span data-translate>This means flipping a fair coin, rolling a fair dice, noise measurements etc.</span>
-                        <span data-translate-html>
+                        <span>This means flipping a fair coin, rolling a fair dice, noise measurements etc.</span>
+                        <span>
                             Do <strong>NOT</strong> use phrases from books, lyrics from songs, your birthday or steet address,
                             keyboard mashing, or anything you <i>think</i> is random, because chances are overwhelming it isn't
                             random enough for the needs of this tool.
                         </span>
                     </p>
                     <p>
-                        <strong><span data-translate>Do not store entropy.</span></strong>
+                        <strong><span>Do not store entropy.</span></strong>
                     </p>
                     <p>
-                        <span data-translate>Storing entropy (such as keeping a deck of cards in a specific shuffled order) is unreliable compared to storing a mnemonic.</span>
-                        <span data-translate>Instead of storing entropy, store the mnemonic generated from the entropy.</span>
-                        <span data-translate-html><a href="https://en.wikipedia.org/wiki/Steganography#Physical" target="_blank">Steganography</a> may be beneficial when storing the mnemonic.</span>
+                        <span>Storing entropy (such as keeping a deck of cards in a specific shuffled order) is unreliable compared to storing a mnemonic.</span>
+                        <span>Instead of storing entropy, store the mnemonic generated from the entropy.</span>
+                        <span><a href="https://en.wikipedia.org/wiki/Steganography#Physical" target="_blank">Steganography</a> may be beneficial when storing the mnemonic.</span>
                     </p>
                     <p>
-                        <span data-translate-html>
+                        <span>
                             The random mnemonic generator on this page uses a
                             <a href="https://developer.mozilla.org/en-US/docs/Web/API/RandomSource/getRandomValues" target="_blank">cryptographically secure random number generator</a>.
                         </span>
-                        <span data-translate>The built in random generator can generally be trusted more than your own intuition about randomness.</span>
-                        <span data-translate>If cryptographic randomness isn't available in your browser, this page will show a warning and the generate button will not work.</span>
-                        <span data-translate>In that case you might choose to use your own source of entropy.</span>
+                        <span>The built in random generator can generally be trusted more than your own intuition about randomness.</span>
+                        <span>If cryptographic randomness isn't available in your browser, this page will show a warning and the generate button will not work.</span>
+                        <span>In that case you might choose to use your own source of entropy.</span>
                     </p>
                     <p>
-                        <a href="https://bitcointalk.org/index.php?topic=311000.msg3345309#msg3345309" target="_blank" data-translate>You are not a good source of entropy.</a>
+                        <a href="https://bitcointalk.org/index.php?topic=311000.msg3345309#msg3345309" target="_blank">You are not a good source of entropy.</a>
                     </p>
-                    <h3 data-translate>License</h3>
+                    <h3>License</h3>
                     <p>
-                    <span data-translate-html>Please refer to <a href="https://github.com/iancoleman/bip39/blob/master/LICENSE" target="_blank">the software license</a> for more detail.
+                    <span>Please refer to <a href="https://github.com/iancoleman/bip39/blob/master/LICENSE" target="_blank">the software license</a> for more detail.
                     </span>
                     </p>
-                    <p data-translate>The software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.</p>
+                    <p>The software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.</p>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Alternative Tools</h2>
+                    <p>This tool is interoperable with any BIP39 wallet.</p>
+                    <p>Some similar tools to this one (ie not consumer wallets) are</p>
+                    <p>
+                        <a href="https://bip32jp.github.io/english/">
+                            https://bip32jp.github.io/english/
+                        </a>
+                    </p>
                 </div>
             </div>
 
@@ -704,21 +719,21 @@
             <div class="row">
                 <div class="col-md-12">
 
-                    <h2 data-translate>Offline Usage</h2>
+                    <h2>Offline Usage</h2>
 
-                    <p data-translate>
+                    <p>
                     You can use this tool without having to be online.
                     </p>
-                    <p data-translate>
+                    <p>
                     In your browser, select file save-as, and save this page
                     as a file.
                     </p>
-                    <p data-translate>
+                    <p>
                     Double-click that file to open it in a browser
                     on any offline computer.
                     </p>
                     <p>
-                    <span data-translate>Alternatively, download the file from the repository</span>
+                    <span>Alternatively, download the file from the repository</span>
                     -
                     <a href="https://github.com/iancoleman/bip39">https://github.com/iancoleman/bip39</a>
                     </p>
@@ -731,17 +746,17 @@
             <div class="row">
                 <div class="col-md-12">
 
-                    <h2 data-translate>This project is 100% open-source code</h2>
+                    <h2>This project is 100% open-source code</h2>
 
                     <p>
-                        <span data-translate>Get the source code from the repository</span>
+                        <span>Get the source code from the repository</span>
                         -
                         <a href="https://github.com/iancoleman/bip39" target="_blank">
                             https://github.com/iancoleman/bip39
                         </a>
                     </p>
 
-                    <h3 data-translate>Libraries</h3>
+                    <h3>Libraries</h3>
 
                     <p>
                         <span>BitcoinJS - </span>
@@ -784,11 +799,11 @@
         </div>
 
         <div class="qr-container hidden">
-            <div class="qr-hint bg-primary hidden" data-translate>Click field to hide QR</div>
-            <div class="qr-hint bg-primary" data-translate>Click field to show QR</div>
+            <div class="qr-hint bg-primary hidden">Click field to hide QR</div>
+            <div class="qr-hint bg-primary">Click field to show QR</div>
             <div class="qr-hider hidden">
                 <div class="qr-image"></div>
-                <div class="qr-warning bg-primary" data-translate>Caution: Scanner may keep history</div>
+                <div class="qr-warning bg-primary">Caution: Scanner may keep history</div>
             </div>
         </div>
 
@@ -22374,6 +22389,17 @@ bitcoinjs.bitcoin.networks.pivxtestnet = {
   scriptHash: 0x13,
   wif: 0xef
 };
+
+bitcoinjs.bitcoin.networks.fujicoin = {
+  messagePrefix: '\x19FujiCoin Signed Message:\n',
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  },
+  pubKeyHash: 0x24,
+  scriptHash: 0x10,
+  wif: 0xa4
+};
 </script>
         <script>(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.ethUtil = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -42208,255 +42234,6 @@ sjcl.hash.sha256.prototype = {
   }
 };
 </script>
-        <script>// An extremely basic translation library
-//
-// Example usage:
-//
-// Set some html to be translated. Do this using the 'data-translate' attribute:
-//
-//   <div data-translate>Test</div>
-//   <div data-translate-html><em>keep em tag</em></div>
-//   <input data-translate-placeholder placeholder="Example placeholder">
-//   <span data-translate-title title="Example title"></span>
-//
-// Obtain all the phrases to be translated via js debug console:
-//
-//   Translate.phrasesAsJson();
-//
-// Use that template to translate the phrases into another language.
-// Leave the key the same. Change the value to the new language.
-//
-// Create a js file to load the new phrases. In this example for Spanish,
-// es.js will contain the following code:
-//
-//   Translate.loadForeignPhrases("es", {
-//       "Test": "Test in Spanish",
-//       "<em>keep em tag</em>": "<em>keep em tag in Spanish</em>",
-//       "Example placeholder": "Example placeholder in Spanish"
-//       "Example title": "Example title in Spanish"
-//   });
-//
-// In your UI put a listener for clicking on the Spanish button:
-//
-//   mySpanishButton.addEventListener("click", function() {
-//       Translate.setLanguage("es");
-//   });
-//   myEnglishButton.addEventListener("click", function() {
-//       Translate.setLanguage("en");
-//   });
-
-Translate = new (function() {
-
-    var defaultLanguage = "en";
-
-    var allPhrases = {};
-    allPhrases[defaultLanguage] = {};
-
-    // Node types
-
-    var text = {
-        selector: "[data-translate]",
-        getKey: function() {
-            return this.textContent.trim().replace(/\s+/g, " ");
-        },
-        setPhrase: function(p) {
-            this.textContent = p;
-        },
-    }
-
-    var html = {
-        selector: "[data-translate-html]",
-        getKey: function() {
-            return this.innerHTML.trim().replace(/\s+/g, " ");
-        },
-        setPhrase: function(p) {
-            this.innerHTML = p;
-        },
-    }
-
-    var placeholder = {
-        selector: "[data-translate-placeholder]",
-        getKey: function() {
-            return this.getAttribute("placeholder").trim().replace(/\s+/g, " ");
-        },
-        setPhrase: function(p) {
-            this.setAttribute("placeholder", p);
-        },
-    }
-
-    var title = {
-        selector: "[data-translate-title]",
-        getKey: function() {
-            return this.getAttribute("title").trim().replace(/\s+/g, " ");
-        },
-        setPhrase: function(p) {
-            this.setAttribute("title", p);
-        },
-    }
-
-    // Get elements to be translated
-    var allEls = getEls(text)
-        .concat(getEls(html))
-        .concat(getEls(placeholder))
-        .concat(getEls(title));
-
-    // Provides access to phrases from a non-default language.
-    // See phrases_en.js for example usage.
-    this.loadForeignPhrases = function(language, phrases) {
-        allPhrases[language] =  phrases;
-    }
-
-    // Displays a different language, eg "en" or "fr"
-    this.setLanguage = function(language) {
-        for (var i=0; i<allEls.length; i++) {
-            var el = allEls[i];
-            var key = el.key;
-            if (!(language in allPhrases)) {
-                console.log(language + " not in allPhrases");
-                return;
-            }
-            if (!(key in allPhrases[language])) {
-                console.log(language + " does not contain phrase: " + key);
-                return;
-            }
-            var phrase = allPhrases[language][key];
-            el.setPhrase(phrase);
-        }
-    }
-
-    // Converts the phrases to a key-pair json file.
-    // This is a good way to export phrases for use in translation tools.
-    this.phrasesAsJson = function(language) {
-        var keys = [];
-        for (var i=0; i<allEls.length; i++) {
-            var el = allEls[i];
-            var key = el.key;
-            keys.push(key);
-        }
-        keys.sort();
-        var output = {};
-        for (var i=0; i<keys.length; i++) {
-            var key = keys[i];
-            var translated = "";
-            if (language in allPhrases && key in allPhrases[language]) {
-                translated = allPhrases[language][key];
-            }
-            output[key] = translated;
-        }
-        return JSON.stringify(output, null, 2);
-    }
-
-    function getEls(nodeType) {
-        var nodes = document.querySelectorAll(nodeType.selector);
-        var els = [];
-        for (var i=0; i<nodes.length; i++) {
-            var node = nodes[i];
-            node.getKey = nodeType.getKey;
-            node.setPhrase = nodeType.setPhrase;
-            node.key = node.getKey();
-            allPhrases[defaultLanguage][node.key] = node.key;
-            els.push(node);
-        }
-        return els;
-    }
-
-})();
-</script>
-        <script>Translate.loadForeignPhrases("en",
-{
-  "<code>m/44'/0'/0'/0</code> generates public addresses": "<code>m/44'/0'/0'/0</code> generates public addresses",
-  "<code>m/44'/0'/0'/1</code> generates change addresses": "<code>m/44'/0'/0'/1</code> generates change addresses",
-  "<code>m/44'/0'/0'</code> generates extended keys for import / export": "<code>m/44'/0'/0'</code> generates extended keys for import / export",
-  "<code>m/44'/0'/1'</code> for the next account. Continue incrementing for more accounts (most use a single account).": "<code>m/44'/0'/1'</code> for the next account. Continue incrementing for more accounts (most use a single account).",
-  "Accepts binary, base 6, 6-sided dice, base 10, hexadecimal, cards": "Accepts binary, base 6, 6-sided dice, base 10, hexadecimal, cards",
-  "Account": "Account",
-  "Address": "Address",
-  "Alternatively, download the file from the repository": "Alternatively, download the file from the repository",
-  "BIP32 Derivation Path": "BIP32 Derivation Path",
-  "BIP32 Extended Key": "BIP32 Extended Key",
-  "BIP32 Extended Key (addresses only)": "BIP32 Extended Key (addresses only)",
-  "BIP32 Root Key": "BIP32 Root Key",
-  "BIP39 Mnemonic": "BIP39 Mnemonic",
-  "BIP39 Passphrase (optional)": "BIP39 Passphrase (optional)",
-  "BIP39 Seed": "BIP39 Seed",
-  "Base 10": "Base 10",
-  "Base 6": "Base 6",
-  "Be careful - it can be easy to make mistakes if you don't know what you're doing.": "Be careful - it can be easy to make mistakes if you don't know what you're doing.",
-  "Binary": "Binary",
-  "Bitcoin Core": "Bitcoin Core",
-  "Bits Per Event": "Bits Per Event",
-  "Block Explorers": "Block Explorers",
-  "Can be used with": "Can be used with",
-  "Card": "Card",
-  "Coin": "Coin",
-  "Dice": "Dice",
-  "Do <strong>NOT</strong> use phrases from books, lyrics from songs, your birthday or steet address, keyboard mashing, or anything you <i>think</i> is random, because chances are overwhelming it isn't random enough for the needs of this tool.": "Do <strong>NOT</strong> use phrases from books, lyrics from songs, your birthday or steet address, keyboard mashing, or anything you <i>think</i> is random, because chances are overwhelming it isn't random enough for the needs of this tool.",
-  "Double-click that file to open it in a browser on any offline computer.": "Double-click that file to open it in a browser on any offline computer.",
-  "Entropy": "Entropy",
-  "Entropy Type": "Entropy Type",
-  "Entropy is an advanced feature. Your mnemonic may be insecure if this feature is used incorrectly.": "Entropy is an advanced feature. Your mnemonic may be insecure if this feature is used incorrectly.",
-  "Entropy values must be sourced from a <a href=\"https://en.wikipedia.org/wiki/Random_number_generation\" target=\"_blank\">strong source of randomness</a>.": "Entropy values must be sourced from a <a href=\"https://en.wikipedia.org/wiki/Random_number_generation\" target=\"_blank\">strong source of randomness</a>.",
-  "Event Count": "Event Count",
-  "External / Internal": "External / Internal",
-  "Filtered Entropy": "Filtered Entropy",
-  "For more info see the <a href=\"http://www.mycelium.com/\" target=\"_blank\">Mycelium Wallet homepage</a>": "For more info see the <a href=\"http://www.mycelium.com/\" target=\"_blank\">Mycelium Wallet homepage</a>",
-  "For more info see the <a href=\"https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki\" target=\"_blank\">BIP39 spec</a>.": "For more info see the <a href=\"https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki\" target=\"_blank\">BIP39 spec</a>.",
-  "For more info see the <a href=\"https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki\" target=\"_blank\">BIP44 spec</a>.": "For more info see the <a href=\"https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki\" target=\"_blank\">BIP44 spec</a>.",
-  "For more info see the <a href=\"https://github.com/bitcoin/bitcoin/pull/8035\" target=\"_blank\">Bitcoin Core BIP32 implementation</a>": "For more info see the <a href=\"https://github.com/bitcoin/bitcoin/pull/8035\" target=\"_blank\">Bitcoin Core BIP32 implementation</a>",
-  "For more info see the BIP32 spec": "For more info see the BIP32 spec",
-  "From entropy length (3 words per 32 bits)": "From entropy length (3 words per 32 bits)",
-  "Generate a random mnemonic, or enter your own below": "Generate a random mnemonic, or enter your own below",
-  "Get the source code from the repository": "Get the source code from the repository",
-  "Hex": "Hex",
-  "Hierarchical Deterministic Wallets": "Hierarchical Deterministic Wallets",
-  "If cryptographic randomness isn't available in your browser, this page will show a warning and the generate button will not work.": "If cryptographic randomness isn't available in your browser, this page will show a warning and the generate button will not work.",
-  "In that case you might choose to use your own source of entropy.": "In that case you might choose to use your own source of entropy.",
-  "In your browser, select file save-as, and save this page as a file.": "In your browser, select file save-as, and save this page as a file.",
-  "Libraries": "Libraries",
-  "Mnemonic Language": "Mnemonic Language",
-  "Mnemonic Length": "Mnemonic Length",
-  "Mnemonic code for generating deterministic keys": "Mnemonic code for generating deterministic keys",
-  "More info": "More info",
-  "Multi-Account Hierarchy for Deterministic Wallets": "Multi-Account Hierarchy for Deterministic Wallets",
-  "Mycelium Wallet": "Mycelium Wallet",
-  "Note these addreses are derived from the BIP32 Extended Key": "Note these addreses are derived from the BIP32 Extended Key",
-  "Offline Usage": "Offline Usage",
-  "Only enter the <code>xpub</code> extended key into block explorer search fields, never the <code>xprv</code> key.": "Only enter the <code>xpub</code> extended key into block explorer search fields, never the <code>xprv</code> key.",
-  "Path": "Path",
-  "Private Key": "Private Key",
-  "Private Keys": "Private Keys",
-  "Public Key": "Public Key",
-  "Purpose": "Purpose",
-  "Raw Binary": "Raw Binary",
-  "Read more": "Read more",
-  "Read more at the <a href=\"https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki\" target=\"_blank\">official BIP32 spec</a>": "Read more at the <a href=\"https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki\" target=\"_blank\">official BIP32 spec</a>",
-  "Read more at the <a href=\"https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki\">official BIP39 spec</a>": "Read more at the <a href=\"https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki\">official BIP39 spec</a>",
-  "Read more at the <a href=\"https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki\" target=\"_blank\">official BIP44 spec</a>": "Read more at the <a href=\"https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki\" target=\"_blank\">official BIP44 spec</a>",
-  "See the demo at <a href=\"http://bip32.org/\" target=\"_blank\">bip32.org</a>": "See the demo at <a href=\"http://bip32.org/\" target=\"_blank\">bip32.org</a>",
-  "Show": "Show",
-  "Show more rows": "Show more rows",
-  "Strength": "Strength",
-  "Supply my own source of entropy": "Supply my own source of entropy",
-  "The built in random generator can generally be trusted more than your own intuition about randomness.": "The built in random generator can generally be trusted more than your own intuition about randomness.",
-  "The random mnemonic generator on this page uses a <a href=\"https://developer.mozilla.org/en-US/docs/Web/API/RandomSource/getRandomValues\" target=\"_blank\">cryptographically secure random number generator</a>.": "The random mnemonic generator on this page uses a <a href=\"https://developer.mozilla.org/en-US/docs/Web/API/RandomSource/getRandomValues\" target=\"_blank\">cryptographically secure random number generator</a>.",
-  "This means flipping a fair coin, rolling a fair dice, noise measurements etc.": "This means flipping a fair coin, rolling a fair dice, noise measurements etc.",
-  "This project is 100% open-source code": "This project is 100% open-source code",
-  "Toggle": "Toggle",
-  "Total Bits": "Total Bits",
-  "Use hardened addresses": "Use hardened addresses",
-  "Use path <code>m/0'/0'</code> with hardened addresses.": "Use path <code>m/0'/0'</code> with hardened addresses.",
-  "Use path <code>m/44'/0'/0'</code>.": "Use path <code>m/44'/0'/0'</code>.",
-  "Use private keys at <a href=\"https://web.archive.org/web/20150707020924/https://brainwallet.org/\" target=\"_blank\">brainwallet.org</a>.": "Use private keys at <a href=\"https://web.archive.org/web/20150707020924/https://brainwallet.org/\" target=\"_blank\">brainwallet.org</a>.",
-  "Valid entropy values include:": "Valid entropy values include:",
-  "Warning": "Warning",
-  "Word Count": "Word Count",
-  "You are not a good source of entropy.": "You are not a good source of entropy.",
-  "You can enter an existing BIP39 mnemonic, or generate a new random one. Typing your own twelve words will probably not work how you expect, since the words require a particular structure (the last word is a checksum).": "You can enter an existing BIP39 mnemonic, or generate a new random one. Typing your own twelve words will probably not work how you expect, since the words require a particular structure (the last word is a checksum).",
-  "You can use this tool without having to be online.": "You can use this tool without having to be online.",
-  "words": "words"
-}
-);
-</script>
         <script>WORDLISTS = typeof WORDLISTS == "undefined" ? {} : WORDLISTS;
 WORDLISTS["english"] = [
 "abandon","ability","able","about","above","absent","absorb","abstract","absurd","abuse",
@@ -47414,6 +47191,14 @@ window.Entropy = new (function() {
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bitcoin;
                 setHdCoin(60);
+            },
+        },
+        {
+            name: "FJC - Fujicoin",
+            p2wpkhNestedInP2shAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.fujicoin;
+                setHdCoin(75);
             },
         },
         {
