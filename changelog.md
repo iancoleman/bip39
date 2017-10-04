@@ -1,4 +1,4 @@
-#0.2.7
+# 0.2.7
 
 * Add Fujicoin
 * List alternative tools
