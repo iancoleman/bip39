@@ -1387,6 +1387,14 @@
             },
         },
         {
+            name: "USNBT - NuBits",
+            p2wpkhNestedInP2shAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.nubits;
+                setHdCoin(12);
+            },
+        },
+        {
             name: "VIA - Viacoin",
             p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
