@@ -239,3 +239,14 @@ bitcoinjs.bitcoin.networks.fujicoin = {
   scriptHash: 0x10,
   wif: 0xa4
 };
+
+bitcoinjs.bitcoin.networks.nubits = {
+  messagePrefix: '\x18Nu Signed Message:\n',
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  },
+  pubKeyHash: 0x19,
+  scriptHash: 0x1a,
+  wif: 0x96,
+};
