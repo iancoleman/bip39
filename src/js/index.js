@@ -1080,11 +1080,18 @@
                 DOM.bip44coin.val(159);
             },
         },
-         {
+        {
             name: "Diamond",
             onSelect: function() {
                 network = bitcoin.networks.diamond;
                 DOM.bip44coin.val(158);
+            },
+        },
+        {
+            name: "Adcoin",
+            onSelect: function() {
+                network = bitcoin.networks.adcoin;
+                DOM.bip44coin.val(161);
             },
         },
     ]
