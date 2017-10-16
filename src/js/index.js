@@ -1052,6 +1052,41 @@
                 DOM.bip44coin.val(148);
             },
         },
+        {
+            name: "Bitsend",
+            onSelect: function() {
+                network = bitcoin.networks.bitsend;
+                DOM.bip44coin.val(91);
+            },
+        },
+        {
+            name: "Bitcore",
+            onSelect: function() {
+                network = bitcoin.networks.bitcore;
+                DOM.bip44coin.val(150);
+            },
+        },
+        {
+            name: "Europecoin",
+            onSelect: function() {
+                network = bitcoin.networks.europecoin;
+                DOM.bip44coin.val(151);
+            },
+        },
+        {
+            name: "Toacoin",
+            onSelect: function() {
+                network = bitcoin.networks.toacoin;
+                DOM.bip44coin.val(159);
+            },
+        },
+         {
+            name: "Diamond",
+            onSelect: function() {
+                network = bitcoin.networks.diamond;
+                DOM.bip44coin.val(158);
+            },
+        },
     ]
 
     init();

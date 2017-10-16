@@ -14117,6 +14117,65 @@ bitcoin.networks.bridgecoin = {
     wif: 176,
 }
 
+bitcoin.networks.bitsend = {
+    magicPrefix: '\x19Bitsend Signed Message:\n',
+    bip32: {
+      public: 0x02FE52F8,
+      private: 0x02FE52CC
+    },
+    pubKeyHash: 102,
+    scriptHash: 5,
+    wif: 204,
+    dustThreshold: 0,
+    dustSoftThreshold: 0,
+    feePerKb: 0,
+    estimateFee: estimateFee('dash')
+  }
+
+bitcoin.networks.bitcore = {
+    magicPrefix: '\x19BitCore Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 0,
+    scriptHash: 5,
+    wif: 128,
+}
+
+bitcoin.networks.europecoin = {
+    magicPrefix: '\x19Bitcoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 33,
+    scriptHash: 5,
+    wif: 168,
+}
+
+bitcoin.networks.toacoin = {
+    magicPrefix: '\x19TOA Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 65,
+    scriptHash: 23,
+    wif: 193,
+}
+
+bitcoin.networks.diamond = {
+    magicPrefix: '\x19Diamond Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 90,
+    scriptHash: 8,
+    wif: 218,
+}
+
 </script>
         <script>// Select components from sjcl to suit the crypto operations bip39 requires.
 
@@ -17118,6 +17177,41 @@ var Mnemonic = function(language) {
             onSelect: function() {
                 network = bitcoin.networks.bridgecoin;
                 DOM.bip44coin.val(148);
+            },
+        },
+        {
+            name: "Bitsend",
+            onSelect: function() {
+                network = bitcoin.networks.bitsend;
+                DOM.bip44coin.val(91);
+            },
+        },
+        {
+            name: "Bitcore",
+            onSelect: function() {
+                network = bitcoin.networks.bitcore;
+                DOM.bip44coin.val(150);
+            },
+        },
+        {
+            name: "Europecoin",
+            onSelect: function() {
+                network = bitcoin.networks.europecoin;
+                DOM.bip44coin.val(151);
+            },
+        },
+        {
+            name: "Toacoin",
+            onSelect: function() {
+                network = bitcoin.networks.toacoin;
+                DOM.bip44coin.val(159);
+            },
+        },
+         {
+            name: "Diamond",
+            onSelect: function() {
+                network = bitcoin.networks.diamond;
+                DOM.bip44coin.val(158);
             },
         },
     ]
