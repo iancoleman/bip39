@@ -75,6 +75,8 @@
     DOM.generatedStrength = $(".generate-container .strength");
     DOM.hardenedAddresses = $(".hardened-addresses");
     DOM.useP2wpkhNestedInP2sh = $(".p2wpkh-nested-in-p2sh");
+    DOM.useBitpayAddressesContainer = $(".use-bitpay-addresses-container");
+    DOM.useBitpayAddresses = $(".use-bitpay-addresses");
     DOM.addresses = $(".addresses");
     DOM.rowsToAdd = $(".rows-to-add");
     DOM.more = $(".more");
@@ -117,6 +119,7 @@
         DOM.publicKeyToggle.on("click", togglePublicKeys);
         DOM.privateKeyToggle.on("click", togglePrivateKeys);
         DOM.languages.on("click", languageChanged);
+        DOM.useBitpayAddresses.on("change", useBitpayAddressesChange);
         setQrEvents(DOM.showQrEls);
         disableForms();
         hidePending();
@@ -131,6 +134,7 @@
         clearDerivedKeys();
         clearAddressesList();
         DOM.litecoinLtubContainer.addClass("hidden");
+        DOM.useBitpayAddressesContainer.addClass("hidden");
         var networkIndex = e.target.value;
         var network = networks[networkIndex];
         network.onSelect();
@@ -345,6 +349,11 @@
                 DOM.generate.trigger("click");
             }
         }, 50);
+    }
+
+    function useBitpayAddressesChange() {
+        setBitcoinCashNetworkValues();
+        phraseChanged();
     }
 
     function toggleIndexes() {
@@ -1207,12 +1216,26 @@
         DOM.useP2wpkhNestedInP2sh.prop("checked", false);
     }
 
+    function useBitpayAddresses() {
+        return !(DOM.useBitpayAddresses.prop("checked"));
+    }
+
+    function setBitcoinCashNetworkValues() {
+        if (useBitpayAddresses()) {
+            network = bitcoinjs.bitcoin.networks.bitcoin;
+        }
+        else {
+            network = bitcoinjs.bitcoin.networks.bitcoinCashBitbpay;
+        }
+    }
+
     var networks = [
         {
             name: "BCH - Bitcoin Cash",
             p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
-                network = bitcoinjs.bitcoin.networks.bitcoin;
+                DOM.useBitpayAddressesContainer.removeClass("hidden");
+                setBitcoinCashNetworkValues();
                 setHdCoin(145);
             },
         },

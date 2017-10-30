@@ -250,3 +250,14 @@ bitcoinjs.bitcoin.networks.nubits = {
   scriptHash: 0x1a,
   wif: 0x96,
 };
+
+bitcoinjs.bitcoin.networks.bitcoinCashBitbpay = {
+    messagePrefix: '\x18Bitcoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 0x1c,
+    scriptHash: 0x28,
+    wif: 0x80
+};

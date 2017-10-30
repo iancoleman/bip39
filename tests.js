@@ -4404,6 +4404,37 @@ page.open(url, function(status) {
 });
 },
 
+// Bitcoin Cash address can be set to use bitpay format
+function() {
+page.open(url, function(status) {
+    // set the phrase and coin and address format
+    var expected = "CZnpA9HPmvhuhLLPWJP8rNDpLUYXy1LXFk";
+    page.evaluate(function() {
+        $(".use-bitpay-addresses").prop("checked", true);
+        $(".phrase").val("abandon abandon ability");
+        $(".phrase").trigger("input");
+        $(".network option[selected]").removeAttr("selected");
+        $(".network option").filter(function() {
+            return $(this).html() == "BCH - Bitcoin Cash";
+        }).prop("selected", true);
+        $(".network").trigger("change");
+    });
+    // check the address is generated correctly
+    waitForGenerate(function() {
+        var actual = page.evaluate(function() {
+            return $(".address:first").text();
+        });
+        if (actual != expected) {
+            console.log("Bitcoin Cash address is incorrect");
+            console.log("Expected: " + expected);
+            console.log("Actual: " + actual);
+            fail();
+        }
+        next();
+    });
+});
+},
+
 // If you wish to add more tests, do so here...
 
 // Here is a blank test template
