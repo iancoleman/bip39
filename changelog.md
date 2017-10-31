@@ -1,3 +1,10 @@
+# 0.2.8
+
+* Enable segwit for Litecoin
+* BitPay-style addresses for Bitcoin Cash
+* Use new xpub/xprv prefixes for Segwit BIP49
+* Add nubits network
+
 # 0.2.7
 
 * Add Fujicoin

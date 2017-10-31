@@ -118,7 +118,7 @@
         <div class="container">
 
             <h1 class="text-center">Mnemonic Code Converter</h1>
-            <p class="version">v0.2.7</p>
+            <p class="version">v0.2.8</p>
             <hr>
             <div class="row">
                 <div class="col-md-12">
@@ -579,6 +579,16 @@
                 <div class="col-md-12">
                     <h2>Derived Addresses</h2>
                     <p>Note these addreses are derived from the BIP32 Extended Key</p>
+                </div>
+                <div class="col-md-12 use-bitpay-addresses-container hidden">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" class="use-bitpay-addresses">
+                            <span>Use BitPay-style addresses for Bitcoin Cash (ie starting with 'C' instead of '1')</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-12">
                     <table class="table table-striped">
                         <thead>
                             <th>
@@ -22399,6 +22409,61 @@ bitcoinjs.bitcoin.networks.fujicoin = {
   pubKeyHash: 0x24,
   scriptHash: 0x10,
   wif: 0xa4
+};
+
+bitcoinjs.bitcoin.networks.nubits = {
+  messagePrefix: '\x18Nu Signed Message:\n',
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  },
+  pubKeyHash: 0x19,
+  scriptHash: 0x1a,
+  wif: 0x96,
+};
+
+bitcoinjs.bitcoin.networks.bitcoinCashBitbpay = {
+    messagePrefix: '\x18Bitcoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 0x1c,
+    scriptHash: 0x28,
+    wif: 0x80
+};
+
+bitcoinjs.bitcoin.networks.bitcoinBip49 = {
+    messagePrefix: '\x18Bitcoin Signed Message:\n',
+    bip32: {
+      public: 0x049d7cb2,
+      private: 0x049d7878
+    },
+    pubKeyHash: 0x00,
+    scriptHash: 0x05,
+    wif: 0x80
+};
+
+bitcoinjs.bitcoin.networks.testnetBip49 = {
+    messagePrefix: '\x18Bitcoin Signed Message:\n',
+    bip32: {
+      public: 0x044a5262,
+      private: 0x044a4e28
+    },
+    pubKeyHash: 0x6f,
+    scriptHash: 0xc4,
+    wif: 0xef
+};
+
+bitcoinjs.bitcoin.networks.litecoinBip49 = {
+    messagePrefix: '\x19Litecoin Signed Message:\n',
+    bip32: {
+      public: 0x01b26ef6,
+      private: 0x01b26792
+    },
+    pubKeyHash: 0x30,
+    scriptHash: 0x32,
+    wif: 0xb0
 };
 </script>
         <script>(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.ethUtil = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -45988,6 +46053,8 @@ window.Entropy = new (function() {
     DOM.generatedStrength = $(".generate-container .strength");
     DOM.hardenedAddresses = $(".hardened-addresses");
     DOM.useP2wpkhNestedInP2sh = $(".p2wpkh-nested-in-p2sh");
+    DOM.useBitpayAddressesContainer = $(".use-bitpay-addresses-container");
+    DOM.useBitpayAddresses = $(".use-bitpay-addresses");
     DOM.addresses = $(".addresses");
     DOM.rowsToAdd = $(".rows-to-add");
     DOM.more = $(".more");
@@ -46022,7 +46089,7 @@ window.Entropy = new (function() {
         DOM.bip44change.on("input", calcForDerivationPath);
         DOM.bip49account.on("input", calcForDerivationPath);
         DOM.bip49change.on("input", calcForDerivationPath);
-        DOM.tab.on("shown.bs.tab", calcForDerivationPath);
+        DOM.tab.on("shown.bs.tab", tabChanged);
         DOM.hardenedAddresses.on("change", calcForDerivationPath);
         DOM.useP2wpkhNestedInP2sh.on("change", calcForDerivationPath);
         DOM.indexToggle.on("click", toggleIndexes);
@@ -46030,6 +46097,7 @@ window.Entropy = new (function() {
         DOM.publicKeyToggle.on("click", togglePublicKeys);
         DOM.privateKeyToggle.on("click", togglePrivateKeys);
         DOM.languages.on("click", languageChanged);
+        DOM.useBitpayAddresses.on("change", useBitpayAddressesChange);
         setQrEvents(DOM.showQrEls);
         disableForms();
         hidePending();
@@ -46044,6 +46112,7 @@ window.Entropy = new (function() {
         clearDerivedKeys();
         clearAddressesList();
         DOM.litecoinLtubContainer.addClass("hidden");
+        DOM.useBitpayAddressesContainer.addClass("hidden");
         var networkIndex = e.target.value;
         var network = networks[networkIndex];
         network.onSelect();
@@ -46120,6 +46189,35 @@ window.Entropy = new (function() {
         // Calculate and display
         var passphrase = DOM.passphrase.val();
         calcBip32RootKeyFromSeed(phrase, passphrase);
+        calcForDerivationPath();
+    }
+
+    function tabChanged() {
+        showPending();
+        adjustNetworkForBip49();
+        var phrase = DOM.phrase.val();
+        if (phrase != "") {
+            // Calculate and display for mnemonic
+            var errorText = findPhraseErrors(phrase);
+            if (errorText) {
+                showValidationError(errorText);
+                return;
+            }
+            // Calculate and display
+            var passphrase = DOM.passphrase.val();
+            calcBip32RootKeyFromSeed(phrase, passphrase);
+        }
+        else {
+            // Calculate and display for root key
+            var rootKeyBase58 = DOM.rootKey.val();
+            var errorText = validateRootKey(rootKeyBase58);
+            if (errorText) {
+                showValidationError(errorText);
+                return;
+            }
+            // Calculate and display
+            calcBip32RootKeyFromBase58(rootKeyBase58);
+        }
         calcForDerivationPath();
     }
 
@@ -46258,6 +46356,11 @@ window.Entropy = new (function() {
                 DOM.generate.trigger("click");
             }
         }, 50);
+    }
+
+    function useBitpayAddressesChange() {
+        setBitcoinCashNetworkValues();
+        phraseChanged();
     }
 
     function toggleIndexes() {
@@ -46548,12 +46651,16 @@ window.Entropy = new (function() {
         })());
     }
 
+    function P2wpkhNestedInP2shSelected() {
+        return bip49TabSelected() || (bip32TabSelected() && useP2wpkhNestedInP2sh());
+    }
+
     function TableRow(index, isLast) {
 
         var self = this;
         this.shouldGenerate = true;
         var useHardenedAddresses = DOM.hardenedAddresses.prop("checked");
-        var isP2wpkhNestedInP2sh = bip49TabSelected() || (bip32TabSelected() && useP2wpkhNestedInP2sh());
+        var isP2wpkhNestedInP2sh = P2wpkhNestedInP2shSelected();
         var p2wpkhNestedInP2shAvailable = networkHasBip49();
 
         function init() {
@@ -47120,12 +47227,55 @@ window.Entropy = new (function() {
         DOM.useP2wpkhNestedInP2sh.prop("checked", false);
     }
 
+    function useBitpayAddresses() {
+        return !(DOM.useBitpayAddresses.prop("checked"));
+    }
+
+    function setBitcoinCashNetworkValues() {
+        if (useBitpayAddresses()) {
+            network = bitcoinjs.bitcoin.networks.bitcoin;
+        }
+        else {
+            network = bitcoinjs.bitcoin.networks.bitcoinCashBitbpay;
+        }
+    }
+
+    function adjustNetworkForBip49() {
+        // If bip49 is selected the xpub/xprv prefixes need to be adjusted
+        // to avoid accidentally importing BIP49 xpub to BIP44 watch only
+        // wallet.
+        // See https://github.com/iancoleman/bip39/issues/125
+        if (P2wpkhNestedInP2shSelected()) {
+            if (network == bitcoinjs.bitcoin.networks.bitcoin) {
+                network = bitcoinjs.bitcoin.networks.bitcoinBip49;
+            }
+            else if (network == bitcoinjs.bitcoin.networks.testnet) {
+                network = bitcoinjs.bitcoin.networks.testnetBip49;
+            }
+            else if (network == bitcoinjs.bitcoin.networks.litecoin) {
+                network = bitcoinjs.bitcoin.networks.litecoinBip49;
+            }
+        }
+        else {
+            if (network == bitcoinjs.bitcoin.networks.bitcoinBip49) {
+                network = bitcoinjs.bitcoin.networks.bitcoin;
+            }
+            else if (network == bitcoinjs.bitcoin.networks.testnetBip49) {
+                network = bitcoinjs.bitcoin.networks.testnet;
+            }
+            else if (network == bitcoinjs.bitcoin.networks.litecoinBip49) {
+                network = bitcoinjs.bitcoin.networks.litecoin;
+            }
+        }
+    }
+
     var networks = [
         {
             name: "BCH - Bitcoin Cash",
             p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
-                network = bitcoinjs.bitcoin.networks.bitcoin;
+                DOM.useBitpayAddressesContainer.removeClass("hidden");
+                setBitcoinCashNetworkValues();
                 setHdCoin(145);
             },
         },
@@ -47219,7 +47369,7 @@ window.Entropy = new (function() {
         },
         {
             name: "LTC - Litecoin",
-            p2wpkhNestedInP2shAvailable: false,
+            p2wpkhNestedInP2shAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.litecoin;
                 setHdCoin(2);
@@ -47297,6 +47447,14 @@ window.Entropy = new (function() {
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.slimcointn;
                 setHdCoin(111);
+            },
+        },
+        {
+            name: "USNBT - NuBits",
+            p2wpkhNestedInP2shAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.nubits;
+                setHdCoin(12);
             },
         },
         {
