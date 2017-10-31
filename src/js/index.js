@@ -1391,7 +1391,7 @@
         },
         {
             name: "LTC - Litecoin",
-            p2wpkhNestedInP2shAvailable: false,
+            p2wpkhNestedInP2shAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.litecoin;
                 setHdCoin(2);
