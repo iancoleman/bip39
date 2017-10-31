@@ -3690,7 +3690,7 @@ page.open(url, function(status) {
     });
     waitForFeedback(function() {
         // Check feedback is correct
-        var expected = "No root key";
+        var expected = "Invalid root key";
         var actual = page.evaluate(function() {
             return $(".feedback").text();
         });
@@ -3997,7 +3997,7 @@ page.open(url, function(status) {
 function() {
 page.open(url, function(status) {
     // set the phrase
-    var expected = "xprvA1hukYsW7QfX9CVsaDAKde4eryajKa4DKWb6m9YjSnqkiZHrahFwwTJfEQTwBQ5kptWT5pZMkkusT1oK8dc1efQ8VFfq4SLSPAWd7Cpt423";
+    var expected = "yprvALYB4DYRG6CzzVgzQZwwqjAA2wjBGC3iEd7KYYScpoDdmf75qMRWZWxoFcRXBJjgEXdFqJ9vDRGRLJQsrL22Su5jMbNFeM9vetaGVqy9Qy2";
     page.evaluate(function() {
         $("#bip49-tab a").click();
         $(".phrase").val("abandon abandon ability").trigger("input");
@@ -4022,7 +4022,7 @@ page.open(url, function(status) {
 function() {
 page.open(url, function(status) {
     // set the phrase
-    var expected = "xpub6EhGA4QPwnDpMgaLgEhKzn1PR1RDj2n4gjWhZXxM18NjbMd18EaCVFd95gkLARJaBD2rXAYJED2gdkUbGn1KkrSzCKR554AdABUELoainnt";
+    var expected = "ypub6ZXXTj5K6TmJCymTWbUxCs6tayZffemZbr2vLvrEP8kceTSENtjm7KHH6thvAKxVar9fGe8rgsPEX369zURLZ68b4f7Vexz7RuXsjQ69YDt";
     page.evaluate(function() {
         $("#bip49-tab a").click();
         $(".phrase").val("abandon abandon ability").trigger("input");
@@ -4111,7 +4111,7 @@ page.open(url, function(status) {
 function() {
 page.open(url, function(status) {
     // set the phrase
-    var expected = "xprv9y3uhgQbfQZbj3o98nfgLDwGGuCJjUn7GKArSAZXjKgMjSdYHjQmTyf78s22g6jsGrxXvHB6HJeFyvFSPkuYZajeTGMZVXV6aNLWw2fagCn";
+    var expected = "yprvAHtB1M5Wp675aLzFy9TJYK2mSsLkg6mcBRh5DZTR7L4EnYSmYPaL63KFA4ycg1PngW5LfkmejxzosCs17TKZMpRFKc3z5SJar6QAKaFcaZL";
     page.evaluate(function() {
         $("#bip49-tab a").click();
         $(".phrase").val("abandon abandon ability");
@@ -4137,7 +4137,7 @@ page.open(url, function(status) {
 function() {
 page.open(url, function(status) {
     // set the phrase
-    var expected = "xpub6C3G7BwVVn7twXscEpCghMszpw2o8wVxdY6TEYy9HfDLcExgqGj21myazAiq6HSmW2F1cBiFqJa3D1cqcDpSh8pbZF5x4iqpd4PyJvd3gjB";
+    var expected = "ypub6WsXQrcQeTfNnq4j5AzJuSyVzuBF5ZVTYecg1ws2ffbDfLmv5vtadqdj1NgR6C6gufMpMfJpHxvb6JEQKvETVNWCRanNedfJtnTchZiJtsL";
     page.evaluate(function() {
         $("#bip49-tab a").click();
         $(".phrase").val("abandon abandon ability");

@@ -111,7 +111,7 @@
         DOM.bip44change.on("input", calcForDerivationPath);
         DOM.bip49account.on("input", calcForDerivationPath);
         DOM.bip49change.on("input", calcForDerivationPath);
-        DOM.tab.on("shown.bs.tab", calcForDerivationPath);
+        DOM.tab.on("shown.bs.tab", tabChanged);
         DOM.hardenedAddresses.on("change", calcForDerivationPath);
         DOM.useP2wpkhNestedInP2sh.on("change", calcForDerivationPath);
         DOM.indexToggle.on("click", toggleIndexes);
@@ -211,6 +211,35 @@
         // Calculate and display
         var passphrase = DOM.passphrase.val();
         calcBip32RootKeyFromSeed(phrase, passphrase);
+        calcForDerivationPath();
+    }
+
+    function tabChanged() {
+        showPending();
+        adjustNetworkForBip49();
+        var phrase = DOM.phrase.val();
+        if (phrase != "") {
+            // Calculate and display for mnemonic
+            var errorText = findPhraseErrors(phrase);
+            if (errorText) {
+                showValidationError(errorText);
+                return;
+            }
+            // Calculate and display
+            var passphrase = DOM.passphrase.val();
+            calcBip32RootKeyFromSeed(phrase, passphrase);
+        }
+        else {
+            // Calculate and display for root key
+            var rootKeyBase58 = DOM.rootKey.val();
+            var errorText = validateRootKey(rootKeyBase58);
+            if (errorText) {
+                showValidationError(errorText);
+                return;
+            }
+            // Calculate and display
+            calcBip32RootKeyFromBase58(rootKeyBase58);
+        }
         calcForDerivationPath();
     }
 
@@ -644,12 +673,16 @@
         })());
     }
 
+    function P2wpkhNestedInP2shSelected() {
+        return bip49TabSelected() || (bip32TabSelected() && useP2wpkhNestedInP2sh());
+    }
+
     function TableRow(index, isLast) {
 
         var self = this;
         this.shouldGenerate = true;
         var useHardenedAddresses = DOM.hardenedAddresses.prop("checked");
-        var isP2wpkhNestedInP2sh = bip49TabSelected() || (bip32TabSelected() && useP2wpkhNestedInP2sh());
+        var isP2wpkhNestedInP2sh = P2wpkhNestedInP2shSelected();
         var p2wpkhNestedInP2shAvailable = networkHasBip49();
 
         function init() {
@@ -1226,6 +1259,35 @@
         }
         else {
             network = bitcoinjs.bitcoin.networks.bitcoinCashBitbpay;
+        }
+    }
+
+    function adjustNetworkForBip49() {
+        // If bip49 is selected the xpub/xprv prefixes need to be adjusted
+        // to avoid accidentally importing BIP49 xpub to BIP44 watch only
+        // wallet.
+        // See https://github.com/iancoleman/bip39/issues/125
+        if (P2wpkhNestedInP2shSelected()) {
+            if (network == bitcoinjs.bitcoin.networks.bitcoin) {
+                network = bitcoinjs.bitcoin.networks.bitcoinBip49;
+            }
+            else if (network == bitcoinjs.bitcoin.networks.testnet) {
+                network = bitcoinjs.bitcoin.networks.testnetBip49;
+            }
+            else if (network == bitcoinjs.bitcoin.networks.litecoin) {
+                network = bitcoinjs.bitcoin.networks.litecoinBip49;
+            }
+        }
+        else {
+            if (network == bitcoinjs.bitcoin.networks.bitcoinBip49) {
+                network = bitcoinjs.bitcoin.networks.bitcoin;
+            }
+            else if (network == bitcoinjs.bitcoin.networks.testnetBip49) {
+                network = bitcoinjs.bitcoin.networks.testnet;
+            }
+            else if (network == bitcoinjs.bitcoin.networks.litecoinBip49) {
+                network = bitcoinjs.bitcoin.networks.litecoin;
+            }
         }
     }
 
