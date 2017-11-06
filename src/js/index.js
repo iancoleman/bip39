@@ -1049,7 +1049,7 @@
             name: "Bridgecoin",
             onSelect: function() {
                 network = bitcoin.networks.bridgecoin;
-                DOM.bip44coin.val(148);
+                DOM.bip44coin.val(162);
             },
         },
         {
@@ -1092,6 +1092,13 @@
             onSelect: function() {
                 network = bitcoin.networks.adcoin;
                 DOM.bip44coin.val(161);
+            },
+        },
+        {
+            name: "Helleniccoin",
+            onSelect: function() {
+                network = bitcoin.networks.helleniccoin;
+                DOM.bip44coin.val(163);
             },
         },
     ]

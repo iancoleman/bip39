@@ -14187,6 +14187,17 @@ bitcoin.networks.adcoin = {
     wif: 151,
 }
 
+bitcoin.networks.Helleniccoin = {
+    magicPrefix: '\x19helleniccoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 48,
+    scriptHash: 5,
+    wif: 176,
+}
+
 </script>
         <script>// Select components from sjcl to suit the crypto operations bip39 requires.
 
@@ -17187,7 +17198,7 @@ var Mnemonic = function(language) {
             name: "Bridgecoin",
             onSelect: function() {
                 network = bitcoin.networks.bridgecoin;
-                DOM.bip44coin.val(148);
+                DOM.bip44coin.val(162);
             },
         },
         {
@@ -17230,6 +17241,13 @@ var Mnemonic = function(language) {
             onSelect: function() {
                 network = bitcoin.networks.adcoin;
                 DOM.bip44coin.val(161);
+            },
+        },
+        {
+            name: "Helleniccoin",
+            onSelect: function() {
+                network = bitcoin.networks.helleniccoin;
+                DOM.bip44coin.val(163);
             },
         },
     ]
