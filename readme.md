@@ -62,12 +62,25 @@ please do not commit changes to `bip39-standalone.html`
 
 # Tests
 
-Tests depend on [phantomjs](http://phantomjs.org/).
+Tests depend on
+
+* nodejs
+* selenium webdriver - cd /path/to/bip39/tests; npm install
+* selenium driver for firefox ([geckodriver](https://github.com/mozilla/geckodriver/releases)) and / or chrome ([chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads))
+* jasmine - npm install --global jasmine
+
+Before running tests, the site must be served at http://localhost:8000.
+
+```
+$ cd /path/to/bip39/src
+$ python -m http.server
+```
 
 Run tests from the command-line
 
 ```
-$ phantomjs tests.js
+$ cd /path/to/bip39/tests
+$ jasmine spec/tests.js
 ```
 
 # License
