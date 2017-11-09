@@ -1510,6 +1510,14 @@
                 network = bitcoinjs.bitcoin.networks.bitcoin;
                 setHdCoin(144);
             },
+        },
+        {
+            name: "MONA - Monacoin",
+            p2wpkhNestedInP2shAvailable: true,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.monacoin,
+                setHdCoin(22);
+            },
         }
     ]
 
