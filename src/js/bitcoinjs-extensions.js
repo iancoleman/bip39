@@ -270,7 +270,7 @@ bitcoinjs.bitcoin.networks.monacoin = {
     },
     pubKeyHash: 0x32,
     scriptHash: 0x37,
-    wif: 0xB2
+    wif: 0xb0
 };
 
 bitcoinjs.bitcoin.networks.bitcoinBip49 = {
