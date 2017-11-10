@@ -458,6 +458,20 @@
             },
         },
         {
+            name: "BitcoinCash",
+            onSelect: function() {
+                network = bitcoin.networks.bitcoincash;
+                DOM.bip44coin.val(145);
+            },
+        },
+        {
+            name: "BitcoinGold",
+            onSelect: function() {
+                network = bitcoin.networks.bitcoingold;
+                DOM.bip44coin.val(156);
+            },
+        },
+        {
             name: "Blackcoin",
             onSelect: function() {
                 network = bitcoin.networks.blackcoin;

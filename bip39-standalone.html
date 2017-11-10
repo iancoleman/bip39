@@ -14198,7 +14198,27 @@ bitcoin.networks.Helleniccoin = {
     wif: 176,
 }
 
-</script>
+bitcoin.networks.bitcoincash = {
+    magicPrefix: '\x19Bitcoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 0x00,
+    scriptHash: 0x05,
+    wif: 0x80,
+}
+
+bitcoin.networks.bitcoingold = {
+    magicPrefix: '\x19Bitcoin Gold Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 38,
+    scriptHash: 23,
+    wif: 128,
+}</script>
         <script>// Select components from sjcl to suit the crypto operations bip39 requires.
 
 //// base.js
@@ -16604,6 +16624,20 @@ var Mnemonic = function(language) {
             onSelect: function() {
                 network = bitcoin.networks.bitcoin;
                 DOM.bip44coin.val(0);
+            },
+        },
+        {
+            name: "BitcoinCash",
+            onSelect: function() {
+                network = bitcoin.networks.bitcoincash;
+                DOM.bip44coin.val(145);
+            },
+        },
+        {
+            name: "BitcoinGold",
+            onSelect: function() {
+                network = bitcoin.networks.bitcoingold;
+                DOM.bip44coin.val(156);
             },
         },
         {

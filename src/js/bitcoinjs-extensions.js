@@ -1209,3 +1209,24 @@ bitcoin.networks.Helleniccoin = {
     wif: 176,
 }
 
+bitcoin.networks.bitcoincash = {
+    magicPrefix: '\x19Bitcoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 0x00,
+    scriptHash: 0x05,
+    wif: 0x80,
+}
+
+bitcoin.networks.bitcoingold = {
+    magicPrefix: '\x19Bitcoin Gold Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 38,
+    scriptHash: 23,
+    wif: 128,
+}
