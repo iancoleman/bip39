@@ -251,6 +251,17 @@ bitcoinjs.bitcoin.networks.nubits = {
   wif: 0x96,
 };
 
+bitcoinjs.bitcoin.networks.bgold = {
+  messagePrefix: 'unused',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 38,
+    scriptHash: 23,
+    wif: 128
+};
+
 bitcoinjs.bitcoin.networks.bitcoinCashBitbpay = {
     messagePrefix: '\x18Bitcoin Signed Message:\n',
     bip32: {
