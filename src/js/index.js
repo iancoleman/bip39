@@ -1318,6 +1318,14 @@
             },
         },
         {
+            name: "BTG - Bitcoin Gold",
+            p2wpkhNestedInP2shAvailable: true,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bgold;
+                setHdCoin(0);
+            },
+        },
+        {
             name: "CLAM - Clams",
             p2wpkhNestedInP2shAvailable: false,
             onSelect: function() {
