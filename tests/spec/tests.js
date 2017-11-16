@@ -577,6 +577,13 @@ it('Allows selection of nubits', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of bitcoin gold', function(done) {
+    var params = {
+        selectText: "BTG - Bitcoin Gold",
+        firstAddress: "GWYxuwSqANWGV3WT7Gpr6HE91euYXBqtwQ",
+    };
+    testNetwork(done, params);
+});
 
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {
