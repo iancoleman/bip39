@@ -584,6 +584,13 @@ it('Allows selection of bitcoin gold', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of monacoin', function(done) {
+    var params = {
+        selectText: "MONA - Monacoin",
+        firstAddress: "MKMiMr7MyjDKjJbCBzgF6u4ByqTS4NkRB1",
+    };
+    testNetwork(done, params);
+});
 
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {
