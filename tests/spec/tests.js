@@ -2473,11 +2473,11 @@ it('Shows error for hardened addresses with xpub root key', function(done) {
     });
 });
 
-// Litecoin uses xprv by default, and can optionally be set to ltpv
+// Litecoin uses ltub by default, and can optionally be set to xprv
 // github issue 96
 // https://github.com/iancoleman/bip39/issues/96
 // Issue with extended keys on Litecoin
-it('Uses xprv by default for litecoin, but can be set to ltpv', function(done) {
+it('Uses ltub by default for litecoin, but can be set to xprv', function(done) {
     driver.findElement(By.css('.phrase'))
         .sendKeys("abandon abandon ability");
     selectNetwork("LTC - Litecoin");
@@ -2486,17 +2486,17 @@ it('Uses xprv by default for litecoin, but can be set to ltpv', function(done) {
         driver.findElement(By.css('.root-key'))
             .getAttribute("value")
             .then(function(rootKey) {
-                expect(rootKey).toBe("xprv9s21ZrQH143K2jkGDCeTLgRewT9F2pH5JZs2zDmmjXes34geVnFiuNa8KTvY5WoYvdn4Ag6oYRoB6cXtc43NgJAEqDXf51xPm6fhiMCKwpi");
+                expect(rootKey).toBe("Ltpv71G8qDifUiNesiPqf6h5V6eQ8ic77oxQiYtawiACjBEx3sTXNR2HGDGnHETYxESjqkMLFBkKhWVq67ey1B2MKQXannUqNy1RZVHbmrEjnEU");
                 // set litecoin to use ltub
                 driver.executeScript(function() {
-                    $(".litecoin-use-ltub").prop("checked", true);
+                    $(".litecoin-use-ltub").prop("checked", false);
                     $(".litecoin-use-ltub").trigger("change");
                 });
                 driver.sleep(generateDelay).then(function() {
                     driver.findElement(By.css('.root-key'))
                         .getAttribute("value")
                         .then(function(rootKey) {
-                            expect(rootKey).toBe("Ltpv71G8qDifUiNesiPqf6h5V6eQ8ic77oxQiYtawiACjBEx3sTXNR2HGDGnHETYxESjqkMLFBkKhWVq67ey1B2MKQXannUqNy1RZVHbmrEjnEU");
+                            expect(rootKey).toBe("xprv9s21ZrQH143K2jkGDCeTLgRewT9F2pH5JZs2zDmmjXes34geVnFiuNa8KTvY5WoYvdn4Ag6oYRoB6cXtc43NgJAEqDXf51xPm6fhiMCKwpi");
                             done();
                         });
                 })

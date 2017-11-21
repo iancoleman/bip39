@@ -14,7 +14,7 @@
     var showPubKey = true;
     var showPrivKey = true;
     var showQr = false;
-    var litecoinUseLtub = false;
+    var litecoinUseLtub = true;
 
     var entropyChangeTimeoutEvent = null;
     var phraseChangeTimeoutEvent = null;
@@ -318,10 +318,10 @@
     function litecoinUseLtubChanged() {
         litecoinUseLtub = DOM.litecoinUseLtub.prop("checked");
         if (litecoinUseLtub) {
-            network = bitcoinjs.bitcoin.networks.litecoinLtub;
+            network = bitcoinjs.bitcoin.networks.litecoin;
         }
         else {
-            network = bitcoinjs.bitcoin.networks.litecoin;
+            network = bitcoinjs.bitcoin.networks.litecoinXprv;
         }
         phraseChanged();
     }
