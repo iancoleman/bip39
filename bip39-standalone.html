@@ -118,7 +118,7 @@
         <div class="container">
 
             <h1 class="text-center">Mnemonic Code Converter</h1>
-            <p class="version">v0.2.8</p>
+            <p class="version">v0.2.9</p>
             <hr>
             <div class="row">
                 <div class="col-md-12">
@@ -626,9 +626,12 @@
                     </table>
                 </div>
             </div>
-            <span>Show more rows</span>:
+            <span>Show</span>
             <input type="number" class="rows-to-add" value="20">
-            <button class="more">Show</button>
+            <button class="more">more rows</button>
+            <span>starting from index</span>
+            <input type="number" class="more-rows-start-index">
+            <span>(leave blank to generate from next index)</span>
 
             <hr>
 
@@ -22442,6 +22445,17 @@ bitcoinjs.bitcoin.networks.bitcoinCashBitbpay = {
     pubKeyHash: 0x1c,
     scriptHash: 0x28,
     wif: 0x80
+};
+
+bitcoinjs.bitcoin.networks.monacoin = {
+    messagePrefix: '\x18Monacoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 0x32,
+    scriptHash: 0x37,
+    wif: 0xb0
 };
 
 bitcoinjs.bitcoin.networks.bitcoinBip49 = {
@@ -46069,6 +46083,7 @@ window.Entropy = new (function() {
     DOM.addresses = $(".addresses");
     DOM.rowsToAdd = $(".rows-to-add");
     DOM.more = $(".more");
+    DOM.moreRowsStartIndex = $(".more-rows-start-index");
     DOM.feedback = $(".feedback");
     DOM.tab = $(".derivation-type a");
     DOM.indexToggle = $(".index-toggle");
@@ -46739,11 +46754,18 @@ window.Entropy = new (function() {
     }
 
     function showMore() {
-        var start = DOM.addresses.children().length;
         var rowsToAdd = parseInt(DOM.rowsToAdd.val());
         if (isNaN(rowsToAdd)) {
             rowsToAdd = 20;
             DOM.rowsToAdd.val("20");
+        }
+        var start = parseInt(DOM.moreRowsStartIndex.val())
+        if (isNaN(start)) {
+            start = lastIndexInTable() + 1;
+        }
+        else {
+            var newStart = start + rowsToAdd;
+            DOM.moreRowsStartIndex.val(newStart);
         }
         if (rowsToAdd > 200) {
             var msg = "Generating " + rowsToAdd + " rows could take a while. ";
@@ -47280,6 +47302,14 @@ window.Entropy = new (function() {
         }
     }
 
+    function lastIndexInTable() {
+        var pathText = DOM.addresses.find(".index").last().text();
+        var pathBits = pathText.split("/");
+        var lastBit = pathBits[pathBits.length-1];
+        var lastBitClean = lastBit.replace("'", "");
+        return parseInt(lastBitClean);
+    }
+
     var networks = [
         {
             name: "BCH - Bitcoin Cash",
@@ -47403,7 +47433,14 @@ window.Entropy = new (function() {
                 setHdCoin(13);
             },
         },
-
+        {
+            name: "MONA - Monacoin",
+            p2wpkhNestedInP2shAvailable: true,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.monacoin,
+                setHdCoin(22);
+            },
+        },
         {
             name: "NMC - Namecoin",
             p2wpkhNestedInP2shAvailable: false,

@@ -1,3 +1,11 @@
+# 0.2.9
+
+* Update links from old site to new site
+* Add Monacoin
+* Add Bitcoin Gold
+* Port test suite to selenium
+* Allow more rows to be generated starting from a custom index
+
 # 0.2.8
 
 * Enable segwit for Litecoin
