@@ -2504,31 +2504,6 @@ it('Uses ltub by default for litecoin, but can be set to xprv', function(done) {
     });
 });
 
-// BIP32 tab can use P2WPKH Nested In P2SH
-// github issue 91 part 2
-// https://github.com/iancoleman/bip39/issues/91
-// generate new addresses from xpub?
-it('Uses xprv by default for litecoin, but can be set to ltpv', function(done) {
-    // use p2wpkh addresses
-    driver.executeScript(function() {
-        $(".p2wpkh-nested-in-p2sh").prop("checked", true);
-    });
-    // use bip32 tab
-    driver.findElement(By.css('#bip32-tab a'))
-        .click()
-    // use testnet
-    selectNetwork("BTC - Bitcoin Testnet");
-    // Set root xpub to BIP49 official test vector account 0
-    driver.findElement(By.css('.root-key'))
-        .sendKeys("tpubDD7tXK8KeQ3YY83yWq755fHY2JW8Ha8Q765tknUM5rSvjPcGWfUppDFMpQ1ScziKfW3ZNtZvAD7M3u7bSs7HofjTD3KP3YxPK7X6hwV8Rk2");
-    driver.sleep(generateDelay).then(function() {
-        getFirstAddress(function(address) {
-            expect(address).toBe("2Mww8dCYPUpKHofjgcXcBCEGmniw9CoaiD2");
-            done();
-        });
-    });
-});
-
 // github issue 99
 // https://github.com/iancoleman/bip39/issues/99#issuecomment-327094159
 // "warn me emphatically when they have detected invalid input" to the entropy field
