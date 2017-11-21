@@ -2577,4 +2577,48 @@ it('Can use bitpay format for bitcoin cash addresses', function(done) {
     });
 });
 
+// End of tests ported from old suit, so no more comments above each test now
+
+it('Can generate more addresses from a custom index', function(done) {
+    var expectedIndexes = [
+        0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,
+        40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59
+    ];
+    driver.findElement(By.css('.phrase'))
+        .sendKeys("abandon abandon ability");
+    driver.sleep(generateDelay).then(function() {
+        // Set start of next lot of rows to be from index 40
+        // which means indexes 20-39 will not be in the table.
+        driver.findElement(By.css('.more-rows-start-index'))
+            .sendKeys("40");
+        driver.findElement(By.css('.more'))
+            .click();
+        driver.sleep(generateDelay).then(function() {
+            // Check actual indexes in the table match the expected pattern
+            driver.findElements(By.css(".index"))
+                .then(function(els) {
+                    expect(els.length).toBe(expectedIndexes.length);
+                    var testRowAtIndex = function(i) {
+                        if (i >= expectedIndexes.length) {
+                            done();
+                        }
+                        else {
+                            els[i].getText()
+                                .then(function(actualPath) {
+                                    var noHardened = actualPath.replace(/'/g, "");
+                                    var pathBits = noHardened.split("/")
+                                    var lastBit = pathBits[pathBits.length-1];
+                                    var actualIndex = parseInt(lastBit);
+                                    var expectedIndex = expectedIndexes[i];
+                                    expect(actualIndex).toBe(expectedIndex);
+                                    testRowAtIndex(i+1);
+                                });
+                        }
+                    }
+                    testRowAtIndex(0);
+                });
+        });
+    });
+});
+
 });

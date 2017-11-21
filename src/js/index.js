@@ -80,6 +80,7 @@
     DOM.addresses = $(".addresses");
     DOM.rowsToAdd = $(".rows-to-add");
     DOM.more = $(".more");
+    DOM.moreRowsStartIndex = $(".more-rows-start-index");
     DOM.feedback = $(".feedback");
     DOM.tab = $(".derivation-type a");
     DOM.indexToggle = $(".index-toggle");
@@ -750,11 +751,18 @@
     }
 
     function showMore() {
-        var start = DOM.addresses.children().length;
         var rowsToAdd = parseInt(DOM.rowsToAdd.val());
         if (isNaN(rowsToAdd)) {
             rowsToAdd = 20;
             DOM.rowsToAdd.val("20");
+        }
+        var start = parseInt(DOM.moreRowsStartIndex.val())
+        if (isNaN(start)) {
+            start = lastIndexInTable() + 1;
+        }
+        else {
+            var newStart = start + rowsToAdd;
+            DOM.moreRowsStartIndex.val(newStart);
         }
         if (rowsToAdd > 200) {
             var msg = "Generating " + rowsToAdd + " rows could take a while. ";
@@ -1289,6 +1297,14 @@
                 network = bitcoinjs.bitcoin.networks.litecoin;
             }
         }
+    }
+
+    function lastIndexInTable() {
+        var pathText = DOM.addresses.find(".index").last().text();
+        var pathBits = pathText.split("/");
+        var lastBit = pathBits[pathBits.length-1];
+        var lastBitClean = lastBit.replace("'", "");
+        return parseInt(lastBitClean);
     }
 
     var networks = [
