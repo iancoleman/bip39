@@ -2596,4 +2596,51 @@ it('Can generate more addresses from a custom index', function(done) {
     });
 });
 
+it('Can generate BIP141 addresses with P2WPKH-in-P2SH semanitcs', function(done) {
+    // Sourced from BIP49 official test specs
+    driver.findElement(By.css('#bip141-tab a'))
+        .click();
+    driver.findElement(By.css('.bip141-path'))
+        .clear();
+    driver.findElement(By.css('.bip141-path'))
+        .sendKeys("m/49'/1'/0'/0");
+    selectNetwork("BTC - Bitcoin Testnet");
+    driver.findElement(By.css(".phrase"))
+        .sendKeys("abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about");
+    driver.sleep(generateDelay).then(function() {
+        getFirstAddress(function(address) {
+            expect(address).toBe("2Mww8dCYPUpKHofjgcXcBCEGmniw9CoaiD2");
+            done();
+        });
+    });
+});
+
+it('Can generate BIP141 addresses with P2WPKH semanitcs', function(done) {
+    // This result tested against bitcoinjs-lib test spec for segwit address
+    // using the first private key of this mnemonic and default path m/0
+    // https://github.com/bitcoinjs/bitcoinjs-lib/blob/9c8503cab0c6c30a95127042703bc18e8d28c76d/test/integration/addresses.js#L50
+    // so whilst not directly comparable, substituting the private key produces
+    // identical results between this tool and the bitcoinjs-lib test.
+    // Private key generated is:
+    // L3L8Nu9whawPBNLGtFqDhKut9DKKfG3CQoysupT7BimqVCZsLFNP
+    driver.findElement(By.css('#bip141-tab a'))
+        .click();
+    // Choose P2WPKH
+    driver.executeScript(function() {
+        $(".bip141-semantics option[selected]").removeAttr("selected");
+        $(".bip141-semantics option").filter(function(i,e) {
+            return $(e).html() == "P2WPKH";
+        }).prop("selected", true);
+        $(".bip141-semantics").trigger("change");
+    });
+    driver.findElement(By.css(".phrase"))
+        .sendKeys("abandon abandon ability");
+    driver.sleep(generateDelay).then(function() {
+        getFirstAddress(function(address) {
+            expect(address).toBe("bc1qfwu6a5a3evygrk8zvdxxvz4547lmpyx5vsfxe9");
+            done();
+        });
+    });
+});
+
 });

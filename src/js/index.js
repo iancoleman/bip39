@@ -52,6 +52,7 @@
     DOM.bip32tab = $("#bip32-tab");
     DOM.bip44tab = $("#bip44-tab");
     DOM.bip49tab = $("#bip49-tab");
+    DOM.bip141tab = $("#bip141-tab");
     DOM.bip32panel = $("#bip32");
     DOM.bip44panel = $("#bip44");
     DOM.bip49panel = $("#bip49");
@@ -72,6 +73,10 @@
     DOM.bip49accountXprv = $("#bip49 .account-xprv");
     DOM.bip49accountXpub = $("#bip49 .account-xpub");
     DOM.bip49change = $("#bip49 .change");
+    DOM.bip141unavailable = $("#bip141 .unavailable");
+    DOM.bip141available = $("#bip141 .available");
+    DOM.bip141path = $("#bip141-path");
+    DOM.bip141semantics = $(".bip141-semantics");
     DOM.generatedStrength = $(".generate-container .strength");
     DOM.hardenedAddresses = $(".hardened-addresses");
     DOM.useBitpayAddressesContainer = $(".use-bitpay-addresses-container");
@@ -111,6 +116,8 @@
         DOM.bip44change.on("input", calcForDerivationPath);
         DOM.bip49account.on("input", calcForDerivationPath);
         DOM.bip49change.on("input", calcForDerivationPath);
+        DOM.bip141path.on("input", calcForDerivationPath);
+        DOM.bip141semantics.on("change", tabChanged);
         DOM.tab.on("shown.bs.tab", tabChanged);
         DOM.hardenedAddresses.on("change", calcForDerivationPath);
         DOM.indexToggle.on("click", toggleIndexes);
@@ -138,6 +145,7 @@
         var network = networks[networkIndex];
         network.onSelect();
         if (network.segwitAvailable) {
+            adjustNetworkForSegwit();
             showSegwitAvailable();
         }
         else {
@@ -343,7 +351,7 @@
         if (bip44TabSelected()) {
             displayBip44Info();
         }
-        if (bip49TabSelected()) {
+        else if (bip49TabSelected()) {
             displayBip49Info();
         }
         displayBip32Info();
@@ -523,7 +531,7 @@
             console.log("Using derivation path from BIP44 tab: " + derivationPath);
             return derivationPath;
         }
-        if (bip49TabSelected()) {
+        else if (bip49TabSelected()) {
             var purpose = parseIntNoNaN(DOM.bip49purpose.val(), 49);
             var coin = parseIntNoNaN(DOM.bip49coin.val(), 0);
             var account = parseIntNoNaN(DOM.bip49account.val(), 0);
@@ -541,6 +549,11 @@
         else if (bip32TabSelected()) {
             var derivationPath = DOM.bip32path.val();
             console.log("Using derivation path from BIP32 tab: " + derivationPath);
+            return derivationPath;
+        }
+        else if (bip141TabSelected()) {
+            var derivationPath = DOM.bip141path.val();
+            console.log("Using derivation path from BIP141 tab: " + derivationPath);
             return derivationPath;
         }
         else {
@@ -673,7 +686,16 @@
     }
 
     function segwitSelected() {
-        return bip49TabSelected();
+        return bip49TabSelected() || bip141TabSelected();
+    }
+
+    function p2wpkhSelected() {
+        return bip141TabSelected() && DOM.bip141semantics.val() == "p2wpkh";
+    }
+
+    function p2wpkhInP2shSelected() {
+        return bip49TabSelected() ||
+            (bip141TabSelected() && DOM.bip141semantics.val() == "p2wpkh-p2sh");
     }
 
     function TableRow(index, isLast) {
@@ -683,6 +705,8 @@
         var useHardenedAddresses = DOM.hardenedAddresses.prop("checked");
         var isSegwit = segwitSelected();
         var segwitAvailable = networkHasSegwit();
+        var isP2wpkh = p2wpkhSelected();
+        var isP2wpkhInP2sh = p2wpkhInP2shSelected();
 
         function init() {
             calculateValues();
@@ -731,11 +755,18 @@
                     if (!segwitAvailable) {
                         return;
                     }
-                    var keyhash = bitcoinjs.bitcoin.crypto.hash160(key.getPublicKeyBuffer());
-                    var scriptsig = bitcoinjs.bitcoin.script.witnessPubKeyHash.output.encode(keyhash);
-                    var addressbytes = bitcoinjs.bitcoin.crypto.hash160(scriptsig);
-                    var scriptpubkey = bitcoinjs.bitcoin.script.scriptHash.output.encode(addressbytes);
-                    address = bitcoinjs.bitcoin.address.fromOutputScript(scriptpubkey, network)
+                    if (isP2wpkh) {
+                        var keyhash = bitcoinjs.bitcoin.crypto.hash160(key.getPublicKeyBuffer());
+                        var scriptpubkey = bitcoinjs.bitcoin.script.witnessPubKeyHash.output.encode(keyhash);
+                        address = bitcoinjs.bitcoin.address.fromOutputScript(scriptpubkey, network)
+                    }
+                    else if (isP2wpkhInP2sh) {
+                        var keyhash = bitcoinjs.bitcoin.crypto.hash160(key.getPublicKeyBuffer());
+                        var scriptsig = bitcoinjs.bitcoin.script.witnessPubKeyHash.output.encode(keyhash);
+                        var addressbytes = bitcoinjs.bitcoin.crypto.hash160(scriptsig);
+                        var scriptpubkey = bitcoinjs.bitcoin.script.scriptHash.output.encode(addressbytes);
+                        address = bitcoinjs.bitcoin.address.fromOutputScript(scriptpubkey, network)
+                    }
                 }
                 addAddressToList(indexText, address, pubkey, privkey);
                 if (isLast) {
@@ -1233,6 +1264,10 @@
         return DOM.bip49tab.hasClass("active");
     }
 
+    function bip141TabSelected() {
+        return DOM.bip141tab.hasClass("active");
+    }
+
     function setHdCoin(coinValue) {
         DOM.bip44coin.val(coinValue);
         DOM.bip49coin.val(coinValue);
@@ -1241,11 +1276,15 @@
     function showSegwitAvailable() {
         DOM.bip49unavailable.addClass("hidden");
         DOM.bip49available.removeClass("hidden");
+        DOM.bip141unavailable.addClass("hidden");
+        DOM.bip141available.removeClass("hidden");
     }
 
     function showSegwitUnavailable() {
         DOM.bip49available.addClass("hidden");
         DOM.bip49unavailable.removeClass("hidden");
+        DOM.bip141available.addClass("hidden");
+        DOM.bip141unavailable.removeClass("hidden");
     }
 
     function useBitpayAddresses() {
@@ -1266,27 +1305,18 @@
         // to avoid accidentally importing BIP49 xpub to BIP44 watch only
         // wallet.
         // See https://github.com/iancoleman/bip39/issues/125
-        if (segwitSelected()) {
-            if (network == bitcoinjs.bitcoin.networks.bitcoin) {
-                network = bitcoinjs.bitcoin.networks.bitcoinBip49;
-            }
-            else if (network == bitcoinjs.bitcoin.networks.testnet) {
-                network = bitcoinjs.bitcoin.networks.testnetBip49;
-            }
-            else if (network == bitcoinjs.bitcoin.networks.litecoin) {
-                network = bitcoinjs.bitcoin.networks.litecoinBip49;
-            }
+        var segwitNetworks = null;
+        // if a segwit network is alread selected, need to use base network to
+        // look up new parameters
+        if ("baseNetwork" in network) {
+            network = bitcoinjs.bitcoin.networks[network.baseNetwork];
         }
-        else {
-            if (network == bitcoinjs.bitcoin.networks.bitcoinBip49) {
-                network = bitcoinjs.bitcoin.networks.bitcoin;
-            }
-            else if (network == bitcoinjs.bitcoin.networks.testnetBip49) {
-                network = bitcoinjs.bitcoin.networks.testnet;
-            }
-            else if (network == bitcoinjs.bitcoin.networks.litecoinBip49) {
-                network = bitcoinjs.bitcoin.networks.litecoin;
-            }
+        // choose the right segwit params
+        if (p2wpkhSelected() && "p2wpkh" in network) {
+            network = network.p2wpkh;
+        }
+        else if (p2wpkhInP2shSelected() && "p2wpkhInP2sh" in network) {
+            network = network.p2wpkhInP2sh;
         }
     }
 

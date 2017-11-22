@@ -301,6 +301,9 @@
                         <li id="bip49-tab">
                             <a href="#bip49" role="tab" data-toggle="tab">BIP49</a>
                         </li>
+                        <li id="bip141-tab">
+                            <a href="#bip141" role="tab" data-toggle="tab">BIP141</a>
+                        </li>
                     </ul>
                     <div class="derivation-type tab-content">
                         <div id="bip44" class="tab-pane active">
@@ -539,6 +542,43 @@
                                         <label for="bip49-path" class="col-sm-2 control-label">BIP32 Derivation Path</label>
                                         <div class="col-sm-10">
                                             <input id="bip49-path" type="text" class="path form-control" value="m/49'/0'/0'/0" readonly="readonly">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="bip141" class="tab-pane">
+                            <form class="form-horizontal" role="form">
+                                <br>
+                                <div class="unavailable hidden">
+                                    <div class="form-group">
+                                        <div class="col-sm-2"></div>
+                                        <div class="col-sm-10">
+                                            <p>BIP141 is unavailable for this coin.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="available">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-10">
+                                        <p>
+                                            For more info see the
+                                            <a href="https://github.com/bitcoin/bips/blob/master/bip-0141.mediawiki" target="_blank">BIP141 spec</a>
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="bip141-path" class="col-sm-2 control-label">BIP32 Derivation Path</label>
+                                        <div class="col-sm-10">
+                                            <input id="bip141-path" type="text" class="bip141-path form-control" value="m/0">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Script Semantics</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control bip141-semantics">
+                                                <option value="p2wpkh">P2WPKH</option>
+                                                <option value="p2wpkh-p2sh" selected>P2WPKH nested in P2SH</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -830,6 +870,7 @@
         <script src="js/jquery.qrcode.min.js"></script>
         <script src="js/bitcoinjs-3.3.0.js"></script>
         <script src="js/bitcoinjs-extensions.js"></script>
+        <script src="js/segwit-parameters.js"></script>
         <script src="js/ethereumjs-util.js"></script>
         <script src="js/ripple-util.js"></script>
         <script src="js/sjcl-bip39.js"></script>
