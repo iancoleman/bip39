@@ -1,3 +1,10 @@
+# 0.3.0
+
+* Update bitcoinjs from 3.1.1 to 3.3.0
+* Litecoin defaults to ltub instead of xpub
+* Segwit option removed from bip32 tab
+* BIP141 tab added for full segwit compatibility
+
 # 0.2.9
 
 * Update links from old site to new site
