@@ -37,6 +37,7 @@
     DOM.entropyBitsPerEvent = DOM.entropyContainer.find(".bits-per-event");
     DOM.entropyWordCount = DOM.entropyContainer.find(".word-count");
     DOM.entropyBinary = DOM.entropyContainer.find(".binary");
+    DOM.entropyWordIndexes = DOM.entropyContainer.find(".word-indexes");
     DOM.entropyMnemonicLength = DOM.entropyContainer.find(".mnemonic-length");
     DOM.entropyFilterWarning = DOM.entropyContainer.find(".filter-warning");
     DOM.phrase = $(".phrase");
@@ -219,6 +220,8 @@
         var passphrase = DOM.passphrase.val();
         calcBip32RootKeyFromSeed(phrase, passphrase);
         calcForDerivationPath();
+        // Show the word indexes
+        showWordIndexes();
     }
 
     function tabChanged() {
@@ -420,10 +423,20 @@
             showValidationError(errorText);
             return;
         }
+        // get the amount of entropy to use
         var numWords = parseInt(DOM.generatedStrength.val());
         var strength = numWords / 3 * 32;
-        var words = mnemonic.generate(strength);
+        var buffer = new Uint8Array(strength / 8);
+        // create secure entropy
+        var data = crypto.getRandomValues(buffer);
+        // show the words
+        var words = mnemonic.toMnemonic(data);
         DOM.phrase.val(words);
+        // show the entropy
+        var entropyHex = uint8ArrayToHex(data);
+        DOM.entropy.val(entropyHex);
+        // ensure entropy fields are consistent with what is being displayed
+        DOM.entropyMnemonicLength.val("raw");
         return words;
     }
 
@@ -1103,6 +1116,8 @@
         var phrase = mnemonic.toMnemonic(entropyArr);
         // Set the mnemonic in the UI
         DOM.phrase.val(phrase);
+        // Show the word indexes
+        showWordIndexes();
     }
 
     function clearEntropyFeedback() {
@@ -1326,6 +1341,32 @@
         var lastBit = pathBits[pathBits.length-1];
         var lastBitClean = lastBit.replace("'", "");
         return parseInt(lastBitClean);
+    }
+
+    function uint8ArrayToHex(a) {
+        var s = ""
+        for (var i=0; i<a.length; i++) {
+            var h = a[i].toString(16);
+            while (h.length < 2) {
+                h = "0" + h;
+            }
+            s = s + h;
+        }
+        return s;
+    }
+
+    function showWordIndexes() {
+        var phrase = DOM.phrase.val();
+        var words = phraseToWordArray(phrase);
+        var wordIndexes = [];
+        var language = getLanguage();
+        for (var i=0; i<words.length; i++) {
+            var word = words[i];
+            var wordIndex = WORDLISTS[language].indexOf(word);
+            wordIndexes.push(wordIndex);
+        }
+        var wordIndexesStr = wordIndexes.join(", ");
+        DOM.entropyWordIndexes.text(wordIndexesStr);
     }
 
     var networks = [

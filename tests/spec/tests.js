@@ -2643,4 +2643,31 @@ it('Can generate BIP141 addresses with P2WPKH semanitcs', function(done) {
     });
 });
 
+it('Shows the entropy used by the PRNG when clicking generate', function(done) {
+    driver.findElement(By.css('.generate')).click();
+    driver.sleep(generateDelay).then(function() {
+        driver.findElement(By.css('.entropy'))
+            .getAttribute("value")
+            .then(function(entropy) {
+                expect(entropy).not.toBe("");
+                done();
+            });
+    });
+});
+
+it('Shows the index of each word in the mnemonic', function(done) {
+    driver.findElement(By.css('.phrase'))
+        .sendKeys("abandon abandon ability");
+    driver.sleep(generateDelay).then(function() {
+        driver.findElement(By.css('.use-entropy'))
+            .click();
+        driver.findElement(By.css('.word-indexes'))
+            .getText()
+            .then(function(indexes) {
+                expect(indexes).toBe("0, 0, 1");
+                done();
+            });
+    });
+});
+
 });
