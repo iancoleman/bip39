@@ -14244,6 +14244,39 @@ bitcoin.networks.bitcoingold = {
     pubKeyHash: 38,
     scriptHash: 23,
     wif: 128,
+}
+
+bitcoin.networks.firstcoin = {
+    magicPrefix: '\x19FirstCoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 35,
+    scriptHash: 5,
+    wif: 163,
+}
+
+bitcoin.networks.vivo = {
+    magicPrefix: '\x19DarkCoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 70,
+    scriptHash: 10,
+    wif: 198,
+}
+
+bitcoin.networks.whitecoin = {
+    magicPrefix: '\x19Whitecoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 73,
+    scriptHash: 87,
+    wif: 201,
 }</script>
         <script>// Select components from sjcl to suit the crypto operations bip39 requires.
 
@@ -17291,7 +17324,7 @@ d+"px").css("background-color",a.isDark(e,i)?h.foreground:h.background).appendTo
             name: "Voxels",
             onSelect: function() {
                 network = bitcoin.networks.voxels;
-                DOM.bip44coin.val(126);
+                DOM.bip44coin.val(129);
             },
         },
         {
@@ -17326,7 +17359,7 @@ d+"px").css("background-color",a.isDark(e,i)?h.foreground:h.background).appendTo
             name: "Bitcore",
             onSelect: function() {
                 network = bitcoin.networks.bitcore;
-                DOM.bip44coin.val(150);
+                DOM.bip44coin.val(160);
             },
         },
         {
@@ -17347,7 +17380,7 @@ d+"px").css("background-color",a.isDark(e,i)?h.foreground:h.background).appendTo
             name: "Diamond",
             onSelect: function() {
                 network = bitcoin.networks.diamond;
-                DOM.bip44coin.val(158);
+                DOM.bip44coin.val(152);
             },
         },
         {
@@ -17361,7 +17394,28 @@ d+"px").css("background-color",a.isDark(e,i)?h.foreground:h.background).appendTo
             name: "Helleniccoin",
             onSelect: function() {
                 network = bitcoin.networks.helleniccoin;
-                DOM.bip44coin.val(163);
+                DOM.bip44coin.val(168);
+            },
+        },
+        {
+            name: "Firstcoin",
+            onSelect: function() {
+                network = bitcoin.networks.firstcoin;
+                DOM.bip44coin.val(167);
+            },
+        },
+        {
+            name: "Vivo",
+            onSelect: function() {
+                network = bitcoin.networks.vivo;
+                DOM.bip44coin.val(166);
+            },
+        },
+        {
+            name: "Whitecoin",
+            onSelect: function() {
+                network = bitcoin.networks.whitecoin;
+                DOM.bip44coin.val(155);
             },
         },
     ]

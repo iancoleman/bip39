@@ -1230,3 +1230,36 @@ bitcoin.networks.bitcoingold = {
     scriptHash: 23,
     wif: 128,
 }
+
+bitcoin.networks.firstcoin = {
+    magicPrefix: '\x19FirstCoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 35,
+    scriptHash: 5,
+    wif: 163,
+}
+
+bitcoin.networks.vivo = {
+    magicPrefix: '\x19DarkCoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 70,
+    scriptHash: 10,
+    wif: 198,
+}
+
+bitcoin.networks.whitecoin = {
+    magicPrefix: '\x19Whitecoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 73,
+    scriptHash: 87,
+    wif: 201,
+}

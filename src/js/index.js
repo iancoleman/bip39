@@ -1067,7 +1067,7 @@
             name: "Voxels",
             onSelect: function() {
                 network = bitcoin.networks.voxels;
-                DOM.bip44coin.val(126);
+                DOM.bip44coin.val(129);
             },
         },
         {
@@ -1102,7 +1102,7 @@
             name: "Bitcore",
             onSelect: function() {
                 network = bitcoin.networks.bitcore;
-                DOM.bip44coin.val(150);
+                DOM.bip44coin.val(160);
             },
         },
         {
@@ -1123,7 +1123,7 @@
             name: "Diamond",
             onSelect: function() {
                 network = bitcoin.networks.diamond;
-                DOM.bip44coin.val(158);
+                DOM.bip44coin.val(152);
             },
         },
         {
@@ -1137,7 +1137,28 @@
             name: "Helleniccoin",
             onSelect: function() {
                 network = bitcoin.networks.helleniccoin;
-                DOM.bip44coin.val(163);
+                DOM.bip44coin.val(168);
+            },
+        },
+        {
+            name: "Firstcoin",
+            onSelect: function() {
+                network = bitcoin.networks.firstcoin;
+                DOM.bip44coin.val(167);
+            },
+        },
+        {
+            name: "Vivo",
+            onSelect: function() {
+                network = bitcoin.networks.vivo;
+                DOM.bip44coin.val(166);
+            },
+        },
+        {
+            name: "Whitecoin",
+            onSelect: function() {
+                network = bitcoin.networks.whitecoin;
+                DOM.bip44coin.val(155);
             },
         },
     ]
