@@ -83,7 +83,7 @@ body {
 .qr-hint,
 .qr-warning {
     padding: 2px;
-    max-width: 150px;
+    max-width: 320px;
 }
 .more-info {
     cursor: help;

@@ -1240,8 +1240,13 @@
     function createQr(e) {
         var content = e.target.textContent || e.target.value;
         if (content) {
-            var size = 130;
-            DOM.qrImage.qrcode({width: size, height: size, text: content});
+            var qrEl = kjua({
+                text: content,
+                render: "canvas",
+                size: 310,
+                ecLevel: 'H',
+            });
+            DOM.qrImage.append(qrEl);
             if (!showQr) {
                 DOM.qrHider.addClass("hidden");
             }
