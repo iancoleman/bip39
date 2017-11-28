@@ -1,3 +1,13 @@
+# 0.3.1
+
+* Populate entropy field with hex value used from PRNG
+* Show list of word indexes
+* Fix typos
+* Update jquery from 2.1.1 to 3.2.1
+* Update bootstrap from 3.2.0 to 3.3.7
+* Move application-specific css into own file
+* QR codes with accents work correctly by replacing jquery.qrcode with kjua
+
 # 0.3.0
 
 * Update bitcoinjs from 3.1.1 to 3.3.0
