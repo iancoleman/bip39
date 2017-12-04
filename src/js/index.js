@@ -1481,6 +1481,14 @@
             },
         },
         {
+            name: "KMD - Komodo",
+            bip49available: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.komodo;
+                setHdCoin(141);
+            },
+        },
+        {
             name: "LTC - Litecoin",
             segwitAvailable: true,
             onSelect: function() {
