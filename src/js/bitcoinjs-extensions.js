@@ -305,3 +305,14 @@ bitcoinjs.bitcoin.networks.qtum = {
     scriptHash: 0x32,
     wif: 0x80
 };
+
+bitcoinjs.bitcoin.networks.komodo = {
+  messagePrefix: '\x18Komodo Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4
+  },
+  pubKeyHash: 0x3c,
+  scriptHash: 0x55,
+  wif: 0xbc
+};
