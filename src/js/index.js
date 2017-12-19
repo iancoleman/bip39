@@ -1522,6 +1522,14 @@
             },
         },
         {
+            name: "ONX - Onixcoin",
+            segwitAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.onixcoin;
+                setHdCoin(174);
+            },
+        },
+        {
             name: "PIVX - PIVX",
             segwitAvailable: false,
             onSelect: function() {

@@ -207,6 +207,18 @@ bitcoinjs.bitcoin.networks.myriadcoin = {
   wif: 0xb2
 };
 
+
+bitcoinjs.bitcoin.networks.onixcoin = {
+    messagePrefix: 'unused',
+    bip32: {
+      public: 0x049d7cb2,
+      private: 0x049d7878
+    },
+    pubKeyHash: 0x4B,
+    scriptHash: 0x05,
+    wif: 0x80
+};
+
 bitcoinjs.bitcoin.networks.pivx = {
   messagePrefix: 'unused',
   bip32: {
