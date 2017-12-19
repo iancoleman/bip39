@@ -781,6 +781,7 @@
                         address = bitcoinjs.bitcoin.address.fromOutputScript(scriptpubkey, network)
                     }
                 }
+                console.log(address);
                 addAddressToList(indexText, address, pubkey, privkey);
                 if (isLast) {
                     hidePending();
@@ -1518,7 +1519,7 @@
             segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.onixcoin;
-                setHdCoin(99);
+                setHdCoin(174);
             },
         },
         {
