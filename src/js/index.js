@@ -781,7 +781,6 @@
                         address = bitcoinjs.bitcoin.address.fromOutputScript(scriptpubkey, network)
                     }
                 }
-                console.log(address);
                 addAddressToList(indexText, address, pubkey, privkey);
                 if (isLast) {
                     hidePending();
