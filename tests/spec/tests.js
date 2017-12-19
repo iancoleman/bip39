@@ -506,6 +506,13 @@ it('Allows selection of namecoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of onixcoin', function(done) {
+    var params = {
+        selectText: "ONX - Onixcoin",
+        firstAddress: "XGwMqddeKjT3ddgX73QokjVbCL3aK6Yxfk",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of peercoin', function(done) {
     var params = {
         selectText: "PPC - Peercoin",
