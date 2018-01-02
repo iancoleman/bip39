@@ -1,3 +1,10 @@
+# 0.3.2
+
+* Add Onixcoin
+* Add Komodo
+* BIP84 tab for derivation path
+* CSV tab for derived addresses
+
 # 0.3.1
 
 * Populate entropy field with hex value used from PRNG

@@ -6858,6 +6858,14 @@ button.close {
     top: 5px;
     right: 5px;
 }
+.csv {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    white-space: pre;
+    overflow-wrap: normal;
+    overflow-x: scroll;
+    font-family: monospace;
+}
 </style>
         <meta content="Mnemonic code for generating deterministic keys" name="description"/>
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -6869,7 +6877,7 @@ button.close {
         <div class="container">
 
             <h1 class="text-center">Mnemonic Code Converter</h1>
-            <p class="version">v0.3.1</p>
+            <p class="version">v0.3.2</p>
             <hr>
             <div class="row">
                 <div class="col-md-12">
@@ -7057,6 +7065,9 @@ button.close {
                         </li>
                         <li id="bip49-tab">
                             <a href="#bip49" role="tab" data-toggle="tab">BIP49</a>
+                        </li>
+                        <li id="bip84-tab">
+                            <a href="#bip84" role="tab" data-toggle="tab">BIP84</a>
                         </li>
                         <li id="bip141-tab">
                             <a href="#bip141" role="tab" data-toggle="tab">BIP141</a>
@@ -7341,6 +7352,86 @@ button.close {
                                 </div>
                             </form>
                         </div>
+                        <div id="bip84" class="tab-pane">
+                            <form class="form-horizontal" role="form">
+                                <br>
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-10">
+                                    <p>
+                                        For more info see the
+                                        <a href="https://github.com/bitcoin/bips/blob/master/bip-0084.mediawiki" target="_blank">BIP84 spec</a>.
+                                    </p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="purpose" class="col-sm-2 control-label">
+                                        Purpose
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input id="purpose" type="text" class="purpose form-control" value="84" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="coin" class="col-sm-2 control-label">
+                                        Coin
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input id="coin" type="text" class="coin form-control" value="0" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="account" class="col-sm-2 control-label">
+                                        Account
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input id="account" type="text" class="account form-control" value="0">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="change" class="col-sm-2 control-label">
+                                        External / Internal
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input id="change" type="text" class="change form-control" value="0">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <p>The account extended keys can be used for importing to most BIP84 compatible wallets.</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="account-xprv" class="col-sm-2 control-label">
+                                        <span>Account Extended Private Key</span>
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <textarea id="account-xprv" type="text" class="account-xprv form-control" readonly data-show-qr></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="account-xpub" class="col-sm-2 control-label">
+                                        <span>Account Extended Public Key</span>
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <textarea id="account-xpub" type="text" class="account-xpub form-control" readonly data-show-qr></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <p>The BIP32 derivation path and extended keys are the basis for the derived addresses.</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="bip84-path" class="col-sm-2 control-label">BIP32 Derivation Path</label>
+                                    <div class="col-sm-10">
+                                        <input id="bip84-path" type="text" class="path form-control" value="m/84'/0'/0'/0" readonly="readonly">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <form class="form-horizontal" role="form">
                         <div class="form-group">
@@ -7374,42 +7465,59 @@ button.close {
                         </label>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <table class="table table-striped">
-                        <thead>
-                            <th>
-                                <div class="input-group">
-                                    <span>Path</span>&nbsp;&nbsp;
-                                    <button class="index-toggle">Toggle</button>
-                                </div>
-                            </th>
-                            <th>
-                                <div class="input-group">
-                                    <span>Address</span>&nbsp;&nbsp;
-                                    <button class="address-toggle">Toggle</button>
-                                </div>
-                            </th>
-                            <th>
-                                <div class="input-group">
-                                    <span>Public Key</span>&nbsp;&nbsp;
-                                    <button class="public-key-toggle">Toggle</button>
-                                </div>
-                            </th>
-                            <th>
-                                <div class="input-group">
-                                    <span>Private Key</span>&nbsp;&nbsp;
-                                    <button class="private-key-toggle">Toggle</button>
-                                </div>
-                            </th>
-                        </thead>
-                        <tbody class="addresses monospace">
-                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                        </tbody>
-                    </table>
+                <ul class="addresses-type nav nav-tabs" role="tablist">
+                    <li id="table-tab" class="active">
+                        <a href="#table" role="tab" data-toggle="tab">Table</a>
+                    </li>
+                    <li id="csv-tab">
+                        <a href="#csv" role="tab" data-toggle="tab">CSV</a>
+                    </li>
+                </ul>
+                <div class="addresses-type tab-content">
+                    <div id="table" class="tab-pane active">
+                        <div class="col-md-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <th>
+                                        <div class="input-group">
+                                            <span>Path</span>&nbsp;&nbsp;
+                                            <button class="index-toggle">Toggle</button>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="input-group">
+                                            <span>Address</span>&nbsp;&nbsp;
+                                            <button class="address-toggle">Toggle</button>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="input-group">
+                                            <span>Public Key</span>&nbsp;&nbsp;
+                                            <button class="public-key-toggle">Toggle</button>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="input-group">
+                                            <span>Private Key</span>&nbsp;&nbsp;
+                                            <button class="private-key-toggle">Toggle</button>
+                                        </div>
+                                    </th>
+                                </thead>
+                                <tbody class="addresses monospace">
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="csv" class="tab-pane">
+                        <div class="col-md-12">
+                            <textarea class="csv form-control" rows="25" readonly></textarea>
+                        </div>
+                    </div>
                 </div>
             </div>
             <span>Show</span>
@@ -50855,6 +50963,18 @@ bitcoinjs.bitcoin.networks.myriadcoin = {
   wif: 0xb2
 };
 
+
+bitcoinjs.bitcoin.networks.onixcoin = {
+    messagePrefix: 'unused',
+    bip32: {
+      public: 0x049d7cb2,
+      private: 0x049d7878
+    },
+    pubKeyHash: 0x4B,
+    scriptHash: 0x05,
+    wif: 0x80
+};
+
 bitcoinjs.bitcoin.networks.pivx = {
   messagePrefix: 'unused',
   bip32: {
@@ -50941,6 +51061,17 @@ bitcoinjs.bitcoin.networks.litecoinXprv = {
     pubKeyHash: 0x30,
     scriptHash: 0x32,
     wif: 0xb0
+};
+
+bitcoinjs.bitcoin.networks.komodo = {
+  messagePrefix: '\x18Komodo Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4
+  },
+  pubKeyHash: 0x3c,
+  scriptHash: 0x55,
+  wif: 0xbc
 };
 </script>
         <script>(function() {
@@ -74567,6 +74698,7 @@ window.Entropy = new (function() {
     DOM.bip32tab = $("#bip32-tab");
     DOM.bip44tab = $("#bip44-tab");
     DOM.bip49tab = $("#bip49-tab");
+    DOM.bip84tab = $("#bip84-tab");
     DOM.bip141tab = $("#bip141-tab");
     DOM.bip32panel = $("#bip32");
     DOM.bip44panel = $("#bip44");
@@ -74588,6 +74720,13 @@ window.Entropy = new (function() {
     DOM.bip49accountXprv = $("#bip49 .account-xprv");
     DOM.bip49accountXpub = $("#bip49 .account-xpub");
     DOM.bip49change = $("#bip49 .change");
+    DOM.bip84path = $("#bip84-path");
+    DOM.bip84purpose = $("#bip84 .purpose");
+    DOM.bip84coin = $("#bip84 .coin");
+    DOM.bip84account = $("#bip84 .account");
+    DOM.bip84accountXprv = $("#bip84 .account-xprv");
+    DOM.bip84accountXpub = $("#bip84 .account-xpub");
+    DOM.bip84change = $("#bip84 .change");
     DOM.bip141unavailable = $("#bip141 .unavailable");
     DOM.bip141available = $("#bip141 .available");
     DOM.bip141path = $("#bip141-path");
@@ -74597,6 +74736,8 @@ window.Entropy = new (function() {
     DOM.useBitpayAddressesContainer = $(".use-bitpay-addresses-container");
     DOM.useBitpayAddresses = $(".use-bitpay-addresses");
     DOM.addresses = $(".addresses");
+    DOM.csvTab = $("#csv-tab a");
+    DOM.csv = $(".csv");
     DOM.rowsToAdd = $(".rows-to-add");
     DOM.more = $(".more");
     DOM.moreRowsStartIndex = $(".more-rows-start-index");
@@ -74631,6 +74772,8 @@ window.Entropy = new (function() {
         DOM.bip44change.on("input", calcForDerivationPath);
         DOM.bip49account.on("input", calcForDerivationPath);
         DOM.bip49change.on("input", calcForDerivationPath);
+        DOM.bip84account.on("input", calcForDerivationPath);
+        DOM.bip84change.on("input", calcForDerivationPath);
         DOM.bip141path.on("input", calcForDerivationPath);
         DOM.bip141semantics.on("change", tabChanged);
         DOM.tab.on("shown.bs.tab", tabChanged);
@@ -74639,6 +74782,7 @@ window.Entropy = new (function() {
         DOM.addressToggle.on("click", toggleAddresses);
         DOM.publicKeyToggle.on("click", togglePublicKeys);
         DOM.privateKeyToggle.on("click", togglePrivateKeys);
+        DOM.csvTab.on("click", updateCsv);
         DOM.languages.on("click", languageChanged);
         DOM.useBitpayAddresses.on("change", useBitpayAddressesChange);
         setQrEvents(DOM.showQrEls);
@@ -74871,6 +75015,9 @@ window.Entropy = new (function() {
         else if (bip49TabSelected()) {
             displayBip49Info();
         }
+        else if (bip84TabSelected()) {
+            displayBip84Info();
+        }
         displayBip32Info();
     }
 
@@ -75073,6 +75220,21 @@ window.Entropy = new (function() {
             console.log("Using derivation path from BIP49 tab: " + derivationPath);
             return derivationPath;
         }
+        else if (bip84TabSelected()) {
+            var purpose = parseIntNoNaN(DOM.bip84purpose.val(), 84);
+            var coin = parseIntNoNaN(DOM.bip84coin.val(), 0);
+            var account = parseIntNoNaN(DOM.bip84account.val(), 0);
+            var change = parseIntNoNaN(DOM.bip84change.val(), 0);
+            var path = "m/";
+            path += purpose + "'/";
+            path += coin + "'/";
+            path += account + "'/";
+            path += change;
+            DOM.bip84path.val(path);
+            var derivationPath = DOM.bip84path.val();
+            console.log("Using derivation path from BIP84 tab: " + derivationPath);
+            return derivationPath;
+        }
         else if (bip32TabSelected()) {
             var derivationPath = DOM.bip32path.val();
             console.log("Using derivation path from BIP32 tab: " + derivationPath);
@@ -75173,6 +75335,24 @@ window.Entropy = new (function() {
         DOM.bip49accountXpub.val(accountXpub);
     }
 
+    function displayBip84Info() {
+        // Get the derivation path for the account
+        var purpose = parseIntNoNaN(DOM.bip84purpose.val(), 84);
+        var coin = parseIntNoNaN(DOM.bip84coin.val(), 0);
+        var account = parseIntNoNaN(DOM.bip84account.val(), 0);
+        var path = "m/";
+        path += purpose + "'/";
+        path += coin + "'/";
+        path += account + "'/";
+        // Calculate the account extended keys
+        var accountExtendedKey = calcBip32ExtendedKey(path);
+        var accountXprv = accountExtendedKey.toBase58();
+        var accountXpub = accountExtendedKey.neutered().toBase58();
+        // Display the extended keys
+        DOM.bip84accountXprv.val(accountXprv);
+        DOM.bip84accountXpub.val(accountXpub);
+    }
+
     function displayBip32Info() {
         // Display the key
         DOM.seed.val(seed);
@@ -75213,11 +75393,12 @@ window.Entropy = new (function() {
     }
 
     function segwitSelected() {
-        return bip49TabSelected() || bip141TabSelected();
+        return bip49TabSelected() || bip84TabSelected() || bip141TabSelected();
     }
 
     function p2wpkhSelected() {
-        return bip141TabSelected() && DOM.bip141semantics.val() == "p2wpkh";
+        return bip84TabSelected() ||
+                bip141TabSelected() && DOM.bip141semantics.val() == "p2wpkh";
     }
 
     function p2wpkhInP2shSelected() {
@@ -75298,6 +75479,7 @@ window.Entropy = new (function() {
                 addAddressToList(indexText, address, pubkey, privkey);
                 if (isLast) {
                     hidePending();
+                    updateCsv();
                 }
             }, 50)
         }
@@ -75338,6 +75520,7 @@ window.Entropy = new (function() {
 
     function clearAddressesList() {
         DOM.addresses.empty();
+        DOM.csv.val("");
         stopGenerating();
     }
 
@@ -75798,6 +75981,10 @@ window.Entropy = new (function() {
         return DOM.bip49tab.hasClass("active");
     }
 
+    function bip84TabSelected() {
+        return DOM.bip84tab.hasClass("active");
+    }
+
     function bip141TabSelected() {
         return DOM.bip141tab.hasClass("active");
     }
@@ -75805,6 +75992,7 @@ window.Entropy = new (function() {
     function setHdCoin(coinValue) {
         DOM.bip44coin.val(coinValue);
         DOM.bip49coin.val(coinValue);
+        DOM.bip84coin.val(coinValue);
     }
 
     function showSegwitAvailable() {
@@ -75886,6 +76074,26 @@ window.Entropy = new (function() {
         }
         var wordIndexesStr = wordIndexes.join(", ");
         DOM.entropyWordIndexes.text(wordIndexesStr);
+    }
+
+    function updateCsv() {
+        var tableCsv = "path,address,public key,private key\n";
+        var rows = DOM.addresses.find("tr");
+        for (var i=0; i<rows.length; i++) {
+            var row = $(rows[i]);
+            var cells = row.find("td");
+            for (var j=0; j<cells.length; j++) {
+                var cell = $(cells[j]);
+                if (!cell.children().hasClass("invisible")) {
+                    tableCsv = tableCsv + cell.text();
+                }
+                if (j != cells.length - 1) {
+                    tableCsv = tableCsv + ",";
+                }
+            }
+            tableCsv = tableCsv + "\n";
+        }
+        DOM.csv.val(tableCsv);
     }
 
     var networks = [
@@ -75995,6 +76203,14 @@ window.Entropy = new (function() {
             },
         },
         {
+            name: "KMD - Komodo",
+            bip49available: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.komodo;
+                setHdCoin(141);
+            },
+        },
+        {
             name: "LTC - Litecoin",
             segwitAvailable: true,
             onSelect: function() {
@@ -76025,6 +76241,14 @@ window.Entropy = new (function() {
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.namecoin;
                 setHdCoin(7);
+            },
+        },
+        {
+            name: "ONX - Onixcoin",
+            segwitAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.onixcoin;
+                setHdCoin(174);
             },
         },
         {
