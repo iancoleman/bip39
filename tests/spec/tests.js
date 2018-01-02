@@ -2832,4 +2832,22 @@ it('Passes the official BIP84 test spec for account 0 first change address', fun
     });
 });
 
+it('Can display the table as csv', function(done) {
+    var headings = "path,address,public key,private key";
+    var row1 = "m/44'/0'/0'/0/0,1Di3Vp7tBWtyQaDABLAjfWtF6V7hYKJtug,033f5aed5f6cfbafaf223188095b5980814897295f723815fea5d3f4b648d0d0b3,L26cVSpWFkJ6aQkPkKmTzLqTdLJ923e6CzrVh9cmx21QHsoUmrEE";
+    var row20 = "m/44'/0'/0'/0/19,1KhBy28XLAciXnnRvm71PvQJaETyrxGV55,02b4b3e396434d8cdd20c03ac4aaa07387784d5d867b75987f516f5705ee68cb3a,L4GrDrjReMsCAu5DkLXn79jSb95qR7Zfx7eshybCQZ1qL32MXJab";
+    driver.findElement(By.css('.phrase'))
+        .sendKeys('abandon abandon ability');
+    driver.sleep(generateDelay).then(function() {
+        driver.findElement(By.css('.csv'))
+            .getAttribute("value")
+            .then(function(csv) {
+                expect(csv).toContain(headings);
+                expect(csv).toContain(row1);
+                expect(csv).toContain(row20);
+                done();
+            });
+    });
+});
+
 });

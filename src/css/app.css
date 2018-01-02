@@ -95,3 +95,11 @@ body {
     top: 5px;
     right: 5px;
 }
+.csv {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    white-space: pre;
+    overflow-wrap: normal;
+    overflow-x: scroll;
+    font-family: monospace;
+}

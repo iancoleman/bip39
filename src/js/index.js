@@ -91,6 +91,8 @@
     DOM.useBitpayAddressesContainer = $(".use-bitpay-addresses-container");
     DOM.useBitpayAddresses = $(".use-bitpay-addresses");
     DOM.addresses = $(".addresses");
+    DOM.csvTab = $("#csv-tab a");
+    DOM.csv = $(".csv");
     DOM.rowsToAdd = $(".rows-to-add");
     DOM.more = $(".more");
     DOM.moreRowsStartIndex = $(".more-rows-start-index");
@@ -135,6 +137,7 @@
         DOM.addressToggle.on("click", toggleAddresses);
         DOM.publicKeyToggle.on("click", togglePublicKeys);
         DOM.privateKeyToggle.on("click", togglePrivateKeys);
+        DOM.csvTab.on("click", updateCsv);
         DOM.languages.on("click", languageChanged);
         DOM.useBitpayAddresses.on("change", useBitpayAddressesChange);
         setQrEvents(DOM.showQrEls);
@@ -831,6 +834,7 @@
                 addAddressToList(indexText, address, pubkey, privkey);
                 if (isLast) {
                     hidePending();
+                    updateCsv();
                 }
             }, 50)
         }
@@ -871,6 +875,7 @@
 
     function clearAddressesList() {
         DOM.addresses.empty();
+        DOM.csv.val("");
         stopGenerating();
     }
 
@@ -1424,6 +1429,26 @@
         }
         var wordIndexesStr = wordIndexes.join(", ");
         DOM.entropyWordIndexes.text(wordIndexesStr);
+    }
+
+    function updateCsv() {
+        var tableCsv = "path,address,public key,private key\n";
+        var rows = DOM.addresses.find("tr");
+        for (var i=0; i<rows.length; i++) {
+            var row = $(rows[i]);
+            var cells = row.find("td");
+            for (var j=0; j<cells.length; j++) {
+                var cell = $(cells[j]);
+                if (!cell.children().hasClass("invisible")) {
+                    tableCsv = tableCsv + cell.text();
+                }
+                if (j != cells.length - 1) {
+                    tableCsv = tableCsv + ",";
+                }
+            }
+            tableCsv = tableCsv + "\n";
+        }
+        DOM.csv.val(tableCsv);
     }
 
     var networks = [
