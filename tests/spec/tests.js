@@ -2684,4 +2684,152 @@ it('Shows the index of each word in the mnemonic', function(done) {
     });
 });
 
+it('Shows the derivation path for bip84 tab', function(done) {
+    driver.findElement(By.css('#bip84-tab a'))
+        .click()
+    driver.findElement(By.css('.phrase'))
+        .sendKeys('abandon abandon ability');
+    driver.sleep(generateDelay).then(function() {
+        driver.findElement(By.css('#bip84 .path'))
+            .getAttribute("value")
+            .then(function(path) {
+                expect(path).toBe("m/84'/0'/0'/0");
+                done();
+            })
+    });
+});
+
+it('Shows the extended private key for bip84 tab', function(done) {
+    driver.findElement(By.css('#bip84-tab a'))
+        .click()
+    driver.findElement(By.css('.phrase'))
+        .sendKeys('abandon abandon ability');
+    driver.sleep(generateDelay).then(function() {
+        driver.findElement(By.css('.extended-priv-key'))
+            .getAttribute("value")
+            .then(function(path) {
+                expect(path).toBe("zprvAev3RKrZ3QVKiUFCfdeMRen1BPDJgdNt1XpxiDy8acSs4kkAGTCvq7HeRYRNNpo8EtEjCFQBWavJwtCUR29y4TUCH4X5RXMcyq48uN8y9BP");
+                done();
+            })
+    });
+});
+
+it('Shows the extended public key for bip84 tab', function(done) {
+    driver.findElement(By.css('#bip84-tab a'))
+        .click()
+    driver.findElement(By.css('.phrase'))
+        .sendKeys('abandon abandon ability');
+    driver.sleep(generateDelay).then(function() {
+        driver.findElement(By.css('.extended-pub-key'))
+            .getAttribute("value")
+            .then(function(path) {
+                expect(path).toBe("zpub6suPpqPSsn3cvxKfmfBMnnijjR3o666jNkkZWcNk8wyqwZ5JozXBNuc8Gs7DB3uLwTDvGVTspVEAUQcEjKF3pZHgywVbubdTqbXTUg7usyx");
+                done();
+            })
+    });
+});
+
+it('Changes the address list if bip84 account is changed', function(done) {
+    driver.findElement(By.css('#bip84-tab a'))
+        .click()
+    driver.findElement(By.css('#bip84 .account'))
+        .sendKeys('1');
+    driver.findElement(By.css('.phrase'))
+        .sendKeys('abandon abandon ability');
+    driver.sleep(generateDelay).then(function() {
+        getFirstAddress(function(address) {
+            expect(address).toBe("bc1qp7vv669t2fy965jdzvqwrraana89ctd5ewc662");
+            done();
+        });
+    });
+});
+
+it('Changes the address list if bip84 change is changed', function(done) {
+    driver.findElement(By.css('#bip84-tab a'))
+        .click()
+    driver.findElement(By.css('#bip84 .change'))
+        .sendKeys('1');
+    driver.findElement(By.css('.phrase'))
+        .sendKeys('abandon abandon ability');
+    driver.sleep(generateDelay).then(function() {
+        getFirstAddress(function(address) {
+            expect(address).toBe("bc1qr39vj6rh06ff05m53uxq8uazehwhccswylhrs2");
+            done();
+        });
+    });
+});
+
+it('Passes the official BIP84 test spec for rootpriv', function(done) {
+    driver.findElement(By.css('#bip84-tab a'))
+        .click()
+    driver.findElement(By.css('.phrase'))
+        .sendKeys('abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about');
+    driver.sleep(generateDelay).then(function() {
+        driver.findElement(By.css(".root-key"))
+        .getAttribute("value")
+        .then(function(rootKey) {
+            expect(rootKey).toBe("zprvAWgYBBk7JR8Gjrh4UJQ2uJdG1r3WNRRfURiABBE3RvMXYSrRJL62XuezvGdPvG6GFBZduosCc1YP5wixPox7zhZLfiUm8aunE96BBa4Kei5");
+            done();
+        })
+    });
+});
+
+it('Passes the official BIP84 test spec for account 0 xprv', function(done) {
+    driver.findElement(By.css('#bip84-tab a'))
+        .click()
+    driver.findElement(By.css('.phrase'))
+        .sendKeys('abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about');
+    driver.sleep(generateDelay).then(function() {
+        driver.findElement(By.css("#bip84 .account-xprv"))
+        .getAttribute("value")
+        .then(function(rootKey) {
+            expect(rootKey).toBe("zprvAdG4iTXWBoARxkkzNpNh8r6Qag3irQB8PzEMkAFeTRXxHpbF9z4QgEvBRmfvqWvGp42t42nvgGpNgYSJA9iefm1yYNZKEm7z6qUWCroSQnE");
+            done();
+        })
+    });
+});
+
+it('Passes the official BIP84 test spec for account 0 xpub', function(done) {
+    driver.findElement(By.css('#bip84-tab a'))
+        .click()
+    driver.findElement(By.css('.phrase'))
+        .sendKeys('abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about');
+    driver.sleep(generateDelay).then(function() {
+        driver.findElement(By.css("#bip84 .account-xpub"))
+        .getAttribute("value")
+        .then(function(rootKey) {
+            expect(rootKey).toBe("zpub6rFR7y4Q2AijBEqTUquhVz398htDFrtymD9xYYfG1m4wAcvPhXNfE3EfH1r1ADqtfSdVCToUG868RvUUkgDKf31mGDtKsAYz2oz2AGutZYs");
+            done();
+        })
+    });
+});
+
+it('Passes the official BIP84 test spec for account 0 first address', function(done) {
+    driver.findElement(By.css('#bip84-tab a'))
+        .click()
+    driver.findElement(By.css('.phrase'))
+        .sendKeys('abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about');
+    driver.sleep(generateDelay).then(function() {
+        getFirstAddress(function(address) {
+            expect(address).toBe("bc1qcr8te4kr609gcawutmrza0j4xv80jy8z306fyu");
+            done();
+        });
+    });
+});
+
+it('Passes the official BIP84 test spec for account 0 first change address', function(done) {
+    driver.findElement(By.css('#bip84-tab a'))
+        .click()
+    driver.findElement(By.css('.phrase'))
+        .sendKeys('abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about');
+    driver.findElement(By.css('#bip84 .change'))
+        .sendKeys('1');
+    driver.sleep(generateDelay).then(function() {
+        getFirstAddress(function(address) {
+            expect(address).toBe("bc1q8c6fshw2dlwun7ekn9qwf37cu2rn755upcp6el");
+            done();
+        });
+    });
+});
+
 });

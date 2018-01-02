@@ -53,6 +53,7 @@
     DOM.bip32tab = $("#bip32-tab");
     DOM.bip44tab = $("#bip44-tab");
     DOM.bip49tab = $("#bip49-tab");
+    DOM.bip84tab = $("#bip84-tab");
     DOM.bip141tab = $("#bip141-tab");
     DOM.bip32panel = $("#bip32");
     DOM.bip44panel = $("#bip44");
@@ -74,6 +75,13 @@
     DOM.bip49accountXprv = $("#bip49 .account-xprv");
     DOM.bip49accountXpub = $("#bip49 .account-xpub");
     DOM.bip49change = $("#bip49 .change");
+    DOM.bip84path = $("#bip84-path");
+    DOM.bip84purpose = $("#bip84 .purpose");
+    DOM.bip84coin = $("#bip84 .coin");
+    DOM.bip84account = $("#bip84 .account");
+    DOM.bip84accountXprv = $("#bip84 .account-xprv");
+    DOM.bip84accountXpub = $("#bip84 .account-xpub");
+    DOM.bip84change = $("#bip84 .change");
     DOM.bip141unavailable = $("#bip141 .unavailable");
     DOM.bip141available = $("#bip141 .available");
     DOM.bip141path = $("#bip141-path");
@@ -117,6 +125,8 @@
         DOM.bip44change.on("input", calcForDerivationPath);
         DOM.bip49account.on("input", calcForDerivationPath);
         DOM.bip49change.on("input", calcForDerivationPath);
+        DOM.bip84account.on("input", calcForDerivationPath);
+        DOM.bip84change.on("input", calcForDerivationPath);
         DOM.bip141path.on("input", calcForDerivationPath);
         DOM.bip141semantics.on("change", tabChanged);
         DOM.tab.on("shown.bs.tab", tabChanged);
@@ -357,6 +367,9 @@
         else if (bip49TabSelected()) {
             displayBip49Info();
         }
+        else if (bip84TabSelected()) {
+            displayBip84Info();
+        }
         displayBip32Info();
     }
 
@@ -559,6 +572,21 @@
             console.log("Using derivation path from BIP49 tab: " + derivationPath);
             return derivationPath;
         }
+        else if (bip84TabSelected()) {
+            var purpose = parseIntNoNaN(DOM.bip84purpose.val(), 84);
+            var coin = parseIntNoNaN(DOM.bip84coin.val(), 0);
+            var account = parseIntNoNaN(DOM.bip84account.val(), 0);
+            var change = parseIntNoNaN(DOM.bip84change.val(), 0);
+            var path = "m/";
+            path += purpose + "'/";
+            path += coin + "'/";
+            path += account + "'/";
+            path += change;
+            DOM.bip84path.val(path);
+            var derivationPath = DOM.bip84path.val();
+            console.log("Using derivation path from BIP84 tab: " + derivationPath);
+            return derivationPath;
+        }
         else if (bip32TabSelected()) {
             var derivationPath = DOM.bip32path.val();
             console.log("Using derivation path from BIP32 tab: " + derivationPath);
@@ -659,6 +687,24 @@
         DOM.bip49accountXpub.val(accountXpub);
     }
 
+    function displayBip84Info() {
+        // Get the derivation path for the account
+        var purpose = parseIntNoNaN(DOM.bip84purpose.val(), 84);
+        var coin = parseIntNoNaN(DOM.bip84coin.val(), 0);
+        var account = parseIntNoNaN(DOM.bip84account.val(), 0);
+        var path = "m/";
+        path += purpose + "'/";
+        path += coin + "'/";
+        path += account + "'/";
+        // Calculate the account extended keys
+        var accountExtendedKey = calcBip32ExtendedKey(path);
+        var accountXprv = accountExtendedKey.toBase58();
+        var accountXpub = accountExtendedKey.neutered().toBase58();
+        // Display the extended keys
+        DOM.bip84accountXprv.val(accountXprv);
+        DOM.bip84accountXpub.val(accountXpub);
+    }
+
     function displayBip32Info() {
         // Display the key
         DOM.seed.val(seed);
@@ -699,11 +745,12 @@
     }
 
     function segwitSelected() {
-        return bip49TabSelected() || bip141TabSelected();
+        return bip49TabSelected() || bip84TabSelected() || bip141TabSelected();
     }
 
     function p2wpkhSelected() {
-        return bip141TabSelected() && DOM.bip141semantics.val() == "p2wpkh";
+        return bip84TabSelected() ||
+                bip141TabSelected() && DOM.bip141semantics.val() == "p2wpkh";
     }
 
     function p2wpkhInP2shSelected() {
@@ -1284,6 +1331,10 @@
         return DOM.bip49tab.hasClass("active");
     }
 
+    function bip84TabSelected() {
+        return DOM.bip84tab.hasClass("active");
+    }
+
     function bip141TabSelected() {
         return DOM.bip141tab.hasClass("active");
     }
@@ -1291,6 +1342,7 @@
     function setHdCoin(coinValue) {
         DOM.bip44coin.val(coinValue);
         DOM.bip49coin.val(coinValue);
+        DOM.bip84coin.val(coinValue);
     }
 
     function showSegwitAvailable() {
