@@ -1453,6 +1453,14 @@
 
     var networks = [
         {
+            name: "AXE - Axe",
+            segwitAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.axe;
+                setHdCoin(0);
+            },
+        },
+        {
             name: "BCH - Bitcoin Cash",
             segwitAvailable: false,
             onSelect: function() {
