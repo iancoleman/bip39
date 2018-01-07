@@ -116,7 +116,7 @@ bitcoinjs.bitcoin.networks.axe = {
   },
   pubKeyHash: 0x4B,
   scriptHash: 0xCB, // TODO set this correctly
-  wif: 0x37
+  wif: 0xCB
 };
 
 bitcoinjs.bitcoin.networks.slimcoin = {
