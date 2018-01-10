@@ -1189,6 +1189,13 @@
                 DOM.bip44coin.val(149);
             },
         },
+        {
+            name: "BitcoinZ",
+            onSelect: function() {
+                network = bitcoin.networks.bitcoinz;
+                DOM.bip44coin.val(177);
+            },
+        },
     ]
 
     init();

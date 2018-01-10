@@ -1307,3 +1307,14 @@ bitcoin.networks.omni = {
     scriptHash: 5,
     wif: 128,
 }
+
+bitcoin.networks.bitcoinz = {
+    magicPrefix: '\x19BitcoinZ Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash:0x1cb8,
+    scriptHash:0x1cbd,
+    wif: 128
+}
