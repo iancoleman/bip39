@@ -1046,7 +1046,7 @@
             name: "Smartcash",
             onSelect: function() {
                 network = bitcoin.networks.smartcash;
-                DOM.bip44coin.val(125);
+                DOM.bip44coin.val(224);
             },
         },
         {
@@ -1057,9 +1057,9 @@
             },
         },
         {
-            name: "Link",
+            name: "Mix",
             onSelect: function() {
-                network = bitcoin.networks.link;
+                network = bitcoin.networks.mix;
                 DOM.bip44coin.val(76);
             },
         },
@@ -1159,6 +1159,34 @@
             onSelect: function() {
                 network = bitcoin.networks.whitecoin;
                 DOM.bip44coin.val(155);
+            },
+        },
+        {
+            name: "Gobyte",
+            onSelect: function() {
+                network = bitcoin.networks.gobyte;
+                DOM.bip44coin.val(176);
+            },
+        },
+        {
+            name: "Groestlcoin",
+            onSelect: function() {
+                network = bitcoin.networks.groestlcoin;
+                DOM.bip44coin.val(17);
+            },
+        },
+        {
+            name: "Newyorkcoin",
+            onSelect: function() {
+                network = bitcoin.networks.newyorkcoin;
+                DOM.bip44coin.val(175);
+            },
+        },
+        {
+            name: "Omni",
+            onSelect: function() {
+                network = bitcoin.networks.omni;
+                DOM.bip44coin.val(149);
             },
         },
     ]

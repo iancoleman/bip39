@@ -1074,7 +1074,7 @@ bitcoin.networks.fujicoin = {
     wif: 164,
 }
 
-bitcoin.networks.link = {
+bitcoin.networks.mix = {
   bip32: {
     public: 0xffffffff,
     private: 0xffffffff
@@ -1262,4 +1262,48 @@ bitcoin.networks.whitecoin = {
     pubKeyHash: 73,
     scriptHash: 87,
     wif: 201,
+}
+
+bitcoin.networks.gobyte = {
+    magicPrefix: '\x19DarkCoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 38,
+    scriptHash: 10,
+    wif: 198,
+}
+
+bitcoin.networks.groestlcoin = {
+    magicPrefix: '\x19GroestlCoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 36,
+    scriptHash: 5,
+    wif: 128,
+}
+
+bitcoin.networks.newyorkcoin = {
+    magicPrefix: '\x19newyorkc Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 60,
+    scriptHash: 22,
+    wif: 188,
+}
+
+bitcoin.networks.omni = {
+    magicPrefix: '\x19Bitcoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 0,
+    scriptHash: 5,
+    wif: 128,
 }
