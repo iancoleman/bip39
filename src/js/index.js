@@ -799,7 +799,7 @@
                 }
                 // Ethereum values are different
                 if (networks[DOM.network.val()].name == "ETH - Ethereum") {
-                    var privKeyBuffer = key.keyPair.d.toBuffer();
+                    var privKeyBuffer = key.keyPair.d.toBuffer(32);
                     privkey = privKeyBuffer.toString('hex');
                     var addressBuffer = ethUtil.privateToAddress(privKeyBuffer);
                     var hexAddress = addressBuffer.toString('hex');
