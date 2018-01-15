@@ -2869,16 +2869,10 @@ it('LeftPads ethereum keys that are less than 32 bytes', function(done) {
     driver.findElement(By.css('.phrase'))
         .sendKeys('scout sort custom elite radar rare vivid thing trophy gesture cover snake change narrow kite list nation sustain buffalo erode open balance system young');
     driver.sleep(generateDelay).then(function() {
-        driver.findElement(By.css(".address"))
-            .getText()
-            .then(function(address) {
-                expect(address).toBe("0x8943E785B4a5714FC87a3aFAad1eB1FeB602B118");
-                done();
-            });
-        //getFirstAddress(function(address) {
-        //    expect(address).toBe("0x8943E785B4a5714FC87a3aFAad1eB1FeB602B118");
-        //    done();
-        //});
+        getFirstAddress(function(address) {
+            expect(address).toBe("0x8943E785B4a5714FC87a3aFAad1eB1FeB602B118");
+            done();
+        });
     });
 });
 
