@@ -30,7 +30,7 @@ var until = webdriver.until;
 var newDriver = null;
 var driver = null;
 // Delays in ms
-var generateDelay = 1000;
+var generateDelay = 1500;
 var feedbackDelay = 500;
 var entropyFeedbackDelay = 500;
 
