@@ -605,6 +605,13 @@ it('Allows selection of monacoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of AXE', function(done) {
+    var params = {
+        selectText: "AXE - Axe",
+        firstAddress: "XQ4HLxUVS3egk5ff1o9e2vJFJKSSsUH3B7",
+    };
+    testNetwork(done, params);
+});
 
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {
