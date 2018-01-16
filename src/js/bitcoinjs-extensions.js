@@ -108,6 +108,17 @@ bitcoinjs.bitcoin.networks.peercoin = {
   wif: 0xb7
 };
 
+bitcoinjs.bitcoin.networks.axe = {
+  messagePrefix: 'unused',
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  },
+  pubKeyHash: 0x4B,
+  scriptHash: 0xCB, // TODO set this correctly
+  wif: 0xCB
+};
+
 bitcoinjs.bitcoin.networks.slimcoin = {
   messagePrefix: 'unused',
   bip32: {

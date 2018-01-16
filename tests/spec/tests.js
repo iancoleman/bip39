@@ -30,7 +30,7 @@ var until = webdriver.until;
 var newDriver = null;
 var driver = null;
 // Delays in ms
-var generateDelay = 1000;
+var generateDelay = 1500;
 var feedbackDelay = 500;
 var entropyFeedbackDelay = 500;
 
@@ -602,6 +602,13 @@ it('Allows selection of monacoin', function(done) {
     var params = {
         selectText: "MONA - Monacoin",
         firstAddress: "MKMiMr7MyjDKjJbCBzgF6u4ByqTS4NkRB1",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of AXE', function(done) {
+    var params = {
+        selectText: "AXE - Axe",
+        firstAddress: "XQ4HLxUVS3egk5ff1o9e2vJFJKSSsUH3B7",
     };
     testNetwork(done, params);
 });
@@ -2847,6 +2854,25 @@ it('Can display the table as csv', function(done) {
                 expect(csv).toContain(row20);
                 done();
             });
+    });
+});
+
+it('LeftPads ethereum keys that are less than 32 bytes', function(done) {
+    // see https://github.com/iancoleman/bip39/issues/155
+    selectNetwork("ETH - Ethereum");
+    driver.findElement(By.css('#bip32-tab a'))
+        .click()
+    driver.findElement(By.css('#bip32-path'))
+        .clear();
+    driver.findElement(By.css('#bip32-path'))
+        .sendKeys("m/44'/60'/0'");
+    driver.findElement(By.css('.phrase'))
+        .sendKeys('scout sort custom elite radar rare vivid thing trophy gesture cover snake change narrow kite list nation sustain buffalo erode open balance system young');
+    driver.sleep(generateDelay).then(function() {
+        getFirstAddress(function(address) {
+            expect(address).toBe("0x8943E785B4a5714FC87a3aFAad1eB1FeB602B118");
+            done();
+        });
     });
 });
 
