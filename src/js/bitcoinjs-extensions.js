@@ -337,7 +337,7 @@ bitcoin.networks.bitcoin = {
     },
     pubKeyHash: 28,
     scriptHash: 5,
-    wif: 189,
+    wif: 156,
     dustThreshold: 0,
     dustSoftThreshold: 0,
     feePerKb: 0,
