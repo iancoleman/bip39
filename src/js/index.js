@@ -1179,7 +1179,7 @@
             name: "Newyorkcoin",
             onSelect: function() {
                 network = bitcoin.networks.newyorkcoin;
-                DOM.bip44coin.val(175);
+                DOM.bip44coin.val(179);
             },
         },
         {
