@@ -619,7 +619,7 @@
             name: "e-Gulden",
             onSelect: function() {
                 network = bitcoin.networks.egulden;
-                DOM.bip44coin.val(2);
+                DOM.bip44coin.val(78);
             },
         },
         {
@@ -1186,7 +1186,7 @@
             name: "Omni",
             onSelect: function() {
                 network = bitcoin.networks.omni;
-                DOM.bip44coin.val(149);
+                DOM.bip44coin.val(200);
             },
         },
         {
