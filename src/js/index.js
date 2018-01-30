@@ -616,7 +616,7 @@
             },
         },
         {
-            name: "e-Gulden",
+            name: "E-Gulden",
             onSelect: function() {
                 network = bitcoin.networks.egulden;
                 DOM.bip44coin.val(78);
