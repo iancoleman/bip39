@@ -941,13 +941,13 @@ it('Can generate more rows in the table', function(done) {
 
 // A custom number of additional addresses can be generated
 it('Can generate more rows in the table', function(done) {
-    driver.findElement(By.css('.rows-to-add'))
-        .clear();
-    driver.findElement(By.css('.rows-to-add'))
-        .sendKeys('1');
     driver.findElement(By.css('.phrase'))
         .sendKeys('abandon abandon ability');
     driver.sleep(generateDelay).then(function() {
+        driver.findElement(By.css('.rows-to-add'))
+            .clear();
+        driver.findElement(By.css('.rows-to-add'))
+            .sendKeys('1');
         driver.findElement(By.css('.more'))
             .click();
         driver.sleep(generateDelay).then(function() {
@@ -2167,10 +2167,11 @@ it('Can change details while old addresses are still being generated', function(
     driver.findElement(By.css('.phrase'))
         .sendKeys("abandon abandon ability");
     driver.sleep(generateDelay).then(function() {
-        // generate more addresses
-        driver.findElement(By.css('.more'))
-            .click();
         // change tabs which should cancel the previous generating
+        driver.findElement(By.css('.rows-to-add'))
+            .clear();
+        driver.findElement(By.css('.rows-to-add'))
+            .sendKeys('20');
         driver.findElement(By.css('#bip32-tab a'))
             .click()
         driver.sleep(generateDelay).then(function() {
@@ -2183,7 +2184,7 @@ it('Can change details while old addresses are still being generated', function(
                 });
         });
     });
-});
+}, generateDelay + 5000);
 
 // Github issue 49
 // padding for binary should give length with multiple of 256
