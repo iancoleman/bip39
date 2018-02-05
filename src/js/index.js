@@ -90,6 +90,8 @@
     DOM.hardenedAddresses = $(".hardened-addresses");
     DOM.useBitpayAddressesContainer = $(".use-bitpay-addresses-container");
     DOM.useBitpayAddresses = $(".use-bitpay-addresses");
+    DOM.useBip38 = $(".use-bip38");
+    DOM.bip38Password = $(".bip38-password");
     DOM.addresses = $(".addresses");
     DOM.csvTab = $("#csv-tab a");
     DOM.csv = $(".csv");
@@ -133,6 +135,8 @@
         DOM.bip141semantics.on("change", tabChanged);
         DOM.tab.on("shown.bs.tab", tabChanged);
         DOM.hardenedAddresses.on("change", calcForDerivationPath);
+        DOM.useBip38.on("change", calcForDerivationPath);
+        DOM.bip38Password.on("change", calcForDerivationPath);
         DOM.indexToggle.on("click", toggleIndexes);
         DOM.addressToggle.on("click", toggleAddresses);
         DOM.publicKeyToggle.on("click", togglePublicKeys);
@@ -766,8 +770,8 @@
         var self = this;
         this.shouldGenerate = true;
         var useHardenedAddresses = DOM.hardenedAddresses.prop("checked");
-        var useBip38 = false; // TODO get from DOM
-        var bip38password = "bip38password"; // TODO get from DOM
+        var useBip38 = DOM.useBip38.prop("checked");
+        var bip38password = DOM.bip38Password.val();
         var isSegwit = segwitSelected();
         var segwitAvailable = networkHasSegwit();
         var isP2wpkh = p2wpkhSelected();
