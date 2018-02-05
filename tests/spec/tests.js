@@ -33,6 +33,7 @@ var driver = null;
 var generateDelay = 1500;
 var feedbackDelay = 500;
 var entropyFeedbackDelay = 500;
+var bip38delay = 15000;
 
 // url uses file:// scheme
 var path = require('path')
@@ -2875,5 +2876,35 @@ it('LeftPads ethereum keys that are less than 32 bytes', function(done) {
         });
     });
 });
+
+it('Can encrypt private keys using BIP38', function(done) {
+    // see https://github.com/iancoleman/bip39/issues/140
+    driver.executeScript(function() {
+        $(".use-bip38").prop("checked", true);
+    });
+    driver.findElement(By.css('.bip38-password'))
+        .sendKeys('bip38password');
+    driver.findElement(By.css('.rows-to-add'))
+        .clear();
+    driver.findElement(By.css('.rows-to-add'))
+        .sendKeys('1');
+    driver.findElement(By.css('.phrase'))
+        .sendKeys('abandon abandon ability');
+    driver.sleep(bip38delay).then(function() {
+        // address
+        getFirstRowValue(function(address) {
+            expect(address).toBe("1NCvSdumA3ngMM9c4aqU56AM6rqXddfuXB");
+            // pubkey
+            getFirstRowValue(function(pubkey) {
+                expect(pubkey).toBe("043f5aed5f6cfbafaf223188095b5980814897295f723815fea5d3f4b648d0d0b3884a74447ea901729b1e73a999b7520e7cb55b4120e6432c64153ccab8a848e1");
+                // privkey
+                getFirstRowValue(function(privkey) {
+                    expect(privkey).toBe("6PRNRiFnj1RoR3sXhymdCvoZCgnUHQpfupNdKkFbWJkwWQEKesWt1EDMDM");
+                    done();
+                }, ".privkey");
+            }, ".pubkey");
+        }, ".address");
+    });
+}, bip38delay + 5000);
 
 });
