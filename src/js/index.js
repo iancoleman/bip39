@@ -1190,10 +1190,24 @@
             },
         },
         {
+            name: "Tether",
+            onSelect: function() {
+                network = bitcoin.networks.tether;
+                DOM.bip44coin.val(200);
+            },
+        },
+        {
             name: "BitcoinZ",
             onSelect: function() {
                 network = bitcoin.networks.bitcoinz;
                 DOM.bip44coin.val(177);
+            },
+        },
+        {
+            name: "Poa",
+            onSelect: function() {
+                network = bitcoin.networks.poa;
+                DOM.bip44coin.val(178);
             },
         },
     ]

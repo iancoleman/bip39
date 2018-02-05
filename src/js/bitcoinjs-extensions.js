@@ -1318,3 +1318,24 @@ bitcoin.networks.bitcoinz = {
     scriptHash:0x1cbd,
     wif: 128
 }
+
+bitcoin.networks.poa = {
+    bip32: {
+    public: 0xffffffff,
+    private: 0xffffffff
+  },
+  pubKeyHash: 0xff,
+  wif: 0xff,    
+  ethereum : true
+}
+
+bitcoin.networks.tether = {
+    magicPrefix: '\x19Bitcoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 0,
+    scriptHash: 5,
+    wif: 128,
+}

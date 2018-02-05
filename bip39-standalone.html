@@ -14332,6 +14332,27 @@ bitcoin.networks.bitcoinz = {
     pubKeyHash:0x1cb8,
     scriptHash:0x1cbd,
     wif: 128
+}
+
+bitcoin.networks.poa = {
+    bip32: {
+    public: 0xffffffff,
+    private: 0xffffffff
+  },
+  pubKeyHash: 0xff,
+  wif: 0xff,    
+  ethereum : true
+}
+
+bitcoin.networks.tether = {
+    magicPrefix: '\x19Bitcoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 0,
+    scriptHash: 5,
+    wif: 128,
 }</script>
         <script>// Select components from sjcl to suit the crypto operations bip39 requires.
 
@@ -17502,10 +17523,24 @@ d+"px").css("background-color",a.isDark(e,i)?h.foreground:h.background).appendTo
             },
         },
         {
+            name: "Tether",
+            onSelect: function() {
+                network = bitcoin.networks.tether;
+                DOM.bip44coin.val(200);
+            },
+        },
+        {
             name: "BitcoinZ",
             onSelect: function() {
                 network = bitcoin.networks.bitcoinz;
                 DOM.bip44coin.val(177);
+            },
+        },
+        {
+            name: "Poa",
+            onSelect: function() {
+                network = bitcoin.networks.poa;
+                DOM.bip44coin.val(178);
             },
         },
     ]
