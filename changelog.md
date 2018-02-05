@@ -1,3 +1,10 @@
+# 0.3.3
+
+* Add AXE network
+* Ethereum private key generation bugfix
+* Add BIP38 support
+* Allow initial number of rows to be set by the user
+
 # 0.3.2
 
 * Add Onixcoin
