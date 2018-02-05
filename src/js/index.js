@@ -766,6 +766,8 @@
         var self = this;
         this.shouldGenerate = true;
         var useHardenedAddresses = DOM.hardenedAddresses.prop("checked");
+        var useBip38 = false; // TODO get from DOM
+        var bip38password = "bip38password"; // TODO get from DOM
         var isSegwit = segwitSelected();
         var segwitAvailable = networkHasSegwit();
         var isP2wpkh = p2wpkhSelected();
@@ -780,6 +782,7 @@
                 if (!self.shouldGenerate) {
                     return;
                 }
+                // derive HDkey for this row of the table
                 var key = "NA";
                 if (useHardenedAddresses) {
                     key = bip32ExtendedKey.deriveHardened(index);
@@ -787,19 +790,36 @@
                 else {
                     key = bip32ExtendedKey.derive(index);
                 }
-                var address = key.getAddress().toString();
-                var privkey = "NA";
-                if (!key.isNeutered()) {
-                    privkey = key.keyPair.toWIF(network);
+                // bip38 requires uncompressed keys
+                // see https://github.com/iancoleman/bip39/issues/140#issuecomment-352164035
+                var keyPair = key.keyPair;
+                var useUncompressed = useBip38;
+                if (useUncompressed) {
+                    keyPair = new bitcoinjs.bitcoin.ECPair(keyPair.d, null, { compressed: false });
                 }
-                var pubkey = key.getPublicKeyBuffer().toString('hex');
+                // get address
+                var address = keyPair.getAddress().toString();
+                // get privkey
+                var hasPrivkey = !key.isNeutered();
+                var privkey = "NA";
+                if (hasPrivkey) {
+                    privkey = keyPair.toWIF(network);
+                    // BIP38 encode private key if required
+                    if (useBip38) {
+                        privkey = bitcoinjsBip38.encrypt(keyPair.d.toBuffer(), false, bip38password, function(p) {
+                            console.log("Progressed " + p.percent.toFixed(1) + "% for index " + index);
+                        });
+                    }
+                }
+                // get pubkey
+                var pubkey = keyPair.getPublicKeyBuffer().toString('hex');
                 var indexText = getDerivationPath() + "/" + index;
                 if (useHardenedAddresses) {
                     indexText = indexText + "'";
                 }
                 // Ethereum values are different
                 if (networks[DOM.network.val()].name == "ETH - Ethereum") {
-                    var privKeyBuffer = key.keyPair.d.toBuffer(32);
+                    var privKeyBuffer = keyPair.d.toBuffer(32);
                     privkey = privKeyBuffer.toString('hex');
                     var addressBuffer = ethUtil.privateToAddress(privKeyBuffer);
                     var hexAddress = addressBuffer.toString('hex');
