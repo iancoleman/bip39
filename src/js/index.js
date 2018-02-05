@@ -727,7 +727,8 @@
         DOM.extendedPubKey.val(extendedPubKey);
         // Display the addresses and privkeys
         clearAddressesList();
-        displayAddresses(0, 20);
+        var initialAddressCount = parseInt(DOM.rowsToAdd.val());
+        displayAddresses(0, initialAddressCount);
     }
 
     function displayAddresses(start, total) {
