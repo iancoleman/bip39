@@ -330,7 +330,7 @@ bitcoinjs.bitcoin.networks.komodo = {
 };
 
 bitcoinjs.bitcoin.networks.blackcoin = {
-  messagePrefix: '\x18Blackcoin Signed Message:\n',
+  messagePrefix: '\x18BlackCoin Signed Message:\n',
   bip32: {
     public: 0x02CFBEDE,
     private: 0x02CFBF60
