@@ -95,6 +95,10 @@ body {
     top: 5px;
     right: 5px;
 }
+.visual-privacy {
+    color: grey !important;
+    background-color: grey !important;
+}
 .csv {
     margin-top: 20px;
     margin-bottom: 20px;
