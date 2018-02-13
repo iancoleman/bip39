@@ -1041,14 +1041,14 @@
                 network = bitcoin.networks.putincoin;
                 DOM.bip44coin.val(122);
             },
-        },
+        },/*
         {
             name: "Smartcash",
             onSelect: function() {
                 network = bitcoin.networks.smartcash;
                 DOM.bip44coin.val(224);
             },
-        },
+        },*/
         {
             name: "Fujicoin",
             onSelect: function() {
@@ -1167,14 +1167,14 @@
                 network = bitcoin.networks.gobyte;
                 DOM.bip44coin.val(176);
             },
-        },
+        },/*
         {
             name: "Groestlcoin",
             onSelect: function() {
                 network = bitcoin.networks.groestlcoin;
                 DOM.bip44coin.val(17);
             },
-        },
+        },*/
         {
             name: "Newyorkcoin",
             onSelect: function() {
