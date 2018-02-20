@@ -1210,6 +1210,62 @@
                 DOM.bip44coin.val(178);
             },
         },
+        {
+            name: "BitcoinAtom",
+            onSelect: function() {
+                network = bitcoin.networks.bitcoinatom;
+                DOM.bip44coin.val(185);
+            },
+        },
+        {
+            name: "Crave",
+            onSelect: function() {
+                network = bitcoin.networks.crave;
+                DOM.bip44coin.val(186);
+            },
+        },
+        {
+            name: "ExclusiveCoin",
+            onSelect: function() {
+                network = bitcoin.networks.exclusivecoin;
+                DOM.bip44coin.val(190);
+            },
+        },
+        {
+            name: "Lynx",
+            onSelect: function() {
+                network = bitcoin.networks.lynx;
+                DOM.bip44coin.val(191);
+            },
+        },
+        {
+            name: "Minexcoin",
+            onSelect: function() {
+                network = bitcoin.networks.minexcoin;
+                DOM.bip44coin.val(182);
+            },
+        },
+        {
+            name: "Musicoin",
+            onSelect: function() {
+                network = bitcoin.networks.musicoin;
+                DOM.bip44coin.val(184);
+            },
+        },
+        {
+            name: "Wincoin",
+            onSelect: function() {
+                network = bitcoin.networks.wincoin;
+                DOM.bip44coin.val(181);
+            },
+        },
+        {
+            name: "Zclassic",
+            onSelect: function() {
+                network = bitcoin.networks.zclassic;
+                DOM.bip44coin.val(147);
+            },
+        },
     ]
 
     init();

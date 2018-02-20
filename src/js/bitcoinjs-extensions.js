@@ -1339,3 +1339,90 @@ bitcoin.networks.tether = {
     scriptHash: 5,
     wif: 128,
 }
+
+bitcoin.networks.bitcoinatom = {
+    magicPrefix: '\x19Bitcoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 23,
+    scriptHash: 10,
+    wif: 128,
+}
+
+bitcoin.networks.crave = {
+    magicPrefix: '\x19DarkNet Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 70,
+    scriptHash: 85,
+    wif: 153,
+}
+
+bitcoin.networks.exclusivecoin = {
+    magicPrefix: '\x19ExclusiveCoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 33,
+    scriptHash: 137,
+    wif: 161,
+}
+
+bitcoin.networks.lynx = {
+    magicPrefix: '\x19Lynx Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 45,
+    scriptHash: 50,
+    wif: 173,
+}
+
+bitcoin.networks.minexcoin = {
+    magicPrefix: '\x19Bitcoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 75,
+    scriptHash: 5,
+    wif: 128,
+}
+
+bitcoin.networks.musicoin = {
+    bip32: {
+    public: 0xffffffff,
+    private: 0xffffffff
+  },
+  pubKeyHash: 0xff,
+  wif: 0xff,    
+  ethereum : true
+}
+
+bitcoin.networks.wincoin = {
+    magicPrefix: '\x19WinCoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash: 73,
+    scriptHash: 83,
+    wif: 201,
+}
+
+bitcoin.networks.zclassic = {
+    magicPrefix: '\x19Zcash Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4
+    },
+    pubKeyHash:0x1cb8,
+    scriptHash:0x1cbd,
+    wif: 128
+}
