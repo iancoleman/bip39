@@ -573,6 +573,13 @@
                 DOM.bip44coin.val(84);
             },
         },
+		{
+            name: "Hush",
+            onSelect: function() {
+                network = bitcoin.networks.hush;
+                DOM.bip44coin.val(197);
+            },
+        },
         {
             name: "Novacoin",
             onSelect: function() {
