@@ -152,6 +152,17 @@ bitcoinjs.bitcoin.networks.dogecoin = {
   wif: 0x9e
 };
 
+bitcoinjs.bitcoin.networks.denarius = {
+  messagePrefix: '\x19Denarius Signed Message:\n',
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  },
+  pubKeyHash: 0x1e,
+  scriptHash: 0x5a,
+  wif: 0x9e
+};
+
 bitcoinjs.bitcoin.networks.viacoin = {
   messagePrefix: '\x18Viacoin Signed Message:\n',
   bip32: {

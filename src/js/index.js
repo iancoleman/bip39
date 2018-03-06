@@ -1551,6 +1551,14 @@
             },
         },
         {
+            name: "DNR - Denarius",
+            segwitAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.denarius;
+                setHdCoin(0);
+            },
+        },
+        {
             name: "DOGE - Dogecoin",
             segwitAvailable: false,
             onSelect: function() {
