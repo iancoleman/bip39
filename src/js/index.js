@@ -1225,13 +1225,14 @@
         var entropyTypeStr = getEntropyTypeStr(entropy);
         var wordCount = Math.floor(numberOfBits / 32) * 3;
         var bitsPerEvent = entropy.bitsPerEvent.toFixed(2);
+        var spacedBinaryStr = entropy.binaryStr.match(/.{1,11}/g).join(" " );
         DOM.entropyFiltered.html(entropy.cleanHtml);
         DOM.entropyType.text(entropyTypeStr);
         DOM.entropyCrackTime.text(timeToCrack);
         DOM.entropyEventCount.text(entropy.base.ints.length);
         DOM.entropyBits.text(numberOfBits);
         DOM.entropyWordCount.text(wordCount);
-        DOM.entropyBinary.text(entropy.binaryStr);
+        DOM.entropyBinary.text(spacedBinaryStr);
         DOM.entropyBitsPerEvent.text(bitsPerEvent);
         // detect and warn of filtering
         var rawNoSpaces = DOM.entropy.val().replace(/\s/g, "");
