@@ -620,6 +620,13 @@ it('Allows selection of AXE', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of BlackCoin', function(done) {
+    var params = {
+        selectText: "BLK - BlackCoin",
+        firstAddress: "B5MznAKwj7uQ42vDz3w4onhBXPcqhTwJ9z",
+    };
+    testNetwork(done, params);
+});
 
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {
