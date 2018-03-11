@@ -1495,6 +1495,14 @@
             },
         },
         {
+            name: "BLK - BlackCoin",
+            segwitAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.blackcoin;
+                setHdCoin(10);
+            },
+        },
+        {
             name: "BTC - Bitcoin",
             segwitAvailable: true,
             onSelect: function() {
@@ -1743,14 +1751,6 @@
                 setHdCoin(144);
             },
         },
-        {
-            name: "BLK - BlackCoin",
-            segwitAvailable: false,
-            onSelect: function() {
-                network = bitcoinjs.bitcoin.networks.blackcoin;
-                setHdCoin(10);
-            },
-        }
     ]
 
     var clients = [
