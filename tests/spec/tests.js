@@ -2937,4 +2937,21 @@ it('Shows the checksum for the entropy', function(done) {
     });
 });
 
+it('Shows the checksum for the entropy with the correct groupings', function(done) {
+    driver.findElement(By.css('.use-entropy'))
+        .click();
+    // create a checksum of 20 bits, which spans multiple words
+    driver.findElement(By.css('.entropy'))
+        .sendKeys("F000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
+    driver.sleep(generateDelay).then(function() {
+        driver.findElement(By.css('.checksum'))
+            .getText()
+            .then(function(text) {
+                // first group is 9 bits, second group is 11
+                expect(text).toBe("011010111 01110000110");
+                done();
+            });
+    });
+});
+
 });

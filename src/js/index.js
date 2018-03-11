@@ -1228,7 +1228,7 @@
         var entropyTypeStr = getEntropyTypeStr(entropy);
         var wordCount = Math.floor(numberOfBits / 32) * 3;
         var bitsPerEvent = entropy.bitsPerEvent.toFixed(2);
-        var spacedBinaryStr = entropy.binaryStr.match(/.{1,11}/g).join(" " );
+        var spacedBinaryStr = addSpacesEveryElevenBits(entropy.binaryStr);
         DOM.entropyFiltered.html(entropy.cleanHtml);
         DOM.entropyType.text(entropyTypeStr);
         DOM.entropyCrackTime.text(timeToCrack);
@@ -1479,6 +1479,11 @@
                 var start = binaryStr.length - checksumBitlength;
                 var end = binaryStr.length;
                 checksum = binaryStr.substring(start, end);
+                // add spaces so the last group is 11 bits, not the first
+                checksum = checksum.split("").reverse().join("")
+                checksum = addSpacesEveryElevenBits(checksum);
+                checksum = checksum.split("").reverse().join("")
+                break;
             }
         }
         DOM.entropyChecksum.text(checksum);
@@ -1502,6 +1507,10 @@
             tableCsv = tableCsv + "\n";
         }
         DOM.csv.val(tableCsv);
+    }
+
+    function addSpacesEveryElevenBits(binaryStr) {
+        return binaryStr.match(/.{1,11}/g).join(" ");
     }
 
     var networks = [
