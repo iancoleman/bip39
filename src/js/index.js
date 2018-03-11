@@ -1734,6 +1734,14 @@
                 network = bitcoinjs.bitcoin.networks.bitcoin;
                 setHdCoin(144);
             },
+        },
+        {
+            name: "BLK - BlackCoin",
+            segwitAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.blackcoin;
+                setHdCoin(10);
+            },
         }
     ]
 

@@ -328,3 +328,14 @@ bitcoinjs.bitcoin.networks.komodo = {
   scriptHash: 0x55,
   wif: 0xbc
 };
+
+bitcoinjs.bitcoin.networks.blackcoin = {
+  messagePrefix: '\x18BlackCoin Signed Message:\n',
+  bip32: {
+    public: 0x02CFBEDE,
+    private: 0x02CFBF60
+  },
+  pubKeyHash: 0x19,
+  scriptHash: 0x55,
+  wif: 0x99
+};
