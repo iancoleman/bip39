@@ -2922,4 +2922,19 @@ it('Can encrypt private keys using BIP38', function(done) {
     });
 }, bip38delay + 5000);
 
+it('Shows the checksum for the entropy', function(done) {
+    driver.findElement(By.css('.use-entropy'))
+        .click();
+    driver.findElement(By.css('.entropy'))
+        .sendKeys("00000000000000000000000000000000");
+    driver.sleep(generateDelay).then(function() {
+        driver.findElement(By.css('.checksum'))
+            .getText()
+            .then(function(text) {
+                expect(text).toBe("1");
+                done();
+            });
+    });
+});
+
 });
