@@ -1,3 +1,12 @@
+# 0.3.4
+
+* Add BlackCoin
+* Add Denarius
+* Raw entropy shows groupings with space every 11 bits
+* Checksum shown in entropy details
+* Warn that entropy values should exclude checksum
+* Add Korean language
+
 # 0.3.3
 
 * Add AXE network
