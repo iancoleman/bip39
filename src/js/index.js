@@ -1600,7 +1600,7 @@
             segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.denarius;
-                setHdCoin(0);
+                setHdCoin(116);
             },
         },
         {

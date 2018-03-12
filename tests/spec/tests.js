@@ -426,7 +426,7 @@ it('Allows selection of dogecoin', function(done) {
 it('Allows selection of denarius', function(done) {
     var params = {
         selectText: "DNR - Denarius",
-        firstAddress: "D9feDKo88SHir79b2Kqhk7JAtaddmxDjNV",
+        firstAddress: "DFdFMVUMzU9xX88EywXvAGwjiwpxyh9vKb",
     };
     testNetwork(done, params);
 });
