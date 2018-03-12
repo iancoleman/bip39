@@ -1,3 +1,6 @@
+// Polyfill for NFKD normalization
+// See https://github.com/walling/unorm
+
 (function (root) {
    "use strict";
 

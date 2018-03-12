@@ -149,21 +149,14 @@ var Mnemonic = function(language) {
         // Set space correctly depending on the language
         // see https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md#japanese
         var space = " ";
-        if (language == "japanese") {
+        if (language == "japanese" || language == "korean") {
             space = "\u3000"; // ideographic space
         }
         return words.join(space);
     }
 
     self.normalizeString = function(str) {
-        if (typeof str.normalize == "function") {
-            return str.normalize("NFKD");
-        }
-        else {
-            // TODO decide how to handle this in the future.
-            // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize
-            return str;
-        }
+        return str.normalize("NFKD");
     }
 
     function byteArrayToWordArray(data) {
