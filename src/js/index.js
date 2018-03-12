@@ -1142,7 +1142,7 @@
     function wordArrayToPhrase(words) {
         var phrase = words.join(" ");
         var language = getLanguageFromPhrase(phrase);
-        if (language == "japanese") {
+        if (language == "japanese" || language == "korean") {
             phrase = words.join("\u3000");
         }
         return phrase;
