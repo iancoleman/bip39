@@ -423,6 +423,13 @@ it('Allows selection of dogecoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of denarius', function(done) {
+    var params = {
+        selectText: "DNR - Denarius",
+        firstAddress: "D9feDKo88SHir79b2Kqhk7JAtaddmxDjNV",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of shadowcash', function(done) {
     var params = {
         selectText: "SDC - ShadowCash",
