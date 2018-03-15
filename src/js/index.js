@@ -1604,6 +1604,14 @@
             },
         },
         {
+            name: "NEBL - Neblio",
+            segwitAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.neblio;
+                setHdCoin(146);
+            },
+        },
+        {
             name: "DOGE - Dogecoin",
             segwitAvailable: false,
             onSelect: function() {
