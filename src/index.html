@@ -71,7 +71,7 @@
                             <div class="form-group">
                                 <label for="personalPhrase" class="col-sm-2 control-label">Your custom Passphrase</label>
                                 <div class="col-sm-10">
-                                    <textarea id="personalPhrase" rows="2" class="pharse form-control" placeholder="Accepts anything just make it fairly long and complicated."></textarea>
+                                    <textarea id="personalPhrase" rows="2" class="phrase form-control" placeholder="Accepts anything just make it fairly long and complicated."></textarea>
                                     <div class="row filter-warning text-danger hidden">
                                         <p class="col-sm-12">
                                         <strong>
@@ -331,6 +331,16 @@
             <div class="row">
                 <div class="col-md-12">
                     <h2>More info</h2>
+                    <h3 id="entropy-notes">Personal Phrase</h3>
+                    <p>
+                        Do <strong>NOT</strong> use phrases from books, lyrics from songs, your birthday or street address,
+                        keyboard mashing, or anything you <i>think</i> is random, because chances are overwhelming it isn't
+                        random enough for the needs of this tool.
+                    </p>
+                    <p>
+                        Using <a href="http://world.std.com/~reinhold/diceware.html">Diceware Passphrase</a> as one personal phrase is a good idea with minimum 6 words. Also one string with 40 random characters is a good password.
+                    </p>
+                    <p>As phrase like <i>"I'm smart"</i> will generate 24 BIP39 words. As much as 24 words is strong phrase, your <i>"I'm smart"</i> is not, because now another smart person can use this tool to try to generate 24 BIP39 words from dump short personal phrases.</p>
                     <h3>BIP39 <span class="small">Mnemonic code for generating deterministic keys</span></h3>
                     <p>
                         Read more at the
@@ -372,8 +382,8 @@
                     </p>
                     <p>
                     Alternatively, download it from
-                    <a href="https://github.com/Coinomi/bip39" target="_blank">
-                        https://github.com/Coinomi/bip39
+                    <a href="https://github.com/skironDotNet/bip39" target="_blank">
+                        https://github.com/skironDotNet/bip39
                     </a>
 
                 </div>
@@ -385,9 +395,16 @@
                 <div class="col-md-12">
 
                     <h2>This project is 100% open-source code</h2>
-
+                    
                     <p>
                         <span>Get the source code at - </span>
+                        <a href="https://github.com/skironDotNet/bip39" target="_blank">
+                            https://github.com/skironDotNet/bip39
+                        </a>
+                    </p>
+
+                    <p>
+                        <span>Originally based on - </span>
                         <a href="https://github.com/Coinomi/bip39" target="_blank">
                             https://github.com/Coinomi/bip39
                         </a>
