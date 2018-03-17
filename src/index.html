@@ -47,13 +47,54 @@
 
             <h1 class="text-center">Mnemonic Code Converter</h1>
             <hr>
+			
+			<div class="row">
+                <div class="col-md-12">
+                    <h2>Personal phrase</h2>
+                    <form class="form-horizontal" role="form">
+                           <div class="form-group">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-10">
+                                <p>If you don't want to be tied to BIP39 phrase length 3,6,9,12,... you can enter here your own custom phrase of any kind. You could call it a brain wallet. You can use any language, any symbols.</p>
+								<p>This will be used as a seed for entropy from which BIP39 phrase will be generated. In this case you don't need to remember BIP39 phrase just your personal one.</p>
+                            </div>
+                        </div>
+                        <div class="entropy-container">
+                            <div class="form-group text-danger">
+                                <label class="col-sm-2 control-label">Warning</label>
+                                <div class="col-sm-10 form-control-static">
+                                    <span>Using very short or uncomplicated phrase defeats the purpose of BIP39 phrase, so make sure you use at least 6 words or at least 40 mixed characters.</span>
+                                    <a href="#entropy-notes">Read more</a>
+									<p>If you use this, there is no need to use "BIP39 Passphrase"</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="personalPhrase" class="col-sm-2 control-label">Your custom Passphrase</label>
+                                <div class="col-sm-10">
+                                    <textarea id="personalPhrase" rows="2" class="pharse form-control" placeholder="Accepts anything just make it fairly long and complicated."></textarea>
+                                    <div class="row filter-warning text-danger hidden">
+                                        <p class="col-sm-12">
+                                        <strong>
+                                        Some characters have been discarded
+                                        </strong>
+                                        </p>
+                                    </div>
+								</div>
+							</div>
+						</div>
+                    </form>
+                </div>
+            </div>
+
+            <hr>
+			
             <div class="row">
                 <div class="col-md-12">
                     <h2>Recovery phrase</h2>
                     <form class="form-horizontal" role="form">
                         <div class="col-sm-2"></div>
                         <div class="col-sm-10">
-                            <p>You can enter an existing BIP39 recovery phrase, or generate a new random one. Typing your own twelve words will probably not work how you expect, since the words require a particular structure (the last word is a checksum)</p>
+                            <p>You can enter an existing BIP39 recovery phrase, or generate a new random one. Typing your own twelve words will probably not work how you expect, since the words require a particular structure (the last word is a checksum). <b>For your own words use Personal Phrase</b></p>
                             <p>For more info see the <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki" target="_blank">BIP39 spec</a></p>
                         </div>
                         <div class="form-group">
@@ -434,6 +475,7 @@
         <script src="/js/wordlist_english.js"></script>
         <script src="/js/jsbip39.js"></script>
         <script src="/js/jquery.qrcode.min.js"></script>
+        <script src="/js/biginteger.js"></script>
         <script src="/js/index.js"></script>
     </body>
 </html>

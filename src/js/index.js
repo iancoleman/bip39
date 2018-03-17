@@ -16,6 +16,7 @@
     var DOM = {};
     DOM.network = $(".network");
     DOM.phraseNetwork = $("#network-phrase");
+	DOM.personalPhrase = $("#personalPhrase");
     DOM.phrase = $(".phrase");
     DOM.passphrase = $(".passphrase");
     DOM.generate = $(".generate");
@@ -53,6 +54,7 @@
         DOM.network.on("change", networkChanged);
         DOM.phrase.on("input", delayedPhraseChanged);
         DOM.passphrase.on("input", delayedPhraseChanged);
+		DOM.personalPhrase.on("input", delayedPersonalPhraseChanged);
         DOM.generate.on("click", generateClicked);
         DOM.more.on("click", showMore);
         DOM.bip32path.on("input", bip32Changed);
@@ -89,6 +91,15 @@
         phraseChangeTimeoutEvent = setTimeout(phraseChanged, 400);
     }
 
+	function delayedPersonalPhraseChanged() {
+        hideValidationError();
+        showPending();
+        if (phraseChangeTimeoutEvent != null) {
+            clearTimeout(phraseChangeTimeoutEvent);
+        }
+        phraseChangeTimeoutEvent = setTimeout(personalPhraseChanged, 400);
+    }
+	
     function phraseChanged() {
         showPending();
         hideValidationError();
@@ -112,7 +123,15 @@
         hidePending();
     }
 
+	function personalPhraseChanged(){
+        DOM.strength.val(24);
+        var personal = DOM.personalPhrase.val();
+        setMnemonicFromPhrase(personal);
+	    hidePending();
+	}
+	
     function generateClicked() {
+		clearPersonalPhrase();
         clearDisplay();
         showPending();
         setTimeout(function() {
@@ -179,6 +198,32 @@
         return words;
     }
 
+	function setMnemonicFromPhrase(phrase) {
+
+        // Get bits by hashing phrase with SHA256
+        var hash = sjcl.hash.sha256.hash(phrase);
+        var hex = sjcl.codec.hex.fromBits(hash);
+        var bits = BigInteger.parse(hex, 16).toString(2);
+        while (bits.length % 256 != 0) {
+            bits = "0" + bits;
+        }
+        
+        // Convert entropy string to numeric array
+        var entropyArr = [];
+        for (var i=0; i<bits.length / 8; i++) {
+            var byteAsBits = bits.substring(i*8, i*8+8);
+            var entropyByte = parseInt(byteAsBits, 2);
+            entropyArr.push(entropyByte)
+        }
+        // Convert entropy array to mnemonic
+        var phrase = mnemonic.toMnemonic(entropyArr);
+
+        // Set the mnemonic in the UI
+        DOM.phrase.val(phrase);
+
+        phraseChanged();
+    }
+	
     function calcBip32Seed(phrase, passphrase, path) {
         var seed = mnemonic.toSeed(makeProperPhrase(phrase), passphrase);
         bip32RootKey = bitcoin.HDNode.fromSeedHex(seed, network);
@@ -344,6 +389,10 @@
         hideValidationError();
     }
 
+	function clearPersonalPhrase() {
+		DOM.personalPhrase.val("");
+	}
+	
     function clearAddressesList() {
         DOM.addresses.empty();
     }
