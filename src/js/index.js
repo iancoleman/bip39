@@ -1266,6 +1266,20 @@
                 DOM.bip44coin.val(147);
             },
         },
+        {
+            name: "Litecoincash",
+            onSelect: function() {
+                network = bitcoin.networks.litecoincash;
+                DOM.bip44coin.val(192);
+            },
+        },
+        {
+            name: "BitcoinPrivate",
+            onSelect: function() {
+                network = bitcoin.networks.bitcoinprivate;
+                DOM.bip44coin.val(183);
+            },
+        },
     ]
 
     init();
