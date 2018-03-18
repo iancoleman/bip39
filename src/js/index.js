@@ -175,7 +175,7 @@
 
     function togglePublicKeys() {
         showPubKey = !showPubKey;
-        $("td.pubkey span").toggleClass("invisible");
+        $("td.pubkey a").toggleClass("invisible");
     }
 
     function togglePrivateKeys() {
