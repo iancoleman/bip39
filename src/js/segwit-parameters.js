@@ -15,6 +15,19 @@ bitcoinjs.bitcoin.networks.bitcoin.p2wpkh = {
     wif: 0x80
 };
 
+bitcoinjs.bitcoin.networks.testnet.p2wpkh = {
+    baseNetwork: "testnet",
+    messagePrefix: '\x18Bitcoin Signed Message:\n',
+    bech32: 'tb',
+    bip32: {
+        public: 0x045f1cf6,
+        private: 0x045f18bc
+    },
+    pubKeyHash: 0x6f,
+    scriptHash: 0xc4,
+    wif: 0xef
+};
+
 // p2wpkh in p2sh
 
 bitcoinjs.bitcoin.networks.bitcoin.p2wpkhInP2sh = {
