@@ -627,6 +627,13 @@ it('Allows selection of BlackCoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Neblio', function(done) {
+    var params = {
+        selectText: "NEBL - Neblio",
+        firstAddress: "NefkeEEvhusbHMmTRrxx7H9wFnUXd8qQsE",
+    };
+    testNetwork(done, params);
+});
 
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {
