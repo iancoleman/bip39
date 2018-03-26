@@ -2968,4 +2968,20 @@ it('Shows the checksum for the entropy with the correct groupings', function(don
     });
 });
 
+it('Uses vprv for bitcoin testnet p2wpkh', function(done) {
+    selectNetwork("BTC - Bitcoin Testnet");
+    driver.findElement(By.css('#bip84-tab a'))
+        .click()
+    driver.findElement(By.css('.phrase'))
+        .sendKeys('abandon abandon ability');
+    driver.sleep(generateDelay).then(function() {
+        driver.findElement(By.css('.root-key'))
+            .getAttribute("value")
+            .then(function(path) {
+                expect(path).toBe("vprv9DMUxX4ShgxML9N2YV5CvWEebWrM9aJ5ULpbRRyzyWu6vs4BzTvbfFFrH41N5hVi7MYSfiugd765L3JmAfDM5po36Y8ouCKRDeYQwByCmS7");
+                done();
+            })
+    });
+});
+
 });
