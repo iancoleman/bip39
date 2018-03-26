@@ -1523,20 +1523,20 @@
             },
         },
         {
-            name: "BEET - Beetlecoin",
-            segwitAvailable: false,
-            onSelect: function() {
-                network = bitcoinjs.bitcoin.networks.beetlecoin;
-                setHdCoin(800);
-            },
-        },
-        {
             name: "BCH - Bitcoin Cash",
             segwitAvailable: false,
             onSelect: function() {
                 DOM.useBitpayAddressesContainer.removeClass("hidden");
                 setBitcoinCashNetworkValues();
                 setHdCoin(145);
+            },
+        },
+        {
+            name: "BEET - Beetlecoin",
+            segwitAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.beetlecoin;
+                setHdCoin(800);
             },
         },
         {
