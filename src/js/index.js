@@ -1568,7 +1568,7 @@
             segwitAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bgold;
-                setHdCoin(0);
+                setHdCoin(156);
             },
         },
         {

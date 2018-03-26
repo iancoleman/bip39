@@ -602,7 +602,7 @@ it('Allows selection of nubits', function(done) {
 it('Allows selection of bitcoin gold', function(done) {
     var params = {
         selectText: "BTG - Bitcoin Gold",
-        firstAddress: "GWYxuwSqANWGV3WT7Gpr6HE91euYXBqtwQ",
+        firstAddress: "GdDqug4WUsn5syNbSTHatNn4XnuwZtzedx",
     };
     testNetwork(done, params);
 });
