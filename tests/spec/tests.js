@@ -634,6 +634,13 @@ it('Allows selection of Neblio', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Beetlecoin', function(done) {
+    var params = {
+        selectText: "BEET - Beetlecoin",
+        firstAddress: "BVmtbEsGrjpknprmpHFq26z4kYHJUFHE71",
+    };
+    testNetwork(done, params);
+});
 
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {
