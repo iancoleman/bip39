@@ -1612,14 +1612,6 @@
             },
         },
         {
-            name: "NEBL - Neblio",
-            segwitAvailable: false,
-            onSelect: function() {
-                network = bitcoinjs.bitcoin.networks.neblio;
-                setHdCoin(146);
-            },
-        },
-        {
             name: "DOGE - Dogecoin",
             segwitAvailable: false,
             onSelect: function() {
@@ -1690,6 +1682,14 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.monacoin,
                 setHdCoin(22);
+            },
+        },
+        {
+            name: "NEBL - Neblio",
+            segwitAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.neblio;
+                setHdCoin(146);
             },
         },
         {
