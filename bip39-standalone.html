@@ -7475,7 +7475,7 @@ button.close {
                             <span>Encrypt private keys using BIP38 and this password:</span>
                         </label>
                         <input class="bip38-password">
-                        <span>Enabling BIP38 means each key will take take several minutes to generate.</span>
+                        <span>Enabling BIP38 means each key will take several minutes to generate.</span>
                     </div>
                 </div>
                 <ul class="addresses-type nav nav-tabs" role="tablist">
@@ -50936,6 +50936,17 @@ bitcoinjs.bitcoin.networks.denarius = {
   pubKeyHash: 0x1e,
   scriptHash: 0x5a,
   wif: 0x9e
+};
+
+bitcoinjs.bitcoin.networks.neblio = {
+  messagePrefix: '\x18Neblio Signed Message:\n',
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  },
+  pubKeyHash: 0x35,
+  scriptHash: 0x70,
+  wif: 0xb5
 };
 
 bitcoinjs.bitcoin.networks.viacoin = {
@@ -106336,6 +106347,14 @@ window.Entropy = new (function() {
             },
         },
         {
+            name: "NEBL - Neblio",
+            segwitAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.neblio;
+                setHdCoin(146);
+            },
+        },
+				{
             name: "NMC - Namecoin",
             segwitAvailable: false,
             onSelect: function() {
