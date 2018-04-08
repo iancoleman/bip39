@@ -68,4 +68,30 @@ bitcoinjs.bitcoin.networks.litecoin.p2wpkhInP2sh = {
     wif: 0xb0
 };
 
+bitcoinjs.bitcoin.networks.fujicoin.p2wpkh = {
+    baseNetwork: "fujicoin",
+    messagePrefix: '\x19FujiCoin Signed Message:\n',
+    bech32: 'fc',
+    bip32: {
+        public: 0x04b24746,
+        private: 0x04b2430c
+    },
+    pubKeyHash: 0x24,
+    scriptHash: 0x10,
+    wif: 0xa4
+};
+
+bitcoinjs.bitcoin.networks.fujicoin.p2wpkhInP2sh = {
+    baseNetwork: "fujicoin",
+    messagePrefix: '\x19FujiCoin Signed Message:\n',
+    bech32: 'fc',
+    bip32: {
+        public: 0x049d7cb2,
+        private: 0x049d7878
+    },
+    pubKeyHash: 0x24,
+    scriptHash: 0x10,
+    wif: 0xa4
+};
+
 })();
