@@ -93,12 +93,12 @@ var Mnemonic = function(language) {
             var idx = parseInt(b.substring(i * 11, (i + 1) * 11), 2);
             result.push(wordlist[idx]);
         }
-        return result.join(' ');
+        return self.joinWords(result);
     }
 
     self.check = function(mnemonic) {
-        var mnemonic = mnemonic.split(' ')
-        if (mnemonic.length % 3 > 0) {
+        var mnemonic = self.splitWords(mnemonic);
+        if (mnemonic.length == 0 || mnemonic.length % 3 > 0) {
             return false
         }
         // idx = map(lambda x: bin(self.wordlist.index(x))[2:].zfill(11), mnemonic)
@@ -130,25 +130,33 @@ var Mnemonic = function(language) {
 
     self.toSeed = function(mnemonic, passphrase) {
         passphrase = passphrase || '';
-        mnemonic = self.normalizeString(mnemonic)
+        mnemonic = self.joinWords(self.splitWords(mnemonic)); // removes duplicate blanks
+        var mnemonicNormalized = self.normalizeString(mnemonic);
         passphrase = self.normalizeString(passphrase)
         passphrase = "mnemonic" + passphrase;
-        var mnemonicBits = sjcl.codec.utf8String.toBits(mnemonic);
+        var mnemonicBits = sjcl.codec.utf8String.toBits(mnemonicNormalized);
         var passphraseBits = sjcl.codec.utf8String.toBits(passphrase);
         var result = sjcl.misc.pbkdf2(mnemonicBits, passphraseBits, PBKDF2_ROUNDS, 512, hmacSHA512);
         var hashHex = sjcl.codec.hex.fromBits(result);
         return hashHex;
     }
 
+    self.splitWords = function(mnemonic) {
+        return mnemonic.split(/\s/g).filter(function(x) { return x.length; });
+    }
+
+    self.joinWords = function(words) {
+        // Set space correctly depending on the language
+        // see https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md#japanese
+        var space = " ";
+        if (language == "japanese" || language == "korean") {
+            space = "\u3000"; // ideographic space
+        }
+        return words.join(space);
+    }
+
     self.normalizeString = function(str) {
-        if (typeof str.normalize == "function") {
-            return str.normalize("NFKD");
-        }
-        else {
-            // TODO decide how to handle this in the future.
-            // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize
-            return str;
-        }
+        return str.normalize("NFKD");
     }
 
     function byteArrayToWordArray(data) {

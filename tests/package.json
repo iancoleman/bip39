@@ -1,0 +1,17 @@
+{
+  "name": "tests",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "node tests.js"
+  },
+  "author": "Ian coleman",
+  "description": "Tests for BIP39 tool",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/iancoleman/bip39.git"
+  },
+  "dependencies": {
+    "selenium-webdriver": "^3.6.0"
+  },
+  "license": "MIT"
+}

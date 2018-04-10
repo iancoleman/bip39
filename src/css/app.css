@@ -1,0 +1,105 @@
+body {
+    padding-bottom: 32px;
+}
+.form-control[readonly] {
+    cursor: text;
+}
+.feedback-container {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 4;
+}
+.feedback {
+    display: table;
+    padding: 0.5em 1em;
+    background-color: orange;
+    margin: 0 auto;
+    font-size: 2em;
+    color: #444;
+    border: 2px solid #555;
+    border-top: 0;
+    border-bottom-left-radius: 20px 20px;
+    border-bottom-right-radius: 20px 20px;
+}
+.no-border {
+    border: 0;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.0);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.0);
+}
+.phrase {
+    word-break: keep-all;
+}
+.generate-container .strength {
+    /* override mobile width from bootstrap */
+    width: auto!important;
+    display: inline-block;
+}
+.languages a {
+    padding-left: 10px;
+}
+.languages a:nth-of-type(1) {
+    margin-left: -12px;
+    padding-left: 0;
+}
+.monospace {
+    font-family: monospace;
+}
+.entropy-container .filtered,
+.entropy-container .binary {
+    word-wrap: break-word;
+}
+.entropy-container li {
+    padding-bottom: 5px;
+}
+.card-suit {
+    font-size: 19px;
+    line-height: 0;
+}
+.card-suit.club {
+    color: #009F00;
+}
+.card-suit.diamond {
+    color: #3D5DC4;
+}
+.card-suit.heart {
+    color: #F00;
+}
+.card-suit.spade {
+    color: #000;
+}
+.qr-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    text-align: center;
+    background-color: #FFF;
+    border: 1px solid #CCC;
+}
+.qr-image {
+    margin: 5px;
+}
+.qr-hint,
+.qr-warning {
+    padding: 2px;
+    max-width: 320px;
+}
+.more-info {
+    cursor: help;
+    border-bottom: 1px dashed #000;
+    text-decoration: none;
+}
+.version {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+.csv {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    white-space: pre;
+    overflow-wrap: normal;
+    overflow-x: scroll;
+    font-family: monospace;
+}
