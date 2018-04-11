@@ -1629,7 +1629,7 @@
         },
         {
             name: "FJC - Fujicoin",
-            segwitAvailable: false,
+            segwitAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.fujicoin;
                 setHdCoin(75);
