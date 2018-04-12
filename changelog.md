@@ -1,3 +1,15 @@
+# 0.3.5
+
+* Fix typo
+* Add Neblio network
+* Update bitcoinjs-lib from 3.3.0 to 3.3.2
+* Add Beetle Coin
+* Add segwit for bitcoin testnet and Fujicoin
+* Set coin number for Bitcoin God to 156
+* Add coins supported by coinomi
+* Warn when generating low entropy mnemonics
+* Warn when overriding weak entropy with a strong mnemonic length
+
 # 0.3.4
 
 * Add BlackCoin
