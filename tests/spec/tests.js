@@ -3530,4 +3530,36 @@ it('Does not show a warning if generating strong mnemonics', function(done) {
         });
 });
 
+it('Shows a warning if overriding weak entropy with longer mnemonics', function(done) {
+    driver.findElement(By.css('.use-entropy'))
+        .click();
+    driver.findElement(By.css('.entropy'))
+        .sendKeys("0123456789abcdef"); // 6 words
+    driver.executeScript(function() {
+        $(".mnemonic-length").val("12").trigger("change");
+    });
+    driver.findElement(By.css(".weak-entropy-override-warning"))
+        .getAttribute("class")
+        .then(function(classes) {
+            expect(classes).not.toContain("hidden");
+            done();
+        });
+});
+
+it('Does not show a warning if entropy is stronger than mnemonic length', function(done) {
+    driver.findElement(By.css('.use-entropy'))
+        .click();
+    driver.findElement(By.css('.entropy'))
+        .sendKeys("0123456789abcdef0123456789abcdef0123456789abcdef"); // 18 words
+    driver.executeScript(function() {
+        $(".mnemonic-length").val("12").trigger("change");
+    });
+    driver.findElement(By.css(".weak-entropy-override-warning"))
+        .getAttribute("class")
+        .then(function(classes) {
+            expect(classes).toContain("hidden");
+            done();
+        });
+});
+
 });

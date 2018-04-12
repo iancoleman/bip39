@@ -40,6 +40,7 @@
     DOM.entropyWordIndexes = DOM.entropyContainer.find(".word-indexes");
     DOM.entropyChecksum = DOM.entropyContainer.find(".checksum");
     DOM.entropyMnemonicLength = DOM.entropyContainer.find(".mnemonic-length");
+    DOM.entropyWeakEntropyOverrideWarning = DOM.entropyContainer.find(".weak-entropy-override-warning");
     DOM.entropyFilterWarning = DOM.entropyContainer.find(".filter-warning");
     DOM.phrase = $(".phrase");
     DOM.passphrase = $(".passphrase");
@@ -1190,6 +1191,17 @@
             mnemonicLength = parseInt(mnemonicLength);
             var numberOfBits = 32 * mnemonicLength / 3;
             bits = bits.substring(0, numberOfBits);
+            // show warning for weak entropy override
+            if (mnemonicLength / 3 * 32 > entropy.binaryStr.length) {
+                DOM.entropyWeakEntropyOverrideWarning.removeClass("hidden");
+            }
+            else {
+                DOM.entropyWeakEntropyOverrideWarning.addClass("hidden");
+            }
+        }
+        else {
+            // hide warning for weak entropy override
+            DOM.entropyWeakEntropyOverrideWarning.addClass("hidden");
         }
         // Discard trailing entropy
         var bitsToUse = Math.floor(bits.length / 32) * 32;
