@@ -641,6 +641,525 @@ it('Allows selection of Beetlecoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Adcoin', function(done) {
+    var params = {
+        selectText: "ACC - Adcoin",
+        firstAddress: "AcEDM6V5sF4kFHC76MJjjfProtS5Sw2qcd",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Asiacoin', function(done) {
+    var params = {
+        selectText: "AC - Asiacoin",
+        firstAddress: "ALupuEEz7kJjQTAvmtcBMBVuEjPa7GqZzE",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Auroracoin', function(done) {
+    var params = {
+        selectText: "AUR - Auroracoin",
+        firstAddress: "ANuraS6F4Jpi413FEnavjYkKYJJRHkgYCm",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Bata', function(done) {
+    var params = {
+        selectText: "BTA - Bata",
+        firstAddress: "BGxBdNeYPtF3GCuTtZBPQdFxCkdBYSF3fj",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Belacoin', function(done) {
+    var params = {
+        selectText: "BELA - Belacoin",
+        firstAddress: "BEeetqpNffdzeknSpNmQp5KAFh2KK1Qx7S",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Bitcoin Atom', function(done) {
+    var params = {
+        selectText: "BCA - Bitcoin Atom",
+        firstAddress: "AMy6qMbJeC4zsGRL6iWszmeCdQH65fgfih",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Bitcoinplus', function(done) {
+    var params = {
+        selectText: "XBC - Bitcoinplus",
+        firstAddress: "B7FSynZoDbEwTCSgsXq9nJ5ue8owYLVL8r",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Bitcore', function(done) {
+    var params = {
+        selectText: "BTX - Bitcore",
+        firstAddress: "1Dg18EtqhReS11e9h8khkLjWGLHVjPM2AB",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Bitsend', function(done) {
+    var params = {
+        selectText: "BSD - Bitsend",
+        firstAddress: "iBPk7LYjDun3EPk7CRR8UUmnPoceVc1bp2",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Britcoin', function(done) {
+    var params = {
+        selectText: "BRIT - Britcoin",
+        firstAddress: "B6Aue4J2XLs1f1dtD4H1SHYFfh4XrmEbrw",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Canadaecoin', function(done) {
+    var params = {
+        selectText: "CDN - Canadaecoin",
+        firstAddress: "CanAyCfd5Rj2CQVfaoAmvDUZunPM5W1AEQ",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Cannacoin', function(done) {
+    var params = {
+        selectText: "CCN - Cannacoin",
+        firstAddress: "CYjW8xWB43g6krLJTmmrPk1PonoQX7h9Qd",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Clubcoin', function(done) {
+    var params = {
+        selectText: "CLUB - Clubcoin",
+        firstAddress: "CHMDEXN4sihpSVX4GyAa2hZ62shnby7uyN",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Compcoin', function(done) {
+    var params = {
+        selectText: "CMP - Compcoin",
+        firstAddress: "CLshtw3zhxkseBJS46UF12v3AFy9Dx7JVv",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Crave', function(done) {
+    var params = {
+        selectText: "CRAVE - Crave",
+        firstAddress: "VCYJeti6uKMNBFKCL7eP96UwuFWYHM7c85",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Defcoin', function(done) {
+    var params = {
+        selectText: "DFC - Defcoin",
+        firstAddress: "D8swcgyaaFUrXZU3ATwbgy16buCpWqbG1M",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Diamond', function(done) {
+    var params = {
+        selectText: "DMD - Diamond",
+        firstAddress: "dJnrVbLL9UPjdaVRz2C8VpqHZknqAqjLek",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Digibyte', function(done) {
+    var params = {
+        selectText: "DGB - Digibyte",
+        firstAddress: "D85Rp9jwLtMdmP6wGjTiqHBdVQLST3YCEq",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Digitalcoin', function(done) {
+    var params = {
+        selectText: "DGC - Digitalcoin",
+        firstAddress: "DKw4UGKEAZWweDNEbBFNQx4EM8x1mpUdia",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Ecoin', function(done) {
+    var params = {
+        selectText: "ECN - Ecoin",
+        firstAddress: "e6WFPLG5gcXyF7cESFteH1hE2XSmowW5yB",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Edrcoin', function(done) {
+    var params = {
+        selectText: "EDRC - Edrcoin",
+        firstAddress: "eh1nUJsvgKPFv6ebMBfcwJ299GMCpjeZUG",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Egulden', function(done) {
+    var params = {
+        selectText: "EFL - Egulden",
+        firstAddress: "Lg66yt55R7edRM58cDhKzXik2kFme3viX7",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Einsteinium', function(done) {
+    var params = {
+        selectText: "EMC2 - Einsteinium",
+        firstAddress: "EVAABm9hXKHk2MpVMbwNakRubFnNha5m8m",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Europecoin', function(done) {
+    var params = {
+        selectText: "ERC - Europecoin",
+        firstAddress: "ESA2YwPYntAoaPrE8Fm5qkKRtkcwLcwD6R",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Exclusivecoin', function(done) {
+    var params = {
+        selectText: "EXCL - Exclusivecoin",
+        firstAddress: "EbUa6m8UZW6nTxsYZD2FsDjkadKbp5M6JT",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Feathercoin', function(done) {
+    var params = {
+        selectText: "FTC - Feathercoin",
+        firstAddress: "6gDdjAMoSgQaW8UhqK3oboHs6ftGAroKkM",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Firstcoin', function(done) {
+    var params = {
+        selectText: "FRST - Firstcoin",
+        firstAddress: "FJN9GzfMm7Q8R4DJwK1H9F6A1GTghvFiMJ",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Flashcoin', function(done) {
+    var params = {
+        selectText: "FLASH - Flashcoin",
+        firstAddress: "UWfpf5LfMmLxZYooEb2EyvWhZ8NG7EZDRt",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of GCRCoin', function(done) {
+    var params = {
+        selectText: "GCR - GCRCoin",
+        firstAddress: "GJjF5cLwyXLacpuvXAVksxGxKvHDjx58d6",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Gobyte', function(done) {
+    var params = {
+        selectText: "GBX - Gobyte",
+        firstAddress: "GS813Ys2brkmvSUw1rUqGPm2HqQVDHJRyA",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Gridcoin', function(done) {
+    var params = {
+        selectText: "GRC - Gridcoin",
+        firstAddress: "SGrWbBPvobgqKRF8td1Kdc9vbRY7MJ78Y9",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Gulden', function(done) {
+    var params = {
+        selectText: "NLG - Gulden",
+        firstAddress: "GcDP7cNEc33MPPdTFNJ8pZc6VMZJ2CbKxY",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Helleniccoin', function(done) {
+    var params = {
+        selectText: "HNC - Helleniccoin",
+        firstAddress: "LbHEKe5H72zp9G1fuWNiiNePTUfJb88915",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Hempcoin', function(done) {
+    var params = {
+        selectText: "THC - Hempcoin",
+        firstAddress: "H8sdWbZyJV4gyXyHtLXDaNnAuUDhK5mfTV",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Insane', function(done) {
+    var params = {
+        selectText: "INSN - Insane",
+        firstAddress: "iMPqEJMiXWuxC9U2NVinCCMr4t72h58EWx",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Iop', function(done) {
+    var params = {
+        selectText: "IOP - Iop",
+        firstAddress: "pGKQmcaPf95Ur5o6oHK4qdiZ52p1yaTvq1",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Ixcoin', function(done) {
+    var params = {
+        selectText: "IXC - Ixcoin",
+        firstAddress: "xgE9bTZ6YypT3E6ByzkTt31Hq68E9BqywH",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Landcoin', function(done) {
+    var params = {
+        selectText: "LDCN - Landcoin",
+        firstAddress: "LLvLwNjG1aJcn1RS4W4GJUbv8fNaRATG7c",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Library Credits', function(done) {
+    var params = {
+        selectText: "LBC - Library Credits",
+        firstAddress: "bQJEQrHDJyHdqycB32uysh1SWn8Ln8LMdg",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Linx', function(done) {
+    var params = {
+        selectText: "LINX - Linx",
+        firstAddress: "XGWQ3cb3LGUB3VnHmj6xYSMgnokNbf6dyk",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Litecoincash', function(done) {
+    var params = {
+        selectText: "LCC - Litecoincash",
+        firstAddress: "Ce5n7fjUuQPLutJ4W5nCCfQLKdKLE1mv9A",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Lynx', function(done) {
+    var params = {
+        selectText: "LYNX - Lynx",
+        firstAddress: "KUeY3ZdZkg96p4W98pj1JjygCFU1XqWdw3",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Minexcoin', function(done) {
+    var params = {
+        selectText: "MNX - Minexcoin",
+        firstAddress: "XC1VnyJVfiMDwWgFtAHDp41cgY3AHk3dJT",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Navcoin', function(done) {
+    var params = {
+        selectText: "NAV - Navcoin",
+        firstAddress: "NTQVTPK3NWSQLKoffkiQw99T8PifkF1Y2U",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Neoscoin', function(done) {
+    var params = {
+        selectText: "NEOS - Neoscoin",
+        firstAddress: "NgATz6QbQNXvayHQ4CpZayugb9HeaPDdby",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Neurocoin', function(done) {
+    var params = {
+        selectText: "NRO - Neurocoin",
+        firstAddress: "NVdYErQ3mFpDuF5DquW9WMiT7sLc8ufFTn",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Newyorkc', function(done) {
+    var params = {
+        selectText: "NYC - Newyorkc",
+        firstAddress: "RSVMfyH1fKfy3puADJEhut2vfkRyon6imm",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Novacoin', function(done) {
+    var params = {
+        selectText: "NVC - Novacoin",
+        firstAddress: "4JRvUmxcKCJmaMXZyvRoSS1cmG2XvnZfHN",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Nushares', function(done) {
+    var params = {
+        selectText: "NSR - Nushares",
+        firstAddress: "SecjXzU3c7EecdT7EbC4vvmbdtBBokWh6J",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Okcash', function(done) {
+    var params = {
+        selectText: "OK - Okcash",
+        firstAddress: "PV4Qp1TUYuGv4TqVtLZtqvrsWWRycfx1Yi",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Omnicore', function(done) {
+    var params = {
+        selectText: "OMNI - Omnicore",
+        firstAddress: "1Q1t3gonjCT3rW38TsTsCvgSc3hh7zBGbi",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Pesobit', function(done) {
+    var params = {
+        selectText: "PSB - Pesobit",
+        firstAddress: "PDePsF7ALyXP7JaywokdYiRTDtKa14MAr1",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Pinkcoin', function(done) {
+    var params = {
+        selectText: "PINK - Pinkcoin",
+        firstAddress: "2TgjYQffjbzUHJghNaVbdsjHbRwruC3yzC",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of POSWcoin', function(done) {
+    var params = {
+        selectText: "POSW - POSWcoin",
+        firstAddress: "PNxewmZoPnGBvoEbH6hgQZCK1igDiBCdgC",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Potcoin', function(done) {
+    var params = {
+        selectText: "POT - Potcoin",
+        firstAddress: "PEo7Vg2ctXgpP4vuLPeY9aGJtZotyrmiHc",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Putincoin', function(done) {
+    var params = {
+        selectText: "PUT - Putincoin",
+        firstAddress: "PViWnfr2uFtovd6e7joM49C94CsGSnqJis",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Reddcoin', function(done) {
+    var params = {
+        selectText: "RDD - Reddcoin",
+        firstAddress: "1M4druAcUfkXBaAcQ4cCgCLPHChiaib6kL",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of RevolutionVR', function(done) {
+    var params = {
+        selectText: "RVR - RevolutionVR",
+        firstAddress: "VXeeoP2jkzZnMFxtc66ZBZK1NHN5QJnnjL",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Rubycoin', function(done) {
+    var params = {
+        selectText: "RBY - Rubycoin",
+        firstAddress: "RV76JDtjTs11JdMDRToYn6CHecMRPLnKS6",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Smileycoin', function(done) {
+    var params = {
+        selectText: "SMLY - Smileycoin",
+        firstAddress: "BEZVnEBCAyFByrgKpwAgYgtvP4rKAd9Sj2",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Solarcoin', function(done) {
+    var params = {
+        selectText: "SLR - Solarcoin",
+        firstAddress: "8LZ13HbnjtaMJWSvvVFNTLf71zFfDrhwLu",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Stratis', function(done) {
+    var params = {
+        selectText: "STRAT - Stratis",
+        firstAddress: "ScfJnq3QDhKgDMEds6sqUE1ot6ShfhmXXq",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Syscoin', function(done) {
+    var params = {
+        selectText: "SYS - Syscoin",
+        firstAddress: "SZwJi42Pst3VAMomyK5DG4157WM5ofRmSj",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Toa', function(done) {
+    var params = {
+        selectText: "TOA - Toa",
+        firstAddress: "TSe1QAnUwQzUfbBusDzRJ9URttrRGKoNKF",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Ultimatesecurecash', function(done) {
+    var params = {
+        selectText: "USC - Ultimatesecurecash",
+        firstAddress: "UPyLAZU2Che5fiy7Ed8xVJFmXAUhitA4ug",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Unobtanium', function(done) {
+    var params = {
+        selectText: "UNO - Unobtanium",
+        firstAddress: "uUBMPVMXrR6qhqornJqKTWgr8L69vihSL9",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Vcash', function(done) {
+    var params = {
+        selectText: "XVC - Vcash",
+        firstAddress: "VuL53MSY6KjvAjKSeRkh3NDnKykacDVeps",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Verge', function(done) {
+    var params = {
+        selectText: "XVG - Verge",
+        firstAddress: "DCrVuGkMjLJpTGgwAgv9AcMdeb1nkWbjZA",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Vertcoin', function(done) {
+    var params = {
+        selectText: "VTC - Vertcoin",
+        firstAddress: "Vf6koGuiWdXQfx8tNqxoNeEDxh4xh5cxsG",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Vivo', function(done) {
+    var params = {
+        selectText: "VIVO - Vivo",
+        firstAddress: "VFmBwuXXGhJe7MarQG2GfzHMFebRHgfSpB",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Vpncoin', function(done) {
+    var params = {
+        selectText: "VASH - Vpncoin",
+        firstAddress: "VoEmH1qXC4TsSgBAStR21QYetwnFqbqCx9",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Whitecoin', function(done) {
+    var params = {
+        selectText: "XWC - Whitecoin",
+        firstAddress: "WcSwCAUqrSgeSYbsaS3SSWWhsx8KRYTFDR",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Wincoin', function(done) {
+    var params = {
+        selectText: "WC - Wincoin",
+        firstAddress: "WaDVCESMGgyKgNESdn3u43NnwmGSkZED3Z",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Zcoin', function(done) {
+    var params = {
+        selectText: "XZC - Zcoin",
+        firstAddress: "a6VcMdP4XgAA9Tr7xNszmPG5FZpfRf17Cq",
+    };
+    testNetwork(done, params);
+});
+
 
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {
