@@ -3503,4 +3503,31 @@ it('Uses vprv for bitcoin testnet p2wpkh', function(done) {
     });
 });
 
+it('Shows a warning if generating weak mnemonics', function(done) {
+    driver.executeScript(function() {
+        $(".strength option[selected]").removeAttr("selected");
+        $(".strength option[value=6]").prop("selected", true);
+        $(".strength").trigger("change");
+    });
+    driver.findElement(By.css(".generate-container .warning"))
+        .getAttribute("class")
+        .then(function(classes) {
+            expect(classes).not.toContain("hidden");
+            done();
+        });
+});
+
+it('Does not show a warning if generating strong mnemonics', function(done) {
+    driver.executeScript(function() {
+        $(".strength option[selected]").removeAttr("selected");
+        $(".strength option[value=12]").prop("selected", true);
+    });
+    driver.findElement(By.css(".generate-container .warning"))
+        .getAttribute("class")
+        .then(function(classes) {
+            expect(classes).toContain("hidden");
+            done();
+        });
+});
+
 });

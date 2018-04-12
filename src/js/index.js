@@ -88,6 +88,7 @@
     DOM.bip141path = $("#bip141-path");
     DOM.bip141semantics = $(".bip141-semantics");
     DOM.generatedStrength = $(".generate-container .strength");
+    DOM.generatedStrengthWarning = $(".generate-container .warning");
     DOM.hardenedAddresses = $(".hardened-addresses");
     DOM.useBitpayAddressesContainer = $(".use-bitpay-addresses-container");
     DOM.useBitpayAddresses = $(".use-bitpay-addresses");
@@ -114,6 +115,7 @@
 
     function init() {
         // Events
+        DOM.generatedStrength.on("change", generatedStrengthChanged);
         DOM.network.on("change", networkChanged);
         DOM.bip32Client.on("change", bip32ClientChanged);
         DOM.useEntropy.on("change", setEntropyVisibility);
@@ -154,6 +156,16 @@
     }
 
     // Event handlers
+
+    function generatedStrengthChanged() {
+        var strength = parseInt(DOM.generatedStrength.val());
+        if (strength < 12) {
+            DOM.generatedStrengthWarning.removeClass("hidden");
+        }
+        else {
+            DOM.generatedStrengthWarning.addClass("hidden");
+        }
+    }
 
     function networkChanged(e) {
         clearDerivedKeys();
