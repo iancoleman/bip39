@@ -2350,7 +2350,7 @@
         },
         {
             name: "VTC - Vertcoin",
-            segwitAvailable: false,
+            segwitAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.vertcoin;
                 setHdCoin(28);
