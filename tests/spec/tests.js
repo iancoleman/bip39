@@ -900,6 +900,13 @@ it('Allows selection of Ixcoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Kobocoin', function(done) {
+    var params = {
+        selectText: "KOBO - Kobocoin",
+        firstAddress: "FTVoNJETXDAM8x7MnmdE8RwWndSr9PQWhy",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Landcoin', function(done) {
     var params = {
         selectText: "LDCN - Landcoin",

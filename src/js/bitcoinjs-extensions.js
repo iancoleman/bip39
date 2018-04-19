@@ -781,6 +781,17 @@ bitcoinjs.bitcoin.networks.ixcoin = {
   wif: 0x80,
 };
 
+bitcoinjs.bitcoin.networks.kobocoin = {
+  messagePrefix: '\x18Kobocoin Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4,
+  },
+  pubKeyHash: 0x23,
+  scriptHash: 0x1c,
+  wif: 0xa3,
+};
+
 bitcoinjs.bitcoin.networks.landcoin = {
   messagePrefix: '\x18Landcoin Signed Message:\n',
   bip32: {

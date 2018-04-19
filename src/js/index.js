@@ -1956,6 +1956,14 @@
             },
         },
         {
+            name: "KOBO - Kobocoin",
+            bip49available: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.kobocoin;
+                setHdCoin(196);
+            },
+        },
+        {
             name: "LBC - Library Credits",
             segwitAvailable: false,
             onSelect: function() {
