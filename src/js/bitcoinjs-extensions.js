@@ -1142,7 +1142,7 @@ bitcoinjs.bitcoin.networks.vertcoin = {
   },
   pubKeyHash: 0x47,
   scriptHash: 0x05,
-  wif: 0xc7,
+  wif: 0x80,
 };
 
 bitcoinjs.bitcoin.networks.vivo = {

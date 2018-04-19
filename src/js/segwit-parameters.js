@@ -94,4 +94,29 @@ bitcoinjs.bitcoin.networks.fujicoin.p2wpkhInP2sh = {
     wif: 0xa4
 };
 
+bitcoinjs.bitcoin.networks.vertcoin.p2wpkh = {
+    baseNetwork: "vertcoin",
+    messagePrefix: '\x18Vertcoin Signed Message:\n',
+    bech32: 'vtc',
+    bip32: {
+        public: 0x0488b21e,
+        private: 0x0488ade4
+    },
+    pubKeyHash: 71,
+    scriptHash: 5,
+    wif: 0x80
+};
+
+bitcoinjs.bitcoin.networks.vertcoin.p2wpkhInP2sh = {
+    baseNetwork: "vertcoin",
+    messagePrefix: '\x18Vertcoin Signed Message:\n',
+    bip32: {
+        public: 0x0488b21e,
+        private: 0x0488ade4
+    },
+    pubKeyHash: 71,
+    scriptHash: 5,
+    wif: 0x80
+};
+
 })();
