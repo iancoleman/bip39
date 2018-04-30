@@ -1166,6 +1166,13 @@ it('Allows selection of Zcoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Zcash', function(done) {
+    var params = {
+        selectText: "ZEC - Zcash",
+        firstAddress: "t1Sz8AneMcVuzUg3tPJ8et5AS5LFJ7K2EF9",
+    };
+    testNetwork(done, params);
+});
 
 
 // BIP39 seed is set from phrase

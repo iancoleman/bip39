@@ -2428,6 +2428,14 @@
                 setHdCoin(136);
             },
         },
+        {
+            name: "ZEC - Zcash",
+            segwitAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.zcash;
+                setHdCoin(133);
+            },
+        },
     ]
 
     var clients = [
