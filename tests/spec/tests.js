@@ -553,7 +553,7 @@ it('Allows selection of slimcoin testnet', function(done) {
 it('Allows selection of bitcoin cash', function(done) {
     var params = {
         selectText: "BCH - Bitcoin Cash",
-        firstAddress: "1JKvb6wKtsjNoCRxpZ4DGrbniML7z5U16A",
+        firstAddress: "bitcoincash:qzlquk7w4hkudxypl4fgv8x279r754dkvur7jpcsps",
     };
     testNetwork(done, params);
 });
@@ -3120,10 +3120,26 @@ it('Warns when entropy is filtered and discarded', function(done) {
     });
 });
 
+// Bitcoin Cash address can be set to use cashaddr format
+it('Can use cashaddr format for bitcoin cash addresses', function(done) {
+    driver.executeScript(function() {
+        $(".use-bch-cashaddr-addresses").prop("checked", true);
+    });
+    driver.findElement(By.css('.phrase'))
+        .sendKeys("abandon abandon ability");
+    selectNetwork("BCH - Bitcoin Cash");
+    driver.sleep(generateDelay).then(function() {
+        getFirstAddress(function(address) {
+            expect(address).toBe("bitcoincash:qzlquk7w4hkudxypl4fgv8x279r754dkvur7jpcsps");
+            done();
+        });
+    });
+});
+
 // Bitcoin Cash address can be set to use bitpay format
 it('Can use bitpay format for bitcoin cash addresses', function(done) {
     driver.executeScript(function() {
-        $(".use-bitpay-addresses").prop("checked", true);
+        $(".use-bch-bitpay-addresses").prop("checked", true);
     });
     driver.findElement(By.css('.phrase'))
         .sendKeys("abandon abandon ability");
@@ -3131,6 +3147,22 @@ it('Can use bitpay format for bitcoin cash addresses', function(done) {
     driver.sleep(generateDelay).then(function() {
         getFirstAddress(function(address) {
             expect(address).toBe("CZnpA9HPmvhuhLLPWJP8rNDpLUYXy1LXFk");
+            done();
+        });
+    });
+});
+
+// Bitcoin Cash address can be set to use legacy format
+it('Can use legacy format for bitcoin cash addresses', function(done) {
+    driver.executeScript(function() {
+        $(".use-bch-legacy-addresses").prop("checked", true);
+    });
+    driver.findElement(By.css('.phrase'))
+        .sendKeys("abandon abandon ability");
+    selectNetwork("BCH - Bitcoin Cash");
+    driver.sleep(generateDelay).then(function() {
+        getFirstAddress(function(address) {
+            expect(address).toBe("1JKvb6wKtsjNoCRxpZ4DGrbniML7z5U16A");
             done();
         });
     });

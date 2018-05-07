@@ -91,8 +91,8 @@
     DOM.generatedStrength = $(".generate-container .strength");
     DOM.generatedStrengthWarning = $(".generate-container .warning");
     DOM.hardenedAddresses = $(".hardened-addresses");
-    DOM.useBitpayAddressesContainer = $(".use-bitpay-addresses-container");
-    DOM.useBitpayAddresses = $(".use-bitpay-addresses");
+    DOM.bitcoinCashAddressTypeContainer = $(".bch-addr-type-container");
+    DOM.bitcoinCashAddressType = $("[name=bch-addr-type]")
     DOM.useBip38 = $(".use-bip38");
     DOM.bip38Password = $(".bip38-password");
     DOM.addresses = $(".addresses");
@@ -147,7 +147,7 @@
         DOM.privateKeyToggle.on("click", togglePrivateKeys);
         DOM.csvTab.on("click", updateCsv);
         DOM.languages.on("click", languageChanged);
-        DOM.useBitpayAddresses.on("change", useBitpayAddressesChange);
+        DOM.bitcoinCashAddressType.on("change", bitcoinCashAddressTypeChange);
         setQrEvents(DOM.showQrEls);
         disableForms();
         hidePending();
@@ -172,7 +172,7 @@
         clearDerivedKeys();
         clearAddressesList();
         DOM.litecoinLtubContainer.addClass("hidden");
-        DOM.useBitpayAddressesContainer.addClass("hidden");
+        DOM.bitcoinCashAddressTypeContainer.addClass("hidden");
         var networkIndex = e.target.value;
         var network = networks[networkIndex];
         network.onSelect();
@@ -424,8 +424,7 @@
         }, 50);
     }
 
-    function useBitpayAddressesChange() {
-        setBitcoinCashNetworkValues();
+    function bitcoinCashAddressTypeChange() {
         phraseChanged();
     }
 
@@ -851,6 +850,16 @@
                 if (networks[DOM.network.val()].name == "XRP - Ripple") {
                     privkey = convertRipplePriv(privkey);
                     address = convertRippleAdrr(address);
+                }
+                // Bitcoin Cash address format may vary
+                if (networks[DOM.network.val()].name == "BCH - Bitcoin Cash") {
+                    var bchAddrType = DOM.bitcoinCashAddressType.filter(":checked").val();
+                    if (bchAddrType == "cashaddr") {
+                        address = bchaddr.toCashAddress(address);
+                    }
+                    else if (bchAddrType == "bitpay") {
+                        address = bchaddr.toBitpayAddress(address);
+                    }
                 }
                 // Segwit addresses are different
                 if (isSegwit) {
@@ -1417,19 +1426,6 @@
         DOM.bip141unavailable.removeClass("hidden");
     }
 
-    function useBitpayAddresses() {
-        return !(DOM.useBitpayAddresses.prop("checked"));
-    }
-
-    function setBitcoinCashNetworkValues() {
-        if (useBitpayAddresses()) {
-            network = bitcoinjs.bitcoin.networks.bitcoin;
-        }
-        else {
-            network = bitcoinjs.bitcoin.networks.bitcoinCashBitbpay;
-        }
-    }
-
     function adjustNetworkForSegwit() {
         // If segwit is selected the xpub/xprv prefixes need to be adjusted
         // to avoid accidentally importing BIP49 xpub to BIP44 watch only
@@ -1582,8 +1578,7 @@
             name: "BCH - Bitcoin Cash",
             segwitAvailable: false,
             onSelect: function() {
-                DOM.useBitpayAddressesContainer.removeClass("hidden");
-                setBitcoinCashNetworkValues();
+                DOM.bitcoinCashAddressTypeContainer.removeClass("hidden");
                 setHdCoin(145);
             },
         },

@@ -608,11 +608,23 @@
                     <h2>Derived Addresses</h2>
                     <p>Note these addresses are derived from the BIP32 Extended Key</p>
                 </div>
-                <div class="col-md-12 use-bitpay-addresses-container hidden">
-                    <div class="checkbox">
+                <div class="col-md-12 bch-addr-type-container hidden">
+                    <div class="radio">
                         <label>
-                            <input type="checkbox" class="use-bitpay-addresses">
+                            <input type="radio" value="cashaddr" name="bch-addr-type" class="use-bch-cashaddr-addresses" checked="checked">
+                            <span>Use CashAddr addresses for Bitcoin Cash (ie starting with 'q' instead of '1')</span>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" value="bitpay" name="bch-addr-type" class="use-bch-bitpay-addresses">
                             <span>Use BitPay-style addresses for Bitcoin Cash (ie starting with 'C' instead of '1')</span>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" value="legacy" name="bch-addr-type" class="use-bch-legacy-addresses">
+                            <span>Use legacy addresses for Bitcoin Cash (ie starting with '1')</span>
                         </label>
                     </div>
                 </div>
@@ -903,6 +915,7 @@
         <script src="js/segwit-parameters.js"></script>
         <script src="js/ethereumjs-util.js"></script>
         <script src="js/ripple-util.js"></script>
+        <script src="js/bchaddrjs-0.2.1.js"></script>
         <script src="js/sjcl-bip39.js"></script>
         <script src="js/wordlist_english.js"></script>
         <script src="js/wordlist_japanese.js"></script>

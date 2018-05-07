@@ -307,17 +307,6 @@ bitcoinjs.bitcoin.networks.bgold = {
     wif: 128
 };
 
-bitcoinjs.bitcoin.networks.bitcoinCashBitbpay = {
-    messagePrefix: '\x18Bitcoin Signed Message:\n',
-    bip32: {
-      public: 0x0488b21e,
-      private: 0x0488ade4
-    },
-    pubKeyHash: 0x1c,
-    scriptHash: 0x28,
-    wif: 0x80
-};
-
 bitcoinjs.bitcoin.networks.monacoin = {
     messagePrefix: '\x18Monacoin Signed Message:\n',
     bip32: {
