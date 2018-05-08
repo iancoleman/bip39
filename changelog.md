@@ -1,3 +1,11 @@
+# 0.3.6
+
+* Add Kobocoin
+* Update Vertcoin version byte and segwit support
+* Add Zcash
+* Korean mnemonics use ascii spaces
+* Add CashAddr address format for bitcoin cash
+
 # 0.3.5
 
 * Fix typo
