@@ -2431,6 +2431,14 @@
                 setHdCoin(133);
             },
         },
+        {
+            name: "XUEZ - Xuez",
+            segwitAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.xuez;
+                setHdCoin(225);
+            },
+        },
     ]
 
     var clients = [
