@@ -1199,3 +1199,14 @@ bitcoinjs.bitcoin.networks.zcash = {
   scriptHash: 0x1CBD,
   wif: 0x80,
 };
+
+bitcoinjs.bitcoin.networks.xuez = {
+  messagePrefix: 'unused',
+  bip32: {
+    public: 0x022d2533,
+    private: 0x0221312b
+  },
+  pubKeyHash: 0x4b,
+  scriptHash: 0x12,
+  wif: 0xd4
+};
