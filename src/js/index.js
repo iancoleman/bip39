@@ -1563,7 +1563,7 @@
             segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.axe;
-                setHdCoin(0);
+                setHdCoin(4242);
             },
         },
         {
