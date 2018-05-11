@@ -1647,6 +1647,22 @@
             },
         },
         {
+            name: "BTCP - Bitcoin Private",
+            segwitAvailable: true,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bitcoinprivate;
+                setHdCoin(183);
+            },
+        },
+        {
+            name: "BTCZ - Bitcoinz",
+            segwitAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bitcoinz;
+                setHdCoin(177);
+            },
+        },
+        {
             name: "BTG - Bitcoin Gold",
             segwitAvailable: true,
             onSelect: function() {
@@ -2072,6 +2088,14 @@
             },
         },
         {
+            name: "NRG - Energi",
+            segwitAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.energi;
+                setHdCoin(204);
+            },
+        },
+        {
             name: "NRO - Neurocoin",
             segwitAvailable: false,
             onSelect: function() {
@@ -2424,6 +2448,14 @@
             },
         },
         {
+            name: "ZCL - Zclassic",
+            segwitAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.zclassic;
+                setHdCoin(147);
+            },
+        },
+        {
             name: "ZEC - Zcash",
             segwitAvailable: false,
             onSelect: function() {
@@ -2437,6 +2469,14 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.xuez;
                 setHdCoin(225);
+            },
+        },
+        {
+            name: "ZEN - Zencash",
+            segwitAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.zencash;
+                setHdCoin(121);
             },
         },
     ]

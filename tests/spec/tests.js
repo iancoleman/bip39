@@ -690,6 +690,20 @@ it('Allows selection of Bitcoinplus', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Bitcoin Private', function(done) {
+    var params = {
+        selectText: "BTCP - Bitcoin Private",
+        firstAddress: "b1M3PbiXXyN6Hdivdw5rJv5VKpLjPzhm4jM",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Bitcoinz', function(done) {
+    var params = {
+        selectText: "BTCZ - Bitcoinz",
+        firstAddress: "t1X2YQoxs8cYRo2oaBYgVEwW5QNjCC59NYc",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Bitcore', function(done) {
     var params = {
         selectText: "BTX - Bitcore",
@@ -1170,6 +1184,27 @@ it('Allows selection of Zcash', function(done) {
     var params = {
         selectText: "ZEC - Zcash",
         firstAddress: "t1Sz8AneMcVuzUg3tPJ8et5AS5LFJ7K2EF9",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Zclassic', function(done) {
+    var params = {
+        selectText: "ZCL - Zclassic",
+        firstAddress: "t1TBMxTvVJRybUbMLGWq8H4A8F4VUL7czEc",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Zencash', function(done) {
+    var params = {
+        selectText: "ZEN - Zencash",
+        firstAddress: "znWh9XASyW2dZq5tck84wFjiwuqVysi7q3p",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Energi', function(done) {
+    var params = {
+        selectText: "NRG - Energi",
+        firstAddress: "EejRy4t4nidzhGGzkJUgFP3z4HYBjhTsRt",
     };
     testNetwork(done, params);
 });
