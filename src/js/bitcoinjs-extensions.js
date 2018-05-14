@@ -1210,3 +1210,58 @@ bitcoinjs.bitcoin.networks.xuez = {
   scriptHash: 0x12,
   wif: 0xd4
 };
+
+bitcoinjs.bitcoin.networks.bitcoinprivate = {
+  messagePrefix: '\x18BitcoinPrivate Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4,
+  },
+  pubKeyHash: 0x1325,
+  scriptHash: 0x13AF,
+  wif: 0x80,
+};
+
+bitcoinjs.bitcoin.networks.bitcoinz = {
+  messagePrefix: '\x18BitcoinZ Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4,
+  },
+  pubKeyHash: 0x1CB8,
+  scriptHash: 0x1CBD,
+  wif: 0x80,
+};
+
+bitcoinjs.bitcoin.networks.zclassic = {
+  messagePrefix: '\x18Zcash Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4,
+  },
+  pubKeyHash: 0x1CB8,
+  scriptHash: 0x1CBD,
+  wif: 0x80,
+};
+
+bitcoinjs.bitcoin.networks.zencash = {
+  messagePrefix: '\x18Zcash Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4,
+  },
+  pubKeyHash: 0x2089,
+  scriptHash: 0x2096,
+  wif: 0x80,
+};
+
+bitcoinjs.bitcoin.networks.energi = {
+  messagePrefix: 'DarkCoin Signed Message:\n',
+  bip32: {
+    public: 0x03B8C856,
+    private: 0xD7DC6E9F,
+  },
+  pubKeyHash: 0x21,
+  scriptHash: 0x35,
+  wif: 0x6a,
+};
