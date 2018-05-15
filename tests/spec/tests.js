@@ -1208,6 +1208,55 @@ it('Allows selection of Energi', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Ethereum Classic', function(done) {
+    var params = {
+        selectText: "ETC - Ethereum Classic",
+        firstAddress: "0x3c05e5556693808367afB62eF3b63e35d6eD249A",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Pirl', function(done) {
+    var params = {
+        selectText: "PIRL - Pirl",
+        firstAddress: "0xe77FC0723dA122B5025CA79193c28563eB47e776",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of MIX', function(done) {
+    var params = {
+        selectText: "MIX - MIX",
+        firstAddress: "0x98BC5e63aeb6A4e82d72850d20710F07E29A29F1",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Musicoin', function(done) {
+    var params = {
+        selectText: "MUSIC - Musicoin",
+        firstAddress: "0xDc060e4A0b0313ea83Cf6B3A39B9db2D29004897",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Poa', function(done) {
+    var params = {
+        selectText: "POA - Poa",
+        firstAddress: "0x53aF28d754e106210C3d0467Dd581eaf7e3C5e60",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Expanse', function(done) {
+    var params = {
+        selectText: "EXP - Expanse",
+        firstAddress: "0xf57FeAbf26582b6E3E666559d3B1Cc6fB2b2c5F6",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Callisto', function(done) {
+    var params = {
+        selectText: "CLO - Callisto",
+        firstAddress: "0x4f9364F7420B317266C51Dc8eB979717D4dE3f4E",
+    };
+    testNetwork(done, params);
+});
 
 
 // BIP39 seed is set from phrase
