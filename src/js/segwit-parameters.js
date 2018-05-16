@@ -59,6 +59,7 @@ bitcoinjs.bitcoin.networks.testnet.p2wpkhInP2sh = {
 bitcoinjs.bitcoin.networks.litecoin.p2wpkhInP2sh = {
     baseNetwork: "litecoin",
     messagePrefix: '\x19Litecoin Signed Message:\n',
+    bech32: 'ltc',
     bip32: {
         public: 0x01b26ef6,
         private: 0x01b26792
