@@ -8642,7 +8642,7 @@ function fromBase58Check (address) {
 
   // TODO: 4.0.0, move to "toOutputScript"
   if (payload.length < 21) throw new TypeError(address + ' is too short')
-  if (payload.length > 22) throw new TypeError(address + ' is too long')
+  if (payload.length > 21) throw new TypeError(address + ' is too long')
 
   var version = payload.readUInt8(0)
   var hash = payload.slice(1)
