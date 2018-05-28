@@ -3643,4 +3643,42 @@ it('Does not show a warning if entropy is stronger than mnemonic length', functi
         });
 });
 
+it('Shows a warning for litecoin BIP84 (which does not have p2wpkh params)', function(done) {
+    driver.findElement(By.css('.phrase'))
+        .sendKeys('abandon abandon ability');
+    selectNetwork("LTC - Litecoin");
+    driver.findElement(By.css('#bip84-tab a'))
+        .click()
+    // bip84 unavailable is shown
+    driver.sleep(feedbackDelay).then(function() {
+        driver.findElement(By.css('#bip84 .unavailable'))
+            .getAttribute("class")
+            .then(function(classes) {
+                expect(classes).not.toContain("hidden");
+                done();
+            });
+    });
+});
+
+it('Shows litecoin BIP49 addresses', function(done) {
+    driver.findElement(By.css('.phrase'))
+        .sendKeys('abandon abandon ability');
+    selectNetwork("LTC - Litecoin");
+    driver.findElement(By.css('#bip49-tab a'))
+        .click()
+    // bip49 addresses are shown
+    driver.sleep(generateDelay).then(function() {
+        driver.findElement(By.css('#bip49 .available'))
+            .getAttribute("class")
+            .then(function(classes) {
+                expect(classes).not.toContain("hidden");
+                // check first address
+                getFirstAddress(function(address) {
+                    expect(address).toBe("MFwLPhsXoBuSLL8cLmW9uK6tChkzduV8qN");
+                    done();
+                });
+            });
+    });
+});
+
 });
