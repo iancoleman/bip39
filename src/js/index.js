@@ -369,6 +369,7 @@
         // Don't show segwit if it's selected but network doesn't support it
         if (segwitSelected() && !networkHasSegwit()) {
             showSegwitUnavailable();
+            hidePending();
             return;
         }
         showSegwitAvailable();
