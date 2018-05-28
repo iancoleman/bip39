@@ -506,79 +506,89 @@
                         <div id="bip84" class="tab-pane">
                             <form class="form-horizontal" role="form">
                                 <br>
-                                <div class="col-sm-2"></div>
-                                <div class="col-sm-10">
-                                    <p>
-                                        For more info see the
-                                        <a href="https://github.com/bitcoin/bips/blob/master/bip-0084.mediawiki" target="_blank">BIP84 spec</a>.
-                                    </p>
-                                </div>
-                                <div class="form-group">
-                                    <label for="purpose" class="col-sm-2 control-label">
-                                        Purpose
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <input id="purpose" type="text" class="purpose form-control" value="84" readonly>
+                                <div class="unavailable hidden">
+                                    <div class="form-group">
+                                        <div class="col-sm-2"></div>
+                                        <div class="col-sm-10">
+                                            <p>BIP84 is unavailable for this coin.</p>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="coin" class="col-sm-2 control-label">
-                                        Coin
-                                    </label>
+                                <div class="available">
+                                    <div class="col-sm-2"></div>
                                     <div class="col-sm-10">
-                                        <input id="coin" type="text" class="coin form-control" value="0" readonly>
+                                        <p>
+                                            For more info see the
+                                            <a href="https://github.com/bitcoin/bips/blob/master/bip-0084.mediawiki" target="_blank">BIP84 spec</a>.
+                                        </p>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="account" class="col-sm-2 control-label">
-                                        Account
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <input id="account" type="text" class="account form-control" value="0">
+                                    <div class="form-group">
+                                        <label for="purpose" class="col-sm-2 control-label">
+                                            Purpose
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input id="purpose" type="text" class="purpose form-control" value="84" readonly>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="change" class="col-sm-2 control-label">
-                                        External / Internal
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <input id="change" type="text" class="change form-control" value="0">
+                                    <div class="form-group">
+                                        <label for="coin" class="col-sm-2 control-label">
+                                            Coin
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input id="coin" type="text" class="coin form-control" value="0" readonly>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <p>The account extended keys can be used for importing to most BIP84 compatible wallets.</p>
+                                    <div class="form-group">
+                                        <label for="account" class="col-sm-2 control-label">
+                                            Account
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input id="account" type="text" class="account form-control" value="0">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="account-xprv" class="col-sm-2 control-label">
-                                        <span>Account Extended Private Key</span>
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <textarea id="account-xprv" type="text" class="account-xprv form-control" readonly data-show-qr></textarea>
+                                    <div class="form-group">
+                                        <label for="change" class="col-sm-2 control-label">
+                                            External / Internal
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input id="change" type="text" class="change form-control" value="0">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="account-xpub" class="col-sm-2 control-label">
-                                        <span>Account Extended Public Key</span>
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <textarea id="account-xpub" type="text" class="account-xpub form-control" readonly data-show-qr></textarea>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <p>The account extended keys can be used for importing to most BIP84 compatible wallets.</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <p>The BIP32 derivation path and extended keys are the basis for the derived addresses.</p>
+                                    <div class="form-group">
+                                        <label for="account-xprv" class="col-sm-2 control-label">
+                                            <span>Account Extended Private Key</span>
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <textarea id="account-xprv" type="text" class="account-xprv form-control" readonly data-show-qr></textarea>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="bip84-path" class="col-sm-2 control-label">BIP32 Derivation Path</label>
-                                    <div class="col-sm-10">
-                                        <input id="bip84-path" type="text" class="path form-control" value="m/84'/0'/0'/0" readonly="readonly">
+                                    <div class="form-group">
+                                        <label for="account-xpub" class="col-sm-2 control-label">
+                                            <span>Account Extended Public Key</span>
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <textarea id="account-xpub" type="text" class="account-xpub form-control" readonly data-show-qr></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <p>The BIP32 derivation path and extended keys are the basis for the derived addresses.</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="bip84-path" class="col-sm-2 control-label">BIP32 Derivation Path</label>
+                                        <div class="col-sm-10">
+                                            <input id="bip84-path" type="text" class="path form-control" value="m/84'/0'/0'/0" readonly="readonly">
+                                        </div>
                                     </div>
                                 </div>
                             </form>

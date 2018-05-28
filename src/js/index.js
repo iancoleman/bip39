@@ -77,6 +77,8 @@
     DOM.bip49accountXprv = $("#bip49 .account-xprv");
     DOM.bip49accountXpub = $("#bip49 .account-xpub");
     DOM.bip49change = $("#bip49 .change");
+    DOM.bip84unavailable = $("#bip84 .unavailable");
+    DOM.bip84available = $("#bip84 .available");
     DOM.bip84path = $("#bip84-path");
     DOM.bip84purpose = $("#bip84 .purpose");
     DOM.bip84coin = $("#bip84 .coin");
@@ -1415,6 +1417,8 @@
     function showSegwitAvailable() {
         DOM.bip49unavailable.addClass("hidden");
         DOM.bip49available.removeClass("hidden");
+        DOM.bip84unavailable.addClass("hidden");
+        DOM.bip84available.removeClass("hidden");
         DOM.bip141unavailable.addClass("hidden");
         DOM.bip141available.removeClass("hidden");
     }
@@ -1422,6 +1426,8 @@
     function showSegwitUnavailable() {
         DOM.bip49available.addClass("hidden");
         DOM.bip49unavailable.removeClass("hidden");
+        DOM.bip84available.addClass("hidden");
+        DOM.bip84unavailable.removeClass("hidden");
         DOM.bip141available.addClass("hidden");
         DOM.bip141unavailable.removeClass("hidden");
     }
