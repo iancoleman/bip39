@@ -23,6 +23,7 @@
     var generationProcesses = [];
 
     var DOM = {};
+    DOM.privacyScreenToggle = $(".privacy-screen-toggle");
     DOM.network = $(".network");
     DOM.bip32Client = $("#bip32-client");
     DOM.phraseNetwork = $("#network-phrase");
@@ -118,6 +119,7 @@
 
     function init() {
         // Events
+        DOM.privacyScreenToggle.on("change", privacyScreenToggled);
         DOM.generatedStrength.on("change", generatedStrengthChanged);
         DOM.network.on("change", networkChanged);
         DOM.bip32Client.on("change", bip32ClientChanged);
@@ -445,6 +447,17 @@
     function togglePrivateKeys() {
         showPrivKey = !showPrivKey;
         $("td.privkey span").toggleClass("invisible");
+    }
+
+    function privacyScreenToggled() {
+        // private-data contains elements added to DOM at runtime
+        // so catch all by adding visual privacy class to the root of the DOM
+        if (DOM.privacyScreenToggle.prop("checked")) {
+            $("body").addClass("visual-privacy");
+        }
+        else {
+            $("body").removeClass("visual-privacy");
+        }
     }
 
     // Private methods
