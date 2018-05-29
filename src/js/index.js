@@ -2233,7 +2233,7 @@
         {
             name: "RDD - Reddcoin",
             onSelect: function() {
-                network = bitcoinjs.bitcoin.networks.reddoin;
+                network = bitcoinjs.bitcoin.networks.reddcoin;
                 setHdCoin(4);
             },
         },
