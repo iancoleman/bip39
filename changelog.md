@@ -1,3 +1,15 @@
+# 0.3.7
+
+* Update AXE network parameters
+* Add new networks - Xuez, BTCP, BTCZ, ZCL, ZEN
+* Add litecoin bech32 params
+* Fix BIP38 for altcoins
+* Fix missing span closing tag
+* Add indicator to UI for when BIP84 is unavailable
+* Replace hasSegwit variable with test for segwit params
+* Allow xpub to be used as root key for segwit derivations
+* Add visual privacy safeguard
+
 # 0.3.6
 
 * Add Kobocoin
