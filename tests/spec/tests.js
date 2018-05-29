@@ -616,7 +616,7 @@ it('Allows selection of monacoin', function(done) {
 it('Allows selection of AXE', function(done) {
     var params = {
         selectText: "AXE - Axe",
-        firstAddress: "XQ4HLxUVS3egk5ff1o9e2vJFJKSSsUH3B7",
+        firstAddress: "PScwtLUyPiGrqtKXrHF37DGETLXLZdw4up",
     };
     testNetwork(done, params);
 });
@@ -1057,7 +1057,7 @@ it('Allows selection of Putincoin', function(done) {
 it('Allows selection of Reddcoin', function(done) {
     var params = {
         selectText: "RDD - Reddcoin",
-        firstAddress: "1M4druAcUfkXBaAcQ4cCgCLPHChiaib6kL",
+        firstAddress: "RtgRvXMBng1y51ftteveFqwNfyRG18HpxQ",
     };
     testNetwork(done, params);
 });
