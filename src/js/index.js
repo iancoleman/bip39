@@ -813,7 +813,7 @@
                 var keyPair = key.keyPair;
                 var useUncompressed = useBip38;
                 if (useUncompressed) {
-                    keyPair = new bitcoinjs.bitcoin.ECPair(keyPair.d, null, { compressed: false });
+                    keyPair = new bitcoinjs.bitcoin.ECPair(keyPair.d, null, { network: network, compressed: false });
                 }
                 // get address
                 var address = keyPair.getAddress().toString();
@@ -821,7 +821,7 @@
                 var hasPrivkey = !key.isNeutered();
                 var privkey = "NA";
                 if (hasPrivkey) {
-                    privkey = keyPair.toWIF(network);
+                    privkey = keyPair.toWIF();
                     // BIP38 encode private key if required
                     if (useBip38) {
                         privkey = bitcoinjsBip38.encrypt(keyPair.d.toBuffer(), false, bip38password, function(p) {
