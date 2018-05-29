@@ -3681,4 +3681,23 @@ it('Shows litecoin BIP49 addresses', function(done) {
     });
 });
 
+it('Can use root keys to generate segwit table rows', function(done) {
+    // segwit uses ypub / zpub instead of xpub but the root key should still
+    // be valid regardless of the encoding used to import that key.
+    // Maybe this breaks the reason for the different extended key prefixes, but
+    // since the parsed root key is used behind the scenes anyhow this should be
+    // allowed.
+    driver.findElement(By.css('#root-key'))
+        .sendKeys('xprv9s21ZrQH143K2jkGDCeTLgRewT9F2pH5JZs2zDmmjXes34geVnFiuNa8KTvY5WoYvdn4Ag6oYRoB6cXtc43NgJAEqDXf51xPm6fhiMCKwpi');
+    driver.findElement(By.css('#bip49-tab a'))
+        .click()
+    // bip49 addresses are shown
+    driver.sleep(generateDelay).then(function() {
+        getFirstAddress(function(address) {
+            expect(address).toBe("3QG2Y9AA4xZ846gKHZqNf7mvVKbLqMKxr2");
+            done();
+        });
+    });
+});
+
 });
