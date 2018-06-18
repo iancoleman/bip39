@@ -616,7 +616,7 @@ it('Allows selection of monacoin', function(done) {
 it('Allows selection of AXE', function(done) {
     var params = {
         selectText: "AXE - Axe",
-        firstAddress: "XQ4HLxUVS3egk5ff1o9e2vJFJKSSsUH3B7",
+        firstAddress: "PScwtLUyPiGrqtKXrHF37DGETLXLZdw4up",
     };
     testNetwork(done, params);
 });
@@ -1057,7 +1057,7 @@ it('Allows selection of Putincoin', function(done) {
 it('Allows selection of Reddcoin', function(done) {
     var params = {
         selectText: "RDD - Reddcoin",
-        firstAddress: "1M4druAcUfkXBaAcQ4cCgCLPHChiaib6kL",
+        firstAddress: "RtgRvXMBng1y51ftteveFqwNfyRG18HpxQ",
     };
     testNetwork(done, params);
 });
@@ -3690,6 +3690,63 @@ it('Does not show a warning if entropy is stronger than mnemonic length', functi
             expect(classes).toContain("hidden");
             done();
         });
+});
+
+it('Shows a warning for litecoin BIP84 (which does not have p2wpkh params)', function(done) {
+    driver.findElement(By.css('.phrase'))
+        .sendKeys('abandon abandon ability');
+    selectNetwork("LTC - Litecoin");
+    driver.findElement(By.css('#bip84-tab a'))
+        .click()
+    // bip84 unavailable is shown
+    driver.sleep(feedbackDelay).then(function() {
+        driver.findElement(By.css('#bip84 .unavailable'))
+            .getAttribute("class")
+            .then(function(classes) {
+                expect(classes).not.toContain("hidden");
+                done();
+            });
+    });
+});
+
+it('Shows litecoin BIP49 addresses', function(done) {
+    driver.findElement(By.css('.phrase'))
+        .sendKeys('abandon abandon ability');
+    selectNetwork("LTC - Litecoin");
+    driver.findElement(By.css('#bip49-tab a'))
+        .click()
+    // bip49 addresses are shown
+    driver.sleep(generateDelay).then(function() {
+        driver.findElement(By.css('#bip49 .available'))
+            .getAttribute("class")
+            .then(function(classes) {
+                expect(classes).not.toContain("hidden");
+                // check first address
+                getFirstAddress(function(address) {
+                    expect(address).toBe("MFwLPhsXoBuSLL8cLmW9uK6tChkzduV8qN");
+                    done();
+                });
+            });
+    });
+});
+
+it('Can use root keys to generate segwit table rows', function(done) {
+    // segwit uses ypub / zpub instead of xpub but the root key should still
+    // be valid regardless of the encoding used to import that key.
+    // Maybe this breaks the reason for the different extended key prefixes, but
+    // since the parsed root key is used behind the scenes anyhow this should be
+    // allowed.
+    driver.findElement(By.css('#root-key'))
+        .sendKeys('xprv9s21ZrQH143K2jkGDCeTLgRewT9F2pH5JZs2zDmmjXes34geVnFiuNa8KTvY5WoYvdn4Ag6oYRoB6cXtc43NgJAEqDXf51xPm6fhiMCKwpi');
+    driver.findElement(By.css('#bip49-tab a'))
+        .click()
+    // bip49 addresses are shown
+    driver.sleep(generateDelay).then(function() {
+        getFirstAddress(function(address) {
+            expect(address).toBe("3QG2Y9AA4xZ846gKHZqNf7mvVKbLqMKxr2");
+            done();
+        });
+    });
 });
 
 });

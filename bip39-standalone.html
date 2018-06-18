@@ -6866,6 +6866,9 @@ button.close {
     overflow-x: scroll;
     font-family: monospace;
 }
+.visual-privacy .private-data {
+    display: none;
+}
 </style>
         <meta content="Mnemonic code for generating deterministic keys" name="description"/>
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -6877,7 +6880,7 @@ button.close {
         <div class="container">
 
             <h1 class="text-center">Mnemonic Code Converter</h1>
-            <p class="version">v0.3.6</p>
+            <p class="version">v0.3.7</p>
             <hr>
             <div class="row">
                 <div class="col-md-12">
@@ -6931,7 +6934,7 @@ button.close {
                             <div class="form-group">
                                 <label for="entropy" class="col-sm-2 control-label">Entropy</label>
                                 <div class="col-sm-7">
-                                    <textarea id="entropy" rows="2" class="entropy form-control" placeholder="Accepts either binary, base 6, 6-sided dice, base 10, hexadecimal or cards"></textarea>
+                                    <textarea id="entropy" rows="2" class="entropy private-data form-control" placeholder="Accepts either binary, base 6, 6-sided dice, base 10, hexadecimal or cards"></textarea>
                                     <div class="row filter-warning text-danger hidden">
                                         <p class="col-sm-12">
                                         <strong>
@@ -6958,19 +6961,19 @@ button.close {
                                         <div class="bits col-sm-3 form-control-static"></div>
                                     </div>
                                     <label class="col-sm-3 control-label">Filtered Entropy</label>
-                                    <div class="filtered col-sm-9 form-control-static"></div>
+                                    <div class="filtered private-data col-sm-9 form-control-static"></div>
                                     <label class="col-sm-3 control-label">Raw Binary</label>
-                                    <div class="binary col-sm-9 form-control-static"></div>
+                                    <div class="binary private-data col-sm-9 form-control-static"></div>
                                     <label class="col-sm-3 control-label">Binary Checksum</label>
-                                    <div class="checksum col-sm-9 form-control-static">&nbsp;</div>
+                                    <div class="checksum private-data col-sm-9 form-control-static">&nbsp;</div>
                                     <label class="col-sm-3 control-label">Word Indexes</label>
-                                    <div class="word-indexes col-sm-9 form-control-static">&nbsp;</div>
+                                    <div class="word-indexes private-data col-sm-9 form-control-static">&nbsp;</div>
                                     <label class="col-sm-3 control-label">Mnemonic Length</label>
                                     <div class="col-sm-9">
                                         <select class="mnemonic-length form-control">
                                             <option value="raw" selected>Use Raw Entropy (3 words per 32 bits)</option>
                                             <option value="12">12 <span>Words</span></option>
-                                            <option value="15">15 <span>Words</option>
+                                            <option value="15">15 <span>Words</span></option>
                                             <option value="18">18 <span>Words</span></option>
                                             <option value="21">21 <span>Words</span></option>
                                             <option value="24">24 <span>Words</span></option>
@@ -7005,6 +7008,15 @@ button.close {
                             </div>
                         </div>
                         <div class="form-group">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-10 checkbox">
+                                <label>
+                                    <input type="checkbox" class="privacy-screen-toggle">
+                                    <span>Hide all private info</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-sm-2 control-label">Mnemonic Language</label>
                             <div class="col-sm-10 languages">
                                 <div class="form-control no-border">
@@ -7022,19 +7034,19 @@ button.close {
                         <div class="form-group">
                             <label for="phrase" class="col-sm-2 control-label">BIP39 Mnemonic</label>
                             <div class="col-sm-10">
-                                <textarea id="phrase" class="phrase form-control" data-show-qr></textarea>
+                                <textarea id="phrase" class="phrase private-data form-control" data-show-qr></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="passphrase" class="col-sm-2 control-label">BIP39 Passphrase (optional)</label>
                             <div class="col-sm-10">
-                                <textarea id="passphrase" class="passphrase form-control"></textarea>
+                                <textarea id="passphrase" class="passphrase private-data form-control"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="seed" class="col-sm-2 control-label">BIP39 Seed</label>
                             <div class="col-sm-10">
-                                <textarea id="seed" class="seed form-control" readonly="readonly" data-show-qr></textarea>
+                                <textarea id="seed" class="seed private-data form-control" readonly="readonly" data-show-qr></textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -7048,7 +7060,7 @@ button.close {
                         <div class="form-group">
                             <label for="root-key" class="col-sm-2 control-label">BIP32 Root Key</label>
                             <div class="col-sm-10">
-                                <textarea id="root-key" class="root-key form-control" data-show-qr></textarea>
+                                <textarea id="root-key" class="root-key private-data form-control" data-show-qr></textarea>
                             </div>
                         </div>
                         <div class="form-group litecoin-ltub-container hidden">
@@ -7141,7 +7153,7 @@ button.close {
                                         <span>Account Extended Private Key</span>
                                     </label>
                                     <div class="col-sm-10">
-                                        <textarea id="account-xprv" type="text" class="account-xprv form-control" readonly data-show-qr></textarea>
+                                        <textarea id="account-xprv" type="text" class="account-xprv private-data form-control" readonly data-show-qr></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -7301,7 +7313,7 @@ button.close {
                                             <span>Account Extended Private Key</span>
                                         </label>
                                         <div class="col-sm-10">
-                                            <textarea id="account-xprv" type="text" class="account-xprv form-control" readonly data-show-qr></textarea>
+                                            <textarea id="account-xprv" type="text" class="account-xprv private-data form-control" readonly data-show-qr></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -7368,79 +7380,89 @@ button.close {
                         <div id="bip84" class="tab-pane">
                             <form class="form-horizontal" role="form">
                                 <br>
-                                <div class="col-sm-2"></div>
-                                <div class="col-sm-10">
-                                    <p>
-                                        For more info see the
-                                        <a href="https://github.com/bitcoin/bips/blob/master/bip-0084.mediawiki" target="_blank">BIP84 spec</a>.
-                                    </p>
-                                </div>
-                                <div class="form-group">
-                                    <label for="purpose" class="col-sm-2 control-label">
-                                        Purpose
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <input id="purpose" type="text" class="purpose form-control" value="84" readonly>
+                                <div class="unavailable hidden">
+                                    <div class="form-group">
+                                        <div class="col-sm-2"></div>
+                                        <div class="col-sm-10">
+                                            <p>BIP84 is unavailable for this coin.</p>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="coin" class="col-sm-2 control-label">
-                                        Coin
-                                    </label>
+                                <div class="available">
+                                    <div class="col-sm-2"></div>
                                     <div class="col-sm-10">
-                                        <input id="coin" type="text" class="coin form-control" value="0" readonly>
+                                        <p>
+                                            For more info see the
+                                            <a href="https://github.com/bitcoin/bips/blob/master/bip-0084.mediawiki" target="_blank">BIP84 spec</a>.
+                                        </p>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="account" class="col-sm-2 control-label">
-                                        Account
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <input id="account" type="text" class="account form-control" value="0">
+                                    <div class="form-group">
+                                        <label for="purpose" class="col-sm-2 control-label">
+                                            Purpose
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input id="purpose" type="text" class="purpose form-control" value="84" readonly>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="change" class="col-sm-2 control-label">
-                                        External / Internal
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <input id="change" type="text" class="change form-control" value="0">
+                                    <div class="form-group">
+                                        <label for="coin" class="col-sm-2 control-label">
+                                            Coin
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input id="coin" type="text" class="coin form-control" value="0" readonly>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <p>The account extended keys can be used for importing to most BIP84 compatible wallets.</p>
+                                    <div class="form-group">
+                                        <label for="account" class="col-sm-2 control-label">
+                                            Account
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input id="account" type="text" class="account form-control" value="0">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="account-xprv" class="col-sm-2 control-label">
-                                        <span>Account Extended Private Key</span>
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <textarea id="account-xprv" type="text" class="account-xprv form-control" readonly data-show-qr></textarea>
+                                    <div class="form-group">
+                                        <label for="change" class="col-sm-2 control-label">
+                                            External / Internal
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input id="change" type="text" class="change form-control" value="0">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="account-xpub" class="col-sm-2 control-label">
-                                        <span>Account Extended Public Key</span>
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <textarea id="account-xpub" type="text" class="account-xpub form-control" readonly data-show-qr></textarea>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <p>The account extended keys can be used for importing to most BIP84 compatible wallets.</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <p>The BIP32 derivation path and extended keys are the basis for the derived addresses.</p>
+                                    <div class="form-group">
+                                        <label for="account-xprv" class="col-sm-2 control-label">
+                                            <span>Account Extended Private Key</span>
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <textarea id="account-xprv" type="text" class="account-xprv private-data form-control" readonly data-show-qr></textarea>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="bip84-path" class="col-sm-2 control-label">BIP32 Derivation Path</label>
-                                    <div class="col-sm-10">
-                                        <input id="bip84-path" type="text" class="path form-control" value="m/84'/0'/0'/0" readonly="readonly">
+                                    <div class="form-group">
+                                        <label for="account-xpub" class="col-sm-2 control-label">
+                                            <span>Account Extended Public Key</span>
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <textarea id="account-xpub" type="text" class="account-xpub form-control" readonly data-show-qr></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <p>The BIP32 derivation path and extended keys are the basis for the derived addresses.</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="bip84-path" class="col-sm-2 control-label">BIP32 Derivation Path</label>
+                                        <div class="col-sm-10">
+                                            <input id="bip84-path" type="text" class="path form-control" value="m/84'/0'/0'/0" readonly="readonly">
+                                        </div>
                                     </div>
                                 </div>
                             </form>
@@ -7450,7 +7472,7 @@ button.close {
                         <div class="form-group">
                             <label for="extended-priv-key" class="col-sm-2 control-label">BIP32 Extended Private Key</label>
                             <div class="col-sm-10">
-                                <textarea id="extended-priv-key" class="extended-priv-key form-control" readonly="readonly" data-show-qr></textarea>
+                                <textarea id="extended-priv-key" class="extended-priv-key private-data form-control" readonly="readonly" data-show-qr></textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -7496,7 +7518,7 @@ button.close {
                             <input type="checkbox" class="use-bip38">
                             <span>Encrypt private keys using BIP38 and this password:</span>
                         </label>
-                        <input class="bip38-password">
+                        <input class="bip38-password private-data">
                         <span>Enabling BIP38 means each key will take several minutes to generate.</span>
                     </div>
                 </div>
@@ -7761,7 +7783,7 @@ button.close {
                 <td class="index"><span></span></td>
                 <td class="address"><span data-show-qr></span></td>
                 <td class="pubkey"><span data-show-qr></span></td>
-                <td class="privkey"><span data-show-qr></span></td>
+                <td class="privkey private-data"><span data-show-qr></span></td>
             </tr>
         </script>
         <script>// From
@@ -42144,9 +42166,9 @@ bitcoinjs.bitcoin.networks.axe = {
     public: 0x0488b21e,
     private: 0x0488ade4
   },
-  pubKeyHash: 0x4B,
-  scriptHash: 0xCB, // TODO set this correctly
-  wif: 0xCB
+  pubKeyHash: 0x37,
+  scriptHash: 0x10, // TODO set this correctly
+  wif: 0xcc
 };
 
 bitcoinjs.bitcoin.networks.slimcoin = {
@@ -43229,7 +43251,72 @@ bitcoinjs.bitcoin.networks.zcash = {
   scriptHash: 0x1CBD,
   wif: 0x80,
 };
-</script>
+
+bitcoinjs.bitcoin.networks.xuez = {
+  messagePrefix: 'unused',
+  bip32: {
+    public: 0x022d2533,
+    private: 0x0221312b
+  },
+  pubKeyHash: 0x4b,
+  scriptHash: 0x12,
+  wif: 0xd4
+};
+
+bitcoinjs.bitcoin.networks.bitcoinprivate = {
+  messagePrefix: '\x18BitcoinPrivate Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4,
+  },
+  pubKeyHash: 0x1325,
+  scriptHash: 0x13AF,
+  wif: 0x80,
+};
+
+bitcoinjs.bitcoin.networks.bitcoinz = {
+  messagePrefix: '\x18BitcoinZ Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4,
+  },
+  pubKeyHash: 0x1CB8,
+  scriptHash: 0x1CBD,
+  wif: 0x80,
+};
+
+bitcoinjs.bitcoin.networks.zclassic = {
+  messagePrefix: '\x18Zcash Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4,
+  },
+  pubKeyHash: 0x1CB8,
+  scriptHash: 0x1CBD,
+  wif: 0x80,
+};
+
+bitcoinjs.bitcoin.networks.zencash = {
+  messagePrefix: '\x18Zcash Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4,
+  },
+  pubKeyHash: 0x2089,
+  scriptHash: 0x2096,
+  wif: 0x80,
+};
+
+bitcoinjs.bitcoin.networks.energi = {
+  messagePrefix: 'DarkCoin Signed Message:\n',
+  bip32: {
+    public: 0x03B8C856,
+    private: 0xD7DC6E9F,
+  },
+  pubKeyHash: 0x21,
+  scriptHash: 0x35,
+  wif: 0x6a,
+};</script>
         <script>(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.bitcoinjsBip38 = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var asn1 = exports;
 
@@ -71208,6 +71295,7 @@ bitcoinjs.bitcoin.networks.testnet.p2wpkhInP2sh = {
 bitcoinjs.bitcoin.networks.litecoin.p2wpkhInP2sh = {
     baseNetwork: "litecoin",
     messagePrefix: '\x19Litecoin Signed Message:\n',
+    bech32: 'ltc',
     bip32: {
         public: 0x01b26ef6,
         private: 0x01b26792
@@ -106178,6 +106266,7 @@ window.Entropy = new (function() {
     var generationProcesses = [];
 
     var DOM = {};
+    DOM.privacyScreenToggle = $(".privacy-screen-toggle");
     DOM.network = $(".network");
     DOM.bip32Client = $("#bip32-client");
     DOM.phraseNetwork = $("#network-phrase");
@@ -106232,6 +106321,8 @@ window.Entropy = new (function() {
     DOM.bip49accountXprv = $("#bip49 .account-xprv");
     DOM.bip49accountXpub = $("#bip49 .account-xpub");
     DOM.bip49change = $("#bip49 .change");
+    DOM.bip84unavailable = $("#bip84 .unavailable");
+    DOM.bip84available = $("#bip84 .available");
     DOM.bip84path = $("#bip84-path");
     DOM.bip84purpose = $("#bip84 .purpose");
     DOM.bip84coin = $("#bip84 .coin");
@@ -106271,6 +106362,7 @@ window.Entropy = new (function() {
 
     function init() {
         // Events
+        DOM.privacyScreenToggle.on("change", privacyScreenToggled);
         DOM.generatedStrength.on("change", generatedStrengthChanged);
         DOM.network.on("change", networkChanged);
         DOM.bip32Client.on("change", bip32ClientChanged);
@@ -106331,13 +106423,7 @@ window.Entropy = new (function() {
         var networkIndex = e.target.value;
         var network = networks[networkIndex];
         network.onSelect();
-        if (network.segwitAvailable) {
-            adjustNetworkForSegwit();
-            showSegwitAvailable();
-        }
-        else {
-            showSegwitUnavailable();
-        }
+        adjustNetworkForSegwit();
         if (seed != null) {
             phraseChanged();
         }
@@ -106527,8 +106613,11 @@ window.Entropy = new (function() {
         showPending();
         // Don't show segwit if it's selected but network doesn't support it
         if (segwitSelected() && !networkHasSegwit()) {
+            showSegwitUnavailable();
+            hidePending();
             return;
         }
+        showSegwitAvailable();
         // Get the derivation path
         var derivationPath = getDerivationPath();
         var errorText = findDerivationPathErrors(derivationPath);
@@ -106603,6 +106692,17 @@ window.Entropy = new (function() {
         $("td.privkey span").toggleClass("invisible");
     }
 
+    function privacyScreenToggled() {
+        // private-data contains elements added to DOM at runtime
+        // so catch all by adding visual privacy class to the root of the DOM
+        if (DOM.privacyScreenToggle.prop("checked")) {
+            $("body").addClass("visual-privacy");
+        }
+        else {
+            $("body").removeClass("visual-privacy");
+        }
+    }
+
     // Private methods
 
     function generateRandomPhrase() {
@@ -106634,6 +106734,37 @@ window.Entropy = new (function() {
     }
 
     function calcBip32RootKeyFromBase58(rootKeyBase58) {
+        // try parsing with various segwit network params since this extended
+        // key may be from any one of them.
+        if (networkHasSegwit()) {
+            var n = network;
+            if ("baseNetwork" in n) {
+                n = bitcoinjs.bitcoin.networks[n.baseNetwork];
+            }
+            // try parsing using base network params
+            try {
+                bip32RootKey = bitcoinjs.bitcoin.HDNode.fromBase58(rootKeyBase58, n);
+                return;
+            }
+            catch (e) {}
+            // try parsing using p2wpkh params
+            if ("p2wpkh" in n) {
+                try {
+                    bip32RootKey = bitcoinjs.bitcoin.HDNode.fromBase58(rootKeyBase58, n.p2wpkh);
+                    return;
+                }
+                catch (e) {}
+            }
+            // try parsing using p2wpkh-in-p2sh network params
+            if ("p2wpkhInP2sh" in n) {
+                try {
+                    bip32RootKey = bitcoinjs.bitcoin.HDNode.fromBase58(rootKeyBase58, n.p2wpkhInP2sh);
+                    return;
+                }
+                catch (e) {}
+            }
+        }
+        // try the network params as currently specified
         bip32RootKey = bitcoinjs.bitcoin.HDNode.fromBase58(rootKeyBase58, network);
     }
 
@@ -106707,6 +106838,37 @@ window.Entropy = new (function() {
     }
 
     function validateRootKey(rootKeyBase58) {
+        // try various segwit network params since this extended key may be from
+        // any one of them.
+        if (networkHasSegwit()) {
+            var n = network;
+            if ("baseNetwork" in n) {
+                n = bitcoinjs.bitcoin.networks[n.baseNetwork];
+            }
+            // try parsing using base network params
+            try {
+                bitcoinjs.bitcoin.HDNode.fromBase58(rootKeyBase58, n);
+                return "";
+            }
+            catch (e) {}
+            // try parsing using p2wpkh params
+            if ("p2wpkh" in n) {
+                try {
+                    bitcoinjs.bitcoin.HDNode.fromBase58(rootKeyBase58, n.p2wpkh);
+                    return "";
+                }
+                catch (e) {}
+            }
+            // try parsing using p2wpkh-in-p2sh network params
+            if ("p2wpkhInP2sh" in n) {
+                try {
+                    bitcoinjs.bitcoin.HDNode.fromBase58(rootKeyBase58, n.p2wpkhInP2sh);
+                    return "";
+                }
+                catch (e) {}
+            }
+        }
+        // try the network params as currently specified
         try {
             bitcoinjs.bitcoin.HDNode.fromBase58(rootKeyBase58, network);
         }
@@ -106968,7 +107130,7 @@ window.Entropy = new (function() {
                 var keyPair = key.keyPair;
                 var useUncompressed = useBip38;
                 if (useUncompressed) {
-                    keyPair = new bitcoinjs.bitcoin.ECPair(keyPair.d, null, { compressed: false });
+                    keyPair = new bitcoinjs.bitcoin.ECPair(keyPair.d, null, { network: network, compressed: false });
                 }
                 // get address
                 var address = keyPair.getAddress().toString();
@@ -106976,7 +107138,7 @@ window.Entropy = new (function() {
                 var hasPrivkey = !key.isNeutered();
                 var privkey = "NA";
                 if (hasPrivkey) {
-                    privkey = keyPair.toWIF(network);
+                    privkey = keyPair.toWIF();
                     // BIP38 encode private key if required
                     if (useBip38) {
                         privkey = bitcoinjsBip38.encrypt(keyPair.d.toBuffer(), false, bip38password, function(p) {
@@ -107546,7 +107708,20 @@ window.Entropy = new (function() {
     }
 
     function networkHasSegwit() {
-        return networks[DOM.network.val()].segwitAvailable;
+        var n = network;
+        if ("baseNetwork" in network) {
+            n = bitcoinjs.bitcoin.networks[network.baseNetwork];
+        }
+        // check if only p2wpkh params are required
+        if (p2wpkhSelected()) {
+            return "p2wpkh" in n;
+        }
+        // check if only p2wpkh-in-p2sh params are required
+        else if (p2wpkhInP2shSelected()) {
+            return "p2wpkhInP2sh" in n;
+        }
+        // require both if it's unclear which params are required
+        return "p2wpkh" in n && "p2wpkhInP2sh" in n;
     }
 
     function bip49TabSelected() {
@@ -107570,6 +107745,8 @@ window.Entropy = new (function() {
     function showSegwitAvailable() {
         DOM.bip49unavailable.addClass("hidden");
         DOM.bip49available.removeClass("hidden");
+        DOM.bip84unavailable.addClass("hidden");
+        DOM.bip84available.removeClass("hidden");
         DOM.bip141unavailable.addClass("hidden");
         DOM.bip141available.removeClass("hidden");
     }
@@ -107577,6 +107754,8 @@ window.Entropy = new (function() {
     function showSegwitUnavailable() {
         DOM.bip49available.addClass("hidden");
         DOM.bip49unavailable.removeClass("hidden");
+        DOM.bip84available.addClass("hidden");
+        DOM.bip84unavailable.removeClass("hidden");
         DOM.bip141available.addClass("hidden");
         DOM.bip141unavailable.removeClass("hidden");
     }
@@ -107691,7 +107870,6 @@ window.Entropy = new (function() {
     var networks = [
         {
             name: "AC - Asiacoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.asiacoin;
                 setHdCoin(51);
@@ -107699,7 +107877,6 @@ window.Entropy = new (function() {
         },
         {
             name: "ACC - Adcoin",
-            segwitAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.adcoin;
                 setHdCoin(161);
@@ -107707,7 +107884,6 @@ window.Entropy = new (function() {
         },
         {
             name: "AUR - Auroracoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.auroracoin;
                 setHdCoin(85);
@@ -107715,15 +107891,13 @@ window.Entropy = new (function() {
         },
         {
             name: "AXE - Axe",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.axe;
-                setHdCoin(0);
+                setHdCoin(4242);
             },
         },
         {
             name: "BCA - Bitcoin Atom",
-            segwitAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.atom;
                 setHdCoin(185);
@@ -107731,7 +107905,6 @@ window.Entropy = new (function() {
         },
         {
             name: "BCH - Bitcoin Cash",
-            segwitAvailable: false,
             onSelect: function() {
                 DOM.bitcoinCashAddressTypeContainer.removeClass("hidden");
                 setHdCoin(145);
@@ -107739,7 +107912,6 @@ window.Entropy = new (function() {
         },
         {
             name: "BEET - Beetlecoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.beetlecoin;
                 setHdCoin(800);
@@ -107747,7 +107919,6 @@ window.Entropy = new (function() {
         },
         {
             name: "BELA - Belacoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.belacoin;
                 setHdCoin(73);
@@ -107755,7 +107926,6 @@ window.Entropy = new (function() {
         },
         {
             name: "BLK - BlackCoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.blackcoin;
                 setHdCoin(10);
@@ -107763,7 +107933,6 @@ window.Entropy = new (function() {
         },
         {
             name: "BRIT - Britcoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.britcoin;
                 setHdCoin(70);
@@ -107771,7 +107940,6 @@ window.Entropy = new (function() {
         },
         {
             name: "BSD - Bitsend",
-            segwitAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bitsend;
                 setHdCoin(91);
@@ -107779,7 +107947,6 @@ window.Entropy = new (function() {
         },
         {
             name: "BTA - Bata",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bata;
                 setHdCoin(89);
@@ -107787,7 +107954,6 @@ window.Entropy = new (function() {
         },
         {
             name: "BTC - Bitcoin",
-            segwitAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bitcoin;
                 setHdCoin(0);
@@ -107795,15 +107961,27 @@ window.Entropy = new (function() {
         },
         {
             name: "BTC - Bitcoin Testnet",
-            segwitAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.testnet;
                 setHdCoin(1);
             },
         },
         {
+            name: "BTCP - Bitcoin Private",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bitcoinprivate;
+                setHdCoin(183);
+            },
+        },
+        {
+            name: "BTCZ - Bitcoinz",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bitcoinz;
+                setHdCoin(177);
+            },
+        },
+        {
             name: "BTG - Bitcoin Gold",
-            segwitAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bgold;
                 setHdCoin(156);
@@ -107811,7 +107989,6 @@ window.Entropy = new (function() {
         },
         {
             name: "BTX - Bitcore",
-            segwitAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bitcore;
                 setHdCoin(160);
@@ -107819,7 +107996,6 @@ window.Entropy = new (function() {
         },
         {
             name: "CCN - Cannacoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.cannacoin;
                 setHdCoin(19);
@@ -107827,7 +108003,6 @@ window.Entropy = new (function() {
         },
         {
             name: "CDN - Canadaecoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.canadaecoin;
                 setHdCoin(34);
@@ -107835,7 +108010,6 @@ window.Entropy = new (function() {
         },
         {
             name: "CLAM - Clams",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.clam;
                 setHdCoin(23);
@@ -107843,7 +108017,6 @@ window.Entropy = new (function() {
         },
         {
             name: "CLUB - Clubcoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.clubcoin;
                 setHdCoin(79);
@@ -107851,7 +108024,6 @@ window.Entropy = new (function() {
         },
         {
             name: "CMP - Compcoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.compcoin;
                 setHdCoin(71);
@@ -107859,7 +108031,6 @@ window.Entropy = new (function() {
         },
         {
             name: "CRAVE - Crave",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.crave;
                 setHdCoin(186);
@@ -107867,7 +108038,6 @@ window.Entropy = new (function() {
         },
         {
             name: "CRW - Crown",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.crown;
                 setHdCoin(72);
@@ -107875,7 +108045,6 @@ window.Entropy = new (function() {
         },
         {
             name: "DASH - Dash",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.dash;
                 setHdCoin(5);
@@ -107883,7 +108052,6 @@ window.Entropy = new (function() {
         },
         {
             name: "DASH - Dash Testnet",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.dashtn;
                 setHdCoin(1);
@@ -107891,7 +108059,6 @@ window.Entropy = new (function() {
         },
         {
             name: "DFC - Defcoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.defcoin;
                 setHdCoin(1337);
@@ -107899,7 +108066,6 @@ window.Entropy = new (function() {
         },
         {
             name: "DGB - Digibyte",
-            segwitAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.digibyte;
                 setHdCoin(20);
@@ -107907,7 +108073,6 @@ window.Entropy = new (function() {
         },
         {
             name: "DGC - Digitalcoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.digitalcoin;
                 setHdCoin(18);
@@ -107915,7 +108080,6 @@ window.Entropy = new (function() {
         },
         {
             name: "DMD - Diamond",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.diamond;
                 setHdCoin(152);
@@ -107923,7 +108087,6 @@ window.Entropy = new (function() {
         },
         {
             name: "DNR - Denarius",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.denarius;
                 setHdCoin(116);
@@ -107931,7 +108094,6 @@ window.Entropy = new (function() {
         },
         {
             name: "DOGE - Dogecoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.dogecoin;
                 setHdCoin(3);
@@ -107939,7 +108101,6 @@ window.Entropy = new (function() {
         },
         {
             name: "ECN - Ecoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.ecoin;
                 setHdCoin(115);
@@ -107947,7 +108108,6 @@ window.Entropy = new (function() {
         },
         {
             name: "EDRC - Edrcoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.edrcoin;
                 setHdCoin(56);
@@ -107955,7 +108115,6 @@ window.Entropy = new (function() {
         },
         {
             name: "EFL - Egulden",
-            segwitAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.egulden;
                 setHdCoin(78);
@@ -107963,7 +108122,6 @@ window.Entropy = new (function() {
         },
         {
             name: "EMC2 - Einsteinium",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.einsteinium;
                 setHdCoin(41);
@@ -107971,7 +108129,6 @@ window.Entropy = new (function() {
         },
         {
             name: "ERC - Europecoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.europecoin;
                 setHdCoin(151);
@@ -107979,7 +108136,6 @@ window.Entropy = new (function() {
         },
         {
             name: "ETH - Ethereum",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bitcoin;
                 setHdCoin(60);
@@ -107987,7 +108143,6 @@ window.Entropy = new (function() {
         },
         {
             name: "EXCL - Exclusivecoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.exclusivecoin;
                 setHdCoin(190);
@@ -107995,7 +108150,6 @@ window.Entropy = new (function() {
         },
         {
             name: "FJC - Fujicoin",
-            segwitAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.fujicoin;
                 setHdCoin(75);
@@ -108003,7 +108157,6 @@ window.Entropy = new (function() {
         },
         {
             name: "FLASH - Flashcoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.flashcoin;
                 setHdCoin(120);
@@ -108011,7 +108164,6 @@ window.Entropy = new (function() {
         },
         {
             name: "FRST - Firstcoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.firstcoin;
                 setHdCoin(167);
@@ -108019,7 +108171,6 @@ window.Entropy = new (function() {
         },
         {
             name: "FTC - Feathercoin",
-            segwitAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.feathercoin;
                 setHdCoin(8);
@@ -108027,7 +108178,6 @@ window.Entropy = new (function() {
         },
         {
             name: "GAME - GameCredits",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.game;
                 setHdCoin(101);
@@ -108035,7 +108185,6 @@ window.Entropy = new (function() {
         },
         {
             name: "GBX - Gobyte",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.gobyte;
                 setHdCoin(176);
@@ -108043,7 +108192,6 @@ window.Entropy = new (function() {
         },
         {
             name: "GCR - GCRCoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.gcr;
                 setHdCoin(79);
@@ -108051,7 +108199,6 @@ window.Entropy = new (function() {
         },
         {
             name: "GRC - Gridcoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.gridcoin;
                 setHdCoin(84);
@@ -108059,7 +108206,6 @@ window.Entropy = new (function() {
         },
         {
             name: "HNC - Helleniccoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.helleniccoin;
                 setHdCoin(168);
@@ -108067,7 +108213,6 @@ window.Entropy = new (function() {
         },
         {
             name: "INSN - Insane",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.insane;
                 setHdCoin(68);
@@ -108075,7 +108220,6 @@ window.Entropy = new (function() {
         },
         {
             name: "IOP - Iop",
-            segwitAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.iop;
                 setHdCoin(66);
@@ -108083,7 +108227,6 @@ window.Entropy = new (function() {
         },
         {
             name: "IXC - Ixcoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.ixcoin;
                 setHdCoin(86);
@@ -108091,7 +108234,6 @@ window.Entropy = new (function() {
         },
         {
             name: "JBS - Jumbucks",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.jumbucks;
                 setHdCoin(26);
@@ -108115,7 +108257,6 @@ window.Entropy = new (function() {
         },
         {
             name: "LBC - Library Credits",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.lbry;
                 setHdCoin(140);
@@ -108123,7 +108264,6 @@ window.Entropy = new (function() {
         },
         {
             name: "LCC - Litecoincash",
-            segwitAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.litecoincash;
                 setHdCoin(192);
@@ -108131,7 +108271,6 @@ window.Entropy = new (function() {
         },
         {
             name: "LDCN - Landcoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.landcoin;
                 setHdCoin(63);
@@ -108139,7 +108278,6 @@ window.Entropy = new (function() {
         },
         {
             name: "LINX - Linx",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.linx;
                 setHdCoin(114);
@@ -108147,7 +108285,6 @@ window.Entropy = new (function() {
         },
         {
             name: "LTC - Litecoin",
-            segwitAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.litecoin;
                 setHdCoin(2);
@@ -108156,7 +108293,6 @@ window.Entropy = new (function() {
         },
         {
             name: "LYNX - Lynx",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.lynx;
                 setHdCoin(191);
@@ -108164,7 +108300,6 @@ window.Entropy = new (function() {
         },
         {
             name: "MAZA - Maza",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.maza;
                 setHdCoin(13);
@@ -108172,7 +108307,6 @@ window.Entropy = new (function() {
         },
         {
             name: "MNX - Minexcoin",
-            segwitAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.minexcoin;
                 setHdCoin(182);
@@ -108180,7 +108314,6 @@ window.Entropy = new (function() {
         },
         {
             name: "MONA - Monacoin",
-            segwitAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.monacoin,
                 setHdCoin(22);
@@ -108188,7 +108321,6 @@ window.Entropy = new (function() {
         },
         {
             name: "NAV - Navcoin",
-            segwitAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.navcoin;
                 setHdCoin(130);
@@ -108196,7 +108328,6 @@ window.Entropy = new (function() {
         },
         {
             name: "NEBL - Neblio",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.neblio;
                 setHdCoin(146);
@@ -108204,7 +108335,6 @@ window.Entropy = new (function() {
         },
         {
             name: "NEOS - Neoscoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.neoscoin;
                 setHdCoin(25);
@@ -108212,7 +108342,6 @@ window.Entropy = new (function() {
         },
         {
             name: "NLG - Gulden",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.gulden;
                 setHdCoin(87);
@@ -108220,15 +108349,20 @@ window.Entropy = new (function() {
         },
         {
             name: "NMC - Namecoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.namecoin;
                 setHdCoin(7);
             },
         },
         {
+            name: "NRG - Energi",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.energi;
+                setHdCoin(204);
+            },
+        },
+        {
             name: "NRO - Neurocoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.neurocoin;
                 setHdCoin(110);
@@ -108236,7 +108370,6 @@ window.Entropy = new (function() {
         },
         {
             name: "NSR - Nushares",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.nushares;
                 setHdCoin(11);
@@ -108244,7 +108377,6 @@ window.Entropy = new (function() {
         },
         {
             name: "NYC - Newyorkc",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.newyorkc;
                 setHdCoin(179);
@@ -108252,7 +108384,6 @@ window.Entropy = new (function() {
         },
         {
             name: "NVC - Novacoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.novacoin;
                 setHdCoin(50);
@@ -108260,7 +108391,6 @@ window.Entropy = new (function() {
         },
         {
             name: "OK - Okcash",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.okcash;
                 setHdCoin(69);
@@ -108268,7 +108398,6 @@ window.Entropy = new (function() {
         },
         {
             name: "OMNI - Omnicore",
-            segwitAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.omnicore;
                 setHdCoin(200);
@@ -108276,7 +108405,6 @@ window.Entropy = new (function() {
         },
         {
             name: "ONX - Onixcoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.onixcoin;
                 setHdCoin(174);
@@ -108284,7 +108412,6 @@ window.Entropy = new (function() {
         },
         {
             name: "PINK - Pinkcoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.pinkcoin;
                 setHdCoin(117);
@@ -108292,7 +108419,6 @@ window.Entropy = new (function() {
         },
         {
             name: "PIVX - PIVX",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.pivx;
                 setHdCoin(119);
@@ -108300,7 +108426,6 @@ window.Entropy = new (function() {
         },
         {
             name: "PIVX - PIVX Testnet",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.pivxtestnet;
                 setHdCoin(1);
@@ -108308,7 +108433,6 @@ window.Entropy = new (function() {
         },
         {
             name: "POSW - POSWcoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.poswcoin;
                 setHdCoin(47);
@@ -108316,7 +108440,6 @@ window.Entropy = new (function() {
         },
         {
             name: "POT - Potcoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.potcoin;
                 setHdCoin(81);
@@ -108324,7 +108447,6 @@ window.Entropy = new (function() {
         },
         {
             name: "PPC - Peercoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.peercoin;
                 setHdCoin(6);
@@ -108332,7 +108454,6 @@ window.Entropy = new (function() {
         },
         {
             name: "PSB - Pesobit",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.pesobit;
                 setHdCoin(62);
@@ -108340,7 +108461,6 @@ window.Entropy = new (function() {
         },
         {
             name: "PUT - Putincoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.putincoin;
                 setHdCoin(122);
@@ -108348,7 +108468,6 @@ window.Entropy = new (function() {
         },
         {
             name: "RBY - Rubycoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.rubycoin;
                 setHdCoin(16);
@@ -108356,15 +108475,13 @@ window.Entropy = new (function() {
         },
         {
             name: "RDD - Reddcoin",
-            segwitAvailable: false,
             onSelect: function() {
-                network = bitcoinjs.bitcoin.networks.reddoin;
+                network = bitcoinjs.bitcoin.networks.reddcoin;
                 setHdCoin(4);
             },
         },
         {
             name: "RVR - RevolutionVR",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.revolutionvr;
                 setHdCoin(129);
@@ -108372,7 +108489,6 @@ window.Entropy = new (function() {
         },
         {
             name: "SDC - ShadowCash",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.shadow;
                 setHdCoin(35);
@@ -108380,7 +108496,6 @@ window.Entropy = new (function() {
         },
         {
             name: "SDC - ShadowCash Testnet",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.shadowtn;
                 setHdCoin(1);
@@ -108388,7 +108503,6 @@ window.Entropy = new (function() {
         },
         {
             name: "SLM - Slimcoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.slimcoin;
                 setHdCoin(63);
@@ -108396,7 +108510,6 @@ window.Entropy = new (function() {
         },
         {
             name: "SLM - Slimcoin Testnet",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.slimcointn;
                 setHdCoin(111);
@@ -108404,7 +108517,6 @@ window.Entropy = new (function() {
         },
         {
             name: "SLR - Solarcoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.solarcoin;
                 setHdCoin(58);
@@ -108412,7 +108524,6 @@ window.Entropy = new (function() {
         },
         {
             name: "SMLY - Smileycoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.smileycoin;
                 setHdCoin(59);
@@ -108420,7 +108531,6 @@ window.Entropy = new (function() {
         },
         {
             name: "STRAT - Stratis",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.stratis;
                 setHdCoin(105);
@@ -108428,7 +108538,6 @@ window.Entropy = new (function() {
         },
         {
             name: "SYS - Syscoin",
-            segwitAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.syscoin;
                 setHdCoin(57);
@@ -108436,7 +108545,6 @@ window.Entropy = new (function() {
         },
         {
             name: "THC - Hempcoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.hempcoin;
                 setHdCoin(113);
@@ -108444,7 +108552,6 @@ window.Entropy = new (function() {
         },
         {
             name: "TOA - Toa",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.toa;
                 setHdCoin(159);
@@ -108452,7 +108559,6 @@ window.Entropy = new (function() {
         },
         {
             name: "USC - Ultimatesecurecash",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.ultimatesecurecash;
                 setHdCoin(112);
@@ -108460,7 +108566,6 @@ window.Entropy = new (function() {
         },
         {
             name: "USNBT - NuBits",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.nubits;
                 setHdCoin(12);
@@ -108468,7 +108573,6 @@ window.Entropy = new (function() {
         },
         {
             name: "UNO - Unobtanium",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.unobtanium;
                 setHdCoin(92);
@@ -108476,7 +108580,6 @@ window.Entropy = new (function() {
         },
         {
             name: "VASH - Vpncoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.vpncoin;
                 setHdCoin(33);
@@ -108484,7 +108587,6 @@ window.Entropy = new (function() {
         },
         {
             name: "VIA - Viacoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.viacoin;
                 setHdCoin(14);
@@ -108492,7 +108594,6 @@ window.Entropy = new (function() {
         },
         {
             name: "VIA - Viacoin Testnet",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.viacointestnet;
                 setHdCoin(1);
@@ -108500,7 +108601,6 @@ window.Entropy = new (function() {
         },
         {
             name: "VIVO - Vivo",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.vivo;
                 setHdCoin(166);
@@ -108508,7 +108608,6 @@ window.Entropy = new (function() {
         },
         {
             name: "VTC - Vertcoin",
-            segwitAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.vertcoin;
                 setHdCoin(28);
@@ -108516,7 +108615,6 @@ window.Entropy = new (function() {
         },
         {
             name: "WC - Wincoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.wincoin;
                 setHdCoin(181);
@@ -108524,7 +108622,6 @@ window.Entropy = new (function() {
         },
         {
             name: "XBC - Bitcoinplus",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bitcoinplus;
                 setHdCoin(65);
@@ -108532,7 +108629,6 @@ window.Entropy = new (function() {
         },
         {
             name: "XMY - Myriadcoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.myriadcoin;
                 setHdCoin(90);
@@ -108540,7 +108636,6 @@ window.Entropy = new (function() {
         },
         {
             name: "XRP - Ripple",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bitcoin;
                 setHdCoin(144);
@@ -108548,7 +108643,6 @@ window.Entropy = new (function() {
         },
         {
             name: "XVC - Vcash",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.vcash;
                 setHdCoin(127);
@@ -108556,7 +108650,6 @@ window.Entropy = new (function() {
         },
         {
             name: "XVG - Verge",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.verge;
                 setHdCoin(77);
@@ -108564,7 +108657,6 @@ window.Entropy = new (function() {
         },
         {
             name: "XWC - Whitecoin",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.whitecoin;
                 setHdCoin(155);
@@ -108572,18 +108664,37 @@ window.Entropy = new (function() {
         },
         {
             name: "XZC - Zcoin",
-            segwitAvailable: true,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.zcoin;
                 setHdCoin(136);
             },
         },
         {
+            name: "ZCL - Zclassic",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.zclassic;
+                setHdCoin(147);
+            },
+        },
+        {
             name: "ZEC - Zcash",
-            segwitAvailable: false,
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.zcash;
                 setHdCoin(133);
+            },
+        },
+        {
+            name: "XUEZ - Xuez",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.xuez;
+                setHdCoin(225);
+            },
+        },
+        {
+            name: "ZEN - Zencash",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.zencash;
+                setHdCoin(121);
             },
         },
     ]

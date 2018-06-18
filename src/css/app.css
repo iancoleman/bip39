@@ -103,3 +103,6 @@ body {
     overflow-x: scroll;
     font-family: monospace;
 }
+.visual-privacy .private-data {
+    display: none;
+}
