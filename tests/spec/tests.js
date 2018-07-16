@@ -1096,6 +1096,13 @@ it('Allows selection of Stratis', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Stratis Test', function(done) {
+    var params = {
+        selectText: "TSTRAT - Stratis Test",
+        firstAddress: "TRLWm3dye4FRrDWouwYUSUZP96xb76mBE3",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Syscoin', function(done) {
     var params = {
         selectText: "SYS - Syscoin",
