@@ -2294,6 +2294,13 @@
             },
         },
         {
+            name: "TSTRAT - Stratis Testnet",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.stratistest;
+                setHdCoin(105);
+            },
+        },
+        {
             name: "SYS - Syscoin",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.syscoin;
