@@ -1064,7 +1064,7 @@ bitcoinjs.bitcoin.networks.syscoin = {
   },
   pubKeyHash: 0x3f,
   scriptHash: 0x05,
-  wif: 0xbf,
+  wif: 0x80,
 };
 
 
