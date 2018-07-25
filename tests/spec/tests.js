@@ -1264,6 +1264,13 @@ it('Allows selection of Callisto', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of HUSH', function(done) {
+    var params = {
+        selectText: "HUSH - Hush",
+        firstAddress: "t1g6rLXUnJaiJuu4q4zmJjoa9Gk4fwKpiuA",
+    };
+    testNetwork(done, params);
+});
 
 
 // BIP39 seed is set from phrase
