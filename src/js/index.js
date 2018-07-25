@@ -1968,6 +1968,13 @@
                 setHdCoin(168);
             },
         },
+		{
+            name: "HUSH - Hush",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.hush;
+                setHdCoin(197);
+            },
+        },
         {
             name: "INSN - Insane",
             onSelect: function() {

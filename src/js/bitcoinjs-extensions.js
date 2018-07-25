@@ -1233,6 +1233,17 @@ bitcoinjs.bitcoin.networks.bitcoinz = {
   wif: 0x80,
 };
 
+bitcoinjs.bitcoin.networks.hush = {
+  messagePrefix: '\x18Hush Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4,
+  },
+  pubKeyHash: 0x1CB8,
+  scriptHash: 0x1CBD,
+  wif: 0x80,
+};
+
 bitcoinjs.bitcoin.networks.zclassic = {
   messagePrefix: '\x18Zcash Signed Message:\n',
   bip32: {
