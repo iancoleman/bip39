@@ -707,7 +707,7 @@ it('Allows selection of Bitcoinz', function(done) {
 it('Allows selection of Bitcore', function(done) {
     var params = {
         selectText: "BTX - Bitcore",
-        firstAddress: "1Dg18EtqhReS11e9h8khkLjWGLHVjPM2AB",
+        firstAddress: "2Rgp5Znhpy34TK4QmPkfCiYs9r4KovfTH9",
     };
     testNetwork(done, params);
 });

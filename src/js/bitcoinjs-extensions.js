@@ -446,8 +446,8 @@ bitcoinjs.bitcoin.networks.bitcore = {
     public: 0x0488B21E,
     private: 0x0488ADE4,
   },
-  pubKeyHash: 0x00,
-  scriptHash: 0x05,
+  pubKeyHash: 0x03,
+  scriptHash: 0x7D,
   wif: 0x80,
 };
 
