@@ -2877,6 +2877,13 @@ it('Can set the derivation path on bip32 tab for multibit', function(done) {
         useHardenedAddresses: null,
     });
 });
+it('Can set the derivation path on bip32 tab for coinomi/ledger', function(done) {
+    testClientSelect(done, {
+        selectValue: "3",
+        bip32path: "m/44'/0'/0'",
+        useHardenedAddresses: null,
+    });
+});
 
 // github issue 58
 // https://github.com/iancoleman/bip39/issues/58
