@@ -1056,6 +1056,17 @@ bitcoinjs.bitcoin.networks.stratis = {
   wif: 0xbf,
 };
 
+bitcoinjs.bitcoin.networks.stratistest = {
+  messagePrefix: '\x18Stratis Test Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4,
+  },
+  pubKeyHash: 0x41,
+  scriptHash: 0x7d,
+  wif: 0xbf,
+};
+
 bitcoinjs.bitcoin.networks.syscoin = {
   messagePrefix: '\x18Syscoin Signed Message:\n',
   bip32: {
