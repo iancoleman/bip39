@@ -1,3 +1,12 @@
+# 0.3.8
+
+* Add p2wpkh for litecoin
+* Add more networks - TSTRAT, Hush, ETC, PIRL, CLO, MIX, MUSIC, POA, EXP
+* Add coinomi/ledger client to BIP32 tab
+* Fix SYSCOIN and BTX parameters
+* Remove bip39-standalone.html from repository
+* Remove duplicate id properties on html elements
+
 # 0.3.7
 
 * Update AXE network parameters
