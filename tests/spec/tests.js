@@ -296,7 +296,7 @@ describe('BIP39 Tool Tests', function() {
 
     beforeEach(function(done) {
         driver = newDriver();
-        driver.get(url).then(done);        
+        driver.get(url).then(done);
     });
 
     // Close the website after each test is run (so that it is opened fresh each time)
