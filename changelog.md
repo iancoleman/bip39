@@ -1,7 +1,3 @@
-# 0.3.8s
-
-* Add stash
-
 # 0.3.8
 
 * Add p2wpkh for litecoin
