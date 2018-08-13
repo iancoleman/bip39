@@ -2357,6 +2357,20 @@
             },
         },
         {
+            name: "STASH - Stash",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.stash;
+                setHdCoin(0xC0C0);
+            },
+        },
+        {
+            name: "STASH - Stash Testnet",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.stashtn;
+                setHdCoin(0xCAFE);
+            },
+        },
+        {
             name: "STRAT - Stratis",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.stratis;

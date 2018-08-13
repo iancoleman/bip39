@@ -1045,6 +1045,28 @@ bitcoinjs.bitcoin.networks.solarcoin = {
   wif: 0x92,
 };
 
+bitcoinjs.bitcoin.networks.stash = {
+  messagePrefix: '\x18Stash Signed Message:\n',
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  },
+  pubKeyHash: 0x4c,
+  scriptHash: 0x10,
+  wif: 0xcc
+};
+
+bitcoinjs.bitcoin.networks.stashtn = {
+  messagePrefix: '\x18Stash Test Signed Message:\n',
+  bip32: {
+    public: 0x043587cf,
+    private: 0x04358394
+  },
+  pubKeyHash: 0x8c,
+  scriptHash: 0x13,
+  wif: 0xef
+};
+
 bitcoinjs.bitcoin.networks.stratis = {
   messagePrefix: '\x18Stratis Signed Message:\n',
   bip32: {

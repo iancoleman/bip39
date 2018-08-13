@@ -1,3 +1,7 @@
+# 0.3.8s
+
+* Add Stash network 
+
 # 0.3.8
 
 * Add p2wpkh for litecoin

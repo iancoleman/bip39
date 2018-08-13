@@ -1089,6 +1089,20 @@ it('Allows selection of Solarcoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of stash', function(done) {
+    var params = {
+        selectText: "STASH - Stash",
+        firstAddress: "XxwAsWB7REDKmAvHA85SbEZQQtpxeUDxS3",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of stash testnet', function(done) {
+    var params = {
+        selectText: "STASH - Stash Testnet",
+        firstAddress: "YdbhtMuGsPSkE6bPdNTHoFSszQKmK4S5LT",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Stratis', function(done) {
     var params = {
         selectText: "STRAT - Stratis",
