@@ -1023,6 +1023,16 @@ bitcoinjs.bitcoin.networks.rubycoin = {
   wif: 0xbc,
 };
 
+messagePrefix: '\x18Salus Signed Message:\n',
+bip32: {
+  public: 0x0488B21E,
+  private: 0x0488ADE4,
+},
+pubKeyHash: 0x3f,
+scriptHash: 0xc4,
+wif: 0xbf,
+};
+
 bitcoinjs.bitcoin.networks.smileycoin = {
   messagePrefix: '\x18Smileycoin Signed Message:\n',
   bip32: {

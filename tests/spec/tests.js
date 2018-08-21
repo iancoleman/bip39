@@ -1075,6 +1075,11 @@ it('Allows selection of Rubycoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Salus', function(done) {
+    var params = {
+        selectText: "SLS - Salus",
+        firstAddress: "SgdYBmVytcW2aCYitdegwkUcCU7RSqYokB",
+    };
 it('Allows selection of Smileycoin', function(done) {
     var params = {
         selectText: "SMLY - Smileycoin",
