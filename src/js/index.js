@@ -2315,6 +2315,13 @@
             },
         },
         {
+          name: "SLS - Salus",
+          onSelect: function() {
+              network = bitcoinjs.bitcoin.networks.salus;
+              setHdCoin(63);
+            },
+        },
+        {
             name: "SDC - ShadowCash",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.shadow;
