@@ -495,6 +495,17 @@ bitcoinjs.bitcoin.networks.cannacoin = {
   wif: 0x9c,
 };
 
+bitcoinjs.bitcoin.networks.cryptoescudo = {
+  messagePrefix: '\x18Cryptoescudo Signed Message:\n',
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4,
+  },
+  pubKeyHash: 0x1c,
+  scriptHash: 0x05,
+  wif: 0x9c,
+};
+
 bitcoinjs.bitcoin.networks.clubcoin = {
   messagePrefix: '\x18ClubCoin Signed Message:\n',
   bip32: {
@@ -1023,6 +1034,7 @@ bitcoinjs.bitcoin.networks.rubycoin = {
   wif: 0xbc,
 };
 
+bitcoinjs.bitcoin.networks.salus = {
 messagePrefix: '\x18Salus Signed Message:\n',
 bip32: {
   public: 0x0488B21E,
