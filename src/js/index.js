@@ -1766,6 +1766,13 @@
             },
         },
         {
+            name: "CESC - Cryptoescudo",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.cannacoin;
+                setHdCoin(111);
+            },
+        },
+        {
             name: "CDN - Canadaecoin",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.canadaecoin;
