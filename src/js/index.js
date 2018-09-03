@@ -650,7 +650,9 @@
     }
 
     function getDerivationPath() {
+	console.log("derivation path");
         if (bip44TabSelected()) {
+	    console.log("bip44 selected")
             var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
             var coin = parseIntNoNaN(DOM.bip44coin.val(), 0);
             var account = parseIntNoNaN(DOM.bip44account.val(), 0);
@@ -666,6 +668,7 @@
             return derivationPath;
         }
 	else if (bip47TabSelected()) {
+	    console.log("Bip47 selected");
             var purpose = parseIntNoNaN(DOM.bip47purpose.val(), 47);
             var coin = parseIntNoNaN(DOM.bip47coin.val(), 0);
             var account = parseIntNoNaN(DOM.bip47account.val(), 0);

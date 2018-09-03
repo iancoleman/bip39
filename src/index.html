@@ -220,11 +220,11 @@
                         <li id="bip32-tab">
                             <a href="#bip32" role="tab" data-toggle="tab">BIP32</a>
                         </li>
-                        <li id="bip47-tab" class="active">
+                        <li id="bip44-tab" class="active">
                             <a href="#bip44" role="tab" data-toggle="tab">BIP44</a>
                         </li>
 			<li id="bip47-tab">
-                            <a href="#bip44" role="tab" data-toggle="tab">BIP47</a>
+                            <a href="#bip47" role="tab" data-toggle="tab">BIP47</a>
                         </li>
                         <li id="bip49-tab">
                             <a href="#bip49" role="tab" data-toggle="tab">BIP49</a>
@@ -317,6 +317,90 @@
                                 </div>
                             </form>
                         </div>
+
+
+			<div id="bip47" class="tab-pane active">
+                            <form class="form-horizontal" role="form">
+                                <br>
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-10">
+                                    <p>
+                                        For more info see the
+                                        <a href="https://github.com/bitcoin/bips/blob/master/bip-0047.mediawiki" target="_blank">BIP47 spec</a>.
+                                    </p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="purpose" class="col-sm-2 control-label">
+                                        <a href="https://github.com/bitcoin/bips/blob/master/bip-0047.mediawiki#purpose" target="_blank">Purpose</a>
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input id="purpose" type="text" class="purpose form-control" value="47" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="coin" class="col-sm-2 control-label">
+                                        <a href="https://github.com/bitcoin/bips/blob/master/bip-0047.mediawiki#registered-coin-types" target="_blank">Coin</a>
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input id="coin" type="text" class="coin form-control" value="0" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="account" class="col-sm-2 control-label">
+                                        <a href="https://github.com/bitcoin/bips/blob/master/bip-0047.mediawiki#account" target="_blank">Account</a>
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input id="account" type="text" class="account form-control" value="0">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="change" class="col-sm-2 control-label">
+                                        <a href="https://github.com/bitcoin/bips/blob/master/bip-0047.mediawiki#change" target="_blank">External / Internal</a>
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input id="change" type="text" class="change form-control" value="0">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <p>The account extended keys can be used for importing to most BIP47 compatible wallets, such as mycelium or electrum.</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="account-xprv" class="col-sm-2 control-label">
+                                        <span>Account Extended Private Key</span>
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <textarea id="account-xprv" type="text" class="account-xprv private-data form-control" readonly data-show-qr></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="account-xpub" class="col-sm-2 control-label">
+                                        <span>Account Extended Public Key</span>
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <textarea id="account-xpub" type="text" class="account-xpub form-control" readonly data-show-qr></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <p>The BIP32 derivation path and extended keys are the basis for the derived addresses.</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="bip47-path" class="col-sm-2 control-label">BIP32 Derivation Path</label>
+                                    <div class="col-sm-10">
+                                        <input id="bip47-path" type="text" class="path form-control" value="m/47'/0'/0'/0" readonly="readonly">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+			
                         <div id="bip32" class="tab-pane">
                             <form class="form-horizontal" role="form">
                                 <br>
