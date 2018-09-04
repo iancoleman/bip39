@@ -78,6 +78,7 @@
     DOM.bip47accountXprv = $("#bip47 .account-xprv");
     DOM.bip47accountXpub = $("#bip47 .account-xpub");
     DOM.bip47change = $("#bip47 .change");
+    DOM.bip47paymentcode = $("#bip47 .paymentcode");
     DOM.bip49unavailable = $("#bip49 .unavailable");
     DOM.bip49available = $("#bip49 .available");
     DOM.bip49path = $("#bip49-path");
@@ -146,6 +147,7 @@
         DOM.bip44change.on("input", calcForDerivationPath);
         DOM.bip47account.on("input", calcForDerivationPath);
         DOM.bip47change.on("input", calcForDerivationPath);
+	DOM.bip47paymentcode.on("input", calcForDerivationPath);
         DOM.bip49account.on("input", calcForDerivationPath);
         DOM.bip49change.on("input", calcForDerivationPath);
         DOM.bip84account.on("input", calcForDerivationPath);
@@ -652,7 +654,6 @@
     function getDerivationPath() {
 	console.log("derivation path");
         if (bip44TabSelected()) {
-	    console.log("bip44 selected")
             var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
             var coin = parseIntNoNaN(DOM.bip44coin.val(), 0);
             var account = parseIntNoNaN(DOM.bip44account.val(), 0);
@@ -668,7 +669,6 @@
             return derivationPath;
         }
 	else if (bip47TabSelected()) {
-	    console.log("Bip47 selected");
             var purpose = parseIntNoNaN(DOM.bip47purpose.val(), 47);
             var coin = parseIntNoNaN(DOM.bip47coin.val(), 0);
             var account = parseIntNoNaN(DOM.bip47account.val(), 0);
@@ -796,6 +796,7 @@
     }
 
     function displayBip47Info() {
+	console.log("bip47 info");
         // Get the derivation path for the account
         var purpose = parseIntNoNaN(DOM.bip47purpose.val(), 47);
         var coin = parseIntNoNaN(DOM.bip47coin.val(), 0);
@@ -811,6 +812,12 @@
         // Display the extended keys
         DOM.bip47accountXprv.val(accountXprv);
         DOM.bip47accountXpub.val(accountXpub);
+
+	var paymentCode = accountExtendedKey.toPaymentCode();
+	console.log("pcode");
+	console.log(paymentCode);
+	
+	DOM.bip47paymentcode.val(paymentCode);
     }
 
     function displayBip49Info() {
@@ -840,6 +847,8 @@
         path += purpose + "'/";
         path += coin + "'/";
         path += account + "'/";
+	console.log("Account extended key ");
+	console.log(path);
         // Calculate the account extended keys
         var accountExtendedKey = calcBip32ExtendedKey(path);
         var accountXprv = accountExtendedKey.toBase58();
@@ -1603,6 +1612,18 @@
     }
 
     function uint8ArrayToHex(a) {
+        var s = ""
+        for (var i=0; i<a.length; i++) {
+            var h = a[i].toString(16);
+            while (h.length < 2) {
+                h = "0" + h;
+            }
+            s = s + h;
+        }
+        return s;
+    }
+
+    function uint8ArrayToBase58(a) {
         var s = ""
         for (var i=0; i<a.length; i++) {
             var h = a[i].toString(16);

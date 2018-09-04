@@ -8661,6 +8661,10 @@ function fromBech32 (address) {
   }
 }
 
+function encodeBase58 (buffer) {
+    return bs58check.encode(buffer)
+}
+
 function toBase58Check (hash, version) {
   if (version < 256){
     typeforce(types.tuple(types.Hash160bit, types.UInt8), arguments)
@@ -8733,6 +8737,7 @@ module.exports = {
   fromBech32: fromBech32,
   fromOutputScript: fromOutputScript,
   toBase58Check: toBase58Check,
+  encodeBase58: encodeBase58,
   toBech32: toBech32,
   toOutputScript: toOutputScript
 }
@@ -9413,7 +9418,6 @@ var NETWORKS = require('./networks')
 
 var BigInteger = require('bigi')
 var ECPair = require('./ecpair')
-
 var ecurve = require('ecurve')
 var curve = ecurve.getCurveByName('secp256k1')
 
@@ -9605,6 +9609,23 @@ HDNode.prototype.toBase58 = function (__isPrivate) {
   }
 
   return base58check.encode(buffer)
+}
+
+HDNode.prototype.toPaymentCode = function() {
+    var buffer = Buffer.allocUnsafe(81)
+    buffer.fill(0)
+
+    buffer[0] = 0x47;
+    buffer[1] = 0x01;
+    buffer[2] = 0x00;
+    
+    console.log(this.keyPair.getPublicKeyBuffer()) // 33
+    console.log(base58check.encode(this.keyPair.getPublicKeyBuffer()))
+    this.keyPair.getPublicKeyBuffer().copy(buffer, 3) // 3 - 35 inclusive
+
+    console.log(this.chainCode);
+    this.chainCode.copy(buffer, 36)  // 35 - 67 inclusive
+    return base58check.encode(buffer)
 }
 
 // https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#child-key-derivation-ckd-functions
