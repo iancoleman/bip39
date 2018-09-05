@@ -1331,3 +1331,14 @@ bitcoinjs.bitcoin.networks.energi = {
   scriptHash: 0x35,
   wif: 0x6a,
 };
+
+bitcoinjs.bitcoin.networks.exchangecoin = {
+  messagePrefix: 'ExchangeCoin Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4,
+  },
+  pubKeyHash: 0x21B9,
+  scriptHash: 0x34AF,
+  wif: 0x80,
+};

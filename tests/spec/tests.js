@@ -1290,6 +1290,13 @@ it('Allows selection of HUSH', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of ExchangeCoin', function(done) {
+    var params = {
+        selectText: "EXCC - ExchangeCoin",
+        firstAddress: "22txYKpFN5fwGwdSs2UBf7ywewbLM92YqK7E",
+    };
+    testNetwork(done, params);
+});
 
 
 // BIP39 seed is set from phrase

@@ -1936,6 +1936,13 @@
             },
         },
         {
+            name: "EXCC - ExchangeCoin",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.exchangecoin;
+                setHdCoin(0);
+            },
+        },
+        {
             name: "EXP - Expanse",
             segwitAvailable: false,
             onSelect: function() {
