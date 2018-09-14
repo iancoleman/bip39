@@ -1297,6 +1297,13 @@ it('Allows selection of ExchangeCoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Artax', function(done) {
+    var params = {
+        selectText: "XAX - Artax",
+        firstAddress: "AYxaQPY7XLidG31V7F3yNzwxPYpYzRqG4q",
+    };
+    testNetwork(done, params);
+});
 
 
 // BIP39 seed is set from phrase

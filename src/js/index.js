@@ -2489,6 +2489,13 @@
                 setHdCoin(181);
             },
         },
+		{
+            name: "XAX - Artax",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.artax;
+                setHdCoin(219);
+            },
+        },
         {
             name: "XBC - Bitcoinplus",
             onSelect: function() {
