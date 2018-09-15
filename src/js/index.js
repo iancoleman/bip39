@@ -78,7 +78,9 @@
     DOM.bip47accountXprv = $("#bip47 .account-xprv");
     DOM.bip47accountXpub = $("#bip47 .account-xpub");
     DOM.bip47change = $("#bip47 .change");
-    DOM.bip47paymentcode = $("#bip47 .paymentcode");
+    DOM.bip47localpaycode = $("#bip47 #local-paycode");
+    DOM.bip47notificationaddress = $("#bip47 #notification-address");
+    DOM.bip47remotepaycode = $("#bip47 #remote-paycode");
     DOM.bip49unavailable = $("#bip49 .unavailable");
     DOM.bip49available = $("#bip49 .available");
     DOM.bip49path = $("#bip49-path");
@@ -147,7 +149,7 @@
         DOM.bip44change.on("input", calcForDerivationPath);
         DOM.bip47account.on("input", calcForDerivationPath);
         DOM.bip47change.on("input", calcForDerivationPath);
-	DOM.bip47paymentcode.on("input", calcForDerivationPath);
+	DOM.bip47remotepaycode.on("input", calcForDerivationPath);
         DOM.bip49account.on("input", calcForDerivationPath);
         DOM.bip49change.on("input", calcForDerivationPath);
         DOM.bip84account.on("input", calcForDerivationPath);
@@ -652,7 +654,6 @@
     }
 
     function getDerivationPath() {
-	console.log("derivation path");
         if (bip44TabSelected()) {
             var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
             var coin = parseIntNoNaN(DOM.bip44coin.val(), 0);
@@ -665,7 +666,6 @@
             path += change;
             DOM.bip44path.val(path);
             var derivationPath = DOM.bip44path.val();
-            console.log("Using derivation path from BIP44 tab: " + derivationPath);
             return derivationPath;
         }
 	else if (bip47TabSelected()) {
@@ -817,7 +817,21 @@
 	console.log("pcode");
 	console.log(paymentCode);
 	
-	DOM.bip47paymentcode.val(paymentCode);
+	DOM.bip47localpaycode.val(paymentCode);
+
+	// notification address
+	var account_key = calcBip32ExtendedKey("m/47'/0'/0'")
+	var notification_key = account_key.derive(0);
+
+	console.log("Notification key");
+	console.log(notification_key);
+
+	var keyPair = notification_key.keyPair	
+	var address = keyPair.getAddress().toString();
+	DOM.bip47notificationaddress.val(address);
+
+	console.log("notification address");
+	console.log(address);
     }
 
     function displayBip49Info() {
