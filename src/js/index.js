@@ -1745,6 +1745,13 @@
             },
         },
         {
+            name: "BTDX - BitCloud",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bitcloud;
+                setHdCoin(218);
+            },
+        },
+        {
             name: "BTG - Bitcoin Gold",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bgold;
@@ -2112,6 +2119,13 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.maza;
                 setHdCoin(13);
+            },
+        },
+        {
+            name: "MEC - Megacoin",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.megacoin;
+                setHdCoin(217);
             },
         },
         {
