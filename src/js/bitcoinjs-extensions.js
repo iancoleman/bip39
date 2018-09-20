@@ -440,6 +440,17 @@ bitcoinjs.bitcoin.networks.bitcoinplus = {
   wif: 0x99,
 };
 
+bitcoinjs.bitcoin.networks.bitcloud = {
+  messagePrefix: '\x18BitCloud Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4,
+  },
+  pubKeyHash: 0x19,
+  scriptHash: 0x05,
+  wif: 0x99,
+};
+
 bitcoinjs.bitcoin.networks.bitcore = {
   messagePrefix: '\x18BitCore Signed Message:\n',
   bip32: {
@@ -845,6 +856,17 @@ bitcoinjs.bitcoin.networks.lynx = {
   pubKeyHash: 0x2d,
   scriptHash: 0x32,
   wif: 0xad,
+};
+
+bitcoinjs.bitcoin.networks.megacoin = {
+  messagePrefix: '\x18Megacoin Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4,
+  },
+  pubKeyHash: 0x32,
+  scriptHash: 0x05,
+  wif: 0xB2,
 };
 
 bitcoinjs.bitcoin.networks.minexcoin = {

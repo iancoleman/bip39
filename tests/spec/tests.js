@@ -704,6 +704,13 @@ it('Allows selection of Bitcoinz', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of BitCloud', function(done) {
+    var params = {
+        selectText: "BTDX - BitCloud",
+        firstAddress: "BE9tnWxiR7ALgVhG8LLDi2W9pvtjzZMFoM",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Bitcore', function(done) {
     var params = {
         selectText: "BTX - Bitcore",
@@ -953,6 +960,13 @@ it('Allows selection of Lynx', function(done) {
     var params = {
         selectText: "LYNX - Lynx",
         firstAddress: "KUeY3ZdZkg96p4W98pj1JjygCFU1XqWdw3",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Megacoin', function(done) {
+    var params = {
+        selectText: "MEC - Megacoin",
+        firstAddress: "MHHRRPHcF8DvQpEySFF9M6fR8Qv4JH2fFC",
     };
     testNetwork(done, params);
 });
