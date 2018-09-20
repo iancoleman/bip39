@@ -1094,6 +1094,7 @@ it('Allows selection of Salus', function(done) {
         selectText: "SLS - Salus",
         firstAddress: "SgdYBmVytcW2aCYitdegwkUcCU7RSqYokB",
     };
+});
 it('Allows selection of Smileycoin', function(done) {
     var params = {
         selectText: "SMLY - Smileycoin",
