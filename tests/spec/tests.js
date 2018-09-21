@@ -707,7 +707,7 @@ it('Allows selection of Bitcoinz', function(done) {
 it('Allows selection of BitCloud', function(done) {
     var params = {
         selectText: "BTDX - BitCloud",
-        firstAddress: "BE9tnWxiR7ALgVhG8LLDi2W9pvtjzZMFoM",
+        firstAddress: "BHbWitXCNgTf1BhsRDNMP186EeibuzmrBi",
     };
     testNetwork(done, params);
 });
@@ -966,7 +966,7 @@ it('Allows selection of Lynx', function(done) {
 it('Allows selection of Megacoin', function(done) {
     var params = {
         selectText: "MEC - Megacoin",
-        firstAddress: "MHHRRPHcF8DvQpEySFF9M6fR8Qv4JH2fFC",
+        firstAddress: "MDfAj9CzkC1HpcUiVGnHp8yKTa7WXgu8AY",
     };
     testNetwork(done, params);
 });
