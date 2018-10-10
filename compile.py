@@ -2,6 +2,7 @@ import os
 import re
 import datetime
 from io import open
+import hashlib
 
 # This script generates the bip39-standalone.html file.
 
@@ -42,7 +43,9 @@ for style in styles:
 
 # Write the standalone file
 
-f = open('bip39-standalone.html', 'w', encoding="utf-8")
+hashedWord = hashlib.sha256(page.encode('utf-8')).hexdigest()
+
+f = open('bip39-standalone-v' + hashedWord[-6:] + '.html', 'w', encoding="utf-8")
 f.write(page)
 f.close()
 
