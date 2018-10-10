@@ -1730,6 +1730,13 @@
                 setHdCoin(1);
             },
         },
+		{
+            name: "BITG - Bitcoin Green",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bitcoingreen;
+                setHdCoin(222);
+            },
+        },
         {
             name: "BTCP - Bitcoin Private",
             onSelect: function() {

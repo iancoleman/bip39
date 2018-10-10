@@ -1319,6 +1319,13 @@ it('Allows selection of Artax', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of BitcoinGreen', function(done) {
+    var params = {
+        selectText: "BITG - Bitcoin Green",
+        firstAddress: "GeNGm9SkEfwbsws3UrrUSE2sJeyWYjzraY",
+    };
+    testNetwork(done, params);
+});
 
 
 // BIP39 seed is set from phrase
