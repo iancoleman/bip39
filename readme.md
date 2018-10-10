@@ -73,7 +73,14 @@ Before running tests, the site must be served at http://localhost:8000.
 
 ```
 $ cd /path/to/bip39/src
-$ python -m http.server
+$ python -m http.server 
+```
+
+or on Windows 
+
+```
+$ cd /path/to/bip39/src
+$ python -m SimpleHTTPServer
 ```
 
 Run tests from the command-line
