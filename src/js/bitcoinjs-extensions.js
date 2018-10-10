@@ -1375,3 +1375,14 @@ bitcoinjs.bitcoin.networks.artax = {
   scriptHash: 0x1CBD,
   wif: 0x97,
 };
+
+bitcoinjs.bitcoin.networks.bitcoingreen = {
+  messagePrefix: '\x18BitcoinGreen Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4,
+  },
+  pubKeyHash: 0x26,
+  scriptHash: 0x1CBD,
+  wif:  0x2E,
+};
