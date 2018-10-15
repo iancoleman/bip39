@@ -1326,6 +1326,13 @@ it('Allows selection of BitcoinGreen', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of ANON', function(done) {
+    var params = {
+        selectText: "ANON - ANON",
+        firstAddress: "AnU6pijpEeUZFWSTyM2qTqZQn996Zq1Xard",
+    };
+    testNetwork(done, params);
+});
 
 
 // BIP39 seed is set from phrase
