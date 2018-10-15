@@ -1659,6 +1659,13 @@
                 network = bitcoinjs.bitcoin.networks.axe;
                 setHdCoin(4242);
             },
+		},
+		{
+            name: "ANON - ANON",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.anon;
+                setHdCoin(220);
+            },
         },
         {
             name: "BCA - Bitcoin Atom",
