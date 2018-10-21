@@ -2321,6 +2321,13 @@
                 setHdCoin(6);
             },
         },
+		{
+            name: "PRJ - ProjectCoin",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.projectcoin;
+                setHdCoin(533);
+            },
+        },
         {
             name: "PSB - Pesobit",
             onSelect: function() {

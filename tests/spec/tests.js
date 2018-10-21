@@ -1333,7 +1333,13 @@ it('Allows selection of ANON', function(done) {
     };
     testNetwork(done, params);
 });
-
+it('Allows selection of ProjectCoin', function(done) {
+    var params = {
+        selectText: "PRJ - ProjectCoin",
+        firstAddress: "PXZG97saRseSCftfe1mcFmfAA7pf6qBbaz",
+    };
+    testNetwork(done, params);
+});
 
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {
