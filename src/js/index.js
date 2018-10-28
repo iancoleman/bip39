@@ -232,7 +232,14 @@
         if (phraseChangeTimeoutEvent != null) {
             clearTimeout(phraseChangeTimeoutEvent);
         }
-        phraseChangeTimeoutEvent = setTimeout(phraseChanged, 400);
+        phraseChangeTimeoutEvent = setTimeout(function() {
+            phraseChanged();
+            var entropy = mnemonic.toRawEntropyHex(DOM.phrase.val());
+            if (entropy !== null) {
+                DOM.entropyMnemonicLength.val("raw");
+                DOM.entropy.val(entropy);
+            }
+        }, 400);
     }
 
     function phraseChanged() {
