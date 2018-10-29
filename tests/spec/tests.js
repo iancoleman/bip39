@@ -2912,7 +2912,7 @@ it('Can change details while old addresses are still being generated', function(
                 });
         });
     });
-}, generateDelay + 5000);
+}, generateDelay + 10000);
 
 // Github issue 49
 // padding for binary should give length with multiple of 256
