@@ -1,6 +1,25 @@
+# 0.3.9
+
+* Update BTG signing message
+* Add segwit parameters for BTG
+* Add segwit parameters for DigiByte
+* Add Stash network (see 0.3.8s below)
+* Add Salus network
+* Add Cryptoescudo network
+* Add ExchangeCoin network
+* Add Artax network
+* Add BitCloud network
+* Add Megacoin network
+* Add Bitcoin Green network
+* Add ANON network
+* Add ProjectCoin network
+* Reword the 'generate' inputs and words
+* Add note for running http server in python 2
+* Adjust test to run reliably on slow computers
+
 # 0.3.8s
 
-* Add Stash network 
+* Add Stash network
 
 # 0.3.8
 
