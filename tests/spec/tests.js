@@ -1120,7 +1120,7 @@ it('Allows selection of stash', function(done) {
 it('Allows selection of stash testnet', function(done) {
     var params = {
         selectText: "STASH - Stash Testnet",
-        firstAddress: "YdbhtMuGsPSkE6bPdNTHoFSszQKmK4S5LT",
+        firstAddress: "yWQCTSkUst7ddYuebKsqa1kSoXEjpCkGKR",
     };
     testNetwork(done, params);
 });
