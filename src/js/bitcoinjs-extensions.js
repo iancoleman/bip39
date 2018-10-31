@@ -1408,3 +1408,14 @@ bitcoinjs.bitcoin.networks.projectcoin = {
   scriptHash: 0x08,
   wif:  0x75,
 };
+
+bitcoinjs.bitcoin.networks.phore = {
+  messagePrefix: '\x18Phore Signed Message:\n',
+  bip32: {
+    public: 0x022D2533,
+    private: 0x0221312B,
+  },
+  pubKeyHash: 0x37,
+  scriptHash: 0x0D,
+  wif:  0xD4,
+};
