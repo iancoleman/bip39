@@ -2263,6 +2263,13 @@
                 setHdCoin(174);
             },
         },
+		{
+            name: "PHR - Phore",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.phore;
+                setHdCoin(444);
+            },
+        },
         {
             name: "PINK - Pinkcoin",
             onSelect: function() {

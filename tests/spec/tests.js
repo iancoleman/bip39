@@ -1341,6 +1341,13 @@ it('Allows selection of ProjectCoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Phore', function(done) {
+    var params = {
+        selectText: "PHR - Phore",
+        firstAddress: "PJThxpoXAG6hqrmdeQQbVDX4TJtFTMMymC",
+    };
+    testNetwork(done, params);
+});
 
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {
