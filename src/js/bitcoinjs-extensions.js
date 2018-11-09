@@ -1023,6 +1023,17 @@ bitcoinjs.bitcoin.networks.putincoin = {
   wif: 0xb7,
 };
 
+bitcoinjs.bitcoin.networks.ravencoin = {
+  messagePrefix: '\x16Raven Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4,
+  },
+  pubKeyHash: 0x3c,
+  scriptHash: 0x7a,
+  wif: 0x80,
+};
+
 bitcoinjs.bitcoin.networks.reddcoin = {
   messagePrefix: '\x18Reddcoin Signed Message:\n',
   bip32: {
