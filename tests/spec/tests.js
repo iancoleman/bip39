@@ -1068,6 +1068,13 @@ it('Allows selection of Putincoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Ravencoin', function(done) {
+    var params = {
+        selectText: "RVN - Ravencoin",
+        firstAddress: "RBuDoVNnzvFsEcX8XKPm8ic4mgiCzjUCNk",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Reddcoin', function(done) {
     var params = {
         selectText: "RDD - Reddcoin",

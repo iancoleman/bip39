@@ -2350,6 +2350,13 @@
             },
         },
         {
+            name: "RVN - Ravencoin",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.ravencoin;
+                setHdCoin(175);
+            },
+        },
+        {
             name: "RBY - Rubycoin",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.rubycoin;
