@@ -2378,6 +2378,13 @@
             },
         },
         {
+          name: "SAFE - Safecoin",
+          onSelect: function() {
+              network = bitcoinjs.bitcoin.networks.safecoin;
+              setHdCoin(19165);
+            },
+        },
+	{
           name: "SLS - Salus",
           onSelect: function() {
               network = bitcoinjs.bitcoin.networks.salus;
