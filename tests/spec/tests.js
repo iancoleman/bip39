@@ -1355,7 +1355,14 @@ it('Allows selection of Phore', function(done) {
     };
     testNetwork(done, params);
 });
-
+it('Allows selection of Safecoin', function(done) {
+     var params = {
+         selectText: "SAFE - Safecoin",
+         firstAddress: "RmV56kPW7jeCmDA8sukHwbR7RZSbg9NFNF",
+     };
+     testNetwork(done, params);
+ });
+    
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {
     driver.findElement(By.css('.phrase'))
