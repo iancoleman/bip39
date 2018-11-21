@@ -1430,3 +1430,25 @@ bitcoinjs.bitcoin.networks.phore = {
   scriptHash: 0x0D,
   wif:  0xD4,
 };
+
+bitcoinjs.bitcoin.networks.blocknode = {
+  messagePrefix: '\x18Blocknode Signed Message:\n',
+  bip32: {
+	public: 0x0488b21e,
+	private: 0x0488ade4
+  },
+  pubKeyHash: 0x19,
+  scriptHash: 0x3F,
+  wif:  0x4b,
+};
+
+bitcoinjs.bitcoin.networks.blocknode_testnet = {
+  messagePrefix: '\x18Blocknode Testnet Signed Message:\n',
+  bip32: {
+	public: 0x043587cf,
+	private: 0x04358394
+  },
+  pubKeyHash: 0x55,
+  scriptHash: 0x7d,
+  wif:  0x89,
+};

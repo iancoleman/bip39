@@ -1355,6 +1355,20 @@ it('Allows selection of Phore', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Blocknode', function(done) {
+    var params = {
+        selectText: "BND - Blocknode",
+        firstAddress: "BG8xZSAur2jYLG9VXt8dYfkKxxeR7w9bSe",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Blocknode Testnet', function(done) {
+    var params = {
+        selectText: "tBND - Blocknode Testnet",
+        firstAddress: "bSptsFyDktFSKpWveRywJsDoJA2TC6qfHv",
+    };
+    testNetwork(done, params);
+});
 
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {
