@@ -1703,6 +1703,20 @@
             },
         },
         {
+            name: "BND - Blocknode",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.blocknode;
+                setHdCoin(2941);
+            },
+        },	
+		{
+            name: "tBND - Blocknode Testnet",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.blocknode_testnet;
+                setHdCoin(1);
+            },
+        },
+        {
             name: "BRIT - Britcoin",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.britcoin;
