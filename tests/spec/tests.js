@@ -1355,6 +1355,13 @@ it('Allows selection of Phore', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Safecoin', function(done) {
+     var params = {
+         selectText: "SAFE - Safecoin",
+         firstAddress: "RmV56kPW7jeCmDA8sukHwbR7RZSbg9NFNF",
+     };
+     testNetwork(done, params);
+ });
 it('Allows selection of Blocknode', function(done) {
     var params = {
         selectText: "BND - Blocknode",
