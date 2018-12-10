@@ -1463,3 +1463,14 @@ bitcoinjs.bitcoin.networks.blocknode_testnet = {
   scriptHash: 0x7d,
   wif:  0x89,
 };
+
+bitcoinjs.bitcoin.networks.litecoinz = {
+  messagePrefix: '\x18LitecoinZ Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE3,
+  },
+  pubKeyHash: 0x0AB3,
+  scriptHash: 0x0AB8,
+  wif:  0x80,
+};

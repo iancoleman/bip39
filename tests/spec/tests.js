@@ -1376,6 +1376,13 @@ it('Allows selection of Blocknode Testnet', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of LitecoinZ', function(done) {
+    var params = {
+        selectText: "LTZ - LitecoinZ",
+        firstAddress: "L1VTXju7hLgKV4T7fGXS9sKsnm2gmtRCmyw",
+    };
+    testNetwork(done, params);
+});
 
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {
