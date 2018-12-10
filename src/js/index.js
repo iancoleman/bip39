@@ -2136,6 +2136,13 @@
             },
         },
         {
+            name: "LTZ - LitecoinZ",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.litecoinz;
+                setHdCoin(221);
+            },
+        },
+        {
             name: "LYNX - Lynx",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.lynx;
