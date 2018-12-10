@@ -50,7 +50,7 @@ for f in glob.glob("bip39-standalone*.html"):
 
 hashedWord = hashlib.sha256(page.encode('utf-8')).hexdigest()
 
-f = open('bip39-standalone-v' + hashedWord[-6:] + '.html', 'w', encoding="utf-8")
+f = open('bip39-standalone-' + hashedWord[-6:] + '.html', 'w', encoding="utf-8")
 f.write(page)
 f.close()
 
