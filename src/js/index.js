@@ -808,6 +808,14 @@
                     privkey = ethUtil.addHexPrefix(privkey);
                     pubkey = ethUtil.addHexPrefix(pubkey);
                 }
+                // Stellar is different
+                if (networks[DOM.network.val()].name == "XLM - Stellar") {
+                    const path = "m/44'/148'/" + index + "'";
+                    const keypair = stellarUtil.derivePath(path, seed);
+                    indexText = path;
+                    privkey = keypair.secret();
+                    pubkey = address = keypair.publicKey();
+                }
                 // Ripple values are different
                 if (networks[DOM.network.val()].name == "XRP - Ripple") {
                     privkey = convertRipplePriv(privkey);
@@ -1692,6 +1700,14 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.viacointestnet;
                 setHdCoin(1);
+            },
+        },
+        {
+            name: "XLM - Stellar",
+            onSelect: function() {
+                segwitAvailable: false,
+                network = null;
+                setHdCoin(148);
             },
         },
         {
