@@ -810,8 +810,12 @@
                 }
                 // Stellar is different
                 if (networks[DOM.network.val()].name == "XLM - Stellar") {
-                    const path = "m/44'/148'/" + index + "'";
-                    const keypair = stellarUtil.derivePath(path, seed);
+                    var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
+                    var coin = parseIntNoNaN(DOM.bip44coin.val(), 0);
+                    var path = "m/";
+                        path += purpose + "'/";
+                        path += coin + "'/" + index + "'";
+                    var keypair = stellarUtil.getKeypair(path, seed);
                     indexText = path;
                     privkey = keypair.secret();
                     pubkey = address = keypair.publicKey();
