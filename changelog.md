@@ -1,3 +1,83 @@
+# 0.3.9
+
+* Update BTG signing message
+* Add segwit parameters for BTG
+* Add segwit parameters for DigiByte
+* Add Stash network (see 0.3.8s below)
+* Add Salus network
+* Add Cryptoescudo network
+* Add ExchangeCoin network
+* Add Artax network
+* Add BitCloud network
+* Add Megacoin network
+* Add Bitcoin Green network
+* Add ANON network
+* Add ProjectCoin network
+* Reword the 'generate' inputs and words
+* Add note for running http server in python 2
+* Adjust test to run reliably on slow computers
+
+# 0.3.8s
+
+* Add Stash network
+
+# 0.3.8
+
+* Add p2wpkh for litecoin
+* Add more networks - TSTRAT, Hush, ETC, PIRL, CLO, MIX, MUSIC, POA, EXP
+* Add coinomi/ledger client to BIP32 tab
+* Fix SYSCOIN and BTX parameters
+* Remove bip39-standalone.html from repository
+* Remove duplicate id properties on html elements
+
+# 0.3.7
+
+* Update AXE network parameters
+* Add new networks - Xuez, BTCP, BTCZ, ZCL, ZEN
+* Add litecoin bech32 params
+* Fix BIP38 for altcoins
+* Fix missing span closing tag
+* Add indicator to UI for when BIP84 is unavailable
+* Replace hasSegwit variable with test for segwit params
+* Allow xpub to be used as root key for segwit derivations
+* Add visual privacy safeguard
+
+# 0.3.6
+
+* Add Kobocoin
+* Update Vertcoin version byte and segwit support
+* Add Zcash
+* Korean mnemonics use ascii spaces
+* Add CashAddr address format for bitcoin cash
+
+# 0.3.5
+
+* Fix typo
+* Add Neblio network
+* Update bitcoinjs-lib from 3.3.0 to 3.3.2
+* Add Beetle Coin
+* Add segwit for bitcoin testnet and Fujicoin
+* Set coin number for Bitcoin God to 156
+* Add coins supported by coinomi
+* Warn when generating low entropy mnemonics
+* Warn when overriding weak entropy with a strong mnemonic length
+
+# 0.3.4
+
+* Add BlackCoin
+* Add Denarius
+* Raw entropy shows groupings with space every 11 bits
+* Checksum shown in entropy details
+* Warn that entropy values should exclude checksum
+* Add Korean language
+
+# 0.3.3
+
+* Add AXE network
+* Ethereum private key generation bugfix
+* Add BIP38 support
+* Allow initial number of rows to be set by the user
+
 # 0.3.2
 
 * Add Onixcoin
