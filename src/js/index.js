@@ -796,7 +796,7 @@
     }
 
     function displayBip47Info() {
-	console.log("bip47 info");
+	     console.log("bip47 info");
         // Get the derivation path for the account
         var purpose = parseIntNoNaN(DOM.bip47purpose.val(), 47);
         var coin = parseIntNoNaN(DOM.bip47coin.val(), 0);
@@ -816,7 +816,7 @@
 	var paymentCode = accountExtendedKey.toPaymentCode();
 	console.log("pcode");
 	console.log(paymentCode);
-	
+
 	DOM.bip47localpaycode.val(paymentCode);
 
 	// notification address
@@ -826,12 +826,20 @@
 	console.log("Notification key");
 	console.log(notification_key);
 
-	var keyPair = notification_key.keyPair	
+	var keyPair = notification_key.keyPair
 	var address = keyPair.getAddress().toString();
 	DOM.bip47notificationaddress.val(address);
 
 	console.log("notification address");
 	console.log(address);
+
+        var remotePaycode = DOM.bip47remotepaycode.val();
+        console.log("Remote paycode: ");
+        console.log(remotePaycode)
+
+        var bip47RootKey = bitcoinjs.bitcoin.HDNode.fromPaymentcode(remotePaycode);
+        console.log("Root key: ")
+        console.log(bip47RootKey)
     }
 
     function displayBip49Info() {

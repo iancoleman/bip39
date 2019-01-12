@@ -8596,13 +8596,13 @@ module.exports={
   "OP_CHECKMULTISIGVERIFY": 175,
 
   "OP_NOP1": 176,
-  
+
   "OP_NOP2": 177,
   "OP_CHECKLOCKTIMEVERIFY": 177,
 
   "OP_NOP3": 178,
   "OP_CHECKSEQUENCEVERIFY": 178,
-  
+
   "OP_NOP4": 179,
   "OP_NOP5": 180,
   "OP_NOP6": 181,
@@ -9531,6 +9531,57 @@ HDNode.fromBase58 = function (string, networks) {
   return hd
 }
 
+HDNode.fromPaymentcode = function (string, networks) {
+  var buffer = base58check.decode(string)
+  console.log(buffer.length)
+  if (buffer.length !== 81) throw new Error('Invalid buffer length')
+
+  //var hd = new HDNode(keyPair, chainCode)
+  //hd.depth = depth
+  //hd.index = index
+  //d.parentFingerprint = parentFingerprint
+
+  // Byte 0: version (required value: 0x01)
+  console.log("Byte 0")
+  console.log(buffer[0])
+  console.log("Byte 1")
+  console.log(buffer[1])
+  console.log("Byte 2")
+  console.log(buffer[2])
+
+  console.log("Byte 3")
+  console.log(buffer[3])
+
+  // 32 bytes: the x value, must be a member of the secp256k1 group
+  var pubkey = buffer.slice(3, 36)
+  console.log("Pubkey")
+  console.log(pubkey.length)
+  //if (pubkey.length !== 33) throw new Error('Invalid pubkey length')
+  console.log(pubkey)
+
+  // 32 bytes: the chain code
+  var chainCode = buffer.slice(36, 68)
+  console.log("Chain code")
+  console.log(chainCode.length)
+  if (chainCode.length !== 32) throw new Error('Invalid chainCode length')
+  console.log(chainCode)
+
+  console.log("Decoding Q")
+  console.log(curve)
+  var Q = ecurve.Point.decodeFrom(curve, pubkey)
+  console.log("Validating Q")
+  curve.validate(Q)
+
+  console.log("Creating ECPair")
+  var keyPair = new ECPair(null, Q)
+
+  console.log("Making HD Node")
+
+  var hd = new HDNode(keyPair, chainCode)
+  return hd
+  //return hd
+}
+
 HDNode.prototype.getAddress = function () {
   return this.keyPair.getAddress()
 }
@@ -9618,7 +9669,7 @@ HDNode.prototype.toPaymentCode = function() {
     buffer[0] = 0x47;
     buffer[1] = 0x01;
     buffer[2] = 0x00;
-    
+
     console.log(this.keyPair.getPublicKeyBuffer()) // 33
     console.log(base58check.encode(this.keyPair.getPublicKeyBuffer()))
     this.keyPair.getPublicKeyBuffer().copy(buffer, 3) // 3 - 35 inclusive
@@ -13151,7 +13202,7 @@ Point.decodeFrom = function (curve, buffer) {
   var Q
   if (compressed) {
     assert.equal(buffer.length, byteLength + 1, 'Invalid sequence length')
-    assert(type === 0x02 || type === 0x03, 'Invalid sequence tag')
+    assert(type === 0x02 || type === 0x03, 'Invalid sequence tag: ' + type)
 
     var isOdd = (type === 0x03)
     Q = curve.pointFromX(isOdd, x)
