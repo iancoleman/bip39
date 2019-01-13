@@ -252,6 +252,18 @@ bitcoinjs.bitcoin.networks.onixcoin = {
     wif: 0x80
 };
 
+
+bitcoinjs.bitcoin.networks.lkrcoin = {
+    messagePrefix: '\x18LKRcoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4,
+    },
+    pubKeyHash: 0x30,
+    scriptHash: 0x55,
+    wif: 0x80
+};
+
 bitcoinjs.bitcoin.networks.pivx = {
   messagePrefix: 'unused',
   bip32: {

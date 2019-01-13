@@ -2284,6 +2284,14 @@
                 setHdCoin(174);
             },
         },
+        {
+            name: "LKR - Lkrcoin",
+            segwitAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.lkrcoin;
+                setHdCoin(557);
+            },
+        },
 		{
             name: "PHR - Phore",
             onSelect: function() {
