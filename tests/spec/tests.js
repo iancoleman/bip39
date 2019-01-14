@@ -521,6 +521,13 @@ it('Allows selection of onixcoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of lkrcoin', function(done) {
+    var params = {
+        selectText: "LKR - Lkrcoin",
+        firstAddress: "LfbT296e7AEEnn4bYDbL535Nd8P9g98CdJ",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of peercoin', function(done) {
     var params = {
         selectText: "PPC - Peercoin",
