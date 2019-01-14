@@ -2128,6 +2128,14 @@
             },
         },
         {
+            name: "LKR - Lkrcoin",
+            segwitAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.lkrcoin;
+                setHdCoin(557);
+            },
+        },
+        {
             name: "LTC - Litecoin",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.litecoin;
