@@ -735,7 +735,7 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <h2>Derived Addresses</h2>
+                    <h2 id="local-addreses-headtext">Derived Addresses</h2>
                     <p>Note these addresses are derived from the BIP32 Extended Key</p>
                 </div>
                 <div class="col-md-12 bch-addr-type-container hidden">
@@ -830,6 +830,106 @@
             <input type="number" class="more-rows-start-index">
             <span>(leave blank to generate from next index)</span>
 
+            <hr>
+
+            <div id="bip47-remote-addresses" class="hidden">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 id="remote-addreses-headtext">Send Addresses</h2>
+                        <p>Note these addresses are derived from the BIP47 remote payment code.</p>
+                    </div>
+                    <div class="col-md-12 bch-addr-type-container hidden">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" value="cashaddr" name="bch-addr-type" class="use-bch-cashaddr-addresses" checked="checked">
+                                <span>Use CashAddr addresses for Bitcoin Cash (ie starting with 'q' instead of '1')</span>
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" value="bitpay" name="bch-addr-type" class="use-bch-bitpay-addresses">
+                                <span>Use BitPay-style addresses for Bitcoin Cash (ie starting with 'C' instead of '1')</span>
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" value="legacy" name="bch-addr-type" class="use-bch-legacy-addresses">
+                                <span>Use legacy addresses for Bitcoin Cash (ie starting with '1')</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" class="use-bip38">
+                                <span>Encrypt private keys using BIP38 and this password:</span>
+                            </label>
+                            <input class="bip38-password private-data">
+                            <span>Enabling BIP38 means each key will take several minutes to generate.</span>
+                        </div>
+                    </div>
+                    <ul class="addresses-type nav nav-tabs" role="tablist">
+                        <li id="table-tab" class=" active">
+                            <a href="#table" role="tab" data-toggle="tab">Table</a>
+                        </li>
+                        <li id="csv-tab">
+                            <a href="#csv" role="tab" data-toggle="tab">CSV</a>
+                        </li>
+                    </ul>
+                    <div class="addresses-type tab-content">
+                        <div id="table" class="tab-pane active">
+                            <div class="col-md-12">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <th>
+                                            <div class="input-group">
+                                                <span>Path</span>&nbsp;&nbsp;
+                                                <button class="index-toggle">Toggle</button>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="input-group">
+                                                <span>Address</span>&nbsp;&nbsp;
+                                                <button class="address-toggle">Toggle</button>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="input-group">
+                                                <span>Public Key</span>&nbsp;&nbsp;
+                                                <button class="public-key-toggle">Toggle</button>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="input-group">
+                                                <span>Private Key</span>&nbsp;&nbsp;
+                                                <button class="private-key-toggle">Toggle</button>
+                                            </div>
+                                        </th>
+                                    </thead>
+                                    <tbody class="addresses monospace">
+                                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="csv" class="tab-pane">
+                            <div class="col-md-12">
+                                <textarea class="csv form-control" rows="25" readonly></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <span>Show</span>
+                <input type="number" class="rows-to-add" value="20">
+                <button class="more">more rows</button>
+                <span>starting from index</span>
+                <input type="number" class="more-rows-start-index">
+                <span>(leave blank to generate from next index)</span>
+            </div>
             <hr>
 
             <div class="row">

@@ -9224,6 +9224,73 @@ Object.defineProperty(ECPair.prototype, 'Q', {
   }
 })
 
+// Given ECPair is an extended root:
+// key payment code, who will make an indexed deposit
+// Returns the "deposit key", used to generate a look ahead of deposit addresses.
+ECPair.makeBip47ReceiveKey= function(accountKey, remotePubkey, index, options) {
+  var leafKey = accountKey.derive(index);
+  if (!leafKey.keyPair.d) throw new Error('Missing private key')
+  // a = localPaycode( acc, index)
+  var a = leafKey.keyPair.d;
+
+  console.log("a:")
+  console.log(a.toHex())
+  options = options || {}
+
+  console.log("Validating remote pub key :")
+  console.log(secp256k1)
+
+  // Derive an extended (public) key for future ECDH, associated
+  // with a particular identity/account/index (non hardened)
+  // B = RemotePaycode(remote, 0)
+  var B = remotePubkey.derive(0).keyPair.Q; //remotePubkey.derive(0).Q;
+  B.curve.validate(B);
+
+  console.log("B...");
+  console.log(B.toHex())
+
+  var Sx = B.multiply(a);
+  console.log("Sx:")
+  console.log(Sx.toHex())
+  
+  var s = bcrypto.sha256(Sx)
+  var sG = secp256k1.G.multiply(a);
+  sG.curve.validate(sG);
+
+  var aG = secp256k1.G.multiply(a);
+  console.log("aG")
+  console.log(aG)
+  console.log(typeof(aG))
+  
+  // A = aG
+  console.log("A")
+
+  // A' = sG + A
+  var A = sG.add(aG);
+  console.log(A)
+  console.log(typeof(A))
+
+  A.curve.validate(A);
+
+  //secretPoint(a, B)
+  // s = HashSecret(Sx)
+  // sG = sG
+  
+
+
+  // receive key = A'
+  var A_ = new ECPair(null, A, {
+    compressed: A.compressed,
+    network: options.network || NETWORKS.bitcoin
+  })
+  
+  console.log("A_")
+  console.log(A_)
+  console.log(typeof(A_))
+
+  return A_;
+}
+
 ECPair.fromPublicKeyBuffer = function (buffer, network) {
   var Q = ecurve.Point.decodeFrom(secp256k1, buffer)
 
@@ -9531,7 +9598,8 @@ HDNode.fromBase58 = function (string, networks) {
   return hd
 }
 
-HDNode.fromPaymentcode = function (string, networks) {
+// Build public HD master from payment code
+HDNode.masterFromPaymentCode = function (string, networks) {
   var buffer = base58check.decode(string)
   console.log(buffer.length)
   if (buffer.length !== 81) throw new Error('Invalid buffer length')
@@ -9544,6 +9612,9 @@ HDNode.fromPaymentcode = function (string, networks) {
   // Byte 0: version (required value: 0x01)
   console.log("Byte 0")
   console.log(buffer[0])
+
+  if (buffer[0] != 0x47) throw new Error('Invalid payment code')
+
   console.log("Byte 1")
   console.log(buffer[1])
   console.log("Byte 2")
@@ -9569,23 +9640,30 @@ HDNode.fromPaymentcode = function (string, networks) {
   console.log("Decoding Q")
   console.log(curve)
   var Q = ecurve.Point.decodeFrom(curve, pubkey)
-  console.log("Validating Q")
   curve.validate(Q)
 
   console.log("Creating ECPair")
   var keyPair = new ECPair(null, Q)
-
+  console.log("Validating Q2")
+  curve.validate(keyPair.Q)
   console.log("Making HD Node")
 
+  var depth = 0
+  var parentFingerprint = 0x00000000;
+
   var hd = new HDNode(keyPair, chainCode)
+  curve.validate(hd.keyPair.Q)
+
+  hd.depth = 0
+  hd.index = 0
+  hd.parentFingerprint = parentFingerprint
+
   return hd
-  //return hd
 }
 
 HDNode.prototype.getAddress = function () {
   return this.keyPair.getAddress()
 }
-
 HDNode.prototype.getIdentifier = function () {
   return bcrypto.hash160(this.keyPair.getPublicKeyBuffer())
 }
@@ -9662,6 +9740,7 @@ HDNode.prototype.toBase58 = function (__isPrivate) {
   return base58check.encode(buffer)
 }
 
+// Derive payment code from master HD key at m'/47'/1'/0' 
 HDNode.prototype.toPaymentCode = function() {
     var buffer = Buffer.allocUnsafe(81)
     buffer.fill(0)
@@ -9758,6 +9837,26 @@ HDNode.prototype.deriveHardened = function (index) {
 
   // Only derives hardened private keys by default
   return this.derive(index + HDNode.HIGHEST_BIT)
+}
+
+// Takes a counterparty payment code, an index (# of payment)
+// Returns the "send key" that is used to calculate a blockchain formatted address
+HDNode.prototype.deriveBip47Sendkey = function(remotePaycode, index) {
+
+  // a = localPaycode(acc, 0)
+  // B = remotePaycode(remote, index)
+  // Sx = SecretPoint(a,B)
+  // s = HashSecret(Sx)
+  // B' = sG + B
+  // send key = B'
+}
+
+HDNode.prototype.remoteBip47Pubkey = function(remotePaycode, index) {
+  return createHmac('sha512', this.chainCode).update(data).digest()
+}
+
+HDNode.prototype.localBip47Pubkey = function(remotePaycode, index) {
+  createHmac('sha512', this.chainCode).update(data).digest()
 }
 
 // Private === not neutered
@@ -13165,6 +13264,8 @@ Point.prototype.multiplyTwo = function (j, x, k) {
   return R
 }
 
+//Point.prototype()
+
 Point.prototype.getEncoded = function (compressed) {
   if (compressed == null) compressed = this.compressed
   if (this.curve.isInfinity(this)) return Buffer.alloc(1, 0) // Infinity point encoded is simply '00'
@@ -13192,6 +13293,11 @@ Point.prototype.getEncoded = function (compressed) {
   return buffer
 }
 
+Point.prototype.toHex = function() {
+  return this.getEncoded(this.compressed).toJSON()['data'].reduce((output, elem) => 
+  (output + ('0' + elem.toString(16)).slice(-2)),
+  '');;
+}
 Point.decodeFrom = function (curve, buffer) {
   var type = buffer.readUInt8(0)
   var compressed = (type !== 4)
