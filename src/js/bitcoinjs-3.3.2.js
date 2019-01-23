@@ -9176,6 +9176,8 @@ module.exports = {
 },{"./ecsignature":50,"./types":80,"bigi":39,"create-hmac":88,"ecurve":92,"safe-buffer":101,"typeforce":112}],49:[function(require,module,exports){
 var baddress = require('./address')
 var bcrypto = require('./crypto')
+var createHmac = require('create-hmac')
+var Buffer = require('safe-buffer').Buffer
 var ecdsa = require('./ecdsa')
 var randomBytes = require('randombytes')
 var typeforce = require('typeforce')
@@ -9227,6 +9229,7 @@ Object.defineProperty(ECPair.prototype, 'Q', {
 // Given ECPair is an extended root:
 // key payment code, who will make an indexed deposit
 // Returns the "deposit key", used to generate a look ahead of deposit addresses.
+
 ECPair.makeBip47ReceiveKey= function(accountKey, remotePubkey, index, options) {
   var leafKey = accountKey.derive(index);
   if (!leafKey.keyPair.d) throw new Error('Missing private key')
@@ -9243,51 +9246,36 @@ ECPair.makeBip47ReceiveKey= function(accountKey, remotePubkey, index, options) {
   // Derive an extended (public) key for future ECDH, associated
   // with a particular identity/account/index (non hardened)
   // B = RemotePaycode(remote, 0)
-  var B = remotePubkey.derive(0).keyPair.Q; //remotePubkey.derive(0).Q;
+  var B = remotePubkey.derive(0).keyPair.Q;
   B.curve.validate(B);
 
-  console.log("B...");
-  console.log(B.toHex())
-
-  var Sx = B.multiply(a);
-  console.log("Sx:")
-  console.log(Sx.toHex())
-  
-  var s = bcrypto.sha256(Sx)
-  var sG = secp256k1.G.multiply(a);
-  sG.curve.validate(sG);
-
-  var aG = secp256k1.G.multiply(a);
-  console.log("aG")
-  console.log(aG)
-  console.log(typeof(aG))
-  
-  // A = aG
-  console.log("A")
-
-  // A' = sG + A
-  var A = sG.add(aG);
-  console.log(A)
-  console.log(typeof(A))
-
-  A.curve.validate(A);
-
   //secretPoint(a, B)
-  // s = HashSecret(Sx)
-  // sG = sG
+  var S = B.multiply(a);
   
+  var S2 = S.getEncoded(S.compressed)
+  
+  var Sx = BigInteger.fromBuffer(S.getEncoded(S.compresed).slice(1,33))
 
+  // s = HashSecret(Sx)
+  var s = BigInteger.fromBuffer(bcrypto.sha256(Sx.toBuffer()))
 
+  // A = sG + aG
+  var sG = secp256k1.G.multiply(s);
+  console.log("sg")
+  console.log(sG.toHex())
+  sG.curve.validate(sG);
+  
+  var aG = secp256k1.G.multiply(a);
+  aG.curve.validate(aG)
+  var A = sG.add(aG);
+  A.curve.validate(A);
+  
   // receive key = A'
   var A_ = new ECPair(null, A, {
     compressed: A.compressed,
     network: options.network || NETWORKS.bitcoin
   })
   
-  console.log("A_")
-  console.log(A_)
-  console.log(typeof(A_))
-
   return A_;
 }
 
@@ -9373,7 +9361,7 @@ ECPair.prototype.verify = function (hash, signature) {
 
 module.exports = ECPair
 
-},{"./address":44,"./crypto":47,"./ecdsa":48,"./networks":53,"./types":80,"bigi":39,"ecurve":92,"randombytes":99,"typeforce":112,"wif":115}],50:[function(require,module,exports){
+},{"./address":44,"./crypto":47,"./ecdsa":48,"./networks":53,"./types":80,"bigi":39,"safe-buffer": 101,"create-hmac":88,"ecurve":92,"randombytes":99,"typeforce":112,"wif":115}],50:[function(require,module,exports){
 (function (Buffer){
 var bip66 = require('bip66')
 var typeforce = require('typeforce')
@@ -9479,6 +9467,7 @@ var Buffer = require('safe-buffer').Buffer
 var base58check = require('bs58check')
 var bcrypto = require('./crypto')
 var createHmac = require('create-hmac')
+var createHash = require('create-hash')
 var typeforce = require('typeforce')
 var types = require('./types')
 var NETWORKS = require('./networks')
@@ -9601,52 +9590,26 @@ HDNode.fromBase58 = function (string, networks) {
 // Build public HD master from payment code
 HDNode.masterFromPaymentCode = function (string, networks) {
   var buffer = base58check.decode(string)
-  console.log(buffer.length)
   if (buffer.length !== 81) throw new Error('Invalid buffer length')
-
-  //var hd = new HDNode(keyPair, chainCode)
-  //hd.depth = depth
-  //hd.index = index
-  //d.parentFingerprint = parentFingerprint
-
-  // Byte 0: version (required value: 0x01)
-  console.log("Byte 0")
-  console.log(buffer[0])
 
   if (buffer[0] != 0x47) throw new Error('Invalid payment code')
 
-  console.log("Byte 1")
+  // Byte 0: version (required value: 0x01)
+  console.log("Version: ")
   console.log(buffer[1])
-  console.log("Byte 2")
-  console.log(buffer[2])
-
-  console.log("Byte 3")
-  console.log(buffer[3])
-
+  
   // 32 bytes: the x value, must be a member of the secp256k1 group
   var pubkey = buffer.slice(3, 36)
-  console.log("Pubkey")
-  console.log(pubkey.length)
-  //if (pubkey.length !== 33) throw new Error('Invalid pubkey length')
-  console.log(pubkey)
 
   // 32 bytes: the chain code
   var chainCode = buffer.slice(36, 68)
-  console.log("Chain code")
-  console.log(chainCode.length)
   if (chainCode.length !== 32) throw new Error('Invalid chainCode length')
-  console.log(chainCode)
 
-  console.log("Decoding Q")
-  console.log(curve)
   var Q = ecurve.Point.decodeFrom(curve, pubkey)
   curve.validate(Q)
 
-  console.log("Creating ECPair")
   var keyPair = new ECPair(null, Q)
-  console.log("Validating Q2")
   curve.validate(keyPair.Q)
-  console.log("Making HD Node")
 
   var depth = 0
   var parentFingerprint = 0x00000000;
@@ -9891,7 +9854,7 @@ HDNode.prototype.derivePath = function (path) {
 
 module.exports = HDNode
 
-},{"./crypto":47,"./ecpair":49,"./networks":53,"./types":80,"bigi":39,"bs58check":83,"create-hmac":88,"ecurve":92,"safe-buffer":101,"typeforce":112}],52:[function(require,module,exports){
+},{"./crypto":47,"./ecpair":49,"./networks":53,"./types":80,"bigi":39,"bs58check":83,"create-hash":85,"create-hmac":88,"ecurve":92,"safe-buffer":101,"typeforce":112}],52:[function(require,module,exports){
 var script = require('./script')
 
 var templates = require('./templates')
@@ -13263,8 +13226,6 @@ Point.prototype.multiplyTwo = function (j, x, k) {
 
   return R
 }
-
-//Point.prototype()
 
 Point.prototype.getEncoded = function (compressed) {
   if (compressed == null) compressed = this.compressed
