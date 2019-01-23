@@ -6,7 +6,8 @@
     var seed = null;
     var bip32RootKey = null;
     var bip32ExtendedKey = null;
-    var bip47ReceiveKey = null;
+    var bip47AccountKey = null;
+    var bip47RemoteKey = null;
     var network = bitcoinjs.bitcoin.networks.bitcoin;
     var addressRowTemplate = $("#address-row-template");
 
@@ -114,6 +115,7 @@
     DOM.useBip38 = $(".use-bip38");
     DOM.bip38Password = $(".bip38-password");
     DOM.addresses = $(".addresses");
+    DOM.remoteaddresses = $(".remote-addresses");
     DOM.csvTab = $("#csv-tab a");
     DOM.csv = $(".csv");
     DOM.rowsToAdd = $(".rows-to-add");
@@ -815,27 +817,19 @@
         path += coin + "'/";
         path += account + "'/";
         // Calculate the account extended keys
-        var accountExtendedKey = calcBip32ExtendedKey(path);
-        var accountXprv = accountExtendedKey.toBase58();
-        var accountXpub = accountExtendedKey.neutered().toBase58();
+        bip47AccountKey = calcBip32ExtendedKey(path);
+        var accountXprv = bip47AccountKey.toBase58();
+        var accountXpub = bip47AccountKey.neutered().toBase58();
         // Display the extended keys
         DOM.bip47accountXprv.val(accountXprv);
         DOM.bip47accountXpub.val(accountXpub);
         // Derive and display payment code
-        var paymentCode = accountExtendedKey.toPaymentCode();
+        var paymentCode = bip47AccountKey.toPaymentCode();
         DOM.bip47localpaycode.val(paymentCode);
         // Local notification address
-        //var account_key = accountExtendedKey calcBip32ExtendedKey("m/47'/0'/0'")
-        var notificationKey = accountExtendedKey.derive(0);
-
-        console.log("MISSING??? " + accountExtendedKey.keyPair.d)
-
-        var keyPair = notificationKey.keyPair
-        var address = keyPair.getAddress().toString();
-        DOM.bip47notificationaddress.val(address);
-
-        console.log("notification address");
-        console.log(address);
+        var notificationKey = bip47AccountKey.derive(0);
+        var notificationAddress = notificationKey.keyPair.getAddress().toString();
+        DOM.bip47notificationaddress.val(notificationAddress);
 
         // using remote payment code, calculate deposit and send keys 
         var remotePaycode = DOM.bip47remotepaycode.val();
@@ -843,44 +837,18 @@
             DOM.derivedAddressesHeadText = "Deposit Addresses"
         
             // TODO: Validate 
-            var bip47RootKey = bitcoinjs.bitcoin.HDNode.masterFromPaymentCode(remotePaycode);
+            bip47RemoteKey = bitcoinjs.bitcoin.HDNode.masterFromPaymentCode(remotePaycode);
             
-            //var designatedInput = notificationKey.
-            console.log(accountExtendedKey)
-            var bip47ReceiveKey = bitcoinjs.bitcoin.ECPair.makeBip47ReceiveKey(accountExtendedKey, bip47RootKey, 0)
+            var bip47ReceiveKey = bitcoinjs.bitcoin.ECPair.makeBip47ReceiveKey(bip47AccountKey, bip47RemoteKey, 0)
             
             //accountExtendedKey.keyPair.getBip47ReceiveKey(remotePaycode, 1);
             console.log("Bip 47 receive key:")
             console.log(bip47ReceiveKey)
-            console.log(typeof(bip47ReceiveKey))
 
             var address = bip47ReceiveKey.getAddress().toString();
             console.log("ADDRESS: ")
             console.log(address)
-            /*console.log("Chhild")
-            console.log(B_)
-
-            var B = B_.keyPair.Q
-            console.log("Key pair public")
-            console.log(B)
-
-            console.log("Key pair private")
-            a = accountExtendedKey.keyPair.d
-            console.log(a)
-            // secret point
-            Sx = secretPoint(a,B)
-            console.log("Secret point")
-            console.log(Sx)
-
-            var s = sjcl.misc.hmac(Sx.curve.G, false)
-            //sjcl.hash.sha256.hash(Sx);
-            console.log("Hashed secret")
-            console.log(s)
-
-            console.log(sjcl.misc)
-
-            console.log("sG")
-            console.log(bitcoinjs.bitcoin)*/
+            
         }
         // sG = Sx.curve.G.multiply(s)
         // console.log(sG)*/
@@ -1016,15 +984,6 @@
                     key = bip32ExtendedKey.derive(index);
                 }
 
-                if (useBip47RemotePaykey) {
-                    //console.log("Resetting key")
-                    if (useHardenedAddresses) {
-                        //key = bip47ReceiveKey.deriveHardened(index);
-                    }
-                    else {
-                        //key = bip47ReceiveKey.derive(index);
-                    }
-                }
                 // bip38 requires uncompressed keys
                 // see https://github.com/iancoleman/bip39/issues/140#issuecomment-352164035
                 var keyPair = key.keyPair;
@@ -1035,8 +994,13 @@
                 // get address
                 var address = keyPair.getAddress().toString();
                 // get privkey
-                var hasPrivkey = !key.isNeutered();
-                var privkey = "NA";
+                var hasPrivkey;
+                if (useBip47RemotePaykey) 
+                    hasPrivkey = keyPair.d;
+                else 
+                    hasPrivkey = !key.isNeutered();
+                
+                    var privkey = "NA";
                 if (hasPrivkey) {
                     privkey = keyPair.toWIF();
                     // BIP38 encode private key if required
@@ -1079,7 +1043,7 @@
                     }
                 }
                 // Segwit addresses are different
-                if (isSegwit) {
+                if (isSegwit && !useBip47RemotePaykey) {
                     if (!segwitAvailable) {
                         return;
                     }
@@ -1096,7 +1060,23 @@
                         address = bitcoinjs.bitcoin.address.fromOutputScript(scriptpubkey, network)
                     }
                 }
-                addAccountAddressToList(indexText, address, pubkey, privkey);
+
+                if (useBip47RemotePaykey) {
+                    var receiveKeyPair = bitcoinjs.bitcoin.ECPair.makeBip47ReceiveKey(bip47AccountKey, bip47RemoteKey, index);
+                    address = receiveKeyPair.getAddress().toString();
+                    addAccountAddressToList(indexText, address, pubkey, privkey, DOM.addresses);
+                    
+                    var sendKeyPair = bitcoinjs.bitcoin.ECPair.makeBip47SendKey(bip47AccountKey, bip47RemoteKey, index);
+                    var remoteAddress = sendKeyPair.getAddress().toString();
+                    console.log("RECEIVE: " + address)
+                    console.log("SEND: " + remoteAddress)
+                    addAccountAddressToList(indexText, remoteAddress, pubkey, privkey, DOM.remoteaddresses);
+                } else {
+                    addAccountAddressToList(indexText, address, pubkey, privkey, DOM.addresses);
+                }
+
+                
+                
 
                 //addForeignAddressToList(indexText, address, pubkey, privkey);
                 if (isLast) {
@@ -1172,7 +1152,7 @@
         DOM.bip47accountXpub.val("");
     }
 
-    function addAccountAddressToList(indexText, address, pubkey, privkey) {
+    function addAccountAddressToList(indexText, address, pubkey, privkey, table) {
         var row = $(addressRowTemplate.html());
         // Elements
         var indexCell = row.find(".index span");
@@ -1197,7 +1177,37 @@
         if (!showPrivKey) {
             privkeyCell.addClass("invisible");
         }
-        DOM.addresses.append(row);
+        table.append(row);
+        var rowShowQrEls = row.find("[data-show-qr]");
+        setQrEvents(rowShowQrEls);
+    }
+
+    function addForeignAddressToList(indexText, address, pubkey, privkey) {
+        var row = $(addressRowTemplate.html());
+        // Elements
+        var indexCell = row.find(".index span");
+        var addressCell = row.find(".address span");
+        var pubkeyCell = row.find(".pubkey span");
+        var privkeyCell = row.find(".privkey span");
+        // Content
+        indexCell.text(indexText);
+        addressCell.text(address);
+        pubkeyCell.text(pubkey);
+        privkeyCell.text(privkey);
+        // Visibility
+        if (!showIndex) {
+            indexCell.addClass("invisible");
+        }
+        if (!showAddress) {
+            addressCell.addClass("invisible");
+        }
+        if (!showPubKey) {
+            pubkeyCell.addClass("invisible");
+        }
+        if (!showPrivKey) {
+            privkeyCell.addClass("invisible");
+        }
+        DOM.remoteaddresses.append(row);
         var rowShowQrEls = row.find("[data-show-qr]");
         setQrEvents(rowShowQrEls);
     }

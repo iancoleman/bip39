@@ -9226,22 +9226,18 @@ Object.defineProperty(ECPair.prototype, 'Q', {
   }
 })
 
-// Given ECPair is an extended root:
-// key payment code, who will make an indexed deposit
-// Returns the "deposit key", used to generate a look ahead of deposit addresses.
+// Given ECPair is an extended root (local):
+// key payment code (remote), that will make an indexed deposit
+// Returns the "deposit key", used to generate a look ahead of deposit addresses by wallets.
 
 ECPair.makeBip47ReceiveKey= function(accountKey, remotePubkey, index, options) {
   var leafKey = accountKey.derive(index);
   if (!leafKey.keyPair.d) throw new Error('Missing private key')
-  // a = localPaycode( acc, index)
+
+  // a = localPaycode( acc key, index)
   var a = leafKey.keyPair.d;
 
-  console.log("a:")
-  console.log(a.toHex())
   options = options || {}
-
-  console.log("Validating remote pub key :")
-  console.log(secp256k1)
 
   // Derive an extended (public) key for future ECDH, associated
   // with a particular identity/account/index (non hardened)
@@ -9249,11 +9245,10 @@ ECPair.makeBip47ReceiveKey= function(accountKey, remotePubkey, index, options) {
   var B = remotePubkey.derive(0).keyPair.Q;
   B.curve.validate(B);
 
-  //secretPoint(a, B)
+  // S = secretPoint(a, B)
   var S = B.multiply(a);
-  
-  var S2 = S.getEncoded(S.compressed)
-  
+
+  // Grab the x component (32 bytes) of the secret
   var Sx = BigInteger.fromBuffer(S.getEncoded(S.compresed).slice(1,33))
 
   // s = HashSecret(Sx)
@@ -9261,22 +9256,60 @@ ECPair.makeBip47ReceiveKey= function(accountKey, remotePubkey, index, options) {
 
   // A = sG + aG
   var sG = secp256k1.G.multiply(s);
-  console.log("sg")
   console.log(sG.toHex())
   sG.curve.validate(sG);
-  
+
   var aG = secp256k1.G.multiply(a);
   aG.curve.validate(aG)
   var A = sG.add(aG);
   A.curve.validate(A);
-  
+
   // receive key = A'
   var A_ = new ECPair(null, A, {
     compressed: A.compressed,
     network: options.network || NETWORKS.bitcoin
   })
-  
+
   return A_;
+}
+
+ECPair.makeBip47SendKey= function(accountKey, remotePubkey, index, options) {
+  var leafKey = accountKey.derive(0);
+  if (!leafKey.keyPair.d) throw new Error('Missing private key')
+
+  // a = localPaycode( acc key, 0)
+  var a = leafKey.keyPair.d;
+
+  options = options || {}
+
+  // Derive an extended (public) key for future ECDH, associated
+  // with a particular identity/account/index (non hardened)
+  // B = RemotePaycode(remote, index)
+  var B = remotePubkey.derive(index).keyPair.Q;
+  B.curve.validate(B);
+
+  // S = secretPoint(a, B)
+  var S = B.multiply(a);
+
+  // Grab the x component (32 bytes) of the secret
+  var Sx = BigInteger.fromBuffer(S.getEncoded(S.compresed).slice(1,33))
+
+  // s = HashSecret(Sx)
+  var s = BigInteger.fromBuffer(bcrypto.sha256(Sx.toBuffer()))
+
+  // sG
+  var sG = secp256k1.G.multiply(s);
+  console.log(sG.toHex())
+  sG.curve.validate(sG);
+
+  // B'= sG + B
+  var B_ = sG.add(B);
+  
+  // send key = B'
+  return new ECPair(null, B_, {
+    compressed: B_.compressed,
+    network: options.network || NETWORKS.bitcoin
+  })
 }
 
 ECPair.fromPublicKeyBuffer = function (buffer, network) {
@@ -9597,7 +9630,7 @@ HDNode.masterFromPaymentCode = function (string, networks) {
   // Byte 0: version (required value: 0x01)
   console.log("Version: ")
   console.log(buffer[1])
-  
+
   // 32 bytes: the x value, must be a member of the secp256k1 group
   var pubkey = buffer.slice(3, 36)
 
@@ -9703,7 +9736,7 @@ HDNode.prototype.toBase58 = function (__isPrivate) {
   return base58check.encode(buffer)
 }
 
-// Derive payment code from master HD key at m'/47'/1'/0' 
+// Derive payment code from master HD key at m'/47'/1'/0'
 HDNode.prototype.toPaymentCode = function() {
     var buffer = Buffer.allocUnsafe(81)
     buffer.fill(0)
@@ -13255,7 +13288,7 @@ Point.prototype.getEncoded = function (compressed) {
 }
 
 Point.prototype.toHex = function() {
-  return this.getEncoded(this.compressed).toJSON()['data'].reduce((output, elem) => 
+  return this.getEncoded(this.compressed).toJSON()['data'].reduce((output, elem) =>
   (output + ('0' + elem.toString(16)).slice(-2)),
   '');;
 }
