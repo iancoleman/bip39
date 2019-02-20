@@ -1486,3 +1486,14 @@ bitcoinjs.bitcoin.networks.litecoinz = {
   scriptHash: 0x0AB8,
   wif:  0x80,
 };
+
+bitcoinjs.bitcoin.networks.blockstamp = {
+  messagePrefix: '\x18BlockStamp Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4,
+  },
+  pubKeyHash: 0x00,
+  scriptHash: 0x05,
+  wif:  0x80,
+};
