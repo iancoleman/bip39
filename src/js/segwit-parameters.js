@@ -184,29 +184,29 @@ bitcoinjs.bitcoin.networks.digibyte.p2wpkhInP2sh = {
     scriptHash: 0x3f,
     wif: 0x80
 };
-    bitcoinjs.bitcoin.networks.deimos.p2wpkh = {
-    baseNetwork: "deimos",
-    messagePrefix: '\x18Deimos Signed Message:\n',
-    bech32: 'dei',
-    bip32: {
-        public: 0x0488B21E,
-        private: 0x0488ADE4
-    },
-    pubKeyHash: 0x1f,
-    scriptHash: 0x21,
-    wif: 0x8a
-};
-
-bitcoinjs.bitcoin.networks.deimos.p2wpkhInP2sh = {
-    baseNetwork: "deimos",	
-    messagePrefix: '\x18Deimos Signed Message:\n',
-    bech32: 'dei',
-    bip32: {
-        public: 0x0488B21E,
-        private: 0x0488ADE4
-    },
-    pubKeyHash: 0x1f,
-    scriptHash: 0x21,
-    wif: 0x8a
-};
+//    bitcoinjs.bitcoin.networks.deimos.p2wpkh = {
+//    baseNetwork: "deimos",
+//    messagePrefix: '\x18Deimos Signed Message:\n',
+//    bech32: 'dei',
+//    bip32: {
+//        public: 0x0488B21E,
+//        private: 0x0488ADE4
+//    },
+//    pubKeyHash: 0x1f,
+//    scriptHash: 0x21,
+//    wif: 0x8a
+//};
+//
+//bitcoinjs.bitcoin.networks.deimos.p2wpkhInP2sh = {
+//    baseNetwork: "deimos",	
+//    messagePrefix: '\x18Deimos Signed Message:\n',
+//    bech32: 'dei',
+//    bip32: {
+//        public: 0x0488B21E,
+//        private: 0x0488ADE4
+//    },
+//    pubKeyHash: 0x1f,
+//    scriptHash: 0x21,
+//    wif: 0x8a
+//};
 })();
