@@ -1390,6 +1390,13 @@ it('Allows selection of LitecoinZ', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of BlockStamp', function(done) {
+    var params = {
+        selectText: "BST - BlockStamp",
+        firstAddress: "15gypKtim4cVTj137ApfryG17RkvSbPazZ",
+    };
+    testNetwork(done, params);
+});
 
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {

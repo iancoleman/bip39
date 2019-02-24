@@ -1730,6 +1730,13 @@
                 setHdCoin(91);
             },
         },
+		{
+            name: "BST - BlockStamp",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.blockstamp;
+                setHdCoin(254);
+            },
+        },
         {
             name: "BTA - Bata",
             onSelect: function() {
