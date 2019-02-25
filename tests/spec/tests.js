@@ -1365,7 +1365,7 @@ it('Allows selection of Phore', function(done) {
 it('Allows selection of Safecoin', function(done) {
      var params = {
          selectText: "SAFE - Safecoin",
-         firstAddress: "RmV56kPW7jeCmDA8sukHwbR7RZSbg9NFNF",
+         firstAddress: "RtxHpnhJz6RY8k9owP3ua5QWraunmewB1G",
      };
      testNetwork(done, params);
  });
