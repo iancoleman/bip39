@@ -104,7 +104,7 @@ bitcoinjs.bitcoin.networks.peercoin = {
     private: 0x0488ade4
   },
   pubKeyHash: 0x37,
-  scriptHash: 0x00, // TODO set this correctly
+  scriptHash: 0x75,
   wif: 0xb7
 };
 
