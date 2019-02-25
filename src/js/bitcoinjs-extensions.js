@@ -914,6 +914,17 @@ bitcoinjs.bitcoin.networks.neoscoin = {
   wif: 0xb1,
 };
 
+bitcoinjs.bitcoin.networks.nix = {
+  messagePrefix: '\x18Nix Signed Message:\n',
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4,
+  },
+  pubKeyHash: 0x26,
+  scriptHash: 0x35,
+  wif: 0x80,
+};
+
 bitcoinjs.bitcoin.networks.neurocoin = {
   messagePrefix: '\x18PPCoin Signed Message:\n',
   bip32: {

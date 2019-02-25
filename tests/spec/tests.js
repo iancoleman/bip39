@@ -998,6 +998,13 @@ it('Allows selection of Neoscoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Nix', function(done) {
+    var params = {
+        selectText: "NIX - NIX Platform",
+        firstAddress: "GgcNW2SQQXB4LWHRQTHKkQF3GzXNSLqS8u",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Neurocoin', function(done) {
     var params = {
         selectText: "NRO - Neurocoin",
