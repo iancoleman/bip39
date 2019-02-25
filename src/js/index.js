@@ -2230,6 +2230,13 @@
             },
         },
         {
+            name: "NIX - NIX Platform",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.nix;
+                setHdCoin(400);
+            },
+        },
+        {
             name: "NLG - Gulden",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.gulden;
