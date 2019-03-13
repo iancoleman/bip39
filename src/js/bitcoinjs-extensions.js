@@ -27,7 +27,7 @@ bitcoinjs.bitcoin.networks.clam = {
     private: 0xa8c17826
   },
   pubKeyHash: 0x89,
-  scriptHash: 0x00, // TODO set this correctly
+  scriptHash: 0x0D,
   wif: 0x85
 };
 
