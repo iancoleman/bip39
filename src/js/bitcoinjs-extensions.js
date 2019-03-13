@@ -93,7 +93,7 @@ bitcoinjs.bitcoin.networks.namecoin = {
     private: 0x0488ade4
   },
   pubKeyHash: 0x34,
-  scriptHash: 0x00, // TODO set this correctly
+  scriptHash: 0x0D,
   wif: 0x80
 };
 
