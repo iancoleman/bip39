@@ -917,7 +917,8 @@
                     || (networks[DOM.network.val()].name == "MUSIC - Musicoin")
                     || (networks[DOM.network.val()].name == "POA - Poa")
                     || (networks[DOM.network.val()].name == "EXP - Expanse")
-                    || (networks[DOM.network.val()].name == "CLO - Callisto")) {
+                    || (networks[DOM.network.val()].name == "CLO - Callisto")
+                    || (networks[DOM.network.val()].name == "DXN - DEXON")) {
                     var privKeyBuffer = keyPair.d.toBuffer(32);
                     privkey = privKeyBuffer.toString('hex');
                     var addressBuffer = ethUtil.privateToAddress(privKeyBuffer);
@@ -1918,6 +1919,13 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.dogecoin;
                 setHdCoin(3);
+            },
+        },
+        {
+            name: "DXN - DEXON",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bitcoin;
+                setHdCoin(237);
             },
         },
         {
