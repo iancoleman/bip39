@@ -1404,6 +1404,13 @@ it('Allows selection of BlockStamp', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of DEXON', function(done) {
+    var params = {
+        selectText: "DXN - DEXON",
+        firstAddress: "0x136a58788033E028CCd740FbDec6734358DB56Ec",
+    };
+    testNetwork(done, params);
+});
 
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {
