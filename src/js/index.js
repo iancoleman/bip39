@@ -929,17 +929,13 @@
                     pubkey = ethUtil.addHexPrefix(pubkey);
                 }
                 if ((networks[DOM.network.val()].name == "NAS - Nebulas")) {
-                    var NasAccount = require("nebulas").Account;
+                    var NasAccount = require("nebulas-account");
                     var privKeyBuffer = keyPair.d.toBuffer(32);
-                    // privkey = privKeyBuffer.toString('hex');
-                    console.log(privkey);
-                    var nasAccount = NasAccount.NewAccount(privKeyBuffer);
-                    // var addressBuffer = ethUtil.privateToAddress(privKeyBuffer);
-                    // var hexAddress = addressBuffer.toString('hex');
-                    // var checksumAddress = ethUtil.toChecksumAddress(hexAddress);
-                    address = nasAccount.getAddressString();
-                    privkey = nasAccount.getPrivateKeyString();
-                    pubkey = nasAccount.getPublicKeyString();
+                    var nebulasAccount = new NasAccount();
+                    nebulasAccount.setPrivateKey(privKeyBuffer);
+                    address = nebulasAccount.getAddressString();
+                    privkey = nebulasAccount.getPrivateKeyString();
+                    pubkey = nebulasAccount.getPublicKeyString();
                 }
                 // Ripple values are different
                 if (networks[DOM.network.val()].name == "XRP - Ripple") {

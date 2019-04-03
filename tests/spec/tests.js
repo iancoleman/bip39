@@ -991,6 +991,13 @@ it('Allows selection of Navcoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Nebulas', function(done) {
+    var params = {
+        selectText: "NAS - Nebulas",
+        firstAddress: "n1PbK61DGBfDoDusLw621G6sVSMfLLHdfnm",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Neoscoin', function(done) {
     var params = {
         selectText: "NEOS - Neoscoin",
