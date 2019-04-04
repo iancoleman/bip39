@@ -928,6 +928,15 @@
                     privkey = ethUtil.addHexPrefix(privkey);
                     pubkey = ethUtil.addHexPrefix(pubkey);
                 }
+                if ((networks[DOM.network.val()].name == "NAS - Nebulas")) {
+                    var NasAccount = require("nebulas-account");
+                    var privKeyBuffer = keyPair.d.toBuffer(32);
+                    var nebulasAccount = new NasAccount();
+                    nebulasAccount.setPrivateKey(privKeyBuffer);
+                    address = nebulasAccount.getAddressString();
+                    privkey = nebulasAccount.getPrivateKeyString();
+                    pubkey = nebulasAccount.getPublicKeyString();
+                }
                 // Ripple values are different
                 if (networks[DOM.network.val()].name == "XRP - Ripple") {
                     privkey = convertRipplePriv(privkey);
@@ -2221,6 +2230,13 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.navcoin;
                 setHdCoin(130);
+            },
+        },
+        {
+            name: "NAS - Nebulas",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bitcoin;
+                setHdCoin(2718);
             },
         },
         {
