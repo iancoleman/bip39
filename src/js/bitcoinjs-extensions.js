@@ -261,7 +261,7 @@ bitcoinjs.bitcoin.networks.lkrcoin = {
     },
     pubKeyHash: 0x30,
     scriptHash: 0x55,
-    wif: 0x80
+    wif: 0xB0
 };
 
 bitcoinjs.bitcoin.networks.pivx = {
