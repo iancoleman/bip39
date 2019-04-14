@@ -242,10 +242,10 @@ bitcoinjs.bitcoin.networks.myriadcoin = {
 
 
 bitcoinjs.bitcoin.networks.onixcoin = {
-    messagePrefix: 'unused',
+    messagePrefix: 'ONIX Signed Message:\n',
     bip32: {
-      public: 0x049d7cb2,
-      private: 0x049d7878
+      public: 0x0488b21e,
+      private: 0x0488ade4
     },
     pubKeyHash: 0x4B,
     scriptHash: 0x05,
