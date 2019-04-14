@@ -249,7 +249,7 @@ bitcoinjs.bitcoin.networks.onixcoin = {
     },
     pubKeyHash: 0x4B,
     scriptHash: 0x05,
-    wif: 0x80
+    wif: 0xCB
 };
 
 
