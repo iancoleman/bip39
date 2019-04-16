@@ -564,6 +564,15 @@ it('Allows selection of bitcoin cash', function(done) {
     };
     testNetwork(done, params);
 });
+
+it('Allows selection of simpleledger(SLP)', function(done) {
+    var params = {
+        selectText: "SLP - Simple Ledger Protocol",
+        firstAddress: "simpleledger:qrtffz6ajfsn74gpur7y3epjquz42pvww5acewqmre",
+    };
+    testNetwork(done, params);
+});
+
 it('Allows selection of myriadcoin', function(done) {
     var params = {
         selectText: "XMY - Myriadcoin",

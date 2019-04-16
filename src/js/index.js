@@ -952,6 +952,13 @@
                         address = bchaddr.toBitpayAddress(address);
                     }
                 }
+                 // Bitcoin Cash address format may vary
+                 if (networks[DOM.network.val()].name == "SLP - Simple Ledger Protocol") {
+                     var bchAddrType = DOM.bitcoinCashAddressType.filter(":checked").val();
+                     if (bchAddrType == "cashaddr") {
+                         address = bchaddr.toSlpAddress(address);
+                     }
+                 }
                 // Segwit addresses are different
                 if (isSegwit) {
                     if (!segwitAvailable) {
@@ -1718,7 +1725,7 @@
                 network = bitcoinjs.bitcoin.networks.blocknode;
                 setHdCoin(2941);
             },
-        },	
+        },
 		{
             name: "tBND - Blocknode Testnet",
             onSelect: function() {
@@ -2484,6 +2491,13 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.slimcointn;
                 setHdCoin(111);
+            },
+        },
+        {
+            name: "SLP - Simple Ledger Protocol",
+            onSelect: function() {
+                DOM.bitcoinCashAddressTypeContainer.removeClass("hidden");
+                setHdCoin(245);
             },
         },
         {
