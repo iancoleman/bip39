@@ -977,6 +977,11 @@
                         address = bitcoinjs.bitcoin.address.fromOutputScript(scriptpubkey, network)
                     }
                 }
+                
+                if ((networks[DOM.network.val()].name == "CRW - Crown")) {
+                    address = bitcoinjs.bitcoin.networks.crown.toNewAddress(address);
+                }
+                
                 addAddressToList(indexText, address, pubkey, privkey);
                 if (isLast) {
                     hidePending();
@@ -1872,6 +1877,13 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.crave;
                 setHdCoin(186);
+            },
+        },
+        {
+            name: "CRW - Crown (Legacy)",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.crown;
+                setHdCoin(72);
             },
         },
         {

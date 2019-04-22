@@ -474,8 +474,15 @@ it('Allows selection of clam', function(done) {
 });
 it('Allows selection of crown', function(done) {
     var params = {
+        selectText: "CRW - Crown (Legacy)",
+        firstAddress: "18pWSwSUAQdiwMHUfFZB1fM2xue9X1FqE5", 
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of crown', function(done) {
+    var params = {
         selectText: "CRW - Crown",
-        firstAddress: "18pWSwSUAQdiwMHUfFZB1fM2xue9X1FqE5",
+        firstAddress: "CRWKnVmVhvH1KWTYe6sq8xV4dFGcFpBEEkPQ",
     };
     testNetwork(done, params);
 });
