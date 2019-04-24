@@ -912,6 +912,7 @@
                 // Ethereum values are different
                 if ((networks[DOM.network.val()].name == "ETH - Ethereum")
                     || (networks[DOM.network.val()].name == "ETC - Ethereum Classic")
+                    || (networks[DOM.network.val()].name == "EWT - EnergyWeb")
                     || (networks[DOM.network.val()].name == "PIRL - Pirl")
                     || (networks[DOM.network.val()].name == "MIX - MIX")
                     || (networks[DOM.network.val()].name == "MUSIC - Musicoin")
@@ -2005,7 +2006,14 @@
                 network = bitcoinjs.bitcoin.networks.bitcoin;
                 setHdCoin(60);
             },
-        },
+          },
+        {
+            name: "EWT - EnergyWeb",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bitcoin;
+                setHdCoin(246);
+            },
+          },
         {
             name: "EXCL - Exclusivecoin",
             onSelect: function() {
