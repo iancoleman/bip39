@@ -1434,6 +1434,13 @@ it('Allows selection of DEXON', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Ellaism', function(done) {
+    var params = {
+        selectText: "ELLA - Ellaism",
+        firstAddress: "0xa8B0BeA09eeBc41062308546a01d6E544277e2Ca",
+    };
+    testNetwork(done, params);
+});
 
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {

@@ -918,7 +918,9 @@
                     || (networks[DOM.network.val()].name == "POA - Poa")
                     || (networks[DOM.network.val()].name == "EXP - Expanse")
                     || (networks[DOM.network.val()].name == "CLO - Callisto")
-                    || (networks[DOM.network.val()].name == "DXN - DEXON")) {
+                    || (networks[DOM.network.val()].name == "DXN - DEXON")
+                    || (networks[DOM.network.val()].name == "ELLA - Ellaism")
+                ) {
                     var privKeyBuffer = keyPair.d.toBuffer(32);
                     privkey = privKeyBuffer.toString('hex');
                     var addressBuffer = ethUtil.privateToAddress(privKeyBuffer);
@@ -1975,6 +1977,14 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.egulden;
                 setHdCoin(78);
+            },
+        },
+        {
+            name: "ELLA - Ellaism",
+            segwitAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bitcoin;
+                setHdCoin(163);
             },
         },
         {
