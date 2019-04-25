@@ -260,6 +260,16 @@ bitcoinjs.bitcoin.networks.myriadcoin = {
   wif: 0xb2
 };
 
+bitcoinjs.bitcoin.networks.bolivarcoin = {
+  messagePrefix: 'Bolivarcoin Signed Message:\n',
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  },
+  pubKeyHash: 0x55,
+  scriptHash: 0x05,
+  wif: 0xD5
+};
 
 bitcoinjs.bitcoin.networks.onixcoin = {
     messagePrefix: 'ONIX Signed Message:\n',

@@ -535,6 +535,13 @@ it('Allows selection of lkrcoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of bolivarcoin', function(done) {
+    var params = {
+        selectText: "BOLI - Bolivarcoin",
+        firstAddress: "bc378wfZiuPpnXuUnhhwpXnLHqiGDQspju",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of peercoin', function(done) {
     var params = {
         selectText: "PPC - Peercoin",
