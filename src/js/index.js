@@ -919,6 +919,7 @@
                     || (networks[DOM.network.val()].name == "EXP - Expanse")
                     || (networks[DOM.network.val()].name == "CLO - Callisto")
                     || (networks[DOM.network.val()].name == "DXN - DEXON")
+                    || (networks[DOM.network.val()].name == "ELLA - Ellaism")
                     || (networks[DOM.network.val()].name == "ESN - Ethersocial Network")
                 ) {
                     var privKeyBuffer = keyPair.d.toBuffer(32);
@@ -1977,6 +1978,14 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.egulden;
                 setHdCoin(78);
+            },
+        },
+        {
+            name: "ELLA - Ellaism",
+            segwitAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bitcoin;
+                setHdCoin(163);
             },
         },
         {
