@@ -1693,6 +1693,13 @@
             },
         },
         {
+            name: "BOLI - Bolivarcoin",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bolivarcoin;
+                setHdCoin(278);
+            },
+        },
+        {
             name: "BCA - Bitcoin Atom",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.atom;
