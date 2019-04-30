@@ -920,6 +920,7 @@
                     || (networks[DOM.network.val()].name == "CLO - Callisto")
                     || (networks[DOM.network.val()].name == "DXN - DEXON")
                     || (networks[DOM.network.val()].name == "ELLA - Ellaism")
+                    || (networks[DOM.network.val()].name == "ESN - Ethersocial Network")
                 ) {
                     var privKeyBuffer = keyPair.d.toBuffer(32);
                     privkey = privKeyBuffer.toString('hex');
@@ -1999,6 +2000,14 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.europecoin;
                 setHdCoin(151);
+            },
+        },
+        {
+            name: "ESN - Ethersocial Network",
+            segwitAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bitcoin;
+                setHdCoin(31102);
             },
         },
         {
