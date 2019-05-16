@@ -9,7 +9,7 @@
 * Add Ellaism network
 * Add Etheresocial network
 * Add Bolivarcoin network
-* Forec spellcheck and autocomplete to be off
+* Force spellcheck and autocomplete to be off
 
 # 0.3.10
 
