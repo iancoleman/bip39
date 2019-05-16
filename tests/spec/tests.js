@@ -538,7 +538,7 @@ it('Allows selection of lkrcoin', function(done) {
 it('Allows selection of bolivarcoin', function(done) {
     var params = {
         selectText: "BOLI - Bolivarcoin",
-        firstAddress: "bc378wfZiuPpnXuUnhhwpXnLHqiGDQspju",
+        firstAddress: "bbKzCAUR7hZ3nqfffy7VgrSz8LmAP3S5mK",
     };
     testNetwork(done, params);
 });
