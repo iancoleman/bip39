@@ -615,7 +615,7 @@ bitcoinjs.bitcoin.networks.diamond = {
 };
 
 bitcoinjs.bitcoin.networks.digibyte = {
-  messagePrefix: '\x18DigiByte Signed Message:\n',
+  messagePrefix: '\x19DigiByte Signed Message:\n',
   bip32: {
     public: 0x0488B21E,
     private: 0x0488ADE4,

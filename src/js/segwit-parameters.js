@@ -161,7 +161,7 @@ bitcoinjs.bitcoin.networks.bgold.p2wpkhInP2sh = {
 
 bitcoinjs.bitcoin.networks.digibyte.p2wpkh = {
     baseNetwork: "digibyte",
-    messagePrefix: '\x18DigiByte Signed Message:\n',
+    messagePrefix: 'x19DigiByte Signed Message:\n',
     bech32: 'dgb',
     bip32: {
         public: 0x0488B21E,
@@ -174,7 +174,7 @@ bitcoinjs.bitcoin.networks.digibyte.p2wpkh = {
 
 bitcoinjs.bitcoin.networks.digibyte.p2wpkhInP2sh = {
     baseNetwork: "digibyte",	
-    messagePrefix: '\x18DigiByte Signed Message:\n',
+    messagePrefix: '\x19DigiByte Signed Message:\n',
     bech32: 'dgb',
     bip32: {
         public: 0x0488B21E,
