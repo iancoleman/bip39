@@ -184,29 +184,56 @@ bitcoinjs.bitcoin.networks.digibyte.p2wpkhInP2sh = {
     scriptHash: 0x3f,
     wif: 0x80
 };
-    bitcoinjs.bitcoin.networks.deimos.p2wpkh = {
-    baseNetwork: "deimos",
-    messagePrefix: '\x18Deimos Signed Message:\n',
-    bech32: 'dei',
+
+bitcoinjs.bitcoin.networks.blockstamp.p2wpkh = {
+    baseNetwork: "blockstamp",
+    messagePrefix: '\x18BlockStamp Signed Message:\n',
+    bech32: 'bc',
     bip32: {
-        public: 0x0488B21E,
-        private: 0x0488ADE4
+      public: 0x0488B21E,
+      private: 0x0488ADE4,
     },
-    pubKeyHash: 0x1f,
-    scriptHash: 0x21,
-    wif: 0x8a
+    pubKeyHash: 0x00,
+    scriptHash: 0x05,
+    wif:  0x80,
 };
 
-bitcoinjs.bitcoin.networks.deimos.p2wpkhInP2sh = {
-    baseNetwork: "deimos",	
-    messagePrefix: '\x18Deimos Signed Message:\n',
-    bech32: 'dei',
+bitcoinjs.bitcoin.networks.blockstamp.p2wpkhInP2sh = {
+    baseNetwork: "blockstamp",	
+    messagePrefix: '\x18BlockStamp Signed Message:\n',
+    bech32: 'bc',
     bip32: {
-        public: 0x0488B21E,
-        private: 0x0488ADE4
+      public: 0x0488B21E,
+      private: 0x0488ADE4,
     },
-    pubKeyHash: 0x1f,
-    scriptHash: 0x21,
-    wif: 0x8a
+    pubKeyHash: 0x00,
+    scriptHash: 0x05,
+    wif:  0x80,
+};
+
+bitcoinjs.bitcoin.networks.nix.p2wpkh = {
+    baseNetwork: "nix",
+    messagePrefix: '\x18Nix Signed Message:\n',
+    bech32: 'nix',
+    bip32: {
+        public: 0x0488b21e,
+        private: 0x0488ade4,
+      },
+      pubKeyHash: 0x26,
+      scriptHash: 0x35,
+      wif: 0x80,
+};
+
+bitcoinjs.bitcoin.networks.nix.p2wpkhInP2sh = {
+    baseNetwork: "nix",	
+    messagePrefix: '\x18Nix Signed Message:\n',
+    bech32: 'nix',
+    bip32: {
+        public: 0x0488b21e,
+        private: 0x0488ade4,
+      },
+      pubKeyHash: 0x26,
+      scriptHash: 0x35,
+      wif: 0x80,
 };
 })();

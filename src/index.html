@@ -15,7 +15,7 @@
         <div class="container">
 
             <h1 class="text-center">Mnemonic Code Converter</h1>
-            <p class="version">v0.3.9</p>
+            <p class="version">v0.3.11</p>
             <hr>
             <div class="row">
                 <div class="col-md-12">
@@ -69,7 +69,7 @@
                             <div class="form-group">
                                 <label for="entropy" class="col-sm-2 control-label">Entropy</label>
                                 <div class="col-sm-7">
-                                    <textarea id="entropy" rows="2" class="entropy private-data form-control" placeholder="Accepts either binary, base 6, 6-sided dice, base 10, hexadecimal or cards"></textarea>
+                                    <textarea id="entropy" rows="2" class="entropy private-data form-control" placeholder="Accepts either binary, base 6, 6-sided dice, base 10, hexadecimal or cards" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
                                     <div class="row filter-warning text-danger hidden">
                                         <p class="col-sm-12">
                                         <strong>
@@ -169,19 +169,19 @@
                         <div class="form-group">
                             <label for="phrase" class="col-sm-2 control-label">BIP39 Mnemonic</label>
                             <div class="col-sm-10">
-                                <textarea id="phrase" class="phrase private-data form-control" data-show-qr></textarea>
+                                <textarea id="phrase" class="phrase private-data form-control" data-show-qr autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="passphrase" class="col-sm-2 control-label">BIP39 Passphrase (optional)</label>
                             <div class="col-sm-10">
-                                <textarea id="passphrase" class="passphrase private-data form-control"></textarea>
+                                <textarea id="passphrase" class="passphrase private-data form-control" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="seed" class="col-sm-2 control-label">BIP39 Seed</label>
                             <div class="col-sm-10">
-                                <textarea id="seed" class="seed private-data form-control" readonly="readonly" data-show-qr></textarea>
+                                <textarea id="seed" class="seed private-data form-control" readonly="readonly" data-show-qr autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -195,7 +195,7 @@
                         <div class="form-group">
                             <label for="root-key" class="col-sm-2 control-label">BIP32 Root Key</label>
                             <div class="col-sm-10">
-                                <textarea id="root-key" class="root-key private-data form-control" data-show-qr></textarea>
+                                <textarea id="root-key" class="root-key private-data form-control" data-show-qr autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
                             </div>
                         </div>
                         <div class="form-group litecoin-ltub-container hidden">
@@ -288,7 +288,7 @@
                                         <span>Account Extended Private Key</span>
                                     </label>
                                     <div class="col-sm-10">
-                                        <textarea id="account-xprv-bip44" type="text" class="account-xprv private-data form-control" readonly data-show-qr></textarea>
+                                        <textarea id="account-xprv-bip44" type="text" class="account-xprv private-data form-control" readonly data-show-qr autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -296,7 +296,7 @@
                                         <span>Account Extended Public Key</span>
                                     </label>
                                     <div class="col-sm-10">
-                                        <textarea id="account-xpub-bip44" type="text" class="account-xpub form-control" readonly data-show-qr></textarea>
+                                        <textarea id="account-xpub-bip44" type="text" class="account-xpub form-control" readonly data-show-qr autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -448,7 +448,7 @@
                                             <span>Account Extended Private Key</span>
                                         </label>
                                         <div class="col-sm-10">
-                                            <textarea id="account-xprv-bip49" type="text" class="account-xprv private-data form-control" readonly data-show-qr></textarea>
+                                            <textarea id="account-xprv-bip49" type="text" class="account-xprv private-data form-control" readonly data-show-qr autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -456,7 +456,7 @@
                                             <span>Account Extended Public Key</span>
                                         </label>
                                         <div class="col-sm-10">
-                                            <textarea id="account-xpub-bip49" type="text" class="account-xpub form-control" readonly data-show-qr></textarea>
+                                            <textarea id="account-xpub-bip49" type="text" class="account-xpub form-control" readonly data-show-qr autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -575,7 +575,7 @@
                                             <span>Account Extended Private Key</span>
                                         </label>
                                         <div class="col-sm-10">
-                                            <textarea id="account-xprv-bip84" type="text" class="account-xprv private-data form-control" readonly data-show-qr></textarea>
+                                            <textarea id="account-xprv-bip84" type="text" class="account-xprv private-data form-control" readonly data-show-qr autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -583,7 +583,7 @@
                                             <span>Account Extended Public Key</span>
                                         </label>
                                         <div class="col-sm-10">
-                                            <textarea id="account-xpub-bip84" type="text" class="account-xpub form-control" readonly data-show-qr></textarea>
+                                            <textarea id="account-xpub-bip84" type="text" class="account-xpub form-control" readonly data-show-qr autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -607,13 +607,13 @@
                         <div class="form-group">
                             <label for="extended-priv-key" class="col-sm-2 control-label">BIP32 Extended Private Key</label>
                             <div class="col-sm-10">
-                                <textarea id="extended-priv-key" class="extended-priv-key private-data form-control" readonly="readonly" data-show-qr></textarea>
+                                <textarea id="extended-priv-key" class="extended-priv-key private-data form-control" readonly="readonly" data-show-qr autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="extended-pub-key" class="col-sm-2 control-label">BIP32 Extended Public Key</label>
                             <div class="col-sm-10">
-                                <textarea id="extended-pub-key" class="extended-pub-key form-control" readonly="readonly" data-show-qr></textarea>
+                                <textarea id="extended-pub-key" class="extended-pub-key form-control" readonly="readonly" data-show-qr autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
                             </div>
                         </div>
                     </form>
@@ -653,7 +653,7 @@
                             <input type="checkbox" class="use-bip38">
                             <span>Encrypt private keys using BIP38 and this password:</span>
                         </label>
-                        <input class="bip38-password private-data">
+                        <input class="bip38-password private-data" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                         <span>Enabling BIP38 means each key will take several minutes to generate.</span>
                     </div>
                 </div>
@@ -707,7 +707,7 @@
                     </div>
                     <div id="csv" class="tab-pane">
                         <div class="col-md-12">
-                            <textarea class="csv form-control" rows="25" readonly></textarea>
+                            <textarea class="csv form-control" rows="25" readonly autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
                         </div>
                     </div>
                 </div>
@@ -747,14 +747,6 @@
                     <p>
                         Read more at the
                         <a href="https://github.com/bitcoin/bips/blob/master/bip-0049.mediawiki" target="_blank">official BIP49 spec</a>
-                    </p>
-                    <h3>Private Keys</h3>
-                    <p>
-                        <span>
-                            Use private keys at
-                            <a href="https://web.archive.org/web/20150707020924/https://brainwallet.org/" target="_blank">brainwallet.org</a>.
-                        </span>
-                        <span>Be careful - it can be easy to make mistakes if you don't know what you're doing.</span>
                     </p>
                     <h3 id="entropy-notes">Entropy</h3>
                     <p>
@@ -935,6 +927,7 @@
         <script src="js/ethereumjs-util.js"></script>
         <script src="js/ripple-util.js"></script>
         <script src="js/bchaddrjs-0.2.1.js"></script>
+        <script src="js/nebulas-account.js"></script>
         <script src="js/sjcl-bip39.js"></script>
         <script src="js/wordlist_english.js"></script>
         <script src="js/wordlist_japanese.js"></script>

@@ -27,7 +27,7 @@ bitcoinjs.bitcoin.networks.clam = {
     private: 0xa8c17826
   },
   pubKeyHash: 0x89,
-  scriptHash: 0x00, // TODO set this correctly
+  scriptHash: 0x0D,
   wif: 0x85
 };
 
@@ -39,7 +39,27 @@ bitcoinjs.bitcoin.networks.crown = {
   },
   pubKeyHash: 0x00,
   scriptHash: 0x05,
-  wif: 0x80
+  wif: 0x80,
+  toNewAddress: function(oldAddress)
+  {
+    var ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
+    var b58 =  basex(ALPHABET);
+
+    var addrBytes = b58.decode(oldAddress);
+
+    var hash160 = new Uint16Array(23); 
+    hash160[0]= 0x01; //C
+    hash160[1]= 0x75; //R
+    hash160[2]= 0x07; //W
+    addrBytes.copy(hash160, 3, 1, 21);
+
+    var checksum = bitcoinjs.bitcoin.crypto.hash256(hash160).subarray(0, 4);
+    var binaryAddr = new Uint16Array(27); 
+    binaryAddr.set(hash160,0);
+    checksum.copy(binaryAddr, 23, 0, 4);
+    var newAddress = b58.encode(binaryAddr);
+    return newAddress;
+  }
 };
 
 bitcoinjs.bitcoin.networks.dash = {
@@ -93,7 +113,7 @@ bitcoinjs.bitcoin.networks.namecoin = {
     private: 0x0488ade4
   },
   pubKeyHash: 0x34,
-  scriptHash: 0x00, // TODO set this correctly
+  scriptHash: 0x0D,
   wif: 0x80
 };
 
@@ -104,7 +124,7 @@ bitcoinjs.bitcoin.networks.peercoin = {
     private: 0x0488ade4
   },
   pubKeyHash: 0x37,
-  scriptHash: 0x00, // TODO set this correctly
+  scriptHash: 0x75,
   wif: 0xb7
 };
 
@@ -236,20 +256,42 @@ bitcoinjs.bitcoin.networks.myriadcoin = {
     private: 0x0488ade4
   },
   pubKeyHash: 0x32,
-  scriptHash: 0x00, // TODO set this correctly
+  scriptHash: 0x09,
   wif: 0xb2
 };
 
+bitcoinjs.bitcoin.networks.bolivarcoin = {
+  messagePrefix: 'Bolivarcoin Signed Message:\n',
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  },
+  pubKeyHash: 0x55,
+  scriptHash: 0x05,
+  wif: 0xD5
+};
 
 bitcoinjs.bitcoin.networks.onixcoin = {
-    messagePrefix: 'unused',
+    messagePrefix: 'ONIX Signed Message:\n',
     bip32: {
-      public: 0x049d7cb2,
-      private: 0x049d7878
+      public: 0x0488b21e,
+      private: 0x0488ade4
     },
     pubKeyHash: 0x4B,
     scriptHash: 0x05,
-    wif: 0x80
+    wif: 0xCB
+};
+
+
+bitcoinjs.bitcoin.networks.lkrcoin = {
+    messagePrefix: '\x18LKRcoin Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x0488ade4,
+    },
+    pubKeyHash: 0x30,
+    scriptHash: 0x55,
+    wif: 0xB0
 };
 
 bitcoinjs.bitcoin.networks.pivx = {
@@ -902,6 +944,17 @@ bitcoinjs.bitcoin.networks.neoscoin = {
   wif: 0xb1,
 };
 
+bitcoinjs.bitcoin.networks.nix = {
+  messagePrefix: '\x18Nix Signed Message:\n',
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4,
+  },
+  pubKeyHash: 0x26,
+  scriptHash: 0x35,
+  wif: 0x80,
+};
+
 bitcoinjs.bitcoin.networks.neurocoin = {
   messagePrefix: '\x18PPCoin Signed Message:\n',
   bip32: {
@@ -1472,5 +1525,16 @@ bitcoinjs.bitcoin.networks.litecoinz = {
   },
   pubKeyHash: 0x0AB3,
   scriptHash: 0x0AB8,
+  wif:  0x80,
+};
+
+bitcoinjs.bitcoin.networks.blockstamp = {
+  messagePrefix: '\x18BlockStamp Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4,
+  },
+  pubKeyHash: 0x00,
+  scriptHash: 0x05,
   wif:  0x80,
 };

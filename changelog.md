@@ -1,3 +1,28 @@
+# 0.3.11
+
+* Add NIX network
+* Fix coin parameters for NMC, XMY, CLAM, ONX, LKR
+* Add DEXON network
+* Add Nebulas network
+* Add LSP network
+* Fix Crown network address format
+* Add Ellaism network
+* Add Etheresocial network
+* Add Bolivarcoin network
+* Force spellcheck and autocomplete to be off
+
+# 0.3.10
+
+* Add Phore network
+* Add Blocknode network
+* Add Ravencoin network
+* Add Safecoin network
+* Add LitecoinZ network
+* Add LKRcoin network
+* Update Peercoin scripthash parameter
+* Add Blockstamp network
+* Remove old info regarding use of private keys
+
 # 0.3.9
 
 * Update BTG signing message

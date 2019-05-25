@@ -917,7 +917,11 @@
                     || (networks[DOM.network.val()].name == "MUSIC - Musicoin")
                     || (networks[DOM.network.val()].name == "POA - Poa")
                     || (networks[DOM.network.val()].name == "EXP - Expanse")
-                    || (networks[DOM.network.val()].name == "CLO - Callisto")) {
+                    || (networks[DOM.network.val()].name == "CLO - Callisto")
+                    || (networks[DOM.network.val()].name == "DXN - DEXON")
+                    || (networks[DOM.network.val()].name == "ELLA - Ellaism")
+                    || (networks[DOM.network.val()].name == "ESN - Ethersocial Network")
+                ) {
                     var privKeyBuffer = keyPair.d.toBuffer(32);
                     privkey = privKeyBuffer.toString('hex');
                     var addressBuffer = ethUtil.privateToAddress(privKeyBuffer);
@@ -927,6 +931,7 @@
                     privkey = ethUtil.addHexPrefix(privkey);
                     pubkey = ethUtil.addHexPrefix(pubkey);
                 }
+
                 // Stellar is different
                 if (networks[DOM.network.val()].name == "XLM - Stellar") {
                     var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
@@ -938,6 +943,15 @@
                     indexText = path;
                     privkey = keypair.secret();
                     pubkey = address = keypair.publicKey();
+                }
+                if ((networks[DOM.network.val()].name == "NAS - Nebulas")) {
+                    var NasAccount = require("nebulas-account");
+                    var privKeyBuffer = keyPair.d.toBuffer(32);
+                    var nebulasAccount = new NasAccount();
+                    nebulasAccount.setPrivateKey(privKeyBuffer);
+                    address = nebulasAccount.getAddressString();
+                    privkey = nebulasAccount.getPrivateKeyString();
+                    pubkey = nebulasAccount.getPublicKeyString();
                 }
                 // Ripple values are different
                 if (networks[DOM.network.val()].name == "XRP - Ripple") {
@@ -954,6 +968,13 @@
                         address = bchaddr.toBitpayAddress(address);
                     }
                 }
+                 // Bitcoin Cash address format may vary
+                 if (networks[DOM.network.val()].name == "SLP - Simple Ledger Protocol") {
+                     var bchAddrType = DOM.bitcoinCashAddressType.filter(":checked").val();
+                     if (bchAddrType == "cashaddr") {
+                         address = bchaddr.toSlpAddress(address);
+                     }
+                 }
                 // Segwit addresses are different
                 if (isSegwit) {
                     if (!segwitAvailable) {
@@ -972,6 +993,11 @@
                         address = bitcoinjs.bitcoin.address.fromOutputScript(scriptpubkey, network)
                     }
                 }
+                
+                if ((networks[DOM.network.val()].name == "CRW - Crown")) {
+                    address = bitcoinjs.bitcoin.networks.crown.toNewAddress(address);
+                }
+                
                 addAddressToList(indexText, address, pubkey, privkey);
                 if (isLast) {
                     hidePending();
@@ -1680,6 +1706,13 @@
             },
         },
         {
+            name: "BOLI - Bolivarcoin",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bolivarcoin;
+                setHdCoin(278);
+            },
+        },
+        {
             name: "BCA - Bitcoin Atom",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.atom;
@@ -1720,7 +1753,7 @@
                 network = bitcoinjs.bitcoin.networks.blocknode;
                 setHdCoin(2941);
             },
-        },	
+        },
 		{
             name: "tBND - Blocknode Testnet",
             onSelect: function() {
@@ -1740,6 +1773,13 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bitsend;
                 setHdCoin(91);
+            },
+        },
+		{
+            name: "BST - BlockStamp",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.blockstamp;
+                setHdCoin(254);
             },
         },
         {
@@ -1863,6 +1903,13 @@
             },
         },
         {
+            name: "CRW - Crown (Legacy)",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.crown;
+                setHdCoin(72);
+            },
+        },
+        {
             name: "CRW - Crown",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.crown;
@@ -1926,6 +1973,13 @@
             },
         },
         {
+            name: "DXN - DEXON",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bitcoin;
+                setHdCoin(237);
+            },
+        },
+        {
             name: "ECN - Ecoin",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.ecoin;
@@ -1947,6 +2001,14 @@
             },
         },
         {
+            name: "ELLA - Ellaism",
+            segwitAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bitcoin;
+                setHdCoin(163);
+            },
+        },
+        {
             name: "EMC2 - Einsteinium",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.einsteinium;
@@ -1958,6 +2020,14 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.europecoin;
                 setHdCoin(151);
+            },
+        },
+        {
+            name: "ESN - Ethersocial Network",
+            segwitAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bitcoin;
+                setHdCoin(31102);
             },
         },
         {
@@ -2140,6 +2210,14 @@
             },
         },
         {
+            name: "LKR - Lkrcoin",
+            segwitAvailable: false,
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.lkrcoin;
+                setHdCoin(557);
+            },
+        },
+        {
             name: "LTC - Litecoin",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.litecoin;
@@ -2213,6 +2291,13 @@
             },
         },
         {
+            name: "NAS - Nebulas",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bitcoin;
+                setHdCoin(2718);
+            },
+        },
+        {
             name: "NEBL - Neblio",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.neblio;
@@ -2224,6 +2309,13 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.neoscoin;
                 setHdCoin(25);
+            },
+        },
+        {
+            name: "NIX - NIX Platform",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.nix;
+                setHdCoin(400);
             },
         },
         {
@@ -2450,6 +2542,13 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.slimcointn;
                 setHdCoin(111);
+            },
+        },
+        {
+            name: "SLP - Simple Ledger Protocol",
+            onSelect: function() {
+                DOM.bitcoinCashAddressTypeContainer.removeClass("hidden");
+                setHdCoin(245);
             },
         },
         {

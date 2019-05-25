@@ -3356,7 +3356,7 @@ var validate = validation.validate;
 
 /**
  * Encodes a hash from a given type into a Bitcoin Cash address with the given prefix.
- * 
+ *
  * @static
  * @param {string} prefix Network prefix. E.g.: 'bitcoincash'.
  * @param {string} type Type of address to generate. Either 'P2PKH' or 'P2SH'.
@@ -3378,7 +3378,7 @@ function encode(prefix, type, hash) {
 
 /**
  * Decodes the given address into its constituting prefix, type and hash. See [#encode()]{@link encode}.
- * 
+ *
  * @static
  * @param {string} address Address to decode. E.g.: 'bitcoincash:qpm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6a'.
  * @returns {object}
@@ -3416,14 +3416,14 @@ var ValidationError = validation.ValidationError;
  *
  * @private
  */
-var VALID_PREFIXES = ['bitcoincash', 'bchtest', 'bchreg'];
+var VALID_PREFIXES = ['bitcoincash', 'bchtest', 'bchreg', 'simpleledger', 'slptest'];
 
 /**
  * Checks whether a string is a valid prefix; ie., it has a single letter case
- * and is one of 'bitcoincash', 'bchtest', or 'bchreg'.
+ * and is one of 'bitcoincash', 'bchtest', or 'bchreg', 'simpleledger' or 'slptest'.
  *
  * @private
- * @param {string} prefix 
+ * @param {string} prefix
  * @returns {boolean}
  */
 function isValidPrefix(prefix) {
@@ -3435,7 +3435,7 @@ function isValidPrefix(prefix) {
  * of the address' checksum.
  *
  * @private
- * @param {string} prefix Network prefix. E.g.: 'bitcoincash'. 
+ * @param {string} prefix Network prefix. E.g.: 'bitcoincash'.
  * @returns {Uint8Array}
  */
 function prefixToUint5Array(prefix) {
@@ -3594,8 +3594,8 @@ function fromUint5Array(data) {
  * Returns the concatenation a and b.
  *
  * @private
- * @param {Uint8Array} a 
- * @param {Uint8Array} b 
+ * @param {Uint8Array} a
+ * @param {Uint8Array} b
  * @returns {Uint8Array}
  * @throws {ValidationError}
  */
@@ -3633,7 +3633,7 @@ function polymod(data) {
 /**
  * Verify that the payload has not been corrupted by checking that the
  * checksum is valid.
- * 
+ *
  * @private
  * @param {string} prefix Network prefix. E.g.: 'bitcoincash'.
  * @param {Uint8Array} payload Array of 5-bit integers containing the address' payload.
@@ -9012,6 +9012,21 @@ function toCashAddress (address) {
 }
 
 /**
+ * Translates the given address into SLP format.
+ * @static
+ * @param {string} address - A valid SLP address in any format.
+ * @return {string}
+ * @throws {InvalidAddressError}
+ */
+function toSlpAddress (address) {
+  var decoded = decodeAddress(address)
+  return encodeAsSlpaddr(decoded)
+}
+
+
+
+
+/**
  * Version byte table for base58 formats.
  * @private
  */
@@ -9125,7 +9140,7 @@ function decodeCashAddress (address) {
     } catch (error) {
     }
   } else {
-    var prefixes = ['bitcoincash', 'bchtest', 'regtest']
+    var prefixes = ['bitcoincash', 'bchtest', 'regtest', 'simpleledger', 'slptest']
     for (var i = 0; i < prefixes.length; ++i) {
       try {
         var prefix = prefixes[i]
@@ -9151,6 +9166,7 @@ function decodeCashAddressWithPrefix (address) {
     var type = decoded.type === 'P2PKH' ? Type.P2PKH : Type.P2SH
     switch (decoded.prefix) {
       case 'bitcoincash':
+      case 'simpleledger':
         return {
           hash: hash,
           format: Format.Cashaddr,
@@ -9158,6 +9174,7 @@ function decodeCashAddressWithPrefix (address) {
           type: type
         }
       case 'bchtest':
+      case 'slptest':
       case 'regtest':
         return {
           hash: hash,
@@ -9211,6 +9228,19 @@ function encodeAsCashaddr (decoded) {
   var hash = Uint8Array.from(decoded.hash)
   return cashaddr.encode(prefix, type, hash)
 }
+
+ /**
+  * Encodes the given decoded address into slp addr format.
+  * @private
+  * @param {object} decoded
+  * @returns {string}
+  */
+ function encodeAsSlpaddr (decoded) {
+   var prefix = decoded.network === Network.Mainnet ? 'simpleledger' : 'slptest'
+   var type = decoded.type === Type.P2PKH ? 'P2PKH' : 'P2SH'
+   var hash = Uint8Array.from(decoded.hash)
+   return cashaddr.encode(prefix, type, hash)
+ }
 
 /**
  * Returns a boolean indicating whether the address is in legacy format.
@@ -9313,6 +9343,7 @@ module.exports = {
   toLegacyAddress: toLegacyAddress,
   toBitpayAddress: toBitpayAddress,
   toCashAddress: toCashAddress,
+  toSlpAddress: toSlpAddress,
   isLegacyAddress: isLegacyAddress,
   isBitpayAddress: isBitpayAddress,
   isCashAddress: isCashAddress,

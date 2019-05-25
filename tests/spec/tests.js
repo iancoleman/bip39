@@ -474,8 +474,15 @@ it('Allows selection of clam', function(done) {
 });
 it('Allows selection of crown', function(done) {
     var params = {
+        selectText: "CRW - Crown (Legacy)",
+        firstAddress: "18pWSwSUAQdiwMHUfFZB1fM2xue9X1FqE5", 
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of crown', function(done) {
+    var params = {
         selectText: "CRW - Crown",
-        firstAddress: "18pWSwSUAQdiwMHUfFZB1fM2xue9X1FqE5",
+        firstAddress: "CRWKnVmVhvH1KWTYe6sq8xV4dFGcFpBEEkPQ",
     };
     testNetwork(done, params);
 });
@@ -521,6 +528,20 @@ it('Allows selection of onixcoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of lkrcoin', function(done) {
+    var params = {
+        selectText: "LKR - Lkrcoin",
+        firstAddress: "LfbT296e7AEEnn4bYDbL535Nd8P9g98CdJ",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of bolivarcoin', function(done) {
+    var params = {
+        selectText: "BOLI - Bolivarcoin",
+        firstAddress: "bbKzCAUR7hZ3nqfffy7VgrSz8LmAP3S5mK",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of peercoin', function(done) {
     var params = {
         selectText: "PPC - Peercoin",
@@ -557,6 +578,15 @@ it('Allows selection of bitcoin cash', function(done) {
     };
     testNetwork(done, params);
 });
+
+it('Allows selection of simpleledger(SLP)', function(done) {
+    var params = {
+        selectText: "SLP - Simple Ledger Protocol",
+        firstAddress: "simpleledger:qrtffz6ajfsn74gpur7y3epjquz42pvww5acewqmre",
+    };
+    testNetwork(done, params);
+});
+
 it('Allows selection of myriadcoin', function(done) {
     var params = {
         selectText: "XMY - Myriadcoin",
@@ -984,10 +1014,24 @@ it('Allows selection of Navcoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Nebulas', function(done) {
+    var params = {
+        selectText: "NAS - Nebulas",
+        firstAddress: "n1PbK61DGBfDoDusLw621G6sVSMfLLHdfnm",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Neoscoin', function(done) {
     var params = {
         selectText: "NEOS - Neoscoin",
         firstAddress: "NgATz6QbQNXvayHQ4CpZayugb9HeaPDdby",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Nix', function(done) {
+    var params = {
+        selectText: "NIX - NIX Platform",
+        firstAddress: "GgcNW2SQQXB4LWHRQTHKkQF3GzXNSLqS8u",
     };
     testNetwork(done, params);
 });
@@ -1358,7 +1402,7 @@ it('Allows selection of Phore', function(done) {
 it('Allows selection of Safecoin', function(done) {
      var params = {
          selectText: "SAFE - Safecoin",
-         firstAddress: "RmV56kPW7jeCmDA8sukHwbR7RZSbg9NFNF",
+         firstAddress: "RtxHpnhJz6RY8k9owP3ua5QWraunmewB1G",
      };
      testNetwork(done, params);
  });
@@ -1380,6 +1424,34 @@ it('Allows selection of LitecoinZ', function(done) {
     var params = {
         selectText: "LTZ - LitecoinZ",
         firstAddress: "L1VTXju7hLgKV4T7fGXS9sKsnm2gmtRCmyw",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of BlockStamp', function(done) {
+    var params = {
+        selectText: "BST - BlockStamp",
+        firstAddress: "15gypKtim4cVTj137ApfryG17RkvSbPazZ",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of DEXON', function(done) {
+    var params = {
+        selectText: "DXN - DEXON",
+        firstAddress: "0x136a58788033E028CCd740FbDec6734358DB56Ec",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Ellaism', function(done) {
+    var params = {
+        selectText: "ELLA - Ellaism",
+        firstAddress: "0xa8B0BeA09eeBc41062308546a01d6E544277e2Ca",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Ethersocial Network', function(done) {
+    var params = {
+        selectText: "ESN - Ethersocial Network",
+        firstAddress: "0x6EE99Be2A0C7F887a71e21C8608ACF0aa0D2b767",
     };
     testNetwork(done, params);
 });
