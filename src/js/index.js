@@ -2596,7 +2596,7 @@
             name: "XLM - Stellar",
             onSelect: function() {
                 segwitAvailable: false,
-                network = null;
+                network =bitcoinjs.bitcoin.networks.bitcoin;
                 setHdCoin(148);
             },
         },
