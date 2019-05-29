@@ -2369,6 +2369,13 @@
             },
         },
         {
+            name: "ONION - DeepOnion",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.deeponion;
+                setHdCoin(305);
+            },
+        },
+        {
             name: "ONX - Onixcoin",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.onixcoin;

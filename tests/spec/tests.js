@@ -1077,6 +1077,13 @@ it('Allows selection of Omnicore', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of DeepOnion', function(done) {
+    var params = {
+        selectText: "ONION - DeepOnion",
+        firstAddress: "DVioZ2Rjc9krDf5bbHuixznSDumzvGpzVw",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Pesobit', function(done) {
     var params = {
         selectText: "PSB - Pesobit",
