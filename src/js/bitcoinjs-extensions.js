@@ -1538,3 +1538,14 @@ bitcoinjs.bitcoin.networks.blockstamp = {
   scriptHash: 0x05,
   wif:  0x80,
 };
+
+bitcoinjs.bitcoin.networks.deeponion = {
+    messagePrefix: 'x18DeepOnion Signed Message:\n',
+    bip32: {
+      public: 0x0488B21E,
+      private: 0x0488ADE4,
+    },
+    pubKeyHash: 0x1F,
+    scriptHash: 0x4E,
+    wif: 0x9F,
+};
