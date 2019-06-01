@@ -984,6 +984,11 @@
                 if ((networks[DOM.network.val()].name == "CRW - Crown")) {
                     address = bitcoinjs.bitcoin.networks.crown.toNewAddress(address);
                 }
+                if (networks[DOM.network.val()].name == "EOS - EOSIO") {
+                    address = ""
+                    pubkey = eosUtil.bufferToPublic(keyPair.getPublicKeyBuffer());
+                    privkey = eosUtil.bufferToPrivate(keyPair.d.toBuffer(32));
+                }
                 
                 addAddressToList(indexText, address, pubkey, privkey);
                 if (isLast) {
@@ -2007,6 +2012,13 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.europecoin;
                 setHdCoin(151);
+            },
+        },
+        {
+            name: "EOS - EOSIO",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bitcoin;
+                setHdCoin(194);
             },
         },
         {
