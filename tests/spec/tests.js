@@ -408,6 +408,13 @@ it('Allows selection of litecoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of litecoin testnet', function(done) {
+    var params = {
+        selectText: "LTCt - Litecoin Testnet",
+        firstAddress: "mucaU5iiDaJDb69BHLeDv8JFfGiyg2nJKi",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of ripple', function(done) {
     var params = {
         selectText: "XRP - Ripple",
@@ -420,6 +427,13 @@ it('Allows selection of dogecoin', function(done) {
     var params = {
         selectText: "DOGE - Dogecoin",
         firstAddress: "DPQH2AtuzkVSG6ovjKk4jbUmZ6iXLpgbJA",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of dogecoin testnet', function(done) {
+    var params = {
+        selectText: "DOGEt - Dogecoin testnet",
+        firstAddress: "niHnSJKHdwDyDxRMLBJrtNqpvHEsAFWe6B",
     };
     testNetwork(done, params);
 });
@@ -475,7 +489,7 @@ it('Allows selection of clam', function(done) {
 it('Allows selection of crown', function(done) {
     var params = {
         selectText: "CRW - Crown (Legacy)",
-        firstAddress: "18pWSwSUAQdiwMHUfFZB1fM2xue9X1FqE5", 
+        firstAddress: "18pWSwSUAQdiwMHUfFZB1fM2xue9X1FqE5",
     };
     testNetwork(done, params);
 });
@@ -1459,6 +1473,13 @@ it('Allows selection of Ethersocial Network', function(done) {
     var params = {
         selectText: "ESN - Ethersocial Network",
         firstAddress: "0x6EE99Be2A0C7F887a71e21C8608ACF0aa0D2b767",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Monkey Project', function(done) {
+    var params = {
+        selectText: "MONK -	Monkey Project",
+        firstAddress: "MnLrcnnUzKnf7TzufjRe5DLZqQJz18oYyu",
     };
     testNetwork(done, params);
 });
