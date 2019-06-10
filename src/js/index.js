@@ -980,11 +980,12 @@
                         address = bitcoinjs.bitcoin.address.fromOutputScript(scriptpubkey, network)
                     }
                 }
-                
+
                 if ((networks[DOM.network.val()].name == "CRW - Crown")) {
                     address = bitcoinjs.bitcoin.networks.crown.toNewAddress(address);
                 }
-                if (networks[DOM.network.val()].name == "EOS - EOSIO") {
+
+              if (networks[DOM.network.val()].name == "EOS - EOSIO") {
                     address = ""
                     pubkey = eosUtil.bufferToPublic(keyPair.getPublicKeyBuffer());
                     privkey = eosUtil.bufferToPrivate(keyPair.d.toBuffer(32));
@@ -1965,6 +1966,13 @@
             },
         },
         {
+            name: "DOGEt - Dogecoin Testnet",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.dogecointestnet;
+                setHdCoin(1);
+            },
+        },
+        {
             name: "DXN - DEXON",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bitcoin;
@@ -2221,6 +2229,14 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.litecoin;
                 setHdCoin(2);
+                DOM.litecoinLtubContainer.removeClass("hidden");
+            },
+        },
+        {
+            name: "LTCt - Litecoin Testnet",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.litecointestnet;
+                setHdCoin(1);
                 DOM.litecoinLtubContainer.removeClass("hidden");
             },
         },
@@ -2768,6 +2784,13 @@
                 setHdCoin(121);
             },
         },
+        {
+            name: "MONK - Monkey Project",
+`           onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.monkey;
+                setHdCoin(214);
+            },
+        }
     ]
 
     var clients = [
