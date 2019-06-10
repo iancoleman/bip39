@@ -73,16 +73,23 @@ else if (browser == "chrome") {
 
 // Helper functions
 
-function testNetwork(done, params) {
+function testNetwork(done, params, comparePub = false) {
     var phrase = params.phrase || 'abandon abandon ability';
     driver.findElement(By.css('.phrase'))
         .sendKeys(phrase);
     selectNetwork(params.selectText);
     driver.sleep(generateDelay).then(function() {
-        getFirstAddress(function(address) {
-            expect(address).toBe(params.firstAddress);
-            done();
-        });
+        if (!comparePub) {
+            getFirstAddress(function(address) {
+                expect(address).toBe(params.firstAddress);
+                done();
+            });
+        } else {
+            getFirstPublicKey(function(pubkey) {
+                expect(pubkey).toBe(params.firstPubKey);
+                done();
+            });
+        }
     });
 }
 
@@ -96,6 +103,10 @@ function getFirstRowValue(handler, selector) {
 
 function getFirstAddress(handler) {
     getFirstRowValue(handler, ".address");
+}
+
+function getFirstPublicKey(handler) {
+    getFirstRowValue(handler, ".pubkey");
 }
 
 function getFirstPath(handler) {
@@ -866,6 +877,13 @@ it('Allows selection of Einsteinium', function(done) {
         firstAddress: "EVAABm9hXKHk2MpVMbwNakRubFnNha5m8m",
     };
     testNetwork(done, params);
+});
+it('Allows selection of EOSIO', function(done) {
+    var params = {
+        selectText: "EOS - EOSIO",
+        firstPubKey: "EOS692VJTBK3Rmw93onNnpnZ8ZtmE9PdxjDStArvbyzoe11QUTNoy",
+    };
+    testNetowrk(done, params, true);
 });
 it('Allows selection of Europecoin', function(done) {
     var params = {
