@@ -1478,7 +1478,7 @@ it('Allows selection of Ethersocial Network', function(done) {
 });
 it('Allows selection of Monkey Project', function(done) {
     var params = {
-        selectText: "MONK -	Monkey Project",
+        selectText: "MONK - Monkey Project",
         firstAddress: "MnLrcnnUzKnf7TzufjRe5DLZqQJz18oYyu",
     };
     testNetwork(done, params);
