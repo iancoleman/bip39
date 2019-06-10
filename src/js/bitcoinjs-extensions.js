@@ -47,14 +47,14 @@ bitcoinjs.bitcoin.networks.crown = {
 
     var addrBytes = b58.decode(oldAddress);
 
-    var hash160 = new Uint16Array(23); 
+    var hash160 = new Uint16Array(23);
     hash160[0]= 0x01; //C
     hash160[1]= 0x75; //R
     hash160[2]= 0x07; //W
     addrBytes.copy(hash160, 3, 1, 21);
 
     var checksum = bitcoinjs.bitcoin.crypto.hash256(hash160).subarray(0, 4);
-    var binaryAddr = new Uint16Array(27); 
+    var binaryAddr = new Uint16Array(27);
     binaryAddr.set(hash160,0);
     checksum.copy(binaryAddr, 23, 0, 4);
     var newAddress = b58.encode(binaryAddr);
@@ -170,6 +170,17 @@ bitcoinjs.bitcoin.networks.dogecoin = {
   pubKeyHash: 0x1e,
   scriptHash: 0x16,
   wif: 0x9e
+};
+
+bitcoinjs.bitcoin.networks.dogecointestnet = {
+  messagePrefix: '\x19Dogecoin Signed Message:\n',
+  bip32: {
+    public: 0x043587cf,
+    private: 0x04358394
+  },
+  pubKeyHash: 0x71,
+  scriptHash: 0xc4,
+  wif: 0xf1
 };
 
 bitcoinjs.bitcoin.networks.denarius = {
@@ -878,6 +889,17 @@ bitcoinjs.bitcoin.networks.linx = {
   wif: 0xcb,
 };
 
+
+bitcoinjs.bitcoin.networks.litecointestnet = {
+  messagePrefix: '\x18Litecoin Signed Message:\n',
+  bip32: {
+    public: 0x043587cf,
+    private: 0x04358394,
+  },
+  pubKeyHash: 0x6f,
+  scriptHash: 0xc4,
+  wif: 0xef,
+};
 bitcoinjs.bitcoin.networks.litecoincash = {
   messagePrefix: '\x18Litecoin Signed Message:\n',
   bip32: {
@@ -1548,4 +1570,15 @@ bitcoinjs.bitcoin.networks.deeponion = {
     pubKeyHash: 0x1F,
     scriptHash: 0x4E,
     wif: 0x9F,
+};
+
+bitcoinjs.bitcoin.networks.monkey = {
+    messagePrefix: 'x18DarkNet Signed Message:\n',
+    bip32: {
+      public: 0x0488B21E,
+      private: 0x0488ADE4,
+    },
+    pubKeyHash: 0x7F,
+    scriptHash: 0xC4,
+    wif: 0x3F,
 };
