@@ -1112,7 +1112,7 @@ it('Allows selection of Omnicore', function(done) {
 it('Allows selection of DeepOnion', function(done) {
     var params = {
         selectText: "ONION - DeepOnion",
-        firstAddress: "DVioZ2Rjc9krDf5bbHuixznSDumzvGpzVw",
+        firstAddress: "DYREY7XCFXVqJ3x5UuN43k2JwD2s1kif48",
     };
     testNetwork(done, params);
 });
