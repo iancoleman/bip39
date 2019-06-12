@@ -2694,7 +2694,7 @@
         {
             name: "XLM - Stellar",
             onSelect: function() {
-                network = '';  // doesn't apply, using stellar-lib
+                network = stellarUtil.dummyNetwork;
                 setHdCoin(148);
             },
         },
