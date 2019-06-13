@@ -443,7 +443,7 @@ it('Allows selection of dogecoin', function(done) {
 });
 it('Allows selection of dogecoin testnet', function(done) {
     var params = {
-        selectText: "DOGEt - Dogecoin testnet",
+        selectText: "DOGEt - Dogecoin Testnet",
         firstAddress: "niHnSJKHdwDyDxRMLBJrtNqpvHEsAFWe6B",
     };
     testNetwork(done, params);
