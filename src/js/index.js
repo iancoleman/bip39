@@ -2786,7 +2786,7 @@
         },
         {
             name: "MONK - Monkey Project",
-`           onSelect: function() {
+            onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.monkey;
                 setHdCoin(214);
             },
