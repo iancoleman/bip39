@@ -897,7 +897,7 @@ it('Allows selection of EOSIO', function(done) {
         selectText: "EOS - EOSIO",
         firstPubKey: "EOS692VJTBK3Rmw93onNnpnZ8ZtmE9PdxjDStArvbyzoe11QUTNoy",
     };
-    testNetowrk(done, params, true);
+    testNetwork(done, params, true);
 });
 it('Allows selection of Europecoin', function(done) {
     var params = {
