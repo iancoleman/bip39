@@ -640,6 +640,20 @@ it('Allows selection of maza', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of FIX', function(done) {
+    var params = {
+        selectText: "FIX - FIX",
+        firstAddress: "FS5MEU8fs5dUvsaSCSusV8RQtC8j2h3JEh",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of FIX testnet', function(done) {
+    var params = {
+        selectText: "FIX - FIX Testnet",
+        firstAddress: "XpnU1HHdNG5YxvG9Rez4wjmidchxqnZaNa",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of fujicoin', function(done) {
     var params = {
         selectText: "FJC - Fujicoin",

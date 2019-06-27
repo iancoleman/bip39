@@ -2075,6 +2075,20 @@
             },
         },
         {
+            name: "FIX - FIX",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.fix;
+                setHdCoin(336);
+            },
+        },
+        {
+            name: "FIX - FIX Testnet",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.fixtestnet;
+                setHdCoin(1);
+            },
+        },
+        {
             name: "FJC - Fujicoin",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.fujicoin;
