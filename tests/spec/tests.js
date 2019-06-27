@@ -1242,6 +1242,20 @@ it('Allows selection of Toa', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of TWINS', function(done) {
+    var params = {
+        selectText: "TWINS - TWINS",
+        firstAddress: "WPpJnfLLubNmF7HLNxg8d8zH5haxn4wri8",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of TWINS testnet', function(done) {
+    var params = {
+        selectText: "TWINS - TWINS Testnet",
+        firstAddress: "XpnU1HHdNG5YxvG9Rez4wjmidchxqnZaNa",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Ultimatesecurecash', function(done) {
     var params = {
         selectText: "USC - Ultimatesecurecash",
