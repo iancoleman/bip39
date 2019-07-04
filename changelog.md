@@ -1,3 +1,15 @@
+# 0.3.12
+
+* Fix typos
+* Fix DigiByte signing message
+* Add DeepOnion network
+* Add EOS network
+* Add LTC testnetwork
+* Add DOGE testnetwork
+* Add Stellar network
+* Add TWINS network
+* Add FIX network
+
 # 0.3.11
 
 * Add NIX network
