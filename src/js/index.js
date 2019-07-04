@@ -931,6 +931,19 @@
                     privkey = ethUtil.addHexPrefix(privkey);
                     pubkey = ethUtil.addHexPrefix(pubkey);
                 }
+
+                // Stellar is different
+                if (networks[DOM.network.val()].name == "XLM - Stellar") {
+                    var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
+                    var coin = parseIntNoNaN(DOM.bip44coin.val(), 0);
+                    var path = "m/";
+                        path += purpose + "'/";
+                        path += coin + "'/" + index + "'";
+                    var keypair = stellarUtil.getKeypair(path, seed);
+                    indexText = path;
+                    privkey = keypair.secret();
+                    pubkey = address = keypair.publicKey();
+                }
                 if ((networks[DOM.network.val()].name == "NAS - Nebulas")) {
                     var NasAccount = require("nebulas-account");
                     var privKeyBuffer = keyPair.d.toBuffer(32);
@@ -2711,6 +2724,13 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bitcoinplus;
                 setHdCoin(65);
+            },
+        },
+        {
+            name: "XLM - Stellar",
+            onSelect: function() {
+                network = stellarUtil.dummyNetwork;
+                setHdCoin(148);
             },
         },
         {

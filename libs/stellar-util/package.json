@@ -1,0 +1,15 @@
+{
+  "name": "stellar-util",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "browserify stellar-util.js > ../../src/js/stellar-util.js"
+  },
+  "dependencies": {
+    "ed25519-hd-key": "^1.0.0",
+    "stellar-base": "^0.10.0"
+  },
+  "devDependencies": {
+    "browserify": "^16.2.3",
+    "uglify-es": "^3.3.9"
+  }
+}
