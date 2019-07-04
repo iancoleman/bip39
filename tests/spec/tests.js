@@ -1529,6 +1529,13 @@ it('Allows selection of Monkey Project', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Stellar', function(done) {
+    var params = {
+        selectText: "XLM - Stellar",
+        firstAddress: "GCUK3NYYUXA2QGN6KU5RR36WAKN3Y5EANZV65XNAWN4XM4CHQ3G4DMO2",
+    };
+    testNetwork(done, params);
+});
 
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {
