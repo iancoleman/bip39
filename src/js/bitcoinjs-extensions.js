@@ -1615,14 +1615,3 @@ bitcoinjs.bitcoin.networks.deeponion = {
     scriptHash: 0x4E,
     wif: 0x9F,
 };
-
-bitcoinjs.bitcoin.networks.monkey = {
-    messagePrefix: 'x18DarkNet Signed Message:\n',
-    bip32: {
-      public: 0x0488B21E,
-      private: 0x0488ADE4,
-    },
-    pubKeyHash: 0x7F,
-    scriptHash: 0xC4,
-    wif: 0x3F,
-};
