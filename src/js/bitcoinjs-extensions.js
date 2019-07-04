@@ -327,6 +327,28 @@ bitcoinjs.bitcoin.networks.pivxtestnet = {
   wif: 0xef
 };
 
+bitcoinjs.bitcoin.networks.fix = {
+  messagePrefix: 'unused',
+  bip32: {
+    public: 0x022d2533,
+    private: 0x0221312b
+  },
+  pubKeyHash: 0x23,
+  scriptHash: 0x5F,
+  wif: 0x3C
+};
+
+bitcoinjs.bitcoin.networks.fixtestnet = {
+  messagePrefix: 'unused',
+  bip32: {
+    public: 0x3a8061a0,
+    private: 0x3a805837
+  },
+  pubKeyHash: 0x4c,
+  scriptHash: 0x89,
+  wif: 0xED
+};
+
 bitcoinjs.bitcoin.networks.fujicoin = {
   messagePrefix: '\x19FujiCoin Signed Message:\n',
   bip32: {
@@ -1251,6 +1273,28 @@ bitcoinjs.bitcoin.networks.toa = {
   pubKeyHash: 0x41,
   scriptHash: 0x17,
   wif: 0xc1,
+};
+
+bitcoinjs.bitcoin.networks.twins = {
+  messagePrefix: 'unused',
+  bip32: {
+    public: 0x022d2533,
+    private: 0x0221312b
+  },
+  pubKeyHash: 0x49,
+  scriptHash: 0x53,
+  wif: 0x42
+};
+
+bitcoinjs.bitcoin.networks.twinstestnet = {
+  messagePrefix: 'unused',
+  bip32: {
+    public: 0x3a8061a0,
+    private: 0x3a805837
+  },
+  pubKeyHash: 0x4c,
+  scriptHash: 0x89,
+  wif: 0xED
 };
 
 bitcoinjs.bitcoin.networks.ultimatesecurecash = {

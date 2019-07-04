@@ -1003,7 +1003,7 @@
                     pubkey = eosUtil.bufferToPublic(keyPair.getPublicKeyBuffer());
                     privkey = eosUtil.bufferToPrivate(keyPair.d.toBuffer(32));
                 }
-                
+
                 addAddressToList(indexText, address, pubkey, privkey);
                 if (isLast) {
                     hidePending();
@@ -2088,6 +2088,20 @@
             },
         },
         {
+            name: "FIX - FIX",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.fix;
+                setHdCoin(336);
+            },
+        },
+        {
+            name: "FIX - FIX Testnet",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.fixtestnet;
+                setHdCoin(1);
+            },
+        },
+        {
             name: "FJC - Fujicoin",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.fujicoin;
@@ -2647,6 +2661,20 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.toa;
                 setHdCoin(159);
+            },
+        },
+        {
+            name: "TWINS - TWINS",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.twins;
+                setHdCoin(970);
+            },
+        },
+        {
+            name: "TWINS - TWINS Testnet",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.twinstestnet;
+                setHdCoin(1);
             },
         },
         {
