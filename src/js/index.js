@@ -921,6 +921,7 @@
                     || (networks[DOM.network.val()].name == "DXN - DEXON")
                     || (networks[DOM.network.val()].name == "ELLA - Ellaism")
                     || (networks[DOM.network.val()].name == "ESN - Ethersocial Network")
+                    || (networks[DOM.network.val()].name == "VET - VeChain")
                 ) {
                     var privKeyBuffer = keyPair.d.toBuffer(32);
                     privkey = privKeyBuffer.toString('hex');
@@ -2703,6 +2704,13 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.vpncoin;
                 setHdCoin(33);
+            },
+        },
+        {
+            name: "VET - VeChain",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bitcoin;
+                setHdCoin(818);
             },
         },
         {
