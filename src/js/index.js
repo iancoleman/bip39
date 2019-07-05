@@ -2734,6 +2734,13 @@
             },
         },
         {
+            name: "WGR - Wagerr",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.wagerr;
+                setHdCoin(7825266);
+            },
+        },
+        {
             name: "WC - Wincoin",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.wincoin;
