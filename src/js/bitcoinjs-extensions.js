@@ -1615,3 +1615,14 @@ bitcoinjs.bitcoin.networks.deeponion = {
     scriptHash: 0x4E,
     wif: 0x9F,
 };
+
+bitcoinjs.bitcoin.networks.cpuchain = {
+    messagePrefix: 'x18CPUchain Signed Message:\n',
+    bip32: {
+      public: 0x0488B21E,
+      private: 0x0488ADE4,
+    },
+    pubKeyHash: 0x1C,
+    scriptHash: 0x1E,
+    wif: 0x80,
+};

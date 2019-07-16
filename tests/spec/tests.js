@@ -829,6 +829,13 @@ it('Allows selection of Compcoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of CPUchain', function(done) {
+    var params = {
+        selectText: "CPU - CPUchain",
+        firstAddress: "CWWkTPkNRdpTDSfPw7gxUt9cEaC5PSsP3Y",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Crave', function(done) {
     var params = {
         selectText: "CRAVE - Crave",
