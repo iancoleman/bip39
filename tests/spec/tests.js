@@ -1319,6 +1319,13 @@ it('Allows selection of Vpncoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of VeChain', function(done) {
+    var params = {
+        selectText: "VET - VeChain",
+        firstAddress: "0xdba55B1B6070f3a733D5eDFf35F0da4A00E455F2",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Whitecoin', function(done) {
     var params = {
         selectText: "XWC - Whitecoin",
