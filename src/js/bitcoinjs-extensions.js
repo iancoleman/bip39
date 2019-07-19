@@ -792,6 +792,17 @@ bitcoinjs.bitcoin.networks.kobocoin = {
   wif: 0xa3,
 };
 
+bitcoinjs.bitcoin.networks.lanacoin = {
+  messagePrefix: '\x19Lanacoin Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4
+  },
+  pubKeyHash: 0x30,
+  scriptHash: 0x05,
+  wif: 0xb0,
+};
+
 bitcoinjs.bitcoin.networks.landcoin = {
   messagePrefix: '\x18Landcoin Signed Message:\n',
   bip32: {
@@ -874,6 +885,17 @@ bitcoinjs.bitcoin.networks.neoscoin = {
   bip32: {
     public: 0x0488B21E,
     private: 0x0488ADE4,
+  },
+  pubKeyHash: 0x35,
+  scriptHash: 0x05,
+  wif: 0xb1,
+};
+
+bitcoinjs.bitcoin.networks.nevacoin = {
+  messagePrefix: '\x19Nevacoin Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4
   },
   pubKeyHash: 0x35,
   scriptHash: 0x05,
@@ -1351,5 +1373,27 @@ bitcoinjs.bitcoin.networks.artax = {
   },
   pubKeyHash: 0x17,
   scriptHash: 0x1CBD,
+  wif: 0x97,
+};
+
+bitcoinjs.bitcoin.networks.tajcoin = {
+  messagePrefix: '\x19Tajcoin Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4
+  },
+  pubKeyHash: 0x41,
+  scriptHash: 0x05,
+  wif: 0x6f,
+};
+
+bitcoinjs.bitcoin.networks.aquariuscoin = {
+  messagePrefix: '\x19Aquariuscoin Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4
+  },
+  pubKeyHash: 0x17,
+  scriptHash: 0x05,
   wif: 0x97,
 };

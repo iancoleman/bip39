@@ -648,6 +648,13 @@ it('Allows selection of Adcoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Aquariuscoin', function(done) {
+    var params = {
+        selectText: "ARCO - Aquariuscoin",
+        firstAddress: "Aaj27ZnRJ6ZifSPJvV6r4JTP4k6dDsZiSe",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Asiacoin', function(done) {
     var params = {
         selectText: "AC - Asiacoin",
@@ -921,6 +928,13 @@ it('Allows selection of Kobocoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Lanacoin', function(done) {
+    var params = {
+        selectText: "LANA - Lanacoin",
+        firstAddress: "LYze7zRfVFYUyWL7BuCprahPFra6iH5cNX",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Landcoin', function(done) {
     var params = {
         selectText: "LDCN - Landcoin",
@@ -988,6 +1002,13 @@ it('Allows selection of Newyorkc', function(done) {
     var params = {
         selectText: "NYC - Newyorkc",
         firstAddress: "RSVMfyH1fKfy3puADJEhut2vfkRyon6imm",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Nevacoin', function(done) {
+    var params = {
+        selectText: "NEVA - Nevacoin",
+        firstAddress: "NR56k892uYvrojoS22L7mkudkUcdK5vyzH",
     };
     testNetwork(done, params);
 });
@@ -1129,6 +1150,15 @@ it('Allows selection of Syscoin', function(done) {
     };
     testNetwork(done, params);
 });
+
+it('Allows selection of Tajcoin', function(done) {
+    var params = {
+        selectText: "TAJ - Tajcoin",
+        firstAddress: "THcudUtR18s1VZXJR8zMSwn7AMkCYoJGC7",
+    };
+    testNetwork(done, params);
+});
+
 it('Allows selection of Toa', function(done) {
     var params = {
         selectText: "TOA - Toa",

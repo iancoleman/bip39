@@ -1,6 +1,10 @@
+# 0.3.8t
+
+* Add Nevacoin, Lanacoin, Tajcoin, Aquariuscoin
+
 # 0.3.8s
 
-* Add Stash network 
+* Add Stash network
 
 # 0.3.8
 

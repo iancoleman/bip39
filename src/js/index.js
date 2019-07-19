@@ -1647,6 +1647,13 @@
             },
         },
         {
+            name: "ARCO - Aquariuscoin",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.aquariuscoin;
+                setHdCoin(229);
+            },
+        },
+        {
             name: "AUR - Auroracoin",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.auroracoin;
@@ -2065,6 +2072,13 @@
             },
         },
         {
+            name: "LANA - Lanacoin",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.lanacoin;
+                setHdCoin(227);
+            },
+        },
+        {
             name: "LBC - Library Credits",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.lbry;
@@ -2163,6 +2177,13 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.neoscoin;
                 setHdCoin(25);
+            },
+        },
+        {
+            name: "NEVA - Nevacoin",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.nevacoin;
+                setHdCoin(226);
             },
         },
         {
@@ -2410,6 +2431,13 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.syscoin;
                 setHdCoin(57);
+            },
+        },
+        {
+            name: "TAJ - Tajcoin",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.tajcoin;
+                setHdCoin(228);
             },
         },
         {
