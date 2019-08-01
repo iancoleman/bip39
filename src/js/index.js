@@ -959,6 +959,11 @@
                     privkey = convertRipplePriv(privkey);
                     address = convertRippleAdrr(address);
                 }
+                // CasinoCoin values are different
+                if (networks[DOM.network.val()].name == "CSC - CasinoCoin") {
+                    privkey = convertCasinoCoinPriv(privkey);
+                    address = convertCasinoCoinAdrr(address);
+                }
                 // Bitcoin Cash address format may vary
                 if (networks[DOM.network.val()].name == "BCH - Bitcoin Cash") {
                     var bchAddrType = DOM.bitcoinCashAddressType.filter(":checked").val();
@@ -1928,6 +1933,13 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.crown;
                 setHdCoin(72);
+            },
+        },
+        {
+            name: "CSC - CasinoCoin",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bitcoin;
+                setHdCoin(359);
             },
         },
         {

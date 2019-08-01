@@ -434,6 +434,14 @@ it('Allows selection of ripple', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of casinocoin', function(done) {
+    var params = {
+        selectText: "CSC - CasinoCoin",
+        firstAddress: "c3P5EUb27Pzk9dcGt4s7zQDQj4sC6Y81mT",
+        phrase: "ill clump only blind unit burden thing track silver cloth review awake useful craft whale all satisfy else trophy sunset walk vanish hope valve",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of dogecoin', function(done) {
     var params = {
         selectText: "DOGE - Dogecoin",
