@@ -1616,6 +1616,18 @@ bitcoinjs.bitcoin.networks.deeponion = {
     wif: 0x9F,
 };
 
+
+bitcoinjs.bitcoin.networks.cpuchain = {
+    messagePrefix: 'x18CPUchain Signed Message:\n',
+    bip32: {
+      public: 0x0488B21E,
+      private: 0x0488ADE4,
+    },
+    pubKeyHash: 0x1C,
+    scriptHash: 0x1E,
+    wif: 0x80,
+};
+
 bitcoinjs.bitcoin.networks.wagerr = {
   messagePrefix: 'unused',
   bip32: {

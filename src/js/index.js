@@ -1903,6 +1903,13 @@
             },
         },
         {
+            name: "CPU - CPUchain",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.cpuchain;
+                setHdCoin(363);
+            },
+        },
+        {
             name: "CRAVE - Crave",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.crave;

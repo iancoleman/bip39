@@ -236,4 +236,30 @@ bitcoinjs.bitcoin.networks.nix.p2wpkhInP2sh = {
       scriptHash: 0x35,
       wif: 0x80,
 };
+
+bitcoinjs.bitcoin.networks.cpuchain.p2wpkh = {
+    baseNetwork: "cpuchain",
+    messagePrefix: '\x1DCPUchain Signed Message:\n',
+    bech32: 'cpu',
+    bip32: {
+        public: 0x04b24746,
+        private: 0x04b2430c
+    },
+    pubKeyHash: 0x1c,
+    scriptHash: 0x1e,
+    wif: 0x80,
+};
+
+bitcoinjs.bitcoin.networks.cpuchain.p2wpkhInP2sh = {
+    baseNetwork: "cpuchain",
+    messagePrefix: '\x1DCPUchain Signed Message:\n',
+    bech32: 'cpu',
+    bip32: {
+        public: 0x049d7cb2,
+        private: 0x049d7878
+    },
+    pubKeyHash: 0x1c,
+    scriptHash: 0x1e,
+    wif: 0x80,
+};
 })();
