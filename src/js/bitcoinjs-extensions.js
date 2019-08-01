@@ -1615,3 +1615,14 @@ bitcoinjs.bitcoin.networks.deeponion = {
     scriptHash: 0x4E,
     wif: 0x9F,
 };
+
+bitcoinjs.bitcoin.networks.wagerr = {
+  messagePrefix: 'unused',
+  bip32: {
+    public: 0x022d2533,
+    private: 0x0221312b
+  },
+  pubKeyHash: 0x49,
+  scriptHash: 0x3f,
+  wif: 0xc7
+};
