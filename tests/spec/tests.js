@@ -1543,6 +1543,13 @@ it('Allows selection of Stellar', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Wagerr', function(done) {
+    var params = {
+        selectText: "WGR - Wagerr",
+        firstAddress: "WYiVgQU39VcQxcnacoCiaZHZZLjDCJoS95",
+    };
+    testNetwork(done, params);
+});
 
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {
