@@ -40,12 +40,10 @@ function getNemAddress(publicKey){
 	return address;
 }
 
-const nemUtil = {
-    dummyNetwork: {
-        bip32: {public: 0, private: 0},
-        messagePrefix: '',
-        pubKeyHash: 0,
-        scriptHash: 0,
-        wif: 0,
-    },
-}
+const nemNetworkDummyInfo = {
+	bip32: {public: 0, private: 0},
+	messagePrefix: '',
+	pubKeyHash: 0,
+	scriptHash: 0,
+	wif: 0,
+};

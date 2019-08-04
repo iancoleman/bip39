@@ -31114,15 +31114,15 @@ module.exports = {
 
 }).call(this,require("buffer").Buffer)
 
-window.smartCashNetwork = {
-      messagePrefix: '\x18SmartCash Signed Message:\n',
-      bip32: {
-        public: 0x0488B21E,
-        private: 0x0488ADE4,
-      },
-      pubKeyHash: 0x3f,
-      scriptHash: 0x12,
-      wif: 0xbf,
-};
-
 },{"bs58smartcheck":"bs58smartcheck","buffer":4}]},{},[]);
+
+const smartCashNetworkInfo = {
+		messagePrefix: '\x18SmartCash Signed Message:\n',
+		bip32: {
+			public: 0x0488B21E,
+			private: 0x0488ADE4,
+		},
+		pubKeyHash: 0x3f,
+		scriptHash: 0x12,
+		wif: 0xbf,
+};

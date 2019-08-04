@@ -2666,16 +2666,7 @@
 		{
             name: "SMART - SmartCash",
             onSelect: function() {
-                network = {
-					  messagePrefix: '\x18SmartCash Signed Message:\n',
-					  bip32: {
-						public: 0x0488B21E,
-						private: 0x0488ADE4,
-					  },
-					  pubKeyHash: 0x3f,
-					  scriptHash: 0x12,
-					  wif: 0xbf,
-				};
+                network = smartCashNetworkInfo;
                 setHdCoin(224);
             },
         },
@@ -2843,7 +2834,7 @@
 		{
 			name: "XEM - NEM",
             onSelect: function() {
-                network = nemUtil.dummyNetwork;
+                network = nemNetworkDummyInfo;
                 setHdCoin(43);
             },
         },
