@@ -1,7 +1,5 @@
-const angular = require("angular");
-
 const bip39 = require("bip39");
-const HDNode = require("nem-hdnode");
+const _HDNode = require("nem-hdnode");
 const nem = require("nem-sdk").default;
 
 function getNemSeed(mnemonic, passphrase){
@@ -11,7 +9,7 @@ function getNemSeed(mnemonic, passphrase){
 }
 
 function getNemRoot(seed){
-	const root = HDNode.fromSeedBuffer(seed);
+	const root = _HDNode.fromSeedBuffer(seed);
 	
 	return root;
 }
@@ -42,7 +40,7 @@ function getNemAddress(publicKey){
 	return address;
 }
 
-window.nemUtil = {
+const nemUtil = {
     dummyNetwork: {
         bip32: {public: 0, private: 0},
         messagePrefix: '',
