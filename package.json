@@ -6,10 +6,11 @@
     "test": "tests"
   },
   "dependencies": {
-    "bip39": "^2.6.0",
     "bigi": "^1.4.2",
+    "bip39": "^2.6.0",
     "create-hmac": "^1.1.7",
-    "nem-sdk": "^1.6.7"
+    "nem-sdk": "^1.6.7",
+    "smartcashjs-lib": "^3.3.6"
   },
   "devDependencies": {},
   "scripts": {
