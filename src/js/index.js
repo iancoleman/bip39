@@ -1004,10 +1004,22 @@
                     address = bitcoinjs.bitcoin.networks.crown.toNewAddress(address);
                 }
 
-              if (networks[DOM.network.val()].name == "EOS - EOSIO") {
+				if (networks[DOM.network.val()].name == "EOS - EOSIO") {
                     address = ""
                     pubkey = eosUtil.bufferToPublic(keyPair.getPublicKeyBuffer());
                     privkey = eosUtil.bufferToPrivate(keyPair.d.toBuffer(32));
+                }
+				
+				if (networks[DOM.network.val()].name == "XEM - NEM") {
+					var phrase = DOM.phrase.val();
+					var passphrase = DOM.passphrase.val();
+					var nemSeed = getNemSeed(phrase,passphrase);
+					var nemRoot = getNemRoot(nemSeed);
+					var nemNode = getNemNode(nemRoot);
+					
+					privkey = getNemPrivKey(nemNode);
+					pubkey = getNemPublicKey(privkey);
+					address = getNemAddress(pubkey);
                 }
 
                 addAddressToList(indexText, address, pubkey, privkey);
@@ -2786,6 +2798,13 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bitcoinplus;
                 setHdCoin(65);
+            },
+        },
+		{
+			name: "XEM - NEM",
+            onSelect: function() {
+                network = nemUtil.dummyNetwork;
+                setHdCoin(43);
             },
         },
         {
