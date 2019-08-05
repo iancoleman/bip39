@@ -492,7 +492,10 @@
 		if(networks[DOM.network.val()].name == "SMART - SmartCash"){
 			var smartcash = require('smartcashjs-lib');
 			bip32RootKey = smartcash.HDNode.fromSeedHex(seed);
-		} else{
+		} else if((networks[DOM.network.val()].name == "GRS - Groestlcoin") 
+			|| (networks[DOM.network.val()].name == "GRS - Groestlcoin Testnet")) {
+			bip32RootKey = grsUtil.bitcoin.HDNode.fromSeedHexGRS(seed, network);
+	    } else{
 			bip32RootKey = bitcoinjs.bitcoin.HDNode.fromSeedHex(seed, network);
 		}
     }
@@ -502,7 +505,10 @@
 		if(networks[DOM.network.val()].name == "SMART - SmartCash"){
 			var smartcash = require('smartcashjs-lib');
 			bip32RootKey = smartcash.HDNode.fromBase58(rootKeyBase58);
-		} else {
+		} else if((networks[DOM.network.val()].name == "GRS - Groestlcoin") 
+			|| (networks[DOM.network.val()].name == "GRS - Groestlcoin Testnet")) {
+			bip32RootKey = grsUtil.bitcoin.HDNode.fromBase58GRS(rootKeyBase58, n);
+	    } else {
 			// try parsing with various segwit network params since this extended
 			// key may be from any one of them.
 			if (networkHasSegwit()) {
@@ -2211,6 +2217,20 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.gridcoin;
                 setHdCoin(84);
+            },
+        },
+		{
+            name: "GRS - Groestlcoin",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.groestlcoin;
+                setHdCoin(17);
+            },
+        },
+		{
+            name: "GRS - Groestlcoin Testnet",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.groestlcoin_testnet;
+                setHdCoin(17);
             },
         },
         {
