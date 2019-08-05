@@ -277,7 +277,7 @@ bitcoinjs.bitcoin.networks.groestlcoin.p2wpkh = {
 };
 
 bitcoinjs.bitcoin.networks.groestlcoin_testnet.p2wpkh = {
-    baseNetwork: "groestlcointestnet",
+    baseNetwork: "groestlcoin_testnet",
     messagePrefix: '\x1cGroestlCoin Signed Message:\n',
     bech32: 'tgrs',
     bip32: {
@@ -303,7 +303,7 @@ bitcoinjs.bitcoin.networks.groestlcoin.p2wpkhInP2sh = {
 };
 
 bitcoinjs.bitcoin.networks.groestlcoin_testnet.p2wpkhInP2sh = {
-    baseNetwork: "groestlcointestnet",
+    baseNetwork: "groestlcoin_testnet",
     messagePrefix: '\x1cGroestlCoin Signed Message:\n',
     bech32: 'tgrs',
     bip32: {

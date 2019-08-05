@@ -2230,7 +2230,7 @@
             name: "GRS - Groestlcoin Testnet",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.groestlcoin_testnet;
-                setHdCoin(17);
+                setHdCoin(1);
             },
         },
         {
