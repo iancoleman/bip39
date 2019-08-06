@@ -492,7 +492,10 @@
 		if(networks[DOM.network.val()].name == "SMART - SmartCash"){
 			var smartcash = require('smartcashjs-lib');
 			bip32RootKey = smartcash.HDNode.fromSeedHex(seed);
-		} else{
+		} else if((networks[DOM.network.val()].name == "GRS - Groestlcoin") 
+			|| (networks[DOM.network.val()].name == "GRS - Groestlcoin Testnet")) {
+			bip32RootKey = grsUtil.bitcoin.HDNode.fromSeedHexGRS(seed, network);
+	    } else{
 			bip32RootKey = bitcoinjs.bitcoin.HDNode.fromSeedHex(seed, network);
 		}
     }
@@ -502,7 +505,10 @@
 		if(networks[DOM.network.val()].name == "SMART - SmartCash"){
 			var smartcash = require('smartcashjs-lib');
 			bip32RootKey = smartcash.HDNode.fromBase58(rootKeyBase58);
-		} else {
+		} else if((networks[DOM.network.val()].name == "GRS - Groestlcoin") 
+			|| (networks[DOM.network.val()].name == "GRS - Groestlcoin Testnet")) {
+			bip32RootKey = grsUtil.bitcoin.HDNode.fromBase58GRS(rootKeyBase58, n);
+	    } else {
 			// try parsing with various segwit network params since this extended
 			// key may be from any one of them.
 			if (networkHasSegwit()) {
@@ -915,6 +921,7 @@
                 }
                 // get address
                 var address = keyPair.getAddress().toString();
+				
                 // get privkey
                 var hasPrivkey = !key.isNeutered();
                 var privkey = "NA";
@@ -1011,16 +1018,32 @@
                         return;
                     }
                     if (isP2wpkh) {
-                        var keyhash = bitcoinjs.bitcoin.crypto.hash160(key.getPublicKeyBuffer());
-                        var scriptpubkey = bitcoinjs.bitcoin.script.witnessPubKeyHash.output.encode(keyhash);
-                        address = bitcoinjs.bitcoin.address.fromOutputScript(scriptpubkey, network)
+						if((networks[DOM.network.val()].name == "GRS - Groestlcoin") 
+						|| (networks[DOM.network.val()].name == "GRS - Groestlcoin Testnet")) {
+							var keyhash = grsUtil.bitcoin.crypto.hash160(key.getPublicKeyBuffer());
+							var scriptpubkey = grsUtil.bitcoin.script.witnessPubKeyHash.output.encode(keyhash);
+							address = grsUtil.bitcoin.address.fromOutputScript(scriptpubkey, network)
+						} else {
+							var keyhash = bitcoinjs.bitcoin.crypto.hash160(key.getPublicKeyBuffer());
+							var scriptpubkey = bitcoinjs.bitcoin.script.witnessPubKeyHash.output.encode(keyhash);
+							address = bitcoinjs.bitcoin.address.fromOutputScript(scriptpubkey, network)
+						}
                     }
                     else if (isP2wpkhInP2sh) {
-                        var keyhash = bitcoinjs.bitcoin.crypto.hash160(key.getPublicKeyBuffer());
-                        var scriptsig = bitcoinjs.bitcoin.script.witnessPubKeyHash.output.encode(keyhash);
-                        var addressbytes = bitcoinjs.bitcoin.crypto.hash160(scriptsig);
-                        var scriptpubkey = bitcoinjs.bitcoin.script.scriptHash.output.encode(addressbytes);
-                        address = bitcoinjs.bitcoin.address.fromOutputScript(scriptpubkey, network)
+						if((networks[DOM.network.val()].name == "GRS - Groestlcoin") 
+						|| (networks[DOM.network.val()].name == "GRS - Groestlcoin Testnet")) {
+							var keyhash = grsUtil.bitcoin.crypto.hash160(key.getPublicKeyBuffer());
+							var scriptsig = grsUtil.bitcoin.script.witnessPubKeyHash.output.encode(keyhash);
+							var addressbytes = grsUtil.bitcoin.crypto.hash160(scriptsig);
+							var scriptpubkey = grsUtil.bitcoin.script.scriptHash.output.encode(addressbytes);
+							address = grsUtil.bitcoin.address.fromOutputScript(scriptpubkey, network)
+						} else {
+							var keyhash = bitcoinjs.bitcoin.crypto.hash160(key.getPublicKeyBuffer());
+							var scriptsig = bitcoinjs.bitcoin.script.witnessPubKeyHash.output.encode(keyhash);
+							var addressbytes = bitcoinjs.bitcoin.crypto.hash160(scriptsig);
+							var scriptpubkey = bitcoinjs.bitcoin.script.scriptHash.output.encode(addressbytes);
+							address = bitcoinjs.bitcoin.address.fromOutputScript(scriptpubkey, network)
+						}
                     }
                 }
 
@@ -2211,6 +2234,20 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.gridcoin;
                 setHdCoin(84);
+            },
+        },
+		{
+            name: "GRS - Groestlcoin",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.groestlcoin;
+                setHdCoin(17);
+            },
+        },
+		{
+            name: "GRS - Groestlcoin Testnet",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.groestlcoin_testnet;
+                setHdCoin(1);
             },
         },
         {
