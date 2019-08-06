@@ -921,6 +921,7 @@
                 }
                 // get address
                 var address = keyPair.getAddress().toString();
+				
                 // get privkey
                 var hasPrivkey = !key.isNeutered();
                 var privkey = "NA";
@@ -1017,16 +1018,32 @@
                         return;
                     }
                     if (isP2wpkh) {
-                        var keyhash = bitcoinjs.bitcoin.crypto.hash160(key.getPublicKeyBuffer());
-                        var scriptpubkey = bitcoinjs.bitcoin.script.witnessPubKeyHash.output.encode(keyhash);
-                        address = bitcoinjs.bitcoin.address.fromOutputScript(scriptpubkey, network)
+						if((networks[DOM.network.val()].name == "GRS - Groestlcoin") 
+						|| (networks[DOM.network.val()].name == "GRS - Groestlcoin Testnet")) {
+							var keyhash = grsUtil.bitcoin.crypto.hash160(key.getPublicKeyBuffer());
+							var scriptpubkey = grsUtil.bitcoin.script.witnessPubKeyHash.output.encode(keyhash);
+							address = grsUtil.bitcoin.address.fromOutputScript(scriptpubkey, network)
+						} else {
+							var keyhash = bitcoinjs.bitcoin.crypto.hash160(key.getPublicKeyBuffer());
+							var scriptpubkey = bitcoinjs.bitcoin.script.witnessPubKeyHash.output.encode(keyhash);
+							address = bitcoinjs.bitcoin.address.fromOutputScript(scriptpubkey, network)
+						}
                     }
                     else if (isP2wpkhInP2sh) {
-                        var keyhash = bitcoinjs.bitcoin.crypto.hash160(key.getPublicKeyBuffer());
-                        var scriptsig = bitcoinjs.bitcoin.script.witnessPubKeyHash.output.encode(keyhash);
-                        var addressbytes = bitcoinjs.bitcoin.crypto.hash160(scriptsig);
-                        var scriptpubkey = bitcoinjs.bitcoin.script.scriptHash.output.encode(addressbytes);
-                        address = bitcoinjs.bitcoin.address.fromOutputScript(scriptpubkey, network)
+						if((networks[DOM.network.val()].name == "GRS - Groestlcoin") 
+						|| (networks[DOM.network.val()].name == "GRS - Groestlcoin Testnet")) {
+							var keyhash = grsUtil.bitcoin.crypto.hash160(key.getPublicKeyBuffer());
+							var scriptsig = grsUtil.bitcoin.script.witnessPubKeyHash.output.encode(keyhash);
+							var addressbytes = grsUtil.bitcoin.crypto.hash160(scriptsig);
+							var scriptpubkey = grsUtil.bitcoin.script.scriptHash.output.encode(addressbytes);
+							address = grsUtil.bitcoin.address.fromOutputScript(scriptpubkey, network)
+						} else {
+							var keyhash = bitcoinjs.bitcoin.crypto.hash160(key.getPublicKeyBuffer());
+							var scriptsig = bitcoinjs.bitcoin.script.witnessPubKeyHash.output.encode(keyhash);
+							var addressbytes = bitcoinjs.bitcoin.crypto.hash160(scriptsig);
+							var scriptpubkey = bitcoinjs.bitcoin.script.scriptHash.output.encode(addressbytes);
+							address = bitcoinjs.bitcoin.address.fromOutputScript(scriptpubkey, network)
+						}
                     }
                 }
 
