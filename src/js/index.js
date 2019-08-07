@@ -1854,6 +1854,13 @@
             },
         },
         {
+            name: "BSV - BitcoinSV",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bitcoinsv;
+                setHdCoin(236);
+            },
+        },
+        {
             name: "BTA - Bata",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bata;
