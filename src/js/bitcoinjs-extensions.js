@@ -67,7 +67,7 @@ bitcoinjs.bitcoin.networks.bitcoinsv = {
   bip32: {
     public: 0x0488b21e,
     private: 0x0488ade4
-  }
+  },
   pubKeyHash: 0x00,
   scriptHash: 0x05,
   wif: 0x80
@@ -78,7 +78,7 @@ bitcoinjs.bitcoin.networks.monkeyproject = {
   bip32: {
     public: 0x0488b21e,
     private: 0x0488dde4
-  }
+  },
   pubKeyHash: 0x33,
   scriptHash: 0x1c,
   wif: 0x37
@@ -89,7 +89,7 @@ bitcoinjs.bitcoin.networks.rapids = {
   bip32: {
     public: 0x0488b21e,
     private: 0x0488ade4
-  }
+  },
   pubKeyHash: 0x3d,
   scriptHash: 0x06,
   wif: 0x2e
