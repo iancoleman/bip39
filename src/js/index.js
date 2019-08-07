@@ -2631,6 +2631,13 @@
             },
         },
         {
+            name: "RPD - Rapids",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.rapids;
+                setHdCoin(320);
+            },
+        },
+        {
             name: "RVN - Ravencoin",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.ravencoin;

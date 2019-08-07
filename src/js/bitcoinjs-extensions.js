@@ -76,12 +76,23 @@ bitcoinjs.bitcoin.networks.bitcoinsv = {
 bitcoinjs.bitcoin.networks.monkeyproject = {
   messagePrefix: 'Monkey Signed Message:\n',
   bip32: {
-    public: 0x0488B21E,
-    private: 0x0488ADE4
+    public: 0x0488b21e,
+    private: 0x0488dde4
   }
   pubKeyHash: 0x33,
-  scriptHash: 0x1C,
+  scriptHash: 0x1c,
   wif: 0x37
+};
+
+bitcoinjs.bitcoin.networks.rapids = {
+  messagePrefix: 'DarkNet Signed Message:\n',
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  }
+  pubKeyHash: 0x3d,
+  scriptHash: 0x06,
+  wif: 0x2e
 };
 
 bitcoinjs.bitcoin.networks.dash = {
