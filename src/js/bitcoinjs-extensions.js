@@ -73,6 +73,17 @@ bitcoinjs.bitcoin.networks.bitcoinsv = {
   wif: 0x80
 };
 
+bitcoinjs.bitcoin.networks.monkeyproject = {
+  messagePrefix: 'Monkey Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4
+  }
+  pubKeyHash: 0x33,
+  scriptHash: 0x1C,
+  wif: 0x37
+};
+
 bitcoinjs.bitcoin.networks.dash = {
   messagePrefix: 'unused',
   bip32: {

@@ -2418,6 +2418,13 @@
             },
         },
         {
+            name: "MONK - Monkey Project",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.monkeyproject,
+                setHdCoin(214);
+            },
+        },
+        {
             name: "MUSIC - Musicoin",
             segwitAvailable: false,
             onSelect: function() {
