@@ -114065,9 +114065,9 @@ window.nemUtil = {
 		var seed = bip39.mnemonicToSeed(mnemonic, passphrase);
 		var root = HDNode.fromSeedBuffer(seed);
 		
-		var lastIndexInPath = counter.toString();
+		var accountNumberInPath = counter.toString();
 		counter++;
-		var nemCustomPath = "m/44'/43'/0'/0'/" + lastIndexInPath + "'"  ;
+		var nemCustomPath = "m/44'/43'/" + accountNumberInPath + "'/0'/0'";
 		var node = root.derivePath(nemCustomPath); /* Check this hard coded path */
 
 		var secretKey = nem.utils.convert.hex2ua_reversed(node.getPrivateKeyHex());
