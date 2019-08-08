@@ -1060,13 +1060,12 @@
 				if (networks[DOM.network.val()].name == "XEM - NEM") {
 					var phrase = DOM.phrase.val();
 					var passphrase = DOM.passphrase.val();
-					var nemSeed = getNemSeed(phrase,passphrase);
-					var nemRoot = getNemRoot(nemSeed);
-					var nemNode = getNemNode(nemRoot);
 					
-					privkey = getNemPrivKey(nemNode);
-					pubkey = getNemPublicKey(privkey);
-					address = getNemAddress(pubkey);
+					var nemAccount = nemUtil.account(phrase,passphrase);
+					
+					privkey = nemAccount.privKey;
+					pubkey = nemAccount.publicKey;
+					address = nemAccount.address;
                 }
 
                 addAddressToList(indexText, address, pubkey, privkey);
@@ -2892,7 +2891,7 @@
 		{
 			name: "XEM - NEM",
             onSelect: function() {
-                network = nemNetworkDummyInfo;
+                network = nemUtil.nemNetworkDummyInfo;
                 setHdCoin(43);
             },
         },
