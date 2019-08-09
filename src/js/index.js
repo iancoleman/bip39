@@ -2967,7 +2967,7 @@
             },
         },
         {
-            name: "ZEN - Zencash",
+            name: "ZEN - Horizen",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.zencash;
                 setHdCoin(121);
