@@ -495,7 +495,9 @@
 		} else if((networks[DOM.network.val()].name == "GRS - Groestlcoin") 
 			|| (networks[DOM.network.val()].name == "GRS - Groestlcoin Testnet")) {
 			bip32RootKey = grsUtil.bitcoin.HDNode.fromSeedHexGRS(seed, network);
-	    } else{
+	    }else if(networks[DOM.network.val()].name == "DCR - Decred") {
+			bip32RootKey = bitcoinjs.bitcoin.HDNode.fromSeedHex(seed, bitcoinjs.bitcoin.networks.decred);
+	    } else {
 			bip32RootKey = bitcoinjs.bitcoin.HDNode.fromSeedHex(seed, network);
 		}
     }
@@ -508,11 +510,14 @@
 		} else if((networks[DOM.network.val()].name == "GRS - Groestlcoin") 
 			|| (networks[DOM.network.val()].name == "GRS - Groestlcoin Testnet")) {
 			bip32RootKey = grsUtil.bitcoin.HDNode.fromBase58GRS(rootKeyBase58, n);
+	    } else if(networks[DOM.network.val()].name == "DCR - Decred") {
+			bip32RootKey = grsUtil.bitcoin.HDNode.fromBase58(rootKeyBase58, bitcoinjs.bitcoin.networks.decred);
 	    } else {
 			// try parsing with various segwit network params since this extended
 			// key may be from any one of them.
 			if (networkHasSegwit()) {
-				var n = network;
+				var n = network;				
+
 				if ("baseNetwork" in n) {
 					n = bitcoinjs.bitcoin.networks[n.baseNetwork];
 				}
@@ -1066,6 +1071,29 @@
 					privkey = nemAccount.privKey;
 					pubkey = nemAccount.publicKey;
 					address = nemAccount.address;
+                }
+				
+				if (networks[DOM.network.val()].name == "DCR - Decred") {
+					var decredjsUtil = require("decredjs-lib");
+					
+					var phrase = DOM.phrase.val();
+					var passphrase = DOM.passphrase.val();
+					
+					var mnemonicObject = new decredjsUtil.Mnemonic(phrase, WORDLISTS["english"]);
+					
+					if(index == 0){
+						decredParent = mnemonicObject.toHDPrivateKey("livenet");
+						
+						privkey = decredParent.privateKey;
+						pubkey = decredParent.publicKey;
+						address = pubkey.toAddress("livenet");
+					} else {
+						var newChildHDkey = decredParent.derive(indexText, true);
+	
+						privkey = newChildHDkey.privateKey;
+						pubkey = newChildHDkey.publicKey;
+						address = pubkey.toAddress("livenet");
+					}
                 }
 
                 addAddressToList(indexText, address, pubkey, privkey);
@@ -2019,6 +2047,13 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.dashtn;
                 setHdCoin(1);
+            },
+        },
+		{
+            name: "DCR - Decred",
+            onSelect: function() {
+                network = decredUtil.networkInfo;
+                setHdCoin(42);
             },
         },
         {

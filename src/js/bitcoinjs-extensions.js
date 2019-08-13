@@ -1696,3 +1696,14 @@ bitcoinjs.bitcoin.networks.groestlcoin_testnet = {
   wif: 0xef
 };
 
+bitcoinjs.bitcoin.networks.decred = {
+  messagePrefix: 'unused',
+  bech32: 'dcr',
+  bip32: {
+    public: 0x02fda926,
+    private: 0x02fda4e8
+  },
+  pubKeyHash: 0x073f,
+  scriptHash: 0x071a,
+  wif: 0x80
+};

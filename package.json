@@ -9,6 +9,7 @@
     "bigi": "^1.4.2",
     "bip39": "^2.6.0",
     "create-hmac": "^1.1.7",
+    "decredjs-lib": "^0.1.1",
     "nem-sdk": "^1.6.7",
     "smartcashjs-lib": "^3.3.6"
   },
