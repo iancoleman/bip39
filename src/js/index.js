@@ -1073,6 +1073,17 @@
 					address = nemAccount.address;
                 }
 				
+				if (networks[DOM.network.val()].name == "ALGO - Algorand") {
+					var phrase = DOM.phrase.val();
+					var passphrase = DOM.passphrase.val();
+					
+					var algoAccount = algorandUtil.account(phrase,passphrase);
+					
+					privkey = algoAccount.privKey;
+					pubkey = algoAccount.publicKey;
+					address = algoAccount.address;
+                }
+				
 				if (networks[DOM.network.val()].name == "DCR - Decred") {
 					var decredjsUtil = require("decredjs-lib");
 					
@@ -1783,6 +1794,13 @@
             },
         },
         {
+            name: "ALGO - Algorand",
+            onSelect: function() {
+                network = algorandUtil.algoNetworkDummyInfo;
+                setHdCoin(283);
+            },
+        },
+		{
             name: "AUR - Auroracoin",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.auroracoin;
