@@ -1707,3 +1707,15 @@ bitcoinjs.bitcoin.networks.decred = {
   scriptHash: 0x071a,
   wif: 0x80
 };
+
+bitcoinjs.bitcoin.networks.aryacoin = {
+  messagePrefix: '\x18Aryacoin Signed Message:\n',
+  bech32: 'arya',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4,
+  },
+  pubKeyHash: 0x17,
+  scriptHash: 0x6f,
+  wif: 0x97
+};

@@ -1801,6 +1801,20 @@
             },
         },
 		{
+            name: "ANON - ANON",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.anon;
+                setHdCoin(220);
+            },
+        },
+		{
+            name: "ARYA - Aryacoin",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.aryacoin;
+                setHdCoin(357);
+            },
+        },
+		{
             name: "AUR - Auroracoin",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.auroracoin;
@@ -1814,13 +1828,7 @@
                 setHdCoin(4242);
             },
 		},
-		{
-            name: "ANON - ANON",
-            onSelect: function() {
-                network = bitcoinjs.bitcoin.networks.anon;
-                setHdCoin(220);
-            },
-        },
+
         {
             name: "BOLI - Bolivarcoin",
             onSelect: function() {
