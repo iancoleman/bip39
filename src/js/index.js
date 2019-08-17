@@ -1084,6 +1084,17 @@
 					address = algoAccount.address;
                 }
 				
+				if (networks[DOM.network.val()].name == "AION - Aion") {
+					var phrase = DOM.phrase.val();
+					var passphrase = DOM.passphrase.val();
+					
+					var aionAccount = aionUtil.account(phrase,passphrase);
+					
+					privkey = aionAccount.privKey;
+					pubkey = aionAccount.publicKey;
+					address = aionAccount.address;
+                }
+				
 				if (networks[DOM.network.val()].name == "DCR - Decred") {
 					var decredjsUtil = require("decredjs-lib");
 					
@@ -1791,6 +1802,13 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.adcoin;
                 setHdCoin(161);
+            },
+        },
+		{
+            name: "AION - Aion",
+            onSelect: function() {
+                network = aionUtil.aionNetworkDummyInfo;
+                setHdCoin(425);
             },
         },
         {
