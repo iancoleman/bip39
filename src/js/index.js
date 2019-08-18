@@ -1098,24 +1098,20 @@
 				if (networks[DOM.network.val()].name == "DCR - Decred") {
 					var decredjsUtil = require("decredjs-lib");
 					
-					var phrase = DOM.phrase.val();
-					var passphrase = DOM.passphrase.val();
-					
-					var mnemonicObject = new decredjsUtil.Mnemonic(phrase, WORDLISTS["english"]);
-					
 					if(index == 0){
-						decredParent = mnemonicObject.toHDPrivateKey("livenet");
+						var phrase = DOM.phrase.val();
+						var passphrase = DOM.passphrase.val();
 						
-						privkey = decredParent.privateKey;
-						pubkey = decredParent.publicKey;
-						address = pubkey.toAddress("livenet");
-					} else {
-						var newChildHDkey = decredParent.derive(indexText, true);
-	
-						privkey = newChildHDkey.privateKey;
-						pubkey = newChildHDkey.publicKey;
-						address = pubkey.toAddress("livenet");
+						var mnemonicObject = new decredjsUtil.Mnemonic(phrase, WORDLISTS["english"]);
+
+						decredParent = mnemonicObject.toHDPrivateKey("livenet");
 					}
+					
+					var newChildHDkey = decredParent.derive(indexText, true);
+
+					privkey = newChildHDkey.privateKey;
+					pubkey = newChildHDkey.publicKey;
+					address = pubkey.toAddress("livenet");
                 }
 
                 addAddressToList(indexText, address, pubkey, privkey);
