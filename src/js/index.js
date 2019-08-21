@@ -510,8 +510,6 @@
 		} else if((networks[DOM.network.val()].name == "GRS - Groestlcoin") 
 			|| (networks[DOM.network.val()].name == "GRS - Groestlcoin Testnet")) {
 			bip32RootKey = grsUtil.bitcoin.HDNode.fromBase58GRS(rootKeyBase58, n);
-	    } else if(networks[DOM.network.val()].name == "DCR - Decred") {
-			bip32RootKey = grsUtil.bitcoin.HDNode.fromBase58(rootKeyBase58, bitcoinjs.bitcoin.networks.decred);
 	    } else {
 			// try parsing with various segwit network params since this extended
 			// key may be from any one of them.
@@ -1093,25 +1091,6 @@
 					privkey = aionAccount.privKey;
 					pubkey = aionAccount.publicKey;
 					address = aionAccount.address;
-                }
-				
-				if (networks[DOM.network.val()].name == "DCR - Decred") {
-					var decredjsUtil = require("decredjs-lib");
-					
-					if(index == 0){
-						var phrase = DOM.phrase.val();
-						var passphrase = DOM.passphrase.val();
-						
-						var mnemonicObject = new decredjsUtil.Mnemonic(phrase, WORDLISTS["english"]);
-
-						decredParent = mnemonicObject.toHDPrivateKey("livenet");
-					}
-					
-					var newChildHDkey = decredParent.derive(indexText, true);
-
-					privkey = newChildHDkey.privateKey;
-					pubkey = newChildHDkey.publicKey;
-					address = pubkey.toAddress("livenet");
                 }
 
                 addAddressToList(indexText, address, pubkey, privkey);
@@ -2087,13 +2066,6 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.dashtn;
                 setHdCoin(1);
-            },
-        },
-		{
-            name: "DCR - Decred",
-            onSelect: function() {
-                network = decredUtil.networkInfo;
-                setHdCoin(42);
             },
         },
         {
