@@ -487,16 +487,14 @@
 
     function calcBip32RootKeyFromSeed(phrase, passphrase) {
 		seed = mnemonic.toSeed(phrase, passphrase);
-		
+
 		// Smartcash is different
 		if(networks[DOM.network.val()].name == "SMART - SmartCash"){
 			var smartcash = require('smartcashjs-lib');
 			bip32RootKey = smartcash.HDNode.fromSeedHex(seed);
-		} else if((networks[DOM.network.val()].name == "GRS - Groestlcoin") 
+		} else if((networks[DOM.network.val()].name == "GRS - Groestlcoin")
 			|| (networks[DOM.network.val()].name == "GRS - Groestlcoin Testnet")) {
 			bip32RootKey = grsUtil.bitcoin.HDNode.fromSeedHexGRS(seed, network);
-	    }else if(networks[DOM.network.val()].name == "DCR - Decred") {
-			bip32RootKey = bitcoinjs.bitcoin.HDNode.fromSeedHex(seed, bitcoinjs.bitcoin.networks.decred);
 	    } else {
 			bip32RootKey = bitcoinjs.bitcoin.HDNode.fromSeedHex(seed, network);
 		}
@@ -507,14 +505,16 @@
 		if(networks[DOM.network.val()].name == "SMART - SmartCash"){
 			var smartcash = require('smartcashjs-lib');
 			bip32RootKey = smartcash.HDNode.fromBase58(rootKeyBase58);
-		} else if((networks[DOM.network.val()].name == "GRS - Groestlcoin") 
+		} else if((networks[DOM.network.val()].name == "GRS - Groestlcoin")
 			|| (networks[DOM.network.val()].name == "GRS - Groestlcoin Testnet")) {
 			bip32RootKey = grsUtil.bitcoin.HDNode.fromBase58GRS(rootKeyBase58, n);
-	    } else {
+	    } /*else if(networks[DOM.network.val()].name == "DCR - Decred") {
+			bip32RootKey = grsUtil.bitcoin.HDNode.fromBase58(rootKeyBase58, bitcoinjs.bitcoin.networks.decred);
+	    } */else {
 			// try parsing with various segwit network params since this extended
 			// key may be from any one of them.
 			if (networkHasSegwit()) {
-				var n = network;				
+				var n = network;
 
 				if ("baseNetwork" in n) {
 					n = bitcoinjs.bitcoin.networks[n.baseNetwork];
@@ -924,7 +924,7 @@
                 }
                 // get address
                 var address = keyPair.getAddress().toString();
-				
+
                 // get privkey
                 var hasPrivkey = !key.isNeutered();
                 var privkey = "NA";
@@ -1021,7 +1021,7 @@
                         return;
                     }
                     if (isP2wpkh) {
-						if((networks[DOM.network.val()].name == "GRS - Groestlcoin") 
+						if((networks[DOM.network.val()].name == "GRS - Groestlcoin")
 						|| (networks[DOM.network.val()].name == "GRS - Groestlcoin Testnet")) {
 							var keyhash = grsUtil.bitcoin.crypto.hash160(key.getPublicKeyBuffer());
 							var scriptpubkey = grsUtil.bitcoin.script.witnessPubKeyHash.output.encode(keyhash);
@@ -1033,7 +1033,7 @@
 						}
                     }
                     else if (isP2wpkhInP2sh) {
-						if((networks[DOM.network.val()].name == "GRS - Groestlcoin") 
+						if((networks[DOM.network.val()].name == "GRS - Groestlcoin")
 						|| (networks[DOM.network.val()].name == "GRS - Groestlcoin Testnet")) {
 							var keyhash = grsUtil.bitcoin.crypto.hash160(key.getPublicKeyBuffer());
 							var scriptsig = grsUtil.bitcoin.script.witnessPubKeyHash.output.encode(keyhash);
@@ -1059,39 +1059,46 @@
                     pubkey = eosUtil.bufferToPublic(keyPair.getPublicKeyBuffer());
                     privkey = eosUtil.bufferToPrivate(keyPair.d.toBuffer(32));
                 }
-				
+
 				if (networks[DOM.network.val()].name == "XEM - NEM") {
 					var phrase = DOM.phrase.val();
 					var passphrase = DOM.passphrase.val();
-					
+
 					var nemAccount = nemUtil.account(phrase,passphrase);
-					
+
 					privkey = nemAccount.privKey;
 					pubkey = nemAccount.publicKey;
 					address = nemAccount.address;
                 }
-				
+
 				if (networks[DOM.network.val()].name == "ALGO - Algorand") {
 					var phrase = DOM.phrase.val();
 					var passphrase = DOM.passphrase.val();
-					
+
 					var algoAccount = algorandUtil.account(phrase,passphrase);
-					
+
 					privkey = algoAccount.privKey;
 					pubkey = algoAccount.publicKey;
 					address = algoAccount.address;
                 }
-				
+
 				if (networks[DOM.network.val()].name == "AION - Aion") {
 					var phrase = DOM.phrase.val();
 					var passphrase = DOM.passphrase.val();
-					
+
 					var aionAccount = aionUtil.account(phrase,passphrase);
-					
+
 					privkey = aionAccount.privKey;
 					pubkey = aionAccount.publicKey;
 					address = aionAccount.address;
                 }
+
+				if (networks[DOM.network.val()].name == "DCR - Decred") {
+					var decredjsUtil = require("decredjs-lib");
+
+					info = decredjsUtil.Address._transformPublicKey(key.getPublicKeyBuffer())
+					address = new decredjsUtil.Address(info.hashBuffer, "livenet", info.type).toString();
+        }
 
                 addAddressToList(indexText, address, pubkey, privkey);
                 if (isLast) {
@@ -2066,6 +2073,13 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.dashtn;
                 setHdCoin(1);
+            },
+        },
+		{
+            name: "DCR - Decred",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.decred;
+                setHdCoin(42);
             },
         },
         {

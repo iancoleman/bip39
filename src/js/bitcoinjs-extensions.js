@@ -1698,7 +1698,6 @@ bitcoinjs.bitcoin.networks.groestlcoin_testnet = {
 
 bitcoinjs.bitcoin.networks.decred = {
   messagePrefix: 'unused',
-  bech32: 'dcr',
   bip32: {
     public: 0x02fda926,
     private: 0x02fda4e8
