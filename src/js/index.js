@@ -495,8 +495,6 @@
 		} else if((networks[DOM.network.val()].name == "GRS - Groestlcoin") 
 			|| (networks[DOM.network.val()].name == "GRS - Groestlcoin Testnet")) {
 			bip32RootKey = grsUtil.bitcoin.HDNode.fromSeedHexGRS(seed, network);
-	    }else if(networks[DOM.network.val()].name == "DCR - Decred") {
-			bip32RootKey = bitcoinjs.bitcoin.HDNode.fromSeedHex(seed, bitcoinjs.bitcoin.networks.decred);
 	    } else {
 			bip32RootKey = bitcoinjs.bitcoin.HDNode.fromSeedHex(seed, network);
 		}
@@ -510,9 +508,9 @@
 		} else if((networks[DOM.network.val()].name == "GRS - Groestlcoin") 
 			|| (networks[DOM.network.val()].name == "GRS - Groestlcoin Testnet")) {
 			bip32RootKey = grsUtil.bitcoin.HDNode.fromBase58GRS(rootKeyBase58, n);
-	    } else if(networks[DOM.network.val()].name == "DCR - Decred") {
+	    } /*else if(networks[DOM.network.val()].name == "DCR - Decred") {
 			bip32RootKey = grsUtil.bitcoin.HDNode.fromBase58(rootKeyBase58, bitcoinjs.bitcoin.networks.decred);
-	    } else {
+	    } */else {
 			// try parsing with various segwit network params since this extended
 			// key may be from any one of them.
 			if (networkHasSegwit()) {
@@ -1098,20 +1096,8 @@
 				if (networks[DOM.network.val()].name == "DCR - Decred") {
 					var decredjsUtil = require("decredjs-lib");
 					
-					if(index == 0){
-						var phrase = DOM.phrase.val();
-						var passphrase = DOM.passphrase.val();
-						
-						var mnemonicObject = new decredjsUtil.Mnemonic(phrase, WORDLISTS["english"]);
-
-						decredParent = mnemonicObject.toHDPrivateKey("livenet");
-					}
-					
-					var newChildHDkey = decredParent.derive(indexText, true);
-
-					privkey = newChildHDkey.privateKey;
-					pubkey = newChildHDkey.publicKey;
-					address = pubkey.toAddress("livenet");
+					info = decredjsUtil.Address._transformPublicKey(key.getPublicKeyBuffer())
+					address = new decredjsUtil.Address(info.hashBuffer, "livenet", info.type).toString();
                 }
 
                 addAddressToList(indexText, address, pubkey, privkey);
@@ -2092,7 +2078,7 @@
 		{
             name: "DCR - Decred",
             onSelect: function() {
-                network = decredUtil.networkInfo;
+                network = bitcoinjs.bitcoin.networks.decred;
                 setHdCoin(42);
             },
         },

@@ -231,6 +231,13 @@ Address._transformPublicKey = function(pubkey) {
   return info;
 };
 
+Address._transformPublicKey = function(pubkey) {
+  var info = {};
+  info.hashBuffer = Hash.blake256ripemd160(pubkey);
+  info.type = Address.PayToPublicKeyHash;
+  return info;
+};
+
 /**
  * Internal function to transform a {@link Script} into a `info` object.
  *
