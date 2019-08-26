@@ -854,7 +854,7 @@ it('Allows selection of Compcoin', function(done) {
 it('Allows selection of CPUchain', function(done) {
     var params = {
         selectText: "CPU - CPUchain",
-        firstAddress: "CWWkTPkNRdpTDSfPw7gxUt9cEaC5PSsP3Y",
+        firstAddress: "CWSpLpW7jS4mBHJnkz3mmL5s3yQMg93zK8",
     };
     testNetwork(done, params);
 });
