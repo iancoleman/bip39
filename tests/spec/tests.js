@@ -732,6 +732,13 @@ it('Allows selection of Asiacoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Aryacoin', function(done) {
+    var params = {
+        selectText: "ARYA - Aryacoin",
+        firstAddress: "Abr6gX25KaU9BpwD34UfsL3A4n89NvYYSf",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Auroracoin', function(done) {
     var params = {
         selectText: "AUR - Auroracoin",
@@ -771,6 +778,13 @@ it('Allows selection of Bitcoin Private', function(done) {
     var params = {
         selectText: "BTCP - Bitcoin Private",
         firstAddress: "b1M3PbiXXyN6Hdivdw5rJv5VKpLjPzhm4jM",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Bitcoin SV', function(done) {
+    var params = {
+        selectText: "BSV - BitcoinSV",
+        firstAddress: "1N4mgtE5yxifch9jWs7Sds6oVqxdy2t576",
     };
     testNetwork(done, params);
 });
@@ -1180,6 +1194,13 @@ it('Allows selection of Putincoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Rapids', function(done) {
+    var params = {
+        selectText: "RPD - Rapids",
+        firstAddress: "Ri8XxUdZaXS5LqxmFJcFEjFinkaMbmhSUp",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Ravencoin', function(done) {
     var params = {
         selectText: "RVN - Ravencoin",
@@ -1411,6 +1432,14 @@ it('Allows selection of MIX', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Monkey Project', function(done) {
+    var params = {
+        selectText: "MONK - Monkey Project",
+        firstAddress: "MnLrcnnUzKnf7TzufjRe5DLZqQJz18oYyu",
+    };
+    testNetwork(done, params);
+});
+
 it('Allows selection of Musicoin', function(done) {
     var params = {
         selectText: "MUSIC - Musicoin",
