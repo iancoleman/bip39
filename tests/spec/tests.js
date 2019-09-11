@@ -1441,8 +1441,15 @@ it('Allows selection of Callisto', function(done) {
 });
 it('Allows selection of HUSH', function(done) {
     var params = {
-        selectText: "HUSH - Hush",
+        selectText: "HUSH - Hush (Legacy)",
         firstAddress: "t1g6rLXUnJaiJuu4q4zmJjoa9Gk4fwKpiuA",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of HUSH3', function(done) {
+    var params = {
+        selectText: "HUSH - Hush3",
+        firstAddress: "RXWSQhwvw5jHPGP8bjwJhWoRnMLBnuPDKD",
     };
     testNetwork(done, params);
 });
