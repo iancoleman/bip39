@@ -1376,9 +1376,9 @@ it('Allows selection of Zclassic', function(done) {
     };
     testNetwork(done, params);
 });
-it('Allows selection of Zencash', function(done) {
+it('Allows selection of Horizen', function(done) {
     var params = {
-        selectText: "ZEN - Zencash",
+        selectText: "ZEN - Horizen",
         firstAddress: "znWh9XASyW2dZq5tck84wFjiwuqVysi7q3p",
     };
     testNetwork(done, params);
