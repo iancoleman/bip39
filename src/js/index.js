@@ -2185,9 +2185,16 @@
             },
         },
 		{
-            name: "HUSH - Hush",
+            name: "HUSH - Hush (Legacy)",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.hush;
+                setHdCoin(197);
+            },
+        },
+		{
+            name: "HUSH - Hush3",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.hush3;
                 setHdCoin(197);
             },
         },
