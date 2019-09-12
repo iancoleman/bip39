@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "commonjs",
+    "outDir": "./src",
+    "declaration": true,
+    "rootDir": "./ts_src",
+    "types": [
+      "node"
+    ],
+    "allowJs": false,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "esModuleInterop": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  },
+  "include": [
+      "ts_src/**/*.ts"
+  ],
+  "exclude": [
+      "**/*.spec.ts",
+      "node_modules/**/*"
+  ]
+}
