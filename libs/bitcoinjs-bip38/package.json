@@ -1,0 +1,38 @@
+{
+  "name": "bip38",
+  "version": "2.0.2",
+  "description": "BIP38 is a standard process to encrypt Bitcoin and crypto currency private keys that is impervious to brute force attacks thus protecting the user.",
+  "main": "index.js",
+  "keywords": [
+    "bitcoin",
+    "crypto",
+    "cryptography",
+    "litecoin"
+  ],
+  "homepage": "http://cryptocoinjs.com/modules/currency/bip38/",
+  "author": "JP Richardson",
+  "dependencies": {
+    "bigi": "^1.2.0",
+    "browserify-aes": "^1.0.1",
+    "bs58check": "<3.0.0",
+    "buffer-xor": "^1.0.2",
+    "create-hash": "^1.1.1",
+    "ecurve": "^1.0.0",
+    "scryptsy": "^2.0.0"
+  },
+  "devDependencies": {
+  },
+  "repository": {
+    "url": "git@github.com:bitcoinjs/bip38.git",
+    "type": "git"
+  },
+  "scripts": {
+    "browser-test": "mochify --wd -R spec --timeout 100000",
+    "build": "browserify index.js --standalone bitcoinjs-bip38 > /tmp/bitcoinjs-bip38.js",
+    "coverage": "istanbul cover _mocha -- --reporter list test/*.js",
+    "coveralls": "npm run-script coverage && coveralls < coverage/lcov.info",
+    "standard": "standard",
+    "test": "npm run standard && npm run unit",
+    "unit": "mocha --ui bdd --timeout 240000"
+  }
+}
