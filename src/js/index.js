@@ -1697,6 +1697,13 @@
             },
         },
         {
+            name: "ARYA - Aryacoin",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.aryacoin;
+                setHdCoin(357);
+            },
+        },
+        {
             name: "AUR - Auroracoin",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.auroracoin;
@@ -1827,6 +1834,13 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bitcoinprivate;
                 setHdCoin(183);
+            },
+        },
+        {
+            name: "BSV - BitcoinSV",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bitcoinsv;
+                setHdCoin(236);
             },
         },
         {
@@ -2345,6 +2359,13 @@
             },
         },
         {
+            name: "MONK - Monkey Project",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.monkeyproject,
+                setHdCoin(214);
+            },
+        },
+        {
             name: "MUSIC - Musicoin",
             segwitAvailable: false,
             onSelect: function() {
@@ -2548,6 +2569,13 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.putincoin;
                 setHdCoin(122);
+            },
+        },
+        {
+            name: "RPD - Rapids",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.rapids;
+                setHdCoin(320);
             },
         },
         {
