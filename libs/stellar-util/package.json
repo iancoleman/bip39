@@ -2,7 +2,7 @@
   "name": "stellar-util",
   "version": "0.0.1",
   "scripts": {
-    "build": "browserify stellar-util.js > s/tmp/stellar-util.js"
+    "build": "browserify stellar-util.js > /tmp/stellar-util.js"
   },
   "dependencies": {
     "ed25519-hd-key": "^1.0.0",
