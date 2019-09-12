@@ -2174,6 +2174,7 @@ it('Ignores excess whitespace in the mnemonic', function(done) {
 
 // Github Issue 23: Part 1: Use correct derivation path when changing tabs
 // https://github.com/iancoleman/bip39/issues/23
+// This test was failing for default timeout of 5000ms so changed it to +10s
 it('Uses the correct derivation path when changing tabs', function(done) {
     // 1) and 2) set the phrase
     driver.findElement(By.css('.phrase'))
@@ -2198,7 +2199,7 @@ it('Uses the correct derivation path when changing tabs', function(done) {
             });
         });
     });
-});
+}, generateDelay + 10000);
 
 // Github Issue 23 Part 2: Coin selection in derivation path
 // https://github.com/iancoleman/bip39/issues/23#issuecomment-238011920
