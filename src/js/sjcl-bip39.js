@@ -26,13 +26,13 @@ var sjcl = {
 
   /** @namespace Key exchange functions.  Right now only SRP is implemented. */
   keyexchange: {},
-  
+
   /** @namespace Block cipher modes of operation. */
   mode: {},
 
   /** @namespace Miscellaneous.  HMAC and PBKDF2. */
   misc: {},
-  
+
   /**
    * @namespace Bit array encoders and decoders.
    *
@@ -43,7 +43,7 @@ var sjcl = {
    * the method names are "fromBits" and "toBits".
    */
   codec: {},
-  
+
   /** @namespace Exceptions. */
   exception: {
     /** @constructor Ciphertext is corrupt. */
@@ -51,13 +51,13 @@ var sjcl = {
       this.toString = function() { return "CORRUPT: "+this.message; };
       this.message = message;
     },
-    
+
     /** @constructor Invalid parameter. */
     invalid: function(message) {
       this.toString = function() { return "INVALID: "+this.message; };
       this.message = message;
     },
-    
+
     /** @constructor Bug or missing feature in SJCL. @constructor */
     bug: function(message) {
       this.toString = function() { return "BUG: "+this.message; };
@@ -159,7 +159,7 @@ sjcl.bitArray = {
     if (a1.length === 0 || a2.length === 0) {
       return a1.concat(a2);
     }
-    
+
     var last = a1[a1.length-1], shift = sjcl.bitArray.getPartial(last);
     if (shift === 32) {
       return a1.concat(a2);
@@ -245,7 +245,7 @@ sjcl.bitArray = {
   _shiftRight: function (a, shift, carry, out) {
     var i, last2=0, shift2;
     if (out === undefined) { out = []; }
-    
+
     for (; shift >= 32; shift -= 32) {
       out.push(carry);
       carry = 0;
@@ -253,7 +253,7 @@ sjcl.bitArray = {
     if (shift === 0) {
       return out.concat(a);
     }
-    
+
     for (i=0; i<a.length; i++) {
       out.push(carry | a[i]>>>shift);
       carry = a[i] << (32-shift);
@@ -263,7 +263,7 @@ sjcl.bitArray = {
     out.push(sjcl.bitArray.partial(shift+shift2 & 31, (shift + shift2 > 32) ? carry : out.pop(),1));
     return out;
   },
-  
+
   /** xor a block of 4 words together.
    * @private
    */
@@ -295,7 +295,7 @@ sjcl.bitArray = {
  * @author Mike Hamburg
  * @author Dan Boneh
  */
- 
+
 /** @namespace UTF-8 strings */
 sjcl.codec.utf8String = {
   /** Convert from a bitArray to a UTF-8 string. */
@@ -310,7 +310,7 @@ sjcl.codec.utf8String = {
     }
     return decodeURIComponent(escape(out));
   },
-  
+
   /** Convert from a UTF-8 string to a bitArray. */
   toBits: function (str) {
     str = unescape(encodeURIComponent(str));
@@ -412,7 +412,7 @@ sjcl.hash.sha512.prototype = {
    * @constant
    */
   blockSize: 1024,
-   
+
   /**
    * Reset the hash state.
    * @return this
@@ -423,7 +423,7 @@ sjcl.hash.sha512.prototype = {
     this._length = 0;
     return this;
   },
-  
+
   /**
    * Input several words to the hash.
    * @param {bitArray|String} data the data to hash.
@@ -441,7 +441,7 @@ sjcl.hash.sha512.prototype = {
     }
     return this;
   },
-  
+
   /**
    * Complete hashing and output the hash value.
    * @return {bitArray} The hash value, an array of 16 big-endian words.
@@ -736,12 +736,12 @@ sjcl.misc.hmac = function (key, Hash) {
   if (key.length > bs) {
     key = Hash.hash(key);
   }
-  
+
   for (i=0; i<bs; i++) {
     exKey[0][i] = key[i]^0x36363636;
     exKey[1][i] = key[i]^0x5C5C5C5C;
   }
-  
+
   this._baseHash[0].update(exKey[0]);
   this._baseHash[1].update(exKey[1]);
   this._resultHash = new Hash(this._baseHash[0]);
@@ -804,34 +804,34 @@ sjcl.misc.hmac.prototype.digest = function () {
  */
 sjcl.misc.pbkdf2 = function (password, salt, count, length, Prff) {
   count = count || 1000;
-  
+
   if (length < 0 || count < 0) {
     throw sjcl.exception.invalid("invalid params to pbkdf2");
   }
-  
+
   if (typeof password === "string") {
     password = sjcl.codec.utf8String.toBits(password);
   }
-  
+
   if (typeof salt === "string") {
     salt = sjcl.codec.utf8String.toBits(salt);
   }
-  
+
   Prff = Prff || sjcl.misc.hmac;
-  
+
   var prf = new Prff(password),
       u, ui, i, j, k, out = [], b = sjcl.bitArray;
 
   for (k = 1; 32 * out.length < (length || 1); k++) {
     u = ui = prf.encrypt(b.concat(salt,[k]));
-    
+
     for (i=1; i<count; i++) {
       ui = prf.encrypt(ui);
       for (j=0; j<ui.length; j++) {
         u[j] ^= ui[j];
       }
     }
-    
+
     out = out.concat(u);
   }
 
@@ -890,7 +890,7 @@ sjcl.hash.sha256.prototype = {
    * @constant
    */
   blockSize: 512,
-   
+
   /**
    * Reset the hash state.
    * @return this
@@ -901,7 +901,7 @@ sjcl.hash.sha256.prototype = {
     this._length = 0;
     return this;
   },
-  
+
   /**
    * Input several words to the hash.
    * @param {bitArray|String} data the data to hash.
@@ -919,7 +919,7 @@ sjcl.hash.sha256.prototype = {
     }
     return this;
   },
-  
+
   /**
    * Complete hashing and output the hash value.
    * @return {bitArray} The hash value, an array of 8 big-endian words.
@@ -929,12 +929,12 @@ sjcl.hash.sha256.prototype = {
 
     // Round out and push the buffer
     b = sjcl.bitArray.concat(b, [sjcl.bitArray.partial(1,1)]);
-    
+
     // Round out the buffer to a multiple of 16 words, less the 2 length words.
     for (i = b.length + 2; i & 15; i++) {
       b.push(0);
     }
-    
+
     // append the length
     b.push(Math.floor(this._length / 0x100000000));
     b.push(this._length | 0);
@@ -955,7 +955,7 @@ sjcl.hash.sha256.prototype = {
   /*
   _init:[0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19],
   */
-  
+
   /**
    * The SHA-256 hash key, to be precomputed.
    * @private
@@ -990,7 +990,7 @@ sjcl.hash.sha256.prototype = {
           continue outer;
         }
       }
-      
+
       if (i<8) {
         this._init[i] = frac(Math.pow(prime, 1/2));
       }
@@ -998,13 +998,13 @@ sjcl.hash.sha256.prototype = {
       i++;
     }
   },
-  
+
   /**
    * Perform one cycle of SHA-256.
    * @param {bitArray} words one block of words.
    * @private
    */
-  _block:function (words) {  
+  _block:function (words) {
     var i, tmp, a, b,
       w = words.slice(0),
       h = this._h,
@@ -1032,13 +1032,13 @@ sjcl.hash.sha256.prototype = {
       } else {
         a   = w[(i+1 ) & 15];
         b   = w[(i+14) & 15];
-        tmp = w[i&15] = ((a>>>7  ^ a>>>18 ^ a>>>3  ^ a<<25 ^ a<<14) + 
+        tmp = w[i&15] = ((a>>>7  ^ a>>>18 ^ a>>>3  ^ a<<25 ^ a<<14) +
                          (b>>>17 ^ b>>>19 ^ b>>>10 ^ b<<15 ^ b<<13) +
                          w[i&15] + w[(i+9) & 15]) | 0;
       }
-      
+
       tmp = (tmp + h7 + (h4>>>6 ^ h4>>>11 ^ h4>>>25 ^ h4<<26 ^ h4<<21 ^ h4<<7) +  (h6 ^ h4&(h5^h6)) + k[i]); // | 0;
-      
+
       // shift register
       h7 = h6; h6 = h5; h5 = h4;
       h4 = h3 + tmp | 0;

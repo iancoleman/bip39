@@ -173,7 +173,7 @@ bitcoinjs.bitcoin.networks.digibyte.p2wpkh = {
 };
 
 bitcoinjs.bitcoin.networks.digibyte.p2wpkhInP2sh = {
-    baseNetwork: "digibyte",	
+    baseNetwork: "digibyte",
     messagePrefix: '\x19DigiByte Signed Message:\n',
     bech32: 'dgb',
     bip32: {
@@ -199,7 +199,7 @@ bitcoinjs.bitcoin.networks.blockstamp.p2wpkh = {
 };
 
 bitcoinjs.bitcoin.networks.blockstamp.p2wpkhInP2sh = {
-    baseNetwork: "blockstamp",	
+    baseNetwork: "blockstamp",
     messagePrefix: '\x18BlockStamp Signed Message:\n',
     bech32: 'bc',
     bip32: {
@@ -225,7 +225,7 @@ bitcoinjs.bitcoin.networks.nix.p2wpkh = {
 };
 
 bitcoinjs.bitcoin.networks.nix.p2wpkhInP2sh = {
-    baseNetwork: "nix",	
+    baseNetwork: "nix",
     messagePrefix: '\x18Nix Signed Message:\n',
     bech32: 'nix',
     bip32: {
