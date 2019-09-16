@@ -801,6 +801,28 @@ bitcoinjs.bitcoin.networks.gridcoin = {
   wif: 0xbe,
 };
 
+bitcoinjs.bitcoin.networks.groestlcoin = {
+  messagePrefix: '\x19GroestlCoin Signed Message:\n',
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  },
+  pubKeyHash: 36,
+  scriptHash: 5,
+  wif: 128,
+}
+
+bitcoinjs.bitcoin.networks.groestlcointestnet = {
+  messagePrefix: '\x19GroestlCoin Signed Message:\n',
+  bip32: {
+    public: 0x043587cf,
+    private: 0x04358394
+  },
+  pubKeyHash: 0x6f,
+  scriptHash: 0xc4,
+  wif: 0xef,
+}
+
 bitcoinjs.bitcoin.networks.gulden = {
   messagePrefix: '\x18Guldencoin Signed Message:\n',
   bip32: {
