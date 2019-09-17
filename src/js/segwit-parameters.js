@@ -370,10 +370,10 @@ bitcoinjs.bitcoin.networks.monacoin.p2wpkhInP2sh = {
 bitcoinjs.bitcoin.networks.syscoin.p2wpkh = {
     baseNetwork: "syscoin",
 	messagePrefix: '\x18Syscoin Signed Message:\n',
-	bech32: 'syscoin',
+	bech32: 'sys',
 	bip32: {
-		public: 0x0488B21E,
-		private: 0x0488ADE4
+		public: 0x04b24746,
+		private: 0x04b2430c
 	},
 	pubKeyHash: 0x3f,
 	scriptHash: 0x05,
@@ -383,10 +383,10 @@ bitcoinjs.bitcoin.networks.syscoin.p2wpkh = {
 bitcoinjs.bitcoin.networks.syscoin.p2wpkhInP2sh = {
 	baseNetwork: "syscoin",
 	messagePrefix: '\x18Syscoin Signed Message:\n',
-	bech32: 'syscoin',
+	bech32: 'sys',
 	bip32: {
-		public: 0x0488B21E,
-		private: 0x0488ADE4
+		public: 0x049d7cb2,
+		private: 0x049d7878
 	},
 	pubKeyHash: 0x3f,
 	scriptHash: 0x05,
