@@ -1594,6 +1594,20 @@ it('Allows selection of Wagerr', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Groestlcoin', function(done) {
+    var params = {
+        selectText: "GRS - Groestlcoin",
+        firstAddress: "FZycsFvZ1eH1hbtyjBpAgJSukVw1bN6PBN",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Groestlcoin Testnet', function(done) {
+    var params = {
+        selectText: "GRS - Groestlcoin Testnet",
+        firstAddress: "mucaU5iiDaJDb69BHLeDv8JFfGiygRPne9",
+    };
+    testNetwork(done, params);
+});
 
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {
@@ -4051,6 +4065,27 @@ it('Shows litecoin BIP49 addresses', function(done) {
                 // check first address
                 getFirstAddress(function(address) {
                     expect(address).toBe("MFwLPhsXoBuSLL8cLmW9uK6tChkzduV8qN");
+                    done();
+                });
+            });
+    });
+});
+
+it('Shows Groestlcoin BIP49 addresses', function(done) {
+    driver.findElement(By.css('.phrase'))
+        .sendKeys('abandon abandon ability');
+    selectNetwork("GRS - Groestlcoin");
+    driver.findElement(By.css('#bip49-tab a'))
+        .click()
+    // bip49 addresses are shown
+    driver.sleep(generateDelay).then(function() {
+        driver.findElement(By.css('#bip49 .available'))
+            .getAttribute("class")
+            .then(function(classes) {
+                expect(classes).not.toContain("hidden");
+                // check first address
+                getFirstAddress(function(address) {
+                    expect(address).toBe("3HXSCZwCypLyixMsF4Z1sN49noJtrm8gnX");
                     done();
                 });
             });
