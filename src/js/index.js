@@ -2495,6 +2495,13 @@
             },
         },
         {
+            name: "MOTA - MOTA",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.mota;
+                setHdCoin(0);
+            },
+        },
+        {
             name: "MUSIC - Musicoin",
             segwitAvailable: false,
             onSelect: function() {
@@ -2634,13 +2641,6 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bitcoin;
                 setHdCoin(164);
-            },
-        },
-        {
-            name: "MOTA - MOTA",
-            onSelect: function() {
-                network = bitcoinjs.bitcoin.networks.mota;
-                setHdCoin(0);
             },
         },
         {
