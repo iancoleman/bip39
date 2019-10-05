@@ -316,6 +316,18 @@ bitcoinjs.bitcoin.networks.pivx = {
   wif: 0xd4
 };
 
+bitcoinjs.bitcoin.networks.mota = {
+  messagePrefix:'unused',
+  bip32:{
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  },
+  pubKeyHash: 0x32,
+  scriptHash: 0x6e,
+  wif: 0xb2
+
+}
+
 bitcoinjs.bitcoin.networks.pivxtestnet = {
   messagePrefix: 'unused',
   bip32: {

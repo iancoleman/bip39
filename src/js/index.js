@@ -2637,6 +2637,13 @@
             },
         },
         {
+            name: "MOTA - MOTA",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.mota;
+                setHdCoin(0);
+            },
+        },
+        {
             name: "PIVX - PIVX",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.pivx;
