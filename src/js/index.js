@@ -835,6 +835,10 @@
         return networks[DOM.network.val()].name == "GRS - Groestlcoin" || networks[DOM.network.val()].name == "GRS - Groestlcoin Testnet";
     }
 
+    function isELA() {
+        return networks[DOM.network.val()].name == "ELA - Elastos"
+    }
+
     function displayBip44Info() {
         // Get the derivation path for the account
         var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
@@ -1281,8 +1285,12 @@
             var option = $("<option>");
             option.attr("value", i);
             option.text(network.name);
-            if (network.name == "BTC - Bitcoin") {
+            // TODO revert this change as it is only for making testing convenient
+            if (network.name == "ELA - Elastos") {
                 option.prop("selected", true);
+                DOM.phrase.val("shoot island position soft burden budget tooth cruel issue economy destroy above");
+                network.onSelect()
+                phraseChanged()
             }
             DOM.phraseNetwork.append(option);
         }
@@ -2160,6 +2168,13 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.egulden;
                 setHdCoin(78);
+            },
+        },
+        {
+            name: "ELA - Elastos",
+            onSelect: function () {
+                network = bitcoinjs.bitcoin.networks.elastos;
+                setHdCoin(2305);
             },
         },
         {
