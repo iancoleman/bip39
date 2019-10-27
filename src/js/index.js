@@ -1142,6 +1142,7 @@
                     let elaAddress = calcAddressForELA(
                         seed,
                         parseIntNoNaN(DOM.bip44coin.val(), 0),
+                        parseIntNoNaN(DOM.bip44account.val(), 0),
                         parseIntNoNaN(DOM.bip44change.val(), 0),
                         index
                     );
@@ -3128,14 +3129,14 @@
         displayAddresses(0, initialAddressCount);
     }
 
-    function calcAddressForELA(seed, coin, change, index) {
+    function calcAddressForELA(seed, coin, account, change, index) {
         if (!isELA()) {
             return;
         }
 
-        var publicKey = elastosjs.generateSubPublicKey(elastosjs.getMasterPublicKey(seed), change, index);
+        var publicKey = elastosjs.getDerivedPublicKey(elastosjs.getMasterPublicKey(seed), change, index);
         return {
-            privateKey: elastosjs.generateSubPrivateKey(seed, coin, change, index),
+            privateKey: elastosjs.getDerivedPrivateKey(seed, coin, account, change, index),
             publicKey: publicKey,
             address: elastosjs.getAddress(publicKey.toString('hex'))
         };
