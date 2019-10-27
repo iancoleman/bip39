@@ -3106,9 +3106,12 @@
             return;
         }
 
+        var coin = parseIntNoNaN(DOM.bip44coin.val(), 0);
+        var account = parseIntNoNaN(DOM.bip44account.val(), 0);
+
         // Calculate the account extended keys
-        var accountXprv = elastosjs.getMasterPrivateKey(seed);
-        var accountXpub = elastosjs.getMasterPublicKey(seed);
+        var accountXprv = elastosjs.getAccountExtendedPrivateKey(seed, coin, account);
+        var accountXpub = elastosjs.getAccountExtendedPublicKey(seed, coin, account);
 
         // Display the extended keys
         DOM.bip44accountXprv.val(accountXprv);
@@ -3120,8 +3123,12 @@
             return;
         }
 
-        DOM.extendedPrivKey.val(elastosjs.getBip32ExtendedPrivateKey(seed));
-        DOM.extendedPubKey.val(elastosjs.getBip32ExtendedPublicKey(seed));
+        var coin = parseIntNoNaN(DOM.bip44coin.val(), 0);
+        var account = parseIntNoNaN(DOM.bip44account.val(), 0);
+        var change = parseIntNoNaN(DOM.bip44change.val(), 0);
+
+        DOM.extendedPrivKey.val(elastosjs.getBip32ExtendedPrivateKey(seed, coin, account, change));
+        DOM.extendedPubKey.val(elastosjs.getBip32ExtendedPublicKey(seed, coin, account, change));
 
         // Display the addresses and privkeys
         clearAddressesList();
