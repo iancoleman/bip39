@@ -1307,12 +1307,8 @@
             var option = $("<option>");
             option.attr("value", i);
             option.text(network.name);
-            // TODO revert this change as it is only for making testing convenient
-            if (network.name == "ELA - Elastos") {
+            if (network.name == "BTC - Bitcoin") {
                 option.prop("selected", true);
-                DOM.phrase.val("shoot island position soft burden budget tooth cruel issue economy destroy above");
-                network.onSelect()
-                phraseChanged()
             }
             DOM.phraseNetwork.append(option);
         }
