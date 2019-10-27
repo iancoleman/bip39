@@ -637,9 +637,9 @@
     }
 
     function validateRootKey(rootKeyBase58) {
-        if(isGRS()) 
+        if(isGRS())
             return validateRootKeyGRS(rootKeyBase58);
-            
+
         // try various segwit network params since this extended key may be from
         // any one of them.
         if (networkHasSegwit()) {
@@ -853,14 +853,13 @@
         var accountXprv = accountExtendedKey.toBase58();
         var accountXpub = accountExtendedKey.neutered().toBase58();
 
-        if (isELA()) {
-            accountXprv = elastosjs.getMasterPrivateKey(seed);
-            accountXpub = elastosjs.getMasterPublicKey(seed);
-        }
-
         // Display the extended keys
         DOM.bip44accountXprv.val(accountXprv);
         DOM.bip44accountXpub.val(accountXpub);
+
+        if (isELA()) {
+            displayBip44InfoForELA();
+        }
     }
 
     function displayBip49Info() {
@@ -916,6 +915,10 @@
         clearAddressesList();
         var initialAddressCount = parseInt(DOM.rowsToAdd.val());
         displayAddresses(0, initialAddressCount);
+
+        if (isELA()) {
+            displayBip32InfoForELA();
+        }
     }
 
     function displayAddresses(start, total) {
@@ -1001,7 +1004,7 @@
                     privkey = keyPair.toWIF();
                     // BIP38 encode private key if required
                     if (useBip38) {
-                        if(isGRS())  
+                        if(isGRS())
                             privkey = groestlcoinjsBip38.encrypt(keyPair.d.toBuffer(), false, bip38password, function(p) {
                                 console.log("Progressed " + p.percent.toFixed(1) + "% for index " + index);
                             }, null, networks[DOM.network.val()].name.includes("Testnet"));
@@ -1131,8 +1134,20 @@
                         else if (isP2wpkhInP2sh) {
                             address = groestlcoinjs.address.fromOutputScript(scriptpubkey, network)
                         }
-                    } 
+                    }
                     //non-segwit addresses are handled by using groestlcoinjs for bip32RootKey
+                }
+
+                if (isELA()) {
+                    let elaAddress = calcAddressForELA(
+                        seed,
+                        parseIntNoNaN(DOM.bip44coin.val(), 0),
+                        parseIntNoNaN(DOM.bip44change.val(), 0),
+                        index
+                    );
+                    address = elaAddress.address;
+                    privkey = elaAddress.privateKey;
+                    pubkey = elaAddress.publicKey;
                 }
 
                 addAddressToList(indexText, address, pubkey, privkey);
@@ -3083,6 +3098,49 @@
             },
         }
     ]
+
+    // ELA - Elastos functions - begin
+    function displayBip44InfoForELA() {
+        if (!isELA()) {
+            return;
+        }
+
+        // Calculate the account extended keys
+        var accountXprv = elastosjs.getMasterPrivateKey(seed);
+        var accountXpub = elastosjs.getMasterPublicKey(seed);
+
+        // Display the extended keys
+        DOM.bip44accountXprv.val(accountXprv);
+        DOM.bip44accountXpub.val(accountXpub);
+    }
+
+    function displayBip32InfoForELA() {
+        if (!isELA()) {
+            return;
+        }
+
+        DOM.extendedPrivKey.val(elastosjs.getBip32ExtendedPrivateKey(seed));
+        DOM.extendedPubKey.val(elastosjs.getBip32ExtendedPublicKey(seed));
+
+        // Display the addresses and privkeys
+        clearAddressesList();
+        var initialAddressCount = parseInt(DOM.rowsToAdd.val());
+        displayAddresses(0, initialAddressCount);
+    }
+
+    function calcAddressForELA(seed, coin, change, index) {
+        if (!isELA()) {
+            return;
+        }
+
+        var publicKey = elastosjs.generateSubPublicKey(elastosjs.getMasterPublicKey(seed), change, index);
+        return {
+            privateKey: elastosjs.generateSubPrivateKey(seed, coin, change, index),
+            publicKey: publicKey,
+            address: elastosjs.getAddress(publicKey.toString('hex'))
+        };
+    }
+    // ELA - Elastos functions - end
 
     init();
 
