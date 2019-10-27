@@ -594,7 +594,7 @@
                 extendedKey = extendedKey.derive(index);
             }
         }
-        return extendedKey
+        return extendedKey;
     }
 
     function showValidationError(errorText) {
@@ -852,6 +852,12 @@
         var accountExtendedKey = calcBip32ExtendedKey(path);
         var accountXprv = accountExtendedKey.toBase58();
         var accountXpub = accountExtendedKey.neutered().toBase58();
+
+        if (isELA()) {
+            accountXprv = elastosjs.getMasterPrivateKey(seed);
+            accountXpub = elastosjs.getMasterPublicKey(seed);
+        }
+
         // Display the extended keys
         DOM.bip44accountXprv.val(accountXprv);
         DOM.bip44accountXpub.val(accountXpub);
