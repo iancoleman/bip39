@@ -1376,6 +1376,13 @@ it('Allows selection of Wincoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Wecoin', function(done) {
+    var params = {
+        selectText: "WE - Wecoin",
+        firstAddress: "UdQnk4AxQ8JR7Ayc678rpbLaCdNGNx1CPC",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Zcoin', function(done) {
     var params = {
         selectText: "XZC - Zcoin",

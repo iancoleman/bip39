@@ -1716,3 +1716,14 @@ bitcoinjs.bitcoin.networks.aryacoin = {
   scriptHash: 0x6f,
   wif: 0x97
 };
+
+bitcoinjs.bitcoin.networks.wecoin = {
+  messagePrefix: '\x18WE Coin Signed Message:\n',
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4,
+  },
+  pubKeyHash: 0x49,
+  scriptHash: 0x87,
+  wif: 0xc9,
+};

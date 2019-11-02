@@ -2938,6 +2938,13 @@
                 setHdCoin(181);
             },
         },
+        {
+            name: "WE - Wecoin",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.wecoin;
+                setHdCoin(433);
+            },
+        },
 		{
             name: "XAX - Artax",
             onSelect: function() {
