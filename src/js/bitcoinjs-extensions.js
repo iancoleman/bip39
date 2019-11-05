@@ -1716,3 +1716,14 @@ bitcoinjs.bitcoin.networks.aryacoin = {
   scriptHash: 0x6f,
   wif: 0x97
 };
+
+bitcoinjs.bitcoin.networks.thought = {
+  messagePrefix: 'unused',
+  bip32: {
+    public: 0xFbC6A00D,
+    private: 0x5AEBD8C6
+  },
+  pubKeyHash: 0x07,
+  scriptHash: 0x09,
+  wif: 0x7B
+};

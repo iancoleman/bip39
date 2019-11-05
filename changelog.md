@@ -1,3 +1,7 @@
+# 0.3.13
+
+* Add Thought network
+
 # 0.3.12
 
 * Fix typos

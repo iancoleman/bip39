@@ -637,9 +637,9 @@
     }
 
     function validateRootKey(rootKeyBase58) {
-        if(isGRS()) 
+        if(isGRS())
             return validateRootKeyGRS(rootKeyBase58);
-            
+
         // try various segwit network params since this extended key may be from
         // any one of them.
         if (networkHasSegwit()) {
@@ -991,7 +991,7 @@
                     privkey = keyPair.toWIF();
                     // BIP38 encode private key if required
                     if (useBip38) {
-                        if(isGRS())  
+                        if(isGRS())
                             privkey = groestlcoinjsBip38.encrypt(keyPair.d.toBuffer(), false, bip38password, function(p) {
                                 console.log("Progressed " + p.percent.toFixed(1) + "% for index " + index);
                             }, null, networks[DOM.network.val()].name.includes("Testnet"));
@@ -1121,7 +1121,7 @@
                         else if (isP2wpkhInP2sh) {
                             address = groestlcoinjs.address.fromOutputScript(scriptpubkey, network)
                         }
-                    } 
+                    }
                     //non-segwit addresses are handled by using groestlcoinjs for bip32RootKey
                 }
 
@@ -2838,6 +2838,13 @@
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.hempcoin;
                 setHdCoin(113);
+            },
+        },
+        {
+            name: "THT - Thought",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.thought;
+                setHdCoin(1618);
             },
         },
         {
