@@ -4118,4 +4118,21 @@ it('Can use root keys to generate segwit table rows', function(done) {
     });
 });
 
+// Pull Request 271
+// Allow converting mnemonic back to raw entropy value
+fit('Converts mnemonics into raw entropy', function(done) {
+    driver.findElement(By.css('.phrase'))
+        .sendKeys('abandon abandon about');
+    driver.sleep(generateDelay).then(function() {
+        driver.findElement(By.css('.use-entropy'))
+            .click();
+        driver.findElement(By.css('.entropy'))
+            .getAttribute("value")
+            .then(function(entropy) {
+                expect(entropy).toBe("00000001");
+                done();
+            });
+    });
+});
+
 });
