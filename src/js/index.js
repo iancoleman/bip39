@@ -45,8 +45,8 @@
     DOM.entropyWeakEntropyOverrideWarning = DOM.entropyContainer.find(".weak-entropy-override-warning");
     DOM.entropyFilterWarning = DOM.entropyContainer.find(".filter-warning");
     DOM.phrase = $(".phrase");
-	DOM.splitPhrase = $(".phraseSplit");
-	DOM.phraseSplitWarn = $(".phraseSplitWarn");
+    DOM.splitPhrase = $(".phraseSplit");
+    DOM.phraseSplitWarn = $(".phraseSplitWarn");
     DOM.passphrase = $(".passphrase");
     DOM.generateContainer = $(".generate-container");
     DOM.generate = $(".generate");
@@ -310,7 +310,7 @@
             clearDisplay();
             clearEntropyFeedback();
             DOM.phrase.val("");
-			DOM.phraseSplit.val("");
+            DOM.phraseSplit.val("");
             showValidationError("Blank entropy");
             return;
         }
@@ -345,7 +345,7 @@
         showPending();
         // Clear existing mnemonic and passphrase
         DOM.phrase.val("");
-		DOM.phraseSplit.val("");
+        DOM.phraseSplit.val("");
         DOM.passphrase.val("");
         seed = null;
         if (rootKeyChangedTimeoutEvent != null) {
@@ -432,7 +432,7 @@
             if (DOM.phrase.val().length > 0) {
                 var newPhrase = convertPhraseToNewLanguage();
                 DOM.phrase.val(newPhrase);
-				writeSplitPhrase(newPhrase);
+                writeSplitPhrase(newPhrase);
                 phraseChanged();
             }
             else {
@@ -493,7 +493,7 @@
         // show the words
         var words = mnemonic.toMnemonic(data);
         DOM.phrase.val(words);
-		writeSplitPhrase(words);
+        writeSplitPhrase(words);
         // show the entropy
         var entropyHex = uint8ArrayToHex(data);
         DOM.entropy.val(entropyHex);
@@ -1448,40 +1448,40 @@
         }
         return phrase;
     }
-	
-	function writeSplitPhrase(phrase) {
-		var wordCount = phrase.split(/\s/g).length;								//get number of words in phrase       
-		var left=[];															//initialize array of indexs
-		for (var i=0;i<wordCount;i++) left.push(i);								//add all indexs to array
-		var group=[[],[],[]],													//make array for 3 groups
-			groupI=-1;															//initialize group index
-		var seed = Math.abs(sjcl.hash.sha256.hash(phrase)[0])% 2147483647;		//start seed at sudo random value based on hash of words
-		while (left.length>0) {													//while indexs left
-			groupI=(groupI+1)%3;												//get next group to insert index into
-			seed = seed * 16807 % 2147483647;									//change random value.(simple predicatable random number generator works well for this use)
-			var selected=Math.floor(left.length*(seed - 1) / 2147483646);		//get index in left we will use for this group
-			group[groupI].push(left[selected]);									//add index to group
-			left.splice(selected,1);											//remove selected index
-		}
-		var cards=[phrase.split(/\s/g),phrase.split(/\s/g),phrase.split(/\s/g)];//make array of cards
-		for (var i=0;i<3;i++) {													//go through each card
-			for (var ii=0;ii<wordCount/3;ii++) cards[i][group[i][ii]]='XXXX';	//erase words listed in the group
-			cards[i]='Card '+(i+1)+': '+wordArrayToPhrase(cards[i]);								//combine words on card back to string
-		}
-		DOM.splitPhrase.val(cards.join("\r\n"));								//make words visible
-		var triesPerSecond=10000000000;											//assumed number of tries per second
-		var hackTime=Math.pow(2,wordCount*10/3)/triesPerSecond;					//get number of bits of unknown data per card
-		if (hackTime<1) {
-			hackTime="<1 second";
-		} else if (hackTime<86400) {
-			hackTime=Math.floor(hackTime)+" seconds";
-		} else if(hackTime<31557600) {
-			hackTime=Math.floor(hackTime/86400)+" days";
-		} else {
-			hackTime=Math.floor(hackTime/31557600)+" years";
-		}
-		DOM.phraseSplitWarn.html("Time to hack with only one card: "+hackTime);
-	}
+
+    function writeSplitPhrase(phrase) {
+        var wordCount = phrase.split(/\s/g).length;                                //get number of words in phrase       
+        var left=[];                                                            //initialize array of indexs
+        for (var i=0;i<wordCount;i++) left.push(i);                                //add all indexs to array
+        var group=[[],[],[]],                                                    //make array for 3 groups
+            groupI=-1;                                                            //initialize group index
+        var seed = Math.abs(sjcl.hash.sha256.hash(phrase)[0])% 2147483647;        //start seed at sudo random value based on hash of words
+        while (left.length>0) {                                                    //while indexs left
+            groupI=(groupI+1)%3;                                                //get next group to insert index into
+            seed = seed * 16807 % 2147483647;                                    //change random value.(simple predicatable random number generator works well for this use)
+            var selected=Math.floor(left.length*(seed - 1) / 2147483646);        //get index in left we will use for this group
+            group[groupI].push(left[selected]);                                    //add index to group
+            left.splice(selected,1);                                            //remove selected index
+        }
+        var cards=[phrase.split(/\s/g),phrase.split(/\s/g),phrase.split(/\s/g)];//make array of cards
+        for (var i=0;i<3;i++) {                                                    //go through each card
+            for (var ii=0;ii<wordCount/3;ii++) cards[i][group[i][ii]]='XXXX';    //erase words listed in the group
+            cards[i]='Card '+(i+1)+': '+wordArrayToPhrase(cards[i]);                                //combine words on card back to string
+        }
+        DOM.splitPhrase.val(cards.join("\r\n"));                                //make words visible
+        var triesPerSecond=10000000000;                                            //assumed number of tries per second
+        var hackTime=Math.pow(2,wordCount*10/3)/triesPerSecond;                    //get number of bits of unknown data per card
+        if (hackTime<1) {
+            hackTime="<1 second";
+        } else if (hackTime<86400) {
+            hackTime=Math.floor(hackTime)+" seconds";
+        } else if(hackTime<31557600) {
+            hackTime=Math.floor(hackTime/86400)+" days";
+        } else {
+            hackTime=Math.floor(hackTime/31557600)+" years";
+        }
+        DOM.phraseSplitWarn.html("Time to hack with only one card: "+hackTime);
+    }
 
     function isUsingOwnEntropy() {
         return DOM.useEntropy.prop("checked");
@@ -1540,7 +1540,7 @@
         var phrase = mnemonic.toMnemonic(entropyArr);
         // Set the mnemonic in the UI
         DOM.phrase.val(phrase);
-		writeSplitPhrase(phrase);
+        writeSplitPhrase(phrase);
         // Show the word indexes
         showWordIndexes();
         // Show the checksum
@@ -1936,8 +1936,8 @@
                 network = bitcoinjs.bitcoin.networks.axe;
                 setHdCoin(4242);
             },
-		},
-		{
+        },
+        {
             name: "ANON - ANON",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.anon;
@@ -1993,7 +1993,7 @@
                 setHdCoin(2941);
             },
         },
-		{
+        {
             name: "tBND - Blocknode Testnet",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.blocknode_testnet;
@@ -2014,7 +2014,7 @@
                 setHdCoin(91);
             },
         },
-		{
+        {
             name: "BST - BlockStamp",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.blockstamp;
@@ -2042,7 +2042,7 @@
                 setHdCoin(1);
             },
         },
-		{
+        {
             name: "BITG - Bitcoin Green",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.bitcoingreen;
@@ -2446,14 +2446,14 @@
                 setHdCoin(168);
             },
         },
-		{
+        {
             name: "HUSH - Hush (Legacy)",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.hush;
                 setHdCoin(197);
             },
         },
-		{
+        {
             name: "HUSH - Hush3",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.hush3;
@@ -2733,7 +2733,7 @@
                 setHdCoin(174);
             },
         },
-		{
+        {
             name: "PHR - Phore",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.phore;
@@ -2798,7 +2798,7 @@
                 setHdCoin(6);
             },
         },
-		{
+        {
             name: "PRJ - ProjectCoin",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.projectcoin;
@@ -2861,7 +2861,7 @@
               setHdCoin(19165);
             },
         },
-	{
+    {
           name: "SLS - Salus",
           onSelect: function() {
               network = bitcoinjs.bitcoin.networks.salus;
@@ -3064,7 +3064,7 @@
                 setHdCoin(181);
             },
         },
-		{
+        {
             name: "XAX - Artax",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.artax;
