@@ -1611,7 +1611,7 @@ it('Allows selection of Groestlcoin Testnet', function(done) {
 it('Allows selection of Elastos', function(done) {
     var params = {
         selectText: "ELA - Elastos",
-        firstAddress: "EYmqntM99tr4NJJs2G5Nr93pqsh9cdTCkS",
+        firstAddress: "EMccDcsn3SwPDcfeQMf3w7utqi8ioWYtkg",
     };
     testNetwork(done, params);
 });
