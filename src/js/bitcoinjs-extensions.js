@@ -1727,3 +1727,14 @@ bitcoinjs.bitcoin.networks.thought = {
   scriptHash: 0x09,
   wif: 0x7B
 };
+
+bitcoinjs.bitcoin.networks.elastos = {
+    messagePrefix: 'unused',
+    bip32: {
+        public: 0x0488B21E,
+        private: 0x0488ADE4,
+    },
+    pubKeyHash: 0x21,
+    scriptHash: 0xc4, // TODO set this correctly, same as BTC for now
+    wif: 0xef // TODO set this correctly, same as BTC for now
+};

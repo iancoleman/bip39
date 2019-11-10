@@ -97,22 +97,10 @@ var Mnemonic = function(language) {
     }
 
     self.check = function(mnemonic) {
-        var mnemonic = self.splitWords(mnemonic);
-        if (mnemonic.length == 0 || mnemonic.length % 3 > 0) {
-            return false
+        var b = mnemonicToBinaryString(mnemonic);
+        if (b === null) {
+            return false;
         }
-        // idx = map(lambda x: bin(self.wordlist.index(x))[2:].zfill(11), mnemonic)
-        var idx = [];
-        for (var i=0; i<mnemonic.length; i++) {
-            var word = mnemonic[i];
-            var wordIndex = wordlist.indexOf(word);
-            if (wordIndex == -1) {
-                return false;
-            }
-            var binaryIndex = zfill(wordIndex.toString(2), 11);
-            idx.push(binaryIndex);
-        }
-        var b = idx.join('');
         var l = b.length;
         //d = b[:l / 33 * 32]
         //h = b[-l / 33:]
@@ -126,6 +114,20 @@ var Mnemonic = function(language) {
         var ndBstr = zfill(hexStringToBinaryString(ndHex), 256);
         var nh = ndBstr.substring(0,l/33);
         return h == nh;
+    }
+
+    self.toRawEntropyHex = function(mnemonic) {
+        var b = mnemonicToBinaryString(mnemonic);
+        if (b === null)
+            return null;
+        var d = b.substring(0, b.length / 33 * 32);
+        var nd = binaryStringToWordArray(d);
+
+        var h = "";
+        for (var i=0; i<nd.length; i++) {
+            h += ('0000000' + nd[i].toString(16)).slice(-8);
+        }
+        return h;
     }
 
     self.toSeed = function(mnemonic, passphrase) {
@@ -198,6 +200,25 @@ var Mnemonic = function(language) {
             binary = binary.slice(32);
         }
         return a;
+    }
+
+    function mnemonicToBinaryString(mnemonic) {
+        var mnemonic = self.splitWords(mnemonic);
+        if (mnemonic.length == 0 || mnemonic.length % 3 > 0) {
+            return null;
+        }
+        // idx = map(lambda x: bin(self.wordlist.index(x))[2:].zfill(11), mnemonic)
+        var idx = [];
+        for (var i=0; i<mnemonic.length; i++) {
+            var word = mnemonic[i];
+            var wordIndex = wordlist.indexOf(word);
+            if (wordIndex == -1) {
+                return null;
+            }
+            var binaryIndex = zfill(wordIndex.toString(2), 11);
+            idx.push(binaryIndex);
+        }
+        return idx.join('');
     }
 
     // Pad a numeric string on the left with zero digits until the given width

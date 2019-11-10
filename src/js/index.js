@@ -15,6 +15,7 @@
     var showPrivKey = true;
     var showQr = false;
     var litecoinUseLtub = true;
+    var isDefaultBip44ChangeValue = true;
 
     var entropyChangeTimeoutEvent = null;
     var phraseChangeTimeoutEvent = null;
@@ -44,6 +45,8 @@
     DOM.entropyWeakEntropyOverrideWarning = DOM.entropyContainer.find(".weak-entropy-override-warning");
     DOM.entropyFilterWarning = DOM.entropyContainer.find(".filter-warning");
     DOM.phrase = $(".phrase");
+	DOM.splitPhrase = $(".phraseSplit");
+	DOM.phraseSplitWarn = $(".phraseSplitWarn");
     DOM.passphrase = $(".passphrase");
     DOM.generateContainer = $(".generate-container");
     DOM.generate = $(".generate");
@@ -69,6 +72,7 @@
     DOM.bip44accountXprv = $("#bip44 .account-xprv");
     DOM.bip44accountXpub = $("#bip44 .account-xpub");
     DOM.bip44change = $("#bip44 .change");
+    DOM.defaultBip44ChangeValue = $("#bip44 .default-bip44-change-value");
     DOM.bip49unavailable = $("#bip49 .unavailable");
     DOM.bip49available = $("#bip49 .available");
     DOM.bip49path = $("#bip49-path");
@@ -134,7 +138,9 @@
         DOM.litecoinUseLtub.on("change", litecoinUseLtubChanged);
         DOM.bip32path.on("input", calcForDerivationPath);
         DOM.bip44account.on("input", calcForDerivationPath);
+        DOM.bip44change.on("input", modifiedDefaultBip44ChangeValue);
         DOM.bip44change.on("input", calcForDerivationPath);
+        DOM.defaultBip44ChangeValue.on("click", resetDefaultBip44ChangeValue);
         DOM.bip49account.on("input", calcForDerivationPath);
         DOM.bip49change.on("input", calcForDerivationPath);
         DOM.bip84account.on("input", calcForDerivationPath);
@@ -232,7 +238,14 @@
         if (phraseChangeTimeoutEvent != null) {
             clearTimeout(phraseChangeTimeoutEvent);
         }
-        phraseChangeTimeoutEvent = setTimeout(phraseChanged, 400);
+        phraseChangeTimeoutEvent = setTimeout(function() {
+            phraseChanged();
+            var entropy = mnemonic.toRawEntropyHex(DOM.phrase.val());
+            if (entropy !== null) {
+                DOM.entropyMnemonicLength.val("raw");
+                DOM.entropy.val(entropy);
+            }
+        }, 400);
     }
 
     function phraseChanged() {
@@ -297,6 +310,7 @@
             clearDisplay();
             clearEntropyFeedback();
             DOM.phrase.val("");
+			DOM.phraseSplit.val("");
             showValidationError("Blank entropy");
             return;
         }
@@ -331,6 +345,7 @@
         showPending();
         // Clear existing mnemonic and passphrase
         DOM.phrase.val("");
+		DOM.phraseSplit.val("");
         DOM.passphrase.val("");
         seed = null;
         if (rootKeyChangedTimeoutEvent != null) {
@@ -417,6 +432,7 @@
             if (DOM.phrase.val().length > 0) {
                 var newPhrase = convertPhraseToNewLanguage();
                 DOM.phrase.val(newPhrase);
+				writeSplitPhrase(newPhrase);
                 phraseChanged();
             }
             else {
@@ -477,6 +493,7 @@
         // show the words
         var words = mnemonic.toMnemonic(data);
         DOM.phrase.val(words);
+		writeSplitPhrase(words);
         // show the entropy
         var entropyHex = uint8ArrayToHex(data);
         DOM.entropy.val(entropyHex);
@@ -594,7 +611,7 @@
                 extendedKey = extendedKey.derive(index);
             }
         }
-        return extendedKey
+        return extendedKey;
     }
 
     function showValidationError(errorText) {
@@ -726,12 +743,14 @@
             var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
             var coin = parseIntNoNaN(DOM.bip44coin.val(), 0);
             var account = parseIntNoNaN(DOM.bip44account.val(), 0);
-            var change = parseIntNoNaN(DOM.bip44change.val(), 0);
-            var path = "m/";
-            path += purpose + "'/";
-            path += coin + "'/";
-            path += account + "'/";
-            path += change;
+            var change = parseIntNoNaN(DOM.bip44change.val(), "");
+            var path = "m";
+            path += "/" + purpose + "'";
+            path += "/" + coin + "'";
+            path += "/" + account + "'";
+            if (change !== "") {
+              path += "/" + change;
+            }
             DOM.bip44path.val(path);
             var derivationPath = DOM.bip44path.val();
             console.log("Using derivation path from BIP44 tab: " + derivationPath);
@@ -835,6 +854,10 @@
         return networks[DOM.network.val()].name == "GRS - Groestlcoin" || networks[DOM.network.val()].name == "GRS - Groestlcoin Testnet";
     }
 
+    function isELA() {
+        return networks[DOM.network.val()].name == "ELA - Elastos"
+    }
+
     function displayBip44Info() {
         // Get the derivation path for the account
         var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
@@ -848,9 +871,14 @@
         var accountExtendedKey = calcBip32ExtendedKey(path);
         var accountXprv = accountExtendedKey.toBase58();
         var accountXpub = accountExtendedKey.neutered().toBase58();
+
         // Display the extended keys
         DOM.bip44accountXprv.val(accountXprv);
         DOM.bip44accountXpub.val(accountXpub);
+
+        if (isELA()) {
+            displayBip44InfoForELA();
+        }
     }
 
     function displayBip49Info() {
@@ -906,6 +934,10 @@
         clearAddressesList();
         var initialAddressCount = parseInt(DOM.rowsToAdd.val());
         displayAddresses(0, initialAddressCount);
+
+        if (isELA()) {
+            displayBip32InfoForELA();
+        }
     }
 
     function displayAddresses(start, total) {
@@ -1008,19 +1040,7 @@
                     indexText = indexText + "'";
                 }
                 // Ethereum values are different
-                if ((networks[DOM.network.val()].name == "ETH - Ethereum")
-                    || (networks[DOM.network.val()].name == "ETC - Ethereum Classic")
-                    || (networks[DOM.network.val()].name == "PIRL - Pirl")
-                    || (networks[DOM.network.val()].name == "MIX - MIX")
-                    || (networks[DOM.network.val()].name == "MUSIC - Musicoin")
-                    || (networks[DOM.network.val()].name == "POA - Poa")
-                    || (networks[DOM.network.val()].name == "EXP - Expanse")
-                    || (networks[DOM.network.val()].name == "CLO - Callisto")
-                    || (networks[DOM.network.val()].name == "DXN - DEXON")
-                    || (networks[DOM.network.val()].name == "ELLA - Ellaism")
-                    || (networks[DOM.network.val()].name == "ESN - Ethersocial Network")
-                    || (networks[DOM.network.val()].name == "VET - VeChain")
-                ) {
+                if (networkIsEthereum()) {
                     var privKeyBuffer = keyPair.d.toBuffer(32);
                     privkey = privKeyBuffer.toString('hex');
                     var addressBuffer = ethUtil.privateToAddress(privKeyBuffer);
@@ -1123,6 +1143,19 @@
                         }
                     }
                     //non-segwit addresses are handled by using groestlcoinjs for bip32RootKey
+                }
+
+                if (isELA()) {
+                    let elaAddress = calcAddressForELA(
+                        seed,
+                        parseIntNoNaN(DOM.bip44coin.val(), 0),
+                        parseIntNoNaN(DOM.bip44account.val(), 0),
+                        parseIntNoNaN(DOM.bip44change.val(), 0),
+                        index
+                    );
+                    address = elaAddress.address;
+                    privkey = elaAddress.privateKey;
+                    pubkey = elaAddress.publicKey;
                 }
 
                 addAddressToList(indexText, address, pubkey, privkey);
@@ -1415,6 +1448,40 @@
         }
         return phrase;
     }
+	
+	function writeSplitPhrase(phrase) {
+		var wordCount = phrase.split(/\s/g).length;								//get number of words in phrase       
+		var left=[];															//initialize array of indexs
+		for (var i=0;i<wordCount;i++) left.push(i);								//add all indexs to array
+		var group=[[],[],[]],													//make array for 3 groups
+			groupI=-1;															//initialize group index
+		var seed = Math.abs(sjcl.hash.sha256.hash(phrase)[0])% 2147483647;		//start seed at sudo random value based on hash of words
+		while (left.length>0) {													//while indexs left
+			groupI=(groupI+1)%3;												//get next group to insert index into
+			seed = seed * 16807 % 2147483647;									//change random value.(simple predicatable random number generator works well for this use)
+			var selected=Math.floor(left.length*(seed - 1) / 2147483646);		//get index in left we will use for this group
+			group[groupI].push(left[selected]);									//add index to group
+			left.splice(selected,1);											//remove selected index
+		}
+		var cards=[phrase.split(/\s/g),phrase.split(/\s/g),phrase.split(/\s/g)];//make array of cards
+		for (var i=0;i<3;i++) {													//go through each card
+			for (var ii=0;ii<wordCount/3;ii++) cards[i][group[i][ii]]='XXXX';	//erase words listed in the group
+			cards[i]='Card '+(i+1)+': '+wordArrayToPhrase(cards[i]);								//combine words on card back to string
+		}
+		DOM.splitPhrase.val(cards.join("\r\n"));								//make words visible
+		var triesPerSecond=10000000000;											//assumed number of tries per second
+		var hackTime=Math.pow(2,wordCount*10/3)/triesPerSecond;					//get number of bits of unknown data per card
+		if (hackTime<1) {
+			hackTime="<1 second";
+		} else if (hackTime<86400) {
+			hackTime=Math.floor(hackTime)+" seconds";
+		} else if(hackTime<31557600) {
+			hackTime=Math.floor(hackTime/86400)+" days";
+		} else {
+			hackTime=Math.floor(hackTime/31557600)+" years";
+		}
+		DOM.phraseSplitWarn.html("Time to hack with only one card: "+hackTime);
+	}
 
     function isUsingOwnEntropy() {
         return DOM.useEntropy.prop("checked");
@@ -1473,6 +1540,7 @@
         var phrase = mnemonic.toMnemonic(entropyArr);
         // Set the mnemonic in the UI
         DOM.phrase.val(phrase);
+		writeSplitPhrase(phrase);
         // Show the word indexes
         showWordIndexes();
         // Show the checksum
@@ -1636,6 +1704,23 @@
         return DOM.bip32tab.hasClass("active");
     }
 
+    function networkIsEthereum() {
+        var name = networks[DOM.network.val()].name;
+        return (name == "ETH - Ethereum")
+                    || (name == "ETC - Ethereum Classic")
+                    || (name == "EWT - EnergyWeb")
+                    || (name == "PIRL - Pirl")
+                    || (name == "MIX - MIX")
+                    || (name == "MUSIC - Musicoin")
+                    || (name == "POA - Poa")
+                    || (name == "EXP - Expanse")
+                    || (name == "CLO - Callisto")
+                    || (name == "DXN - DEXON")
+                    || (name == "ELLA - Ellaism")
+                    || (name == "ESN - Ethersocial Network")
+                    || (name == "VET - VeChain")
+    }
+
     function networkHasSegwit() {
         var n = network;
         if ("baseNetwork" in network) {
@@ -1665,10 +1750,30 @@
         return DOM.bip141tab.hasClass("active");
     }
 
+    function setBip44ChangeValue() {
+        if (isDefaultBip44ChangeValue) {
+            if (networkIsEthereum()) {
+                DOM.bip44change.val("");
+            } else {
+                DOM.bip44change.val(0);
+            }
+        }
+    }
+
+    function modifiedDefaultBip44ChangeValue() {
+        isDefaultBip44ChangeValue = false;
+    }
+
+    function resetDefaultBip44ChangeValue() {
+        isDefaultBip44ChangeValue = true;
+        setBip44ChangeValue();
+    }
+
     function setHdCoin(coinValue) {
         DOM.bip44coin.val(coinValue);
         DOM.bip49coin.val(coinValue);
         DOM.bip84coin.val(coinValue);
+        setBip44ChangeValue();
     }
 
     function showSegwitAvailable() {
@@ -2163,6 +2268,13 @@
             },
         },
         {
+            name: "ELA - Elastos",
+            onSelect: function () {
+                network = bitcoinjs.bitcoin.networks.elastos;
+                setHdCoin(2305);
+            },
+        },
+        {
             name: "ELLA - Ellaism",
             segwitAvailable: false,
             onSelect: function() {
@@ -2213,7 +2325,14 @@
                 network = bitcoinjs.bitcoin.networks.bitcoin;
                 setHdCoin(60);
             },
-        },
+          },
+        {
+            name: "EWT - EnergyWeb",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.bitcoin;
+                setHdCoin(246);
+            },
+          },
         {
             name: "EXCL - Exclusivecoin",
             onSelect: function() {
@@ -3069,6 +3188,56 @@
             },
         }
     ]
+
+    // ELA - Elastos functions - begin
+    function displayBip44InfoForELA() {
+        if (!isELA()) {
+            return;
+        }
+
+        var coin = parseIntNoNaN(DOM.bip44coin.val(), 0);
+        var account = parseIntNoNaN(DOM.bip44account.val(), 0);
+
+        // Calculate the account extended keys
+        var accountXprv = elastosjs.getAccountExtendedPrivateKey(seed, coin, account);
+        var accountXpub = elastosjs.getAccountExtendedPublicKey(seed, coin, account);
+
+        // Display the extended keys
+        DOM.bip44accountXprv.val(accountXprv);
+        DOM.bip44accountXpub.val(accountXpub);
+    }
+
+    function displayBip32InfoForELA() {
+        if (!isELA()) {
+            return;
+        }
+
+        var coin = parseIntNoNaN(DOM.bip44coin.val(), 0);
+        var account = parseIntNoNaN(DOM.bip44account.val(), 0);
+        var change = parseIntNoNaN(DOM.bip44change.val(), 0);
+
+        DOM.extendedPrivKey.val(elastosjs.getBip32ExtendedPrivateKey(seed, coin, account, change));
+        DOM.extendedPubKey.val(elastosjs.getBip32ExtendedPublicKey(seed, coin, account, change));
+
+        // Display the addresses and privkeys
+        clearAddressesList();
+        var initialAddressCount = parseInt(DOM.rowsToAdd.val());
+        displayAddresses(0, initialAddressCount);
+    }
+
+    function calcAddressForELA(seed, coin, account, change, index) {
+        if (!isELA()) {
+            return;
+        }
+
+        var publicKey = elastosjs.getDerivedPublicKey(elastosjs.getMasterPublicKey(seed), change, index);
+        return {
+            privateKey: elastosjs.getDerivedPrivateKey(seed, coin, account, change, index),
+            publicKey: publicKey,
+            address: elastosjs.getAddress(publicKey.toString('hex'))
+        };
+    }
+    // ELA - Elastos functions - end
 
     init();
 

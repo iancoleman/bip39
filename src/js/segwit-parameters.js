@@ -263,6 +263,240 @@ bitcoinjs.bitcoin.networks.cpuchain.p2wpkhInP2sh = {
     wif: 0x80,
 };
 
+bitcoinjs.bitcoin.networks.monkeyproject.p2wpkh = {
+    baseNetwork: "monkeyproject",
+	messagePrefix: 'Monkey Signed Message:\n',
+	bech32: 'monkey',
+	bip32: {
+		public: 0x0488b21e,
+		private: 0x0488dde4
+	},
+	pubKeyHash: 0x33,
+	scriptHash: 0x1c,
+	wif: 0x37
+};
+
+bitcoinjs.bitcoin.networks.monkeyproject.p2wpkhInP2sh = {
+	baseNetwork: "monkeyproject",
+	messagePrefix: 'Monkey Signed Message:\n',
+	bech32: 'monkey',
+	bip32: {
+		public: 0x0488b21e,
+		private: 0x0488dde4
+	},
+	pubKeyHash: 0x33,
+	scriptHash: 0x1c,
+	wif: 0x37
+};
+
+bitcoinjs.bitcoin.networks.atom.p2wpkh = {
+    baseNetwork: "atom",
+	messagePrefix: '\x18Bitcoin Atom Signed Message:\n',
+	bech32: 'atom',
+	bip32: {
+		public: 0x0488B21E,
+		private: 0x0488ADE4
+	},
+	pubKeyHash: 0x17,
+	scriptHash: 0x0a,
+	wif: 0x80
+};
+
+bitcoinjs.bitcoin.networks.atom.p2wpkhInP2sh = {
+	baseNetwork: "atom",
+	messagePrefix: '\x18Bitcoin Atom Signed Message:\n',
+	bech32: 'atom',
+	bip32: {
+		public: 0x0488B21E,
+		private: 0x0488ADE4
+	},
+	pubKeyHash: 0x17,
+	scriptHash: 0x0a,
+	wif: 0x80
+};
+
+bitcoinjs.bitcoin.networks.bitcore.p2wpkh = {
+    baseNetwork: "bitcore",
+	messagePrefix: '\x18BitCore Signed Message:\n',
+	bech32: 'bitcore',
+	bip32: {
+		public: 0x0488B21E,
+		private: 0x0488ADE4
+	},
+	pubKeyHash: 0x03,
+	scriptHash: 0x7D,
+	wif: 0x80
+};
+
+bitcoinjs.bitcoin.networks.bitcore.p2wpkhInP2sh = {
+	baseNetwork: "bitcore",
+	messagePrefix: '\x18BitCore Signed Message:\n',
+	bech32: 'bitcore',
+	bip32: {
+		public: 0x0488B21E,
+		private: 0x0488ADE4
+	},
+	pubKeyHash: 0x03,
+	scriptHash: 0x7D,
+	wif: 0x80
+};
+
+bitcoinjs.bitcoin.networks.monacoin.p2wpkh = {
+    baseNetwork: "monacoin",
+	messagePrefix: '\x18Monacoin Signed Message:\n',
+	bech32: 'monacoin',
+	bip32: {
+		public: 0x0488b21e,
+		private: 0x0488ade4
+	},
+	pubKeyHash: 0x32,
+	scriptHash: 0x37,
+	wif: 0xb0
+};
+
+bitcoinjs.bitcoin.networks.monacoin.p2wpkhInP2sh = {
+	baseNetwork: "monacoin",
+	messagePrefix: '\x18Monacoin Signed Message:\n',
+	bech32: 'monacoin',
+	bip32: {
+		public: 0x0488b21e,
+		private: 0x0488ade4
+	},
+	pubKeyHash: 0x32,
+	scriptHash: 0x37,
+	wif: 0xb0
+};
+
+bitcoinjs.bitcoin.networks.syscoin.p2wpkh = {
+    baseNetwork: "syscoin",
+	messagePrefix: '\x18Syscoin Signed Message:\n',
+	bech32: 'sys',
+	bip32: {
+		public: 0x04b24746,
+		private: 0x04b2430c
+	},
+	pubKeyHash: 0x3f,
+	scriptHash: 0x05,
+	wif: 0x80
+};
+
+bitcoinjs.bitcoin.networks.syscoin.p2wpkhInP2sh = {
+	baseNetwork: "syscoin",
+	messagePrefix: '\x18Syscoin Signed Message:\n',
+	bech32: 'sys',
+	bip32: {
+		public: 0x049d7cb2,
+		private: 0x049d7878
+	},
+	pubKeyHash: 0x3f,
+	scriptHash: 0x05,
+	wif: 0x80
+};
+
+bitcoinjs.bitcoin.networks.viacoin.p2wpkh = {
+    baseNetwork: "viacoin",
+	messagePrefix: '\x18Viacoin Signed Message:\n',
+	bech32: 'viacoin',
+	bip32: {
+		public: 0x0488b21e,
+		private: 0x0488ade4
+	},
+	pubKeyHash: 0x47,
+	scriptHash: 0x21,
+	wif: 0xc7
+};
+
+bitcoinjs.bitcoin.networks.viacoin.p2wpkhInP2sh = {
+	baseNetwork: "viacoin",
+	messagePrefix: '\x18Viacoin Signed Message:\n',
+	bech32: 'viacoin',
+	bip32: {
+		public: 0x0488b21e,
+		private: 0x0488ade4
+	},
+	pubKeyHash: 0x47,
+	scriptHash: 0x21,
+	wif: 0xc7
+};
+
+bitcoinjs.bitcoin.networks.dogecointestnet.p2wpkh = {
+    baseNetwork: "dogecointestnet",
+	messagePrefix: '\x19Dogecoin Signed Message:\n',
+	bech32: 'dogecointestnet',
+	bip32: {
+		public: 0x043587cf,
+		private: 0x04358394
+	},
+	pubKeyHash: 0x71,
+	scriptHash: 0xc4,
+	wif: 0xf1
+};
+
+bitcoinjs.bitcoin.networks.dogecointestnet.p2wpkhInP2sh = {
+	baseNetwork: "dogecointestnet",
+	messagePrefix: '\x19Dogecoin Signed Message:\n',
+	bech32: 'dogecointestnet',
+	bip32: {
+		public: 0x043587cf,
+		private: 0x04358394
+	},
+	pubKeyHash: 0x71,
+	scriptHash: 0xc4,
+	wif: 0xf1
+};
+
+bitcoinjs.bitcoin.networks.dogecointestnet.p2wpkh = {
+    baseNetwork: "dogecointestnet",
+	messagePrefix: '\x19Dogecoin Signed Message:\n',
+	bech32: 'dogecointestnet',
+	bip32: {
+		public: 0x043587cf,
+		private: 0x04358394
+	},
+	pubKeyHash: 0x71,
+	scriptHash: 0xc4,
+	wif: 0xf1
+};
+
+bitcoinjs.bitcoin.networks.dogecointestnet.p2wpkhInP2sh = {
+	baseNetwork: "dogecointestnet",
+	messagePrefix: '\x19Dogecoin Signed Message:\n',
+	bech32: 'dogecointestnet',
+	bip32: {
+		public: 0x043587cf,
+		private: 0x04358394
+	},
+	pubKeyHash: 0x71,
+	scriptHash: 0xc4,
+	wif: 0xf1
+};
+
+bitcoinjs.bitcoin.networks.litecointestnet.p2wpkh = {
+    baseNetwork: "litecointestnet",
+	messagePrefix: '\x18Litecoin Signed Message:\n',
+	bech32: 'litecointestnet',
+	bip32: {
+		public: 0x043587cf,
+		private: 0x04358394
+	},
+	pubKeyHash: 0x6f,
+	scriptHash: 0xc4,
+	wif: 0xef
+};
+
+bitcoinjs.bitcoin.networks.litecointestnet.p2wpkhInP2sh = {
+	baseNetwork: "litecointestnet",
+	messagePrefix: '\x18Litecoin Signed Message:\n',
+	bech32: 'litecointestnet',
+	bip32: {
+		public: 0x043587cf,
+		private: 0x04358394
+	},
+	pubKeyHash: 0x6f,
+	scriptHash: 0xc4,
+	wif: 0xef
+};
+
 bitcoinjs.bitcoin.networks.groestlcoin.p2wpkh = {
     baseNetwork: "groestlcoin",
     messagePrefix: '\x19GroestlCoin Signed Message:\n',
