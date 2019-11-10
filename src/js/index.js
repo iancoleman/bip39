@@ -240,7 +240,7 @@
         }
         phraseChangeTimeoutEvent = setTimeout(function() {
             phraseChanged();
-            var entropy = mnemonic.toRawEntropyHex(DOM.phrase.val());
+            var entropy = mnemonic.toRawEntropyBin(DOM.phrase.val());
             if (entropy !== null) {
                 DOM.entropyMnemonicLength.val("raw");
                 DOM.entropy.val(entropy);

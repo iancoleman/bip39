@@ -130,6 +130,12 @@ var Mnemonic = function(language) {
         return h;
     }
 
+    self.toRawEntropyBin = function(mnemonic) {
+        var b = mnemonicToBinaryString(mnemonic);
+        var d = b.substring(0, b.length / 33 * 32);
+        return d;
+    }
+
     self.toSeed = function(mnemonic, passphrase) {
         passphrase = passphrase || '';
         mnemonic = self.joinWords(self.splitWords(mnemonic)); // removes duplicate blanks
