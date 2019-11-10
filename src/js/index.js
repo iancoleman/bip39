@@ -44,6 +44,7 @@
     DOM.entropyWeakEntropyOverrideWarning = DOM.entropyContainer.find(".weak-entropy-override-warning");
     DOM.entropyFilterWarning = DOM.entropyContainer.find(".filter-warning");
     DOM.phrase = $(".phrase");
+	DOM.splitPhrase = $(".phraseSplit");
     DOM.passphrase = $(".passphrase");
     DOM.generateContainer = $(".generate-container");
     DOM.generate = $(".generate");
@@ -304,6 +305,7 @@
             clearDisplay();
             clearEntropyFeedback();
             DOM.phrase.val("");
+			DOM.phraseSplit.val("");
             showValidationError("Blank entropy");
             return;
         }
@@ -338,6 +340,7 @@
         showPending();
         // Clear existing mnemonic and passphrase
         DOM.phrase.val("");
+		DOM.phraseSplit.val("");
         DOM.passphrase.val("");
         seed = null;
         if (rootKeyChangedTimeoutEvent != null) {
@@ -424,6 +427,7 @@
             if (DOM.phrase.val().length > 0) {
                 var newPhrase = convertPhraseToNewLanguage();
                 DOM.phrase.val(newPhrase);
+				writeSplitPhrase(newPhrase);
                 phraseChanged();
             }
             else {
@@ -484,6 +488,7 @@
         // show the words
         var words = mnemonic.toMnemonic(data);
         DOM.phrase.val(words);
+		writeSplitPhrase(words);
         // show the entropy
         var entropyHex = uint8ArrayToHex(data);
         DOM.entropy.val(entropyHex);
@@ -1422,6 +1427,28 @@
         }
         return phrase;
     }
+	
+	function writeSplitPhrase(phrase) {
+		var wordCount = phrase.split(/\s/g).length;								//get number of words in phrase       
+		var left=[];															//initialize array of indexs
+		for (var i=0;i<wordCount;i++) left.push(i);								//add all indexs to array
+		var group=[[],[],[]],													//make array for 3 groups
+			groupI=-1;															//initialize group index
+		var seed = Math.abs(sjcl.hash.sha256.hash(phrase)[0])% 2147483647;		//start seed at sudo random value based on hash of words
+		while (left.length>0) {													//while indexs left
+			groupI=(groupI+1)%3;												//get next group to insert index into
+			seed = seed * 16807 % 2147483647;									//change random value.(simple predicatable random number generator works well for this use)
+			var selected=Math.floor(left.length*(seed - 1) / 2147483646);		//get index in left we will use for this group
+			group[groupI].push(left[selected]);									//add index to group
+			left.splice(selected,1);											//remove selected index
+		}
+		var cards=[phrase.split(/\s/g),phrase.split(/\s/g),phrase.split(/\s/g)];//make array of cards
+		for (var i=0;i<3;i++) {													//go through each card
+			for (var ii=0;ii<wordCount/3;ii++) cards[i][group[i][ii]]='XXXX';	//erase words listed in the group
+			cards[i]='Card '+(i+1)+': '+wordArrayToPhrase(cards[i]);								//combine words on card back to string
+		}
+		DOM.splitPhrase.val(cards.join("\r\n"));								//make words visible
+	}
 
     function isUsingOwnEntropy() {
         return DOM.useEntropy.prop("checked");
@@ -1480,6 +1507,7 @@
         var phrase = mnemonic.toMnemonic(entropyArr);
         // Set the mnemonic in the UI
         DOM.phrase.val(phrase);
+		writeSplitPhrase(phrase);
         // Show the word indexes
         showWordIndexes();
         // Show the checksum
