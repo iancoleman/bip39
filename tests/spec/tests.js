@@ -4140,4 +4140,35 @@ fit('Converts mnemonics into raw entropy', function(done) {
     });
 });
 
+// Pull Request 279
+// Added Split Phrase Card Output
+fit('Shows split prase cards', function(done) {
+    var originalPhrase = "ugly charge strong giant once anchor capable october thumb inject dwarf legal alley mixture shoot";
+    var originalWords = originalPhrase.split(' ');
+    driver.findElement(By.css('.phrase'))
+        .sendKeys(originalPhrase);
+    driver.sleep(generateDelay).then(function() {
+        driver.findElement(By.css('.phraseSplit'))
+            .getAttribute("value")
+            .then(function(cardsStr) {
+                var cards = cardsStr.split("\n");
+                expect(cards.length).toBe(3);
+                // test all 2-of-3 combos can be used to form full phrase
+                var combos = [[0,1],[0,2],[1,2]];
+                for (var i=0; i<combos.length; i++) {
+                    var combo = combos[i];
+                    var a = combo[0];
+                    var b = combo[1];
+                    var phrase = cards[a] + " " + cards[b];
+                    // check all original words are present
+                    for (var j=0; j<originalWords.length; j++) {
+                        var originalWord = originalWords[j];
+                        expect(phrase).toContain(originalWord);
+                    }
+                }
+                done();
+            });
+    });
+});
+
 });

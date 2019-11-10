@@ -264,6 +264,7 @@
         calcForDerivationPath();
         // Show the word indexes
         showWordIndexes();
+        writeSplitPhrase(phrase);
     }
 
     function tabChanged() {
@@ -432,7 +433,6 @@
             if (DOM.phrase.val().length > 0) {
                 var newPhrase = convertPhraseToNewLanguage();
                 DOM.phrase.val(newPhrase);
-                writeSplitPhrase(newPhrase);
                 phraseChanged();
             }
             else {
@@ -493,7 +493,6 @@
         // show the words
         var words = mnemonic.toMnemonic(data);
         DOM.phrase.val(words);
-        writeSplitPhrase(words);
         // show the entropy
         var entropyHex = uint8ArrayToHex(data);
         DOM.entropy.val(entropyHex);
