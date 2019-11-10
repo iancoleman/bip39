@@ -1450,27 +1450,27 @@
     }
 
     function writeSplitPhrase(phrase) {
-        var wordCount = phrase.split(/\s/g).length;                                //get number of words in phrase       
-        var left=[];                                                            //initialize array of indexs
-        for (var i=0;i<wordCount;i++) left.push(i);                                //add all indexs to array
-        var group=[[],[],[]],                                                    //make array for 3 groups
-            groupI=-1;                                                            //initialize group index
-        var seed = Math.abs(sjcl.hash.sha256.hash(phrase)[0])% 2147483647;        //start seed at sudo random value based on hash of words
-        while (left.length>0) {                                                    //while indexs left
-            groupI=(groupI+1)%3;                                                //get next group to insert index into
-            seed = seed * 16807 % 2147483647;                                    //change random value.(simple predicatable random number generator works well for this use)
-            var selected=Math.floor(left.length*(seed - 1) / 2147483646);        //get index in left we will use for this group
-            group[groupI].push(left[selected]);                                    //add index to group
-            left.splice(selected,1);                                            //remove selected index
+        var wordCount = phrase.split(/\s/g).length;
+        var left=[];
+        for (var i=0;i<wordCount;i++) left.push(i);
+        var group=[[],[],[]],
+            groupI=-1;
+        var seed = Math.abs(sjcl.hash.sha256.hash(phrase)[0])% 2147483647;
+        while (left.length>0) {
+            groupI=(groupI+1)%3;
+            seed = seed * 16807 % 2147483647;
+            var selected=Math.floor(left.length*(seed - 1) / 2147483646);
+            group[groupI].push(left[selected]);
+            left.splice(selected,1);
         }
-        var cards=[phrase.split(/\s/g),phrase.split(/\s/g),phrase.split(/\s/g)];//make array of cards
-        for (var i=0;i<3;i++) {                                                    //go through each card
-            for (var ii=0;ii<wordCount/3;ii++) cards[i][group[i][ii]]='XXXX';    //erase words listed in the group
-            cards[i]='Card '+(i+1)+': '+wordArrayToPhrase(cards[i]);                                //combine words on card back to string
+        var cards=[phrase.split(/\s/g),phrase.split(/\s/g),phrase.split(/\s/g)];
+        for (var i=0;i<3;i++) {
+            for (var ii=0;ii<wordCount/3;ii++) cards[i][group[i][ii]]='XXXX';
+            cards[i]='Card '+(i+1)+': '+wordArrayToPhrase(cards[i]);
         }
-        DOM.splitPhrase.val(cards.join("\r\n"));                                //make words visible
-        var triesPerSecond=10000000000;                                            //assumed number of tries per second
-        var hackTime=Math.pow(2,wordCount*10/3)/triesPerSecond;                    //get number of bits of unknown data per card
+        DOM.splitPhrase.val(cards.join("\r\n"));
+        var triesPerSecond=10000000000;
+        var hackTime=Math.pow(2,wordCount*10/3)/triesPerSecond;
         if (hackTime<1) {
             hackTime="<1 second";
         } else if (hackTime<86400) {
