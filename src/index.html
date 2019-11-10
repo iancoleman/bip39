@@ -173,6 +173,13 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="phrase" class="col-sm-2 control-label">BIP39 Split Mnemonic</label>
+                            <div class="col-sm-10">
+                                <textarea id="phraseSplit" class="phraseSplit private-data form-control" title="Only 2 of 3 cards needed to recover."></textarea>
+                            </div>
+							<div id="phraseSplitWarn" class="phraseSplitWarn"></div>
+                        </div>
+                        <div class="form-group">
                             <label for="passphrase" class="col-sm-2 control-label">BIP39 Passphrase (optional)</label>
                             <div class="col-sm-10">
                                 <textarea id="passphrase" class="passphrase private-data form-control" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
@@ -926,6 +933,9 @@
         <script src="js/bitcoinjs-3.3.2.js"></script>
         <script src="js/bitcoinjs-extensions.js"></script>
         <script src="js/bitcoinjs-bip38-2.0.2.js"></script>
+        <script src="js/groestlcoinjs-3.3.2.js"></script>
+        <script src="js/groestlcoinjs-bip38-2.0.2.js"></script>
+        <script src="js/elastos-1.0.9.min.js"></script>
         <script src="js/segwit-parameters.js"></script>
         <script src="js/ethereumjs-util.js"></script>
         <script src="js/ripple-util.js"></script>
@@ -948,7 +958,5 @@
         <script src="js/entropy.js"></script>
         <script src="js/stellar-util.js"></script>
         <script src="js/index.js"></script>
-        <script src="js/groestlcoinjs-3.3.2.js"></script>
-        <script src="js/groestlcoinjs-bip38-2.0.2.js"></script>
     </body>
 </html>
