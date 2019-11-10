@@ -45,6 +45,7 @@
     DOM.entropyFilterWarning = DOM.entropyContainer.find(".filter-warning");
     DOM.phrase = $(".phrase");
 	DOM.splitPhrase = $(".phraseSplit");
+	DOM.phraseSplitWarn = $(".phraseSplitWarn");
     DOM.passphrase = $(".passphrase");
     DOM.generateContainer = $(".generate-container");
     DOM.generate = $(".generate");
@@ -1448,6 +1449,18 @@
 			cards[i]='Card '+(i+1)+': '+wordArrayToPhrase(cards[i]);								//combine words on card back to string
 		}
 		DOM.splitPhrase.val(cards.join("\r\n"));								//make words visible
+		var triesPerSecond=10000000000;											//assumed number of tries per second
+		var hackTime=Math.pow(2,wordCount*10/3)/triesPerSecond;					//get number of bits of unknown data per card
+		if (hackTime<1) {
+			hackTime="<1 second";
+		} else if (hackTime<86400) {
+			hackTime=Math.floor(hackTime)+" seconds";
+		} else if(hackTime<31557600) {
+			hackTime=Math.floor(hackTime/86400)+" days";
+		} else {
+			hackTime=Math.floor(hackTime/31557600)+" years";
+		}
+		DOM.phraseSplitWarn.html("Time to hack with only one card: "+hackTime);
 	}
 
     function isUsingOwnEntropy() {
