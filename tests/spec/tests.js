@@ -1615,6 +1615,13 @@ it('Allows selection of Elastos', function(done) {
     };
     testNetwork(done, params);
 });
+fit('Allows selection of Energyweb', function(done) {
+    var params = {
+        selectText: "EWT - EnergyWeb",
+        firstAddress: "0x190aCfa6dA6Ff2D0a28Fbd0e02Aec493bCa5D7f7",
+    };
+    testNetwork(done, params);
+});
 
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {
