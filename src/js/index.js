@@ -607,7 +607,7 @@
                 extendedKey = extendedKey.derive(index);
             }
         }
-        return extendedKey
+        return extendedKey;
     }
 
     function showValidationError(errorText) {
@@ -650,9 +650,9 @@
     }
 
     function validateRootKey(rootKeyBase58) {
-        if(isGRS()) 
+        if(isGRS())
             return validateRootKeyGRS(rootKeyBase58);
-            
+
         // try various segwit network params since this extended key may be from
         // any one of them.
         if (networkHasSegwit()) {
@@ -848,6 +848,10 @@
         return networks[DOM.network.val()].name == "GRS - Groestlcoin" || networks[DOM.network.val()].name == "GRS - Groestlcoin Testnet";
     }
 
+    function isELA() {
+        return networks[DOM.network.val()].name == "ELA - Elastos"
+    }
+
     function displayBip44Info() {
         // Get the derivation path for the account
         var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
@@ -861,9 +865,14 @@
         var accountExtendedKey = calcBip32ExtendedKey(path);
         var accountXprv = accountExtendedKey.toBase58();
         var accountXpub = accountExtendedKey.neutered().toBase58();
+
         // Display the extended keys
         DOM.bip44accountXprv.val(accountXprv);
         DOM.bip44accountXpub.val(accountXpub);
+
+        if (isELA()) {
+            displayBip44InfoForELA();
+        }
     }
 
     function displayBip49Info() {
@@ -919,6 +928,10 @@
         clearAddressesList();
         var initialAddressCount = parseInt(DOM.rowsToAdd.val());
         displayAddresses(0, initialAddressCount);
+
+        if (isELA()) {
+            displayBip32InfoForELA();
+        }
     }
 
     function displayAddresses(start, total) {
@@ -1004,7 +1017,7 @@
                     privkey = keyPair.toWIF();
                     // BIP38 encode private key if required
                     if (useBip38) {
-                        if(isGRS())  
+                        if(isGRS())
                             privkey = groestlcoinjsBip38.encrypt(keyPair.d.toBuffer(), false, bip38password, function(p) {
                                 console.log("Progressed " + p.percent.toFixed(1) + "% for index " + index);
                             }, null, networks[DOM.network.val()].name.includes("Testnet"));
@@ -1135,8 +1148,21 @@
                         else if (isP2wpkhInP2sh) {
                             address = groestlcoinjs.address.fromOutputScript(scriptpubkey, network)
                         }
-                    } 
+                    }
                     //non-segwit addresses are handled by using groestlcoinjs for bip32RootKey
+                }
+
+                if (isELA()) {
+                    let elaAddress = calcAddressForELA(
+                        seed,
+                        parseIntNoNaN(DOM.bip44coin.val(), 0),
+                        parseIntNoNaN(DOM.bip44account.val(), 0),
+                        parseIntNoNaN(DOM.bip44change.val(), 0),
+                        index
+                    );
+                    address = elaAddress.address;
+                    privkey = elaAddress.privateKey;
+                    pubkey = elaAddress.publicKey;
                 }
 
                 addAddressToList(indexText, address, pubkey, privkey);
@@ -2212,6 +2238,13 @@
             },
         },
         {
+            name: "ELA - Elastos",
+            onSelect: function () {
+                network = bitcoinjs.bitcoin.networks.elastos;
+                setHdCoin(2305);
+            },
+        },
+        {
             name: "ELLA - Ellaism",
             segwitAvailable: false,
             onSelect: function() {
@@ -3118,6 +3151,56 @@
             },
         }
     ]
+
+    // ELA - Elastos functions - begin
+    function displayBip44InfoForELA() {
+        if (!isELA()) {
+            return;
+        }
+
+        var coin = parseIntNoNaN(DOM.bip44coin.val(), 0);
+        var account = parseIntNoNaN(DOM.bip44account.val(), 0);
+
+        // Calculate the account extended keys
+        var accountXprv = elastosjs.getAccountExtendedPrivateKey(seed, coin, account);
+        var accountXpub = elastosjs.getAccountExtendedPublicKey(seed, coin, account);
+
+        // Display the extended keys
+        DOM.bip44accountXprv.val(accountXprv);
+        DOM.bip44accountXpub.val(accountXpub);
+    }
+
+    function displayBip32InfoForELA() {
+        if (!isELA()) {
+            return;
+        }
+
+        var coin = parseIntNoNaN(DOM.bip44coin.val(), 0);
+        var account = parseIntNoNaN(DOM.bip44account.val(), 0);
+        var change = parseIntNoNaN(DOM.bip44change.val(), 0);
+
+        DOM.extendedPrivKey.val(elastosjs.getBip32ExtendedPrivateKey(seed, coin, account, change));
+        DOM.extendedPubKey.val(elastosjs.getBip32ExtendedPublicKey(seed, coin, account, change));
+
+        // Display the addresses and privkeys
+        clearAddressesList();
+        var initialAddressCount = parseInt(DOM.rowsToAdd.val());
+        displayAddresses(0, initialAddressCount);
+    }
+
+    function calcAddressForELA(seed, coin, account, change, index) {
+        if (!isELA()) {
+            return;
+        }
+
+        var publicKey = elastosjs.getDerivedPublicKey(elastosjs.getMasterPublicKey(seed), change, index);
+        return {
+            privateKey: elastosjs.getDerivedPrivateKey(seed, coin, account, change, index),
+            publicKey: publicKey,
+            address: elastosjs.getAddress(publicKey.toString('hex'))
+        };
+    }
+    // ELA - Elastos functions - end
 
     init();
 
