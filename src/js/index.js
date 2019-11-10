@@ -2960,6 +2960,13 @@
             },
         },
         {
+            name: "THT - Thought",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.thought;
+                setHdCoin(1618);
+            },
+        },
+        {
             name: "TOA - Toa",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.toa;
