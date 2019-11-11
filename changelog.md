@@ -1,3 +1,23 @@
+# 0.3.13
+
+* Add Thought network
+* Add Energyweb network
+* Add Elastos network
+* Add Groestlcoin
+* Fix for syscoin network
+* Add BSV, RPD, MONKEY, ARYA
+* Rename Zencash to Horizen
+* Update Hush network
+* Add CasinoCoin
+* Add CPUchain
+* Add Wagerr
+* Add VeChain
+* Option to not use 'change' field for ethereum networks in bip45
+* Add segwit parameters for MONKEY, BCA, BTC, MONA, SYS, VIA, DOGEt, LTCt
+* Convert mnemonic back to raw entropy
+* Add 2-of-3 phrase cards
+* Move position of hardened addresses checkbox to address table
+
 # 0.3.12
 
 * Fix typos
