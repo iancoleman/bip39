@@ -1622,6 +1622,13 @@ it('Allows selection of Energyweb', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Thought', function(done) {
+    var params = {
+        selectText: "THT - Thought",
+        firstAddress: "4B1Bh9GibDarFQrhtYU8krpc7WSjgGfYvo",
+    };
+    testNetwork(done, params);
+});
 
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {
