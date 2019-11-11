@@ -1470,16 +1470,25 @@
         DOM.splitPhrase.val(cards.join("\r\n"));
         var triesPerSecond=10000000000;
         var hackTime=Math.pow(2,wordCount*10/3)/triesPerSecond;
+        var displayRedText = false;
         if (hackTime<1) {
             hackTime="<1 second";
+            displayRedText = true;
         } else if (hackTime<86400) {
             hackTime=Math.floor(hackTime)+" seconds";
+            displayRedText = true;
         } else if(hackTime<31557600) {
             hackTime=Math.floor(hackTime/86400)+" days";
+            displayRedText = true;
         } else {
             hackTime=Math.floor(hackTime/31557600)+" years";
         }
         DOM.phraseSplitWarn.html("Time to hack with only one card: "+hackTime);
+        if (displayRedText) {
+            DOM.phraseSplitWarn.addClass("text-danger");
+        } else {
+            DOM.phraseSplitWarn.removeClass("text-danger");
+        }
     }
 
     function isUsingOwnEntropy() {

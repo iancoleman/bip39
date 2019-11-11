@@ -31,10 +31,6 @@ body {
 .phrase {
     word-break: keep-all;
 }
-.phraseSplitWarn {
-	text-align: right;
-	color: red;
-}
 .generate-container .strength {
     /* override mobile width from bootstrap */
     width: auto!important;
