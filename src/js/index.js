@@ -45,7 +45,7 @@
     DOM.entropyWeakEntropyOverrideWarning = DOM.entropyContainer.find(".weak-entropy-override-warning");
     DOM.entropyFilterWarning = DOM.entropyContainer.find(".filter-warning");
     DOM.phrase = $(".phrase");
-    DOM.splitPhrase = $(".phraseSplit");
+    DOM.phraseSplit = $(".phraseSplit");
     DOM.phraseSplitWarn = $(".phraseSplitWarn");
     DOM.passphrase = $(".passphrase");
     DOM.generateContainer = $(".generate-container");
@@ -1467,7 +1467,7 @@
             for (var ii=0;ii<wordCount/3;ii++) cards[i][group[i][ii]]='XXXX';
             cards[i]='Card '+(i+1)+': '+wordArrayToPhrase(cards[i]);
         }
-        DOM.splitPhrase.val(cards.join("\r\n"));
+        DOM.phraseSplit.val(cards.join("\r\n"));
         var triesPerSecond=10000000000;
         var hackTime=Math.pow(2,wordCount*10/3)/triesPerSecond;
         var displayRedText = false;
