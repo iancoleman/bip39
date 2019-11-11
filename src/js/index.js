@@ -2869,6 +2869,14 @@
             },
         },
         {
+            name: "QTUM - Qtum",
+            segwitAvailable: false,
+            onSelect: function() {
+               network = bitcoinjs.bitcoin.networks.qtum;
+               setHdCoin(88);
+            },
+        },
+        {
             name: "SDC - ShadowCash",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.shadow;

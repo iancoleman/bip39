@@ -404,6 +404,17 @@ bitcoinjs.bitcoin.networks.litecoinXprv = {
     wif: 0xb0
 };
 
+bitcoinjs.bitcoin.networks.qtum = {
+    messagePrefix: '\x19Qtum Signed Message:\n',
+    bip32: {
+      public: 0x0488b21e,
+      private: 0x05358394,
+    },
+    pubKeyHash: 0x3A,
+    scriptHash: 0x32,
+    wif: 0x80
+};
+
 bitcoinjs.bitcoin.networks.komodo = {
   messagePrefix: '\x18Komodo Signed Message:\n',
   bip32: {
