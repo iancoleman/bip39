@@ -1615,7 +1615,7 @@ it('Allows selection of Elastos', function(done) {
     };
     testNetwork(done, params);
 });
-fit('Allows selection of Energyweb', function(done) {
+it('Allows selection of Energyweb', function(done) {
     var params = {
         selectText: "EWT - EnergyWeb",
         firstAddress: "0x190aCfa6dA6Ff2D0a28Fbd0e02Aec493bCa5D7f7",
@@ -4127,7 +4127,7 @@ it('Can use root keys to generate segwit table rows', function(done) {
 
 // Pull Request 271
 // Allow converting mnemonic back to raw entropy value
-fit('Converts mnemonics into raw entropy', function(done) {
+it('Converts mnemonics into raw entropy', function(done) {
     driver.findElement(By.css('.phrase'))
         .sendKeys('abandon abandon about');
     driver.sleep(generateDelay).then(function() {
@@ -4149,7 +4149,7 @@ fit('Converts mnemonics into raw entropy', function(done) {
 
 // Pull Request 279
 // Added Split Phrase Card Output
-fit('Shows split prase cards', function(done) {
+it('Shows split prase cards', function(done) {
     var originalPhrase = "ugly charge strong giant once anchor capable october thumb inject dwarf legal alley mixture shoot";
     var originalWords = originalPhrase.split(' ');
     driver.findElement(By.css('.phrase'))
