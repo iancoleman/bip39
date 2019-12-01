@@ -585,7 +585,7 @@ it('Allows selection of peercoin', function(done) {
 it('Allows selection of ethereum', function(done) {
     var params = {
         selectText: "ETH - Ethereum",
-        firstAddress: "0x20Bb0CD7dd4a255f558bCD1A34D21E27061Ac2CF",
+        firstAddress: "0xe5815d5902Ad612d49283DEdEc02100Bd44C2772",
     };
     testNetwork(done, params);
     // TODO test private key and public key
@@ -1358,7 +1358,7 @@ it('Allows selection of Vpncoin', function(done) {
 it('Allows selection of VeChain', function(done) {
     var params = {
         selectText: "VET - VeChain",
-        firstAddress: "0x993680FDF7f4a6AbcD4b9Db23b92Bc6B08AF9e48",
+        firstAddress: "0xdba55B1B6070f3a733D5eDFf35F0da4A00E455F2",
     };
     testNetwork(done, params);
 });
@@ -1414,21 +1414,21 @@ it('Allows selection of Energi', function(done) {
 it('Allows selection of Ethereum Classic', function(done) {
     var params = {
         selectText: "ETC - Ethereum Classic",
-        firstAddress: "0x8Ad2bc632591bb442CfBEA19AC919ef16480B162",
+        firstAddress: "0x3c05e5556693808367afB62eF3b63e35d6eD249A",
     };
     testNetwork(done, params);
 });
 it('Allows selection of Pirl', function(done) {
     var params = {
         selectText: "PIRL - Pirl",
-        firstAddress: "0xc85E5dc7287F759394E53e5ba62510a35cE0DcFF",
+        firstAddress: "0xe77FC0723dA122B5025CA79193c28563eB47e776",
     };
     testNetwork(done, params);
 });
 it('Allows selection of MIX', function(done) {
     var params = {
         selectText: "MIX - MIX",
-        firstAddress: "0x325C6118DD0f788B50998591B2a7A35FB0a4a402",
+        firstAddress: "0x98BC5e63aeb6A4e82d72850d20710F07E29A29F1",
     };
     testNetwork(done, params);
 });
@@ -1443,28 +1443,28 @@ it('Allows selection of Monkey Project', function(done) {
 it('Allows selection of Musicoin', function(done) {
     var params = {
         selectText: "MUSIC - Musicoin",
-        firstAddress: "0x600c481Fa6100531357dD49B3aa042A8F56F6AB5",
+        firstAddress: "0xDc060e4A0b0313ea83Cf6B3A39B9db2D29004897",
     };
     testNetwork(done, params);
 });
 it('Allows selection of Poa', function(done) {
     var params = {
         selectText: "POA - Poa",
-        firstAddress: "0x6F0d9bA6fda8EAA31f24A9c9fef3321F9851329D",
+        firstAddress: "0x53aF28d754e106210C3d0467Dd581eaf7e3C5e60",
     };
     testNetwork(done, params);
 });
 it('Allows selection of Expanse', function(done) {
     var params = {
         selectText: "EXP - Expanse",
-        firstAddress: "0xEc6e7f6782a29353c32A9A104E849605a01546e4",
+        firstAddress: "0xf57FeAbf26582b6E3E666559d3B1Cc6fB2b2c5F6",
     };
     testNetwork(done, params);
 });
 it('Allows selection of Callisto', function(done) {
     var params = {
         selectText: "CLO - Callisto",
-        firstAddress: "0x57bE971d6E61315fB957a2BFC9202fbE31f49e89",
+        firstAddress: "0x4f9364F7420B317266C51Dc8eB979717D4dE3f4E",
     };
     testNetwork(done, params);
 });
@@ -1562,21 +1562,21 @@ it('Allows selection of BlockStamp', function(done) {
 it('Allows selection of DEXON', function(done) {
     var params = {
         selectText: "DXN - DEXON",
-        firstAddress: "0x7c444Dd705c6Ecd6a4F926aFd38bC96d6BdcC3D5",
+        firstAddress: "0x136a58788033E028CCd740FbDec6734358DB56Ec",
     };
     testNetwork(done, params);
 });
 it('Allows selection of Ellaism', function(done) {
     var params = {
         selectText: "ELLA - Ellaism",
-        firstAddress: "0x9DA7b90b0c0Cf7a2EbbE1A20f9d9A663451a2F8D",
+        firstAddress: "0xa8B0BeA09eeBc41062308546a01d6E544277e2Ca",
     };
     testNetwork(done, params);
 });
 it('Allows selection of Ethersocial Network', function(done) {
     var params = {
         selectText: "ESN - Ethersocial Network",
-        firstAddress: "0x0685439123f9a1767Bad9b99258d72733783f64C",
+        firstAddress: "0x6EE99Be2A0C7F887a71e21C8608ACF0aa0D2b767",
     };
     testNetwork(done, params);
 });
