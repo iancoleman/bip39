@@ -1618,7 +1618,7 @@ it('Allows selection of Elastos', function(done) {
 it('Allows selection of Energyweb', function(done) {
     var params = {
         selectText: "EWT - EnergyWeb",
-        firstAddress: "0x190aCfa6dA6Ff2D0a28Fbd0e02Aec493bCa5D7f7",
+        firstAddress: "0x22171474844Fc7E8E99A3A69CCf1eDb5574FdD4c",
     };
     testNetwork(done, params);
 });
