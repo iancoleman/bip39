@@ -15,7 +15,6 @@
     var showPrivKey = true;
     var showQr = false;
     var litecoinUseLtub = true;
-    var isDefaultBip44ChangeValue = true;
 
     var entropyChangeTimeoutEvent = null;
     var phraseChangeTimeoutEvent = null;
@@ -72,7 +71,6 @@
     DOM.bip44accountXprv = $("#bip44 .account-xprv");
     DOM.bip44accountXpub = $("#bip44 .account-xpub");
     DOM.bip44change = $("#bip44 .change");
-    DOM.defaultBip44ChangeValue = $("#bip44 .default-bip44-change-value");
     DOM.bip49unavailable = $("#bip49 .unavailable");
     DOM.bip49available = $("#bip49 .available");
     DOM.bip49path = $("#bip49-path");
@@ -138,9 +136,7 @@
         DOM.litecoinUseLtub.on("change", litecoinUseLtubChanged);
         DOM.bip32path.on("input", calcForDerivationPath);
         DOM.bip44account.on("input", calcForDerivationPath);
-        DOM.bip44change.on("input", modifiedDefaultBip44ChangeValue);
         DOM.bip44change.on("input", calcForDerivationPath);
-        DOM.defaultBip44ChangeValue.on("click", resetDefaultBip44ChangeValue);
         DOM.bip49account.on("input", calcForDerivationPath);
         DOM.bip49change.on("input", calcForDerivationPath);
         DOM.bip84account.on("input", calcForDerivationPath);
@@ -742,14 +738,12 @@
             var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
             var coin = parseIntNoNaN(DOM.bip44coin.val(), 0);
             var account = parseIntNoNaN(DOM.bip44account.val(), 0);
-            var change = parseIntNoNaN(DOM.bip44change.val(), "");
-            var path = "m";
-            path += "/" + purpose + "'";
-            path += "/" + coin + "'";
-            path += "/" + account + "'";
-            if (change !== "") {
-              path += "/" + change;
-            }
+            var change = parseIntNoNaN(DOM.bip44change.val(), 0);
+            var path = "m/";
+            path += purpose + "'/";
+            path += coin + "'/";
+            path += account + "'/";
+            path += change;
             DOM.bip44path.val(path);
             var derivationPath = DOM.bip44path.val();
             console.log("Using derivation path from BIP44 tab: " + derivationPath);
@@ -1758,30 +1752,10 @@
         return DOM.bip141tab.hasClass("active");
     }
 
-    function setBip44ChangeValue() {
-        if (isDefaultBip44ChangeValue) {
-            if (networkIsEthereum()) {
-                DOM.bip44change.val("");
-            } else {
-                DOM.bip44change.val(0);
-            }
-        }
-    }
-
-    function modifiedDefaultBip44ChangeValue() {
-        isDefaultBip44ChangeValue = false;
-    }
-
-    function resetDefaultBip44ChangeValue() {
-        isDefaultBip44ChangeValue = true;
-        setBip44ChangeValue();
-    }
-
     function setHdCoin(coinValue) {
         DOM.bip44coin.val(coinValue);
         DOM.bip49coin.val(coinValue);
         DOM.bip84coin.val(coinValue);
-        setBip44ChangeValue();
     }
 
     function showSegwitAvailable() {
