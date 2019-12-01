@@ -1,3 +1,7 @@
+# 0.3.14
+
+* Ethereum uses standard BIP44 as per majority of wallets (Issue 378)
+
 # 0.3.13
 
 * Add Thought network
