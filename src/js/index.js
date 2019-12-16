@@ -539,6 +539,22 @@
                 }
                 catch (e) {}
             }
+            // try parsing using p2wsh network params
+            if ("p2wsh" in n) {
+                try {
+                    bip32RootKey = bitcoinjs.bitcoin.HDNode.fromBase58(rootKeyBase58, n.p2wsh);
+                    return;
+                }
+                catch (e) {}
+            }
+            // try parsing using p2wsh-in-p2sh network params
+            if ("p2wshInP2sh" in n) {
+                try {
+                    bip32RootKey = bitcoinjs.bitcoin.HDNode.fromBase58(rootKeyBase58, n.p2wshInP2sh);
+                    return;
+                }
+                catch (e) {}
+            }
         }
         // try the network params as currently specified
         bip32RootKey = bitcoinjs.bitcoin.HDNode.fromBase58(rootKeyBase58, network);
@@ -677,6 +693,22 @@
             if ("p2wpkhInP2sh" in n) {
                 try {
                     bitcoinjs.bitcoin.HDNode.fromBase58(rootKeyBase58, n.p2wpkhInP2sh);
+                    return "";
+                }
+                catch (e) {}
+            }
+            // try parsing using p2wsh network params
+            if ("p2wsh" in n) {
+                try {
+                    bitcoinjs.bitcoin.HDNode.fromBase58(rootKeyBase58, n.p2wsh);
+                    return "";
+                }
+                catch (e) {}
+            }
+            // try parsing using p2wsh-in-p2sh network params
+            if ("p2wshInP2sh" in n) {
+                try {
+                    bitcoinjs.bitcoin.HDNode.fromBase58(rootKeyBase58, n.p2wshInP2sh);
                     return "";
                 }
                 catch (e) {}
@@ -968,6 +1000,14 @@
             (bip141TabSelected() && DOM.bip141semantics.val() == "p2wpkh-p2sh");
     }
 
+    function p2wshSelected() {
+        return bip141TabSelected() && DOM.bip141semantics.val() == "p2wsh";
+    }
+
+    function p2wshInP2shSelected() {
+        return (bip141TabSelected() && DOM.bip141semantics.val() == "p2wsh-p2sh");
+    }
+
     function TableRow(index, isLast) {
 
         var self = this;
@@ -979,6 +1019,8 @@
         var segwitAvailable = networkHasSegwit();
         var isP2wpkh = p2wpkhSelected();
         var isP2wpkhInP2sh = p2wpkhInP2shSelected();
+        var isP2wsh = p2wshSelected();
+        var isP2wshInP2sh = p2wshInP2shSelected();
 
         function init() {
             calculateValues();
@@ -1108,6 +1150,14 @@
                         var addressbytes = bitcoinjs.bitcoin.crypto.hash160(scriptsig);
                         var scriptpubkey = bitcoinjs.bitcoin.script.scriptHash.output.encode(addressbytes);
                         address = bitcoinjs.bitcoin.address.fromOutputScript(scriptpubkey, network)
+                    }
+                    else if (isP2wsh) {
+                        // TODO
+                        address = "";
+                    }
+                    else if (isP2wshInP2sh) {
+                        // TODO
+                        address = "";
                     }
                 }
 
@@ -1793,6 +1843,12 @@
         }
         else if (p2wpkhInP2shSelected() && "p2wpkhInP2sh" in network) {
             network = network.p2wpkhInP2sh;
+        }
+        else if (p2wshSelected() && "p2wsh" in network) {
+            network = network.p2wsh;
+        }
+        else if (p2wshInP2shSelected() && "p2wshInP2sh" in network) {
+            network = network.p2wshInP2sh;
         }
     }
 

@@ -3694,6 +3694,102 @@ it('Can generate BIP141 addresses with P2WPKH-in-P2SH semanitcs', function(done)
     });
 });
 
+it('Can generate BIP141 addresses with P2WSH semanitcs', function(done) {
+    driver.findElement(By.css('#bip141-tab a'))
+        .click();
+    // Choose P2WSH
+    driver.executeScript(function() {
+        $(".bip141-semantics option[selected]").removeAttr("selected");
+        $(".bip141-semantics option").filter(function(i,e) {
+            return $(e).html() == "P2WSH";
+        }).prop("selected", true);
+        $(".bip141-semantics").trigger("change");
+    });
+    driver.findElement(By.css(".phrase"))
+        .sendKeys("abandon abandon ability");
+    driver.sleep(generateDelay).then(function() {
+        driver.findElement(By.css("#root-key"))
+        .getAttribute("value")
+        .then(function(rootKey) {
+            expect(rootKey).toBe("ZprvAhadJRUYsNge9uHspaggavxU1BUQ8QwfT4Z9UGq5sKF2mSt1mVy8EckLAaoBdmLHyP5eYDJ3LxtmzMNnLg2MRFe7QN2ueF4NCH4s5PrCDR6");
+            // TODO check first address
+            done();
+        })
+    });
+});
+
+it('Can generate BIP141 addresses with P2WSH-in-P2SH semanitcs', function(done) {
+    driver.findElement(By.css('#bip141-tab a'))
+        .click();
+    // Choose P2WSH-in-P2SH
+    driver.executeScript(function() {
+        $(".bip141-semantics option[selected]").removeAttr("selected");
+        $(".bip141-semantics option").filter(function(i,e) {
+            return $(e).html() == "P2WSH nested in P2SH";
+        }).prop("selected", true);
+        $(".bip141-semantics").trigger("change");
+    });
+    driver.findElement(By.css(".phrase"))
+        .sendKeys("abandon abandon ability");
+    driver.sleep(generateDelay).then(function() {
+        driver.findElement(By.css("#root-key"))
+        .getAttribute("value")
+        .then(function(rootKey) {
+            expect(rootKey).toBe("YprvANkMzkodih9AJc6kzDu4NqrxqDKxBnxAXx2vgswCVJs9iM4nWqoZcZ6C9NqbdrgNZjxqnjhUtJYE74mDcycLd1xWY2LV4LEsvZ1DgqxuAKe");
+            // TODO check first address
+            done();
+        })
+    });
+});
+
+it('Uses Vprv for bitcoin testnet p2wsh', function(done) {
+    selectNetwork("BTC - Bitcoin Testnet");
+    driver.findElement(By.css('#bip141-tab a'))
+        .click()
+    // Choose P2WSH
+    driver.executeScript(function() {
+        $(".bip141-semantics option[selected]").removeAttr("selected");
+        $(".bip141-semantics option").filter(function(i,e) {
+            return $(e).html() == "P2WSH";
+        }).prop("selected", true);
+        $(".bip141-semantics").trigger("change");
+    });
+    driver.findElement(By.css('.phrase'))
+        .sendKeys('abandon abandon ability');
+    driver.sleep(generateDelay).then(function() {
+        driver.findElement(By.css('.root-key'))
+            .getAttribute("value")
+            .then(function(path) {
+                expect(path).toBe("Vprv16YtLrHXxePM5ja5hXQbiJs5JKDAc4WcaXo5rZcrVMU6bMhUg1oY7fpPku3i819gvMcHvq1h8aELDsyfCEs19vj1Q3iDHRrESWyJConkoT1");
+                done();
+            })
+    });
+});
+
+it('Uses Uprv for bitcoin testnet p2wsh-in-p2sh', function(done) {
+    selectNetwork("BTC - Bitcoin Testnet");
+    driver.findElement(By.css('#bip141-tab a'))
+        .click()
+    // Choose P2WSH-in-P2SH
+    driver.executeScript(function() {
+        $(".bip141-semantics option[selected]").removeAttr("selected");
+        $(".bip141-semantics option").filter(function(i,e) {
+            return $(e).html() == "P2WSH nested in P2SH";
+        }).prop("selected", true);
+        $(".bip141-semantics").trigger("change");
+    });
+    driver.findElement(By.css('.phrase'))
+        .sendKeys('abandon abandon ability');
+    driver.sleep(generateDelay).then(function() {
+        driver.findElement(By.css('.root-key'))
+            .getAttribute("value")
+            .then(function(path) {
+                expect(path).toBe("Uprv95RJn67y7xyEuRLHenkZYVUx9LkARJzAsVx3ZJMeyHMdVwosWD9K8JTe4Z1FeE4gwBVcnqKF3f82ZvJxkBxHS5E74fYnigxvqeke8ZV3Fp2");
+                done();
+            })
+    });
+});
+
 it('Can generate BIP141 addresses with P2WPKH semanitcs', function(done) {
     // This result tested against bitcoinjs-lib test spec for segwit address
     // using the first private key of this mnemonic and default path m/0
