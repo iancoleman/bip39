@@ -19,6 +19,7 @@
     var entropyTypeAutoDetect = true;
     var entropyChangeTimeoutEvent = null;
     var phraseChangeTimeoutEvent = null;
+    var seedChangedTimeoutEvent = null;
     var rootKeyChangedTimeoutEvent = null;
 
     var generationProcesses = [];
@@ -135,6 +136,7 @@
         DOM.passphrase.on("input", delayedPhraseChanged);
         DOM.generate.on("click", generateClicked);
         DOM.more.on("click", showMore);
+        DOM.seed.on("input", delayedSeedChanged);
         DOM.rootKey.on("input", delayedRootKeyChanged);
         DOM.litecoinUseLtub.on("change", litecoinUseLtubChanged);
         DOM.bip32path.on("input", calcForDerivationPath);
@@ -340,6 +342,30 @@
         entropyChanged();
     }
 
+    function delayedSeedChanged() {
+        // Warn if there is an existing mnemonic or passphrase.
+        if (DOM.phrase.val().length > 0 || DOM.passphrase.val().length > 0) {
+            if (!confirm("This will clear existing mnemonic and passphrase")) {
+                DOM.seed.val(seed);
+                return
+            }
+        }
+        hideValidationError();
+        showPending();
+        // Clear existing mnemonic and passphrase
+        DOM.phrase.val("");
+        DOM.phraseSplit.val("");
+        DOM.passphrase.val("");
+        DOM.rootKey.val("");
+        clearAddressesList();
+        clearDerivedKeys();
+        seed = null;
+        if (seedChangedTimeoutEvent != null) {
+            clearTimeout(seedChangedTimeoutEvent);
+        }
+        seedChangedTimeoutEvent = setTimeout(seedChanged, 400);
+    }
+
     function delayedRootKeyChanged() {
         // Warn if there is an existing mnemonic or passphrase.
         if (DOM.phrase.val().length > 0 || DOM.passphrase.val().length > 0) {
@@ -359,6 +385,22 @@
             clearTimeout(rootKeyChangedTimeoutEvent);
         }
         rootKeyChangedTimeoutEvent = setTimeout(rootKeyChanged, 400);
+    }
+
+    function seedChanged() {
+        showPending();
+        hideValidationError();
+        seed = DOM.seed.val();
+        bip32RootKey = bitcoinjs.bitcoin.HDNode.fromSeedHex(seed, network);
+        var rootKeyBase58 = bip32RootKey.toBase58();
+        DOM.rootKey.val(rootKeyBase58);
+        var errorText = validateRootKey(rootKeyBase58);
+        if (errorText) {
+            showValidationError(errorText);
+            return;
+        }
+        // Calculate and display
+        calcForDerivationPath();
     }
 
     function rootKeyChanged() {

@@ -4336,4 +4336,17 @@ it('Allows entropy type to be manually selected', function(done) {
     });
 });
 
+// https://github.com/iancoleman/bip39/issues/388
+// Make field for bip39 seed editable
+it('Generates addresses when seed is set', function(done) {
+    driver.findElement(By.css('.seed'))
+        .sendKeys("20da140d3dd1df8713cefcc4d54ce0e445b4151027a1ab567b832f6da5fcc5afc1c3a3f199ab78b8e0ab4652efd7f414ac2c9a3b81bceb879a70f377aa0a58f3");
+    driver.sleep(generateDelay).then(function() {
+        getFirstAddress(function(address) {
+            expect(address).toBe("1Di3Vp7tBWtyQaDABLAjfWtF6V7hYKJtug");
+            done();
+        });
+    });
+});
+
 });
