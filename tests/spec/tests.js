@@ -4243,7 +4243,7 @@ it('Converts mnemonics into raw entropy', function(done) {
         driver.findElement(By.css('.entropy'))
             .getAttribute("value")
             .then(function(entropy) {
-                expect(entropy).toBe("00000000000000000000000000000001");
+                expect(entropy).toBe("00000001");
                 driver.findElement(By.css('.phrase'))
                     .getAttribute("value")
                     .then(function(phrase) {
