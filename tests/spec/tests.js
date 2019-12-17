@@ -2009,11 +2009,7 @@ it('Allows the user to set the BIP32 root key', function(done) {
 });
 
 // Setting BIP32 root key clears the existing phrase, passphrase and seed
-// TODO this doesn't work in selenium with chrome
 it('Confirms the existing phrase should be cleared', function(done) {
-    if (browser == "chrome") {
-        pending("Selenium + Chrome headless bug for alert, see https://stackoverflow.com/q/45242264");
-    }
     driver.findElement(By.css('.phrase'))
         .sendKeys('A non-blank but invalid value');
     driver.findElement(By.css('.root-key'))
@@ -2027,11 +2023,7 @@ it('Confirms the existing phrase should be cleared', function(done) {
 });
 
 // Clearing of phrase, passphrase and seed can be cancelled by user
-// TODO this doesn't work in selenium with chrome
 it('Allows the clearing of the phrase to be cancelled', function(done) {
-    if (browser == "chrome") {
-        pending("Selenium + Chrome headless bug for alert, see https://stackoverflow.com/q/45242264");
-    }
     driver.findElement(By.css('.phrase'))
         .sendKeys('abandon abandon ability');
     driver.sleep(generateDelay).then(function() {
