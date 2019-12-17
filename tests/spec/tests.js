@@ -3701,7 +3701,7 @@ it('Can generate BIP141 addresses with P2WSH semanitcs', function(done) {
     driver.executeScript(function() {
         $(".bip141-semantics option[selected]").removeAttr("selected");
         $(".bip141-semantics option").filter(function(i,e) {
-            return $(e).html() == "P2WSH";
+            return $(e).html() == "P2WSH (1-of-1 multisig)";
         }).prop("selected", true);
         $(".bip141-semantics").trigger("change");
     });
@@ -3712,8 +3712,10 @@ it('Can generate BIP141 addresses with P2WSH semanitcs', function(done) {
         .getAttribute("value")
         .then(function(rootKey) {
             expect(rootKey).toBe("ZprvAhadJRUYsNge9uHspaggavxU1BUQ8QwfT4Z9UGq5sKF2mSt1mVy8EckLAaoBdmLHyP5eYDJ3LxtmzMNnLg2MRFe7QN2ueF4NCH4s5PrCDR6");
-            // TODO check first address
-            done();
+            getFirstAddress(function(address) {
+                expect(address).toBe("bc1q2qhee847pv438tgg8hc7mjy38n8dklleshettn344l0tgs0kj5hskz9p9r");
+                done();
+            });
         })
     });
 });
@@ -3725,7 +3727,7 @@ it('Can generate BIP141 addresses with P2WSH-in-P2SH semanitcs', function(done) 
     driver.executeScript(function() {
         $(".bip141-semantics option[selected]").removeAttr("selected");
         $(".bip141-semantics option").filter(function(i,e) {
-            return $(e).html() == "P2WSH nested in P2SH";
+            return $(e).html() == "P2WSH nested in P2SH (1-of-1 multisig)";
         }).prop("selected", true);
         $(".bip141-semantics").trigger("change");
     });
@@ -3736,8 +3738,10 @@ it('Can generate BIP141 addresses with P2WSH-in-P2SH semanitcs', function(done) 
         .getAttribute("value")
         .then(function(rootKey) {
             expect(rootKey).toBe("YprvANkMzkodih9AJc6kzDu4NqrxqDKxBnxAXx2vgswCVJs9iM4nWqoZcZ6C9NqbdrgNZjxqnjhUtJYE74mDcycLd1xWY2LV4LEsvZ1DgqxuAKe");
-            // TODO check first address
-            done();
+            getFirstAddress(function(address) {
+                expect(address).toBe("343DLC4vGDyHBbBr9myL8zzZA1MdN9TM1G");
+                done();
+            });
         })
     });
 });
@@ -3750,7 +3754,7 @@ it('Uses Vprv for bitcoin testnet p2wsh', function(done) {
     driver.executeScript(function() {
         $(".bip141-semantics option[selected]").removeAttr("selected");
         $(".bip141-semantics option").filter(function(i,e) {
-            return $(e).html() == "P2WSH";
+            return $(e).html() == "P2WSH (1-of-1 multisig)";
         }).prop("selected", true);
         $(".bip141-semantics").trigger("change");
     });
@@ -3774,7 +3778,7 @@ it('Uses Uprv for bitcoin testnet p2wsh-in-p2sh', function(done) {
     driver.executeScript(function() {
         $(".bip141-semantics option[selected]").removeAttr("selected");
         $(".bip141-semantics option").filter(function(i,e) {
-            return $(e).html() == "P2WSH nested in P2SH";
+            return $(e).html() == "P2WSH nested in P2SH (1-of-1 multisig)";
         }).prop("selected", true);
         $(".bip141-semantics").trigger("change");
     });

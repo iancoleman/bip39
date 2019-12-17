@@ -1152,12 +1152,19 @@
                         address = bitcoinjs.bitcoin.address.fromOutputScript(scriptpubkey, network)
                     }
                     else if (isP2wsh) {
-                        // TODO
-                        address = "";
+                        // https://github.com/bitcoinjs/bitcoinjs-lib/blob/v3.3.2/test/integration/addresses.js#L71
+                        // This is a 1-of-1
+                        var witnessScript = bitcoinjs.bitcoin.script.multisig.output.encode(1, [key.getPublicKeyBuffer()]);
+                        var scriptPubKey = bitcoinjs.bitcoin.script.witnessScriptHash.output.encode(bitcoinjs.bitcoin.crypto.sha256(witnessScript));
+                        address = bitcoinjs.bitcoin.address.fromOutputScript(scriptPubKey, network);
                     }
                     else if (isP2wshInP2sh) {
-                        // TODO
-                        address = "";
+                        // https://github.com/bitcoinjs/bitcoinjs-lib/blob/v3.3.2/test/integration/transactions.js#L183
+                        // This is a 1-of-1
+                        var witnessScript = bitcoinjs.bitcoin.script.multisig.output.encode(1, [key.getPublicKeyBuffer()]);
+                        var redeemScript = bitcoinjs.bitcoin.script.witnessScriptHash.output.encode(bitcoinjs.bitcoin.crypto.sha256(witnessScript));
+                        var scriptPubKey = bitcoinjs.bitcoin.script.scriptHash.output.encode(bitcoinjs.bitcoin.crypto.hash160(redeemScript));
+                        address = bitcoinjs.bitcoin.address.fromOutputScript(scriptPubKey, network)
                     }
                 }
 
