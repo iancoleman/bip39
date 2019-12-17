@@ -2100,6 +2100,15 @@
             },
         },
         {
+            name: "BTC - Bitcoin RegTest",
+            onSelect: function() {
+                network = bitcoinjs.bitcoin.networks.regtest;
+                // Using hd coin value 1 based on bip44_coin_type
+                // https://github.com/chaintope/bitcoinrb/blob/f1014406f6b8f9b4edcecedc18df70c80df06f11/lib/bitcoin/chainparams/regtest.yml
+                setHdCoin(1);
+            },
+        },
+        {
             name: "BTC - Bitcoin Testnet",
             onSelect: function() {
                 network = bitcoinjs.bitcoin.networks.testnet;

@@ -1738,3 +1738,16 @@ bitcoinjs.bitcoin.networks.elastos = {
     scriptHash: 0xc4, // TODO set this correctly, same as BTC for now
     wif: 0xef // TODO set this correctly, same as BTC for now
 };
+
+// https://github.com/bitcoinjs/bitcoinjs-lib/blob/3f6f5ef97a1ee1b8337865209282c0095e22b2e7/src/networks.js
+bitcoinjs.bitcoin.networks.regtest = {
+  messagePrefix: '\x18Bitcoin Signed Message:\n',
+  bech32: 'bcrt',
+  bip32: {
+    public: 0x043587cf,
+    private: 0x04358394,
+  },
+  pubKeyHash: 0x6f,
+  scriptHash: 0xc4,
+  wif: 0xef,
+};

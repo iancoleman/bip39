@@ -412,6 +412,13 @@ it('Allows selection of bitcoin testnet', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of bitcoin regtest', function(done) {
+    var params = {
+        selectText: "BTC - Bitcoin RegTest",
+        firstAddress: "mucaU5iiDaJDb69BHLeDv8JFfGiyg2nJKi",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of litecoin', function(done) {
     var params = {
         selectText: "LTC - Litecoin",

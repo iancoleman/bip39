@@ -28,6 +28,19 @@ bitcoinjs.bitcoin.networks.testnet.p2wpkh = {
     wif: 0xef
 };
 
+bitcoinjs.bitcoin.networks.regtest.p2wpkh = {
+    baseNetwork: "regtest",
+    messagePrefix: '\x18Bitcoin Signed Message:\n',
+    bech32: 'bcrt',
+    bip32: {
+        public: 0x045f1cf6,
+        private: 0x045f18bc
+    },
+    pubKeyHash: 0x6f,
+    scriptHash: 0xc4,
+    wif: 0xef
+};
+
 // p2wpkh in p2sh
 
 bitcoinjs.bitcoin.networks.bitcoin.p2wpkhInP2sh = {
@@ -47,6 +60,19 @@ bitcoinjs.bitcoin.networks.testnet.p2wpkhInP2sh = {
     baseNetwork: "testnet",
     messagePrefix: '\x18Bitcoin Signed Message:\n',
     bech32: 'tb',
+    bip32: {
+        public: 0x044a5262,
+        private: 0x044a4e28
+    },
+    pubKeyHash: 0x6f,
+    scriptHash: 0xc4,
+    wif: 0xef
+};
+
+bitcoinjs.bitcoin.networks.regtest.p2wpkhInP2sh = {
+    baseNetwork: "regtest",
+    messagePrefix: '\x18Bitcoin Signed Message:\n',
+    bech32: 'bcrt',
     bip32: {
         public: 0x044a5262,
         private: 0x044a4e28
@@ -84,6 +110,19 @@ bitcoinjs.bitcoin.networks.testnet.p2wsh = {
     wif: 0xef
 };
 
+bitcoinjs.bitcoin.networks.regtest.p2wsh = {
+    baseNetwork: "regtest",
+    messagePrefix: '\x18Bitcoin Signed Message:\n',
+    bech32: 'bcrt',
+    bip32: {
+        public: 0x02575483,
+        private: 0x02575048
+    },
+    pubKeyHash: 0x6f,
+    scriptHash: 0xc4,
+    wif: 0xef
+};
+
 // p2wsh in p2sh
 
 bitcoinjs.bitcoin.networks.bitcoin.p2wshInP2sh = {
@@ -103,6 +142,19 @@ bitcoinjs.bitcoin.networks.testnet.p2wshInP2sh = {
     baseNetwork: "testnet",
     messagePrefix: '\x18Bitcoin Signed Message:\n',
     bech32: 'tb',
+    bip32: {
+        public: 0x024289ef,
+        private: 0x024285b5
+    },
+    pubKeyHash: 0x6f,
+    scriptHash: 0xc4,
+    wif: 0xef
+};
+
+bitcoinjs.bitcoin.networks.regtest.p2wshInP2sh = {
+    baseNetwork: "regtest",
+    messagePrefix: '\x18Bitcoin Signed Message:\n',
+    bech32: 'bcrt',
     bip32: {
         public: 0x024289ef,
         private: 0x024285b5
