@@ -16,6 +16,7 @@
     var showQr = false;
     var litecoinUseLtub = true;
 
+    var entropyTypeAutoDetect = true;
     var entropyChangeTimeoutEvent = null;
     var phraseChangeTimeoutEvent = null;
     var rootKeyChangedTimeoutEvent = null;
@@ -32,6 +33,7 @@
     DOM.entropy = $(".entropy");
     DOM.entropyFiltered = DOM.entropyContainer.find(".filtered");
     DOM.entropyType = DOM.entropyContainer.find(".type");
+    DOM.entropyTypeInputs = DOM.entropyContainer.find("input[name='entropy-type']");
     DOM.entropyCrackTime = DOM.entropyContainer.find(".crack-time");
     DOM.entropyEventCount = DOM.entropyContainer.find(".event-count");
     DOM.entropyBits = DOM.entropyContainer.find(".bits");
@@ -128,6 +130,7 @@
         DOM.useEntropy.on("change", setEntropyVisibility);
         DOM.entropy.on("input", delayedEntropyChanged);
         DOM.entropyMnemonicLength.on("change", entropyChanged);
+        DOM.entropyTypeInputs.on("change", entropyTypeChanged);
         DOM.phrase.on("input", delayedPhraseChanged);
         DOM.passphrase.on("input", delayedPhraseChanged);
         DOM.generate.on("click", generateClicked);
@@ -328,6 +331,11 @@
         else {
             hidePending();
         }
+    }
+
+    function entropyTypeChanged() {
+        entropyTypeAutoDetect = false;
+        entropyChanged();
     }
 
     function delayedRootKeyChanged() {
@@ -1551,7 +1559,14 @@
         // Get entropy value
         var entropyStr = DOM.entropy.val();
         // Work out minimum base for entropy
-        var entropy = Entropy.fromString(entropyStr);
+        var entropy = null;
+        if (entropyTypeAutoDetect) {
+            entropy = Entropy.fromString(entropyStr);
+        }
+        else {
+            let base = DOM.entropyTypeInputs.filter(":checked").val();
+            entropy = Entropy.fromString(entropyStr, base);
+        }
         if (entropy.binaryStr.length == 0) {
             return;
         }
@@ -1632,6 +1647,8 @@
             console.log(e);
         }
         var entropyTypeStr = getEntropyTypeStr(entropy);
+        DOM.entropyTypeInputs.attr("checked", false);
+        DOM.entropyTypeInputs.filter("[value='" + entropyTypeStr + "']").attr("checked", true);
         var wordCount = Math.floor(numberOfBits / 32) * 3;
         var bitsPerEvent = entropy.bitsPerEvent.toFixed(2);
         var spacedBinaryStr = addSpacesEveryElevenBits(entropy.binaryStr);

@@ -123,12 +123,42 @@
                                 <div class="col-sm-3">
                                     <p>Valid entropy values include:</p>
                                     <ul>
-                                        <li><strong>Binary</strong> [0-1]<br>101010011</li>
-                                        <li><strong>Base 6</strong> [0-5]<br>123434014</li>
-                                        <li><strong>Dice</strong> [1-6]<br>62535634</li>
-                                        <li><strong>Base 10</strong> [0-9]<br>90834528</li>
-                                        <li><strong>Hex</strong> [0-9A-F]<br>4187a8bfd9</li>
-                                        <li><strong>Card</strong> [A2-9TJQK][CDHS]<br>ahqs9dtc</li>
+                                        <li>
+                                            <label>
+                                                <input type="radio" name="entropy-type" value="binary">
+                                                <strong>Binary</strong> [0-1]<br>101010011
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label>
+                                                <input type="radio" name="entropy-type" value="base 6">
+                                                <strong>Base 6</strong> [0-5]<br>123434014
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label>
+                                                <input type="radio" name="entropy-type" value="dice">
+                                                <strong>Dice</strong> [1-6]<br>62535634
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label>
+                                                <input type="radio" name="entropy-type" value="base 10">
+                                                <strong>Base 10</strong> [0-9]<br>90834528
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label>
+                                                <input type="radio" name="entropy-type" value="hexadecimal" checked>
+                                                <strong>Hex</strong> [0-9A-F]<br>4187a8bfd9
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label>
+                                                <input type="radio" name="entropy-type" value="card">
+                                                <strong>Card</strong> [A2-9TJQK][CDHS]<br>ahqs9dtc
+                                            </label>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

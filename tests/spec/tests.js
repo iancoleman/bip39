@@ -4285,4 +4285,48 @@ it('Shows split prase cards', function(done) {
     });
 });
 
+// It allows manually specifying the entropy type
+it('Allows entropy type to be manually selected', function(done) {
+    driver.findElement(By.css('.use-entropy'))
+        .click();
+    // use decimal entropy
+    driver.findElement(By.css('.entropy'))
+        .sendKeys("91");
+    // manually change to binary entropy
+    driver.executeScript(function() {
+        $(".entropy-container input[value='binary']").click();
+    });
+    driver.sleep(entropyFeedbackDelay).then(function() {
+        driver.findElement(By.css('.entropy-container'))
+            .getText()
+            .then(function(text) {
+                // overide 91 to be just 1
+                var key = "Filtered Entropy";
+                var value = "1";
+                var reText = key + "\\s+" + value;
+                var re = new RegExp(reText);
+                expect(text).toMatch(re);
+                // overide automatic decimal to binary
+                var key = "Entropy Type";
+                var value = "binary";
+                var reText = key + "\\s+" + value;
+                var re = new RegExp(reText);
+                expect(text).toMatch(re);
+                // overide 2 events to 1
+                var key = "Event Count";
+                var value = 1;
+                var reText = key + "\\s+" + value;
+                var re = new RegExp(reText);
+                expect(text).toMatch(re);
+                // overide log2(10)*2 bits to 1 bit
+                var key = "Total Bits";
+                var value = 1;
+                var reText = key + "\\s+" + value;
+                var re = new RegExp(reText);
+                expect(text).toMatch(re);
+                done();
+            });
+    });
+});
+
 });

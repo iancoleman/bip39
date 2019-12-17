@@ -67,9 +67,9 @@ window.Entropy = new (function() {
         return ints;
     }
 
-    this.fromString = function(rawEntropyStr) {
+    this.fromString = function(rawEntropyStr, baseStr) {
         // Find type of entropy being used (binary, hex, dice etc)
-        var base = getBase(rawEntropyStr);
+        var base = getBase(rawEntropyStr, baseStr);
         // Convert dice to base6 entropy (ie 1-6 to 0-5)
         // This is done by changing all 6s to 0s
         if (base.str == "dice") {
@@ -166,13 +166,14 @@ window.Entropy = new (function() {
         return s;
     }
 
-    function getBase(str) {
+    function getBase(str, baseStr) {
         // Need to get the lowest base for the supplied entropy.
         // This prevents interpreting, say, dice rolls as hexadecimal.
         var binaryMatches = matchers.binary(str);
         var hexMatches = matchers.hex(str);
+        var autodetect = baseStr === undefined;
         // Find the lowest base that can be used, whilst ignoring any irrelevant chars
-        if (binaryMatches.length == hexMatches.length && hexMatches.length > 0) {
+        if ((binaryMatches.length == hexMatches.length && hexMatches.length > 0 && autodetect) || baseStr === "binary") {
             var ints = binaryMatches.map(function(i) { return parseInt(i, 2) });
             return {
                 ints: ints,
@@ -183,7 +184,7 @@ window.Entropy = new (function() {
             }
         }
         var cardMatches = matchers.card(str);
-        if (cardMatches.length >= hexMatches.length / 2) {
+        if ((cardMatches.length >= hexMatches.length / 2 && autodetect) || baseStr === "card") {
             var ints = convertCardsToInts(cardMatches);
             return {
                 ints: ints,
@@ -194,7 +195,7 @@ window.Entropy = new (function() {
             }
         }
         var diceMatches = matchers.dice(str);
-        if (diceMatches.length == hexMatches.length && hexMatches.length > 0) {
+        if ((diceMatches.length == hexMatches.length && hexMatches.length > 0 && autodetect) || baseStr === "dice") {
             var ints = diceMatches.map(function(i) { return parseInt(i) });
             return {
                 ints: ints,
@@ -205,7 +206,7 @@ window.Entropy = new (function() {
             }
         }
         var base6Matches = matchers.base6(str);
-        if (base6Matches.length == hexMatches.length && hexMatches.length > 0) {
+        if ((base6Matches.length == hexMatches.length && hexMatches.length > 0 && autodetect) || baseStr === "base 6") {
             var ints = base6Matches.map(function(i) { return parseInt(i) });
             return {
                 ints: ints,
@@ -216,7 +217,7 @@ window.Entropy = new (function() {
             }
         }
         var base10Matches = matchers.base10(str);
-        if (base10Matches.length == hexMatches.length && hexMatches.length > 0) {
+        if ((base10Matches.length == hexMatches.length && hexMatches.length > 0 && autodetect) || baseStr === "base 10") {
             var ints = base10Matches.map(function(i) { return parseInt(i) });
             return {
                 ints: ints,
