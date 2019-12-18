@@ -2,7 +2,7 @@
 
 // p2wpkh
 
-bitcoinjs.bitcoin.networks.bitcoin.p2wpkh = {
+libs.bitcoin.networks.bitcoin.p2wpkh = {
     baseNetwork: "bitcoin",
     messagePrefix: '\x18Bitcoin Signed Message:\n',
     bech32: 'bc',
@@ -15,7 +15,7 @@ bitcoinjs.bitcoin.networks.bitcoin.p2wpkh = {
     wif: 0x80
 };
 
-bitcoinjs.bitcoin.networks.testnet.p2wpkh = {
+libs.bitcoin.networks.testnet.p2wpkh = {
     baseNetwork: "testnet",
     messagePrefix: '\x18Bitcoin Signed Message:\n',
     bech32: 'tb',
@@ -28,7 +28,7 @@ bitcoinjs.bitcoin.networks.testnet.p2wpkh = {
     wif: 0xef
 };
 
-bitcoinjs.bitcoin.networks.regtest.p2wpkh = {
+libs.bitcoin.networks.regtest.p2wpkh = {
     baseNetwork: "regtest",
     messagePrefix: '\x18Bitcoin Signed Message:\n',
     bech32: 'bcrt',
@@ -43,7 +43,7 @@ bitcoinjs.bitcoin.networks.regtest.p2wpkh = {
 
 // p2wpkh in p2sh
 
-bitcoinjs.bitcoin.networks.bitcoin.p2wpkhInP2sh = {
+libs.bitcoin.networks.bitcoin.p2wpkhInP2sh = {
     baseNetwork: "bitcoin",
     messagePrefix: '\x18Bitcoin Signed Message:\n',
     bech32: 'bc',
@@ -56,7 +56,7 @@ bitcoinjs.bitcoin.networks.bitcoin.p2wpkhInP2sh = {
     wif: 0x80
 };
 
-bitcoinjs.bitcoin.networks.testnet.p2wpkhInP2sh = {
+libs.bitcoin.networks.testnet.p2wpkhInP2sh = {
     baseNetwork: "testnet",
     messagePrefix: '\x18Bitcoin Signed Message:\n',
     bech32: 'tb',
@@ -69,7 +69,7 @@ bitcoinjs.bitcoin.networks.testnet.p2wpkhInP2sh = {
     wif: 0xef
 };
 
-bitcoinjs.bitcoin.networks.regtest.p2wpkhInP2sh = {
+libs.bitcoin.networks.regtest.p2wpkhInP2sh = {
     baseNetwork: "regtest",
     messagePrefix: '\x18Bitcoin Signed Message:\n',
     bech32: 'bcrt',
@@ -84,7 +84,7 @@ bitcoinjs.bitcoin.networks.regtest.p2wpkhInP2sh = {
 
 // p2wsh
 
-bitcoinjs.bitcoin.networks.bitcoin.p2wsh = {
+libs.bitcoin.networks.bitcoin.p2wsh = {
     baseNetwork: "bitcoin",
     messagePrefix: '\x18Bitcoin Signed Message:\n',
     bech32: 'bc',
@@ -97,7 +97,7 @@ bitcoinjs.bitcoin.networks.bitcoin.p2wsh = {
     wif: 0x80
 };
 
-bitcoinjs.bitcoin.networks.testnet.p2wsh = {
+libs.bitcoin.networks.testnet.p2wsh = {
     baseNetwork: "testnet",
     messagePrefix: '\x18Bitcoin Signed Message:\n',
     bech32: 'tb',
@@ -110,7 +110,7 @@ bitcoinjs.bitcoin.networks.testnet.p2wsh = {
     wif: 0xef
 };
 
-bitcoinjs.bitcoin.networks.regtest.p2wsh = {
+libs.bitcoin.networks.regtest.p2wsh = {
     baseNetwork: "regtest",
     messagePrefix: '\x18Bitcoin Signed Message:\n',
     bech32: 'bcrt',
@@ -125,7 +125,7 @@ bitcoinjs.bitcoin.networks.regtest.p2wsh = {
 
 // p2wsh in p2sh
 
-bitcoinjs.bitcoin.networks.bitcoin.p2wshInP2sh = {
+libs.bitcoin.networks.bitcoin.p2wshInP2sh = {
     baseNetwork: "bitcoin",
     messagePrefix: '\x18Bitcoin Signed Message:\n',
     bech32: 'bc',
@@ -138,7 +138,7 @@ bitcoinjs.bitcoin.networks.bitcoin.p2wshInP2sh = {
     wif: 0x80
 };
 
-bitcoinjs.bitcoin.networks.testnet.p2wshInP2sh = {
+libs.bitcoin.networks.testnet.p2wshInP2sh = {
     baseNetwork: "testnet",
     messagePrefix: '\x18Bitcoin Signed Message:\n',
     bech32: 'tb',
@@ -151,7 +151,7 @@ bitcoinjs.bitcoin.networks.testnet.p2wshInP2sh = {
     wif: 0xef
 };
 
-bitcoinjs.bitcoin.networks.regtest.p2wshInP2sh = {
+libs.bitcoin.networks.regtest.p2wshInP2sh = {
     baseNetwork: "regtest",
     messagePrefix: '\x18Bitcoin Signed Message:\n',
     bech32: 'bcrt',
@@ -164,7 +164,7 @@ bitcoinjs.bitcoin.networks.regtest.p2wshInP2sh = {
     wif: 0xef
 };
 
-bitcoinjs.bitcoin.networks.litecoin.p2wpkh = {
+libs.bitcoin.networks.litecoin.p2wpkh = {
     baseNetwork: "litecoin",
     messagePrefix: '\x19Litecoin Signed Message:\n',
     bech32: 'ltc',
@@ -177,7 +177,7 @@ bitcoinjs.bitcoin.networks.litecoin.p2wpkh = {
     wif: 0xb0
 };
 
-bitcoinjs.bitcoin.networks.litecoin.p2wpkhInP2sh = {
+libs.bitcoin.networks.litecoin.p2wpkhInP2sh = {
     baseNetwork: "litecoin",
     messagePrefix: '\x19Litecoin Signed Message:\n',
     bech32: 'ltc',
@@ -190,7 +190,7 @@ bitcoinjs.bitcoin.networks.litecoin.p2wpkhInP2sh = {
     wif: 0xb0
 };
 
-bitcoinjs.bitcoin.networks.fujicoin.p2wpkh = {
+libs.bitcoin.networks.fujicoin.p2wpkh = {
     baseNetwork: "fujicoin",
     messagePrefix: '\x19FujiCoin Signed Message:\n',
     bech32: 'fc',
@@ -203,7 +203,7 @@ bitcoinjs.bitcoin.networks.fujicoin.p2wpkh = {
     wif: 0xa4
 };
 
-bitcoinjs.bitcoin.networks.fujicoin.p2wpkhInP2sh = {
+libs.bitcoin.networks.fujicoin.p2wpkhInP2sh = {
     baseNetwork: "fujicoin",
     messagePrefix: '\x19FujiCoin Signed Message:\n',
     bech32: 'fc',
@@ -216,7 +216,7 @@ bitcoinjs.bitcoin.networks.fujicoin.p2wpkhInP2sh = {
     wif: 0xa4
 };
 
-bitcoinjs.bitcoin.networks.vertcoin.p2wpkh = {
+libs.bitcoin.networks.vertcoin.p2wpkh = {
     baseNetwork: "vertcoin",
     messagePrefix: '\x18Vertcoin Signed Message:\n',
     bech32: 'vtc',
@@ -229,7 +229,7 @@ bitcoinjs.bitcoin.networks.vertcoin.p2wpkh = {
     wif: 0x80
 };
 
-bitcoinjs.bitcoin.networks.vertcoin.p2wpkhInP2sh = {
+libs.bitcoin.networks.vertcoin.p2wpkhInP2sh = {
     baseNetwork: "vertcoin",
     messagePrefix: '\x18Vertcoin Signed Message:\n',
     bip32: {
@@ -241,7 +241,7 @@ bitcoinjs.bitcoin.networks.vertcoin.p2wpkhInP2sh = {
     wif: 0x80
 };
 
-bitcoinjs.bitcoin.networks.bgold.p2wpkh = {
+libs.bitcoin.networks.bgold.p2wpkh = {
     baseNetwork: "bgold",
     messagePrefix: '\x1DBitcoin Gold Signed Message:\n',
     bech32: 'btg',
@@ -254,7 +254,7 @@ bitcoinjs.bitcoin.networks.bgold.p2wpkh = {
     wif: 0x80,
 };
 
-bitcoinjs.bitcoin.networks.bgold.p2wpkhInP2sh = {
+libs.bitcoin.networks.bgold.p2wpkhInP2sh = {
     baseNetwork: "bgold",
     messagePrefix: '\x1DBitcoin Gold Signed Message:\n',
     bech32: 'btg',
@@ -267,7 +267,7 @@ bitcoinjs.bitcoin.networks.bgold.p2wpkhInP2sh = {
     wif: 0x80,
 };
 
-bitcoinjs.bitcoin.networks.digibyte.p2wpkh = {
+libs.bitcoin.networks.digibyte.p2wpkh = {
     baseNetwork: "digibyte",
     messagePrefix: 'x19DigiByte Signed Message:\n',
     bech32: 'dgb',
@@ -280,7 +280,7 @@ bitcoinjs.bitcoin.networks.digibyte.p2wpkh = {
     wif: 0x80
 };
 
-bitcoinjs.bitcoin.networks.digibyte.p2wpkhInP2sh = {
+libs.bitcoin.networks.digibyte.p2wpkhInP2sh = {
     baseNetwork: "digibyte",
     messagePrefix: '\x19DigiByte Signed Message:\n',
     bech32: 'dgb',
@@ -293,7 +293,7 @@ bitcoinjs.bitcoin.networks.digibyte.p2wpkhInP2sh = {
     wif: 0x80
 };
 
-bitcoinjs.bitcoin.networks.blockstamp.p2wpkh = {
+libs.bitcoin.networks.blockstamp.p2wpkh = {
     baseNetwork: "blockstamp",
     messagePrefix: '\x18BlockStamp Signed Message:\n',
     bech32: 'bc',
@@ -306,7 +306,7 @@ bitcoinjs.bitcoin.networks.blockstamp.p2wpkh = {
     wif:  0x80,
 };
 
-bitcoinjs.bitcoin.networks.blockstamp.p2wpkhInP2sh = {
+libs.bitcoin.networks.blockstamp.p2wpkhInP2sh = {
     baseNetwork: "blockstamp",
     messagePrefix: '\x18BlockStamp Signed Message:\n',
     bech32: 'bc',
@@ -319,7 +319,7 @@ bitcoinjs.bitcoin.networks.blockstamp.p2wpkhInP2sh = {
     wif:  0x80,
 };
 
-bitcoinjs.bitcoin.networks.nix.p2wpkh = {
+libs.bitcoin.networks.nix.p2wpkh = {
     baseNetwork: "nix",
     messagePrefix: '\x18Nix Signed Message:\n',
     bech32: 'nix',
@@ -332,7 +332,7 @@ bitcoinjs.bitcoin.networks.nix.p2wpkh = {
       wif: 0x80,
 };
 
-bitcoinjs.bitcoin.networks.nix.p2wpkhInP2sh = {
+libs.bitcoin.networks.nix.p2wpkhInP2sh = {
     baseNetwork: "nix",
     messagePrefix: '\x18Nix Signed Message:\n',
     bech32: 'nix',
@@ -345,7 +345,7 @@ bitcoinjs.bitcoin.networks.nix.p2wpkhInP2sh = {
       wif: 0x80,
 };
 
-bitcoinjs.bitcoin.networks.cpuchain.p2wpkh = {
+libs.bitcoin.networks.cpuchain.p2wpkh = {
     baseNetwork: "cpuchain",
     messagePrefix: '\x1DCPUchain Signed Message:\n',
     bech32: 'cpu',
@@ -358,7 +358,7 @@ bitcoinjs.bitcoin.networks.cpuchain.p2wpkh = {
     wif: 0x80,
 };
 
-bitcoinjs.bitcoin.networks.cpuchain.p2wpkhInP2sh = {
+libs.bitcoin.networks.cpuchain.p2wpkhInP2sh = {
     baseNetwork: "cpuchain",
     messagePrefix: '\x1DCPUchain Signed Message:\n',
     bech32: 'cpu',
@@ -371,7 +371,7 @@ bitcoinjs.bitcoin.networks.cpuchain.p2wpkhInP2sh = {
     wif: 0x80,
 };
 
-bitcoinjs.bitcoin.networks.monkeyproject.p2wpkh = {
+libs.bitcoin.networks.monkeyproject.p2wpkh = {
     baseNetwork: "monkeyproject",
 	messagePrefix: 'Monkey Signed Message:\n',
 	bech32: 'monkey',
@@ -384,7 +384,7 @@ bitcoinjs.bitcoin.networks.monkeyproject.p2wpkh = {
 	wif: 0x37
 };
 
-bitcoinjs.bitcoin.networks.monkeyproject.p2wpkhInP2sh = {
+libs.bitcoin.networks.monkeyproject.p2wpkhInP2sh = {
 	baseNetwork: "monkeyproject",
 	messagePrefix: 'Monkey Signed Message:\n',
 	bech32: 'monkey',
@@ -397,7 +397,7 @@ bitcoinjs.bitcoin.networks.monkeyproject.p2wpkhInP2sh = {
 	wif: 0x37
 };
 
-bitcoinjs.bitcoin.networks.atom.p2wpkh = {
+libs.bitcoin.networks.atom.p2wpkh = {
     baseNetwork: "atom",
 	messagePrefix: '\x18Bitcoin Atom Signed Message:\n',
 	bech32: 'atom',
@@ -410,7 +410,7 @@ bitcoinjs.bitcoin.networks.atom.p2wpkh = {
 	wif: 0x80
 };
 
-bitcoinjs.bitcoin.networks.atom.p2wpkhInP2sh = {
+libs.bitcoin.networks.atom.p2wpkhInP2sh = {
 	baseNetwork: "atom",
 	messagePrefix: '\x18Bitcoin Atom Signed Message:\n',
 	bech32: 'atom',
@@ -423,7 +423,7 @@ bitcoinjs.bitcoin.networks.atom.p2wpkhInP2sh = {
 	wif: 0x80
 };
 
-bitcoinjs.bitcoin.networks.bitcore.p2wpkh = {
+libs.bitcoin.networks.bitcore.p2wpkh = {
     baseNetwork: "bitcore",
 	messagePrefix: '\x18BitCore Signed Message:\n',
 	bech32: 'bitcore',
@@ -436,7 +436,7 @@ bitcoinjs.bitcoin.networks.bitcore.p2wpkh = {
 	wif: 0x80
 };
 
-bitcoinjs.bitcoin.networks.bitcore.p2wpkhInP2sh = {
+libs.bitcoin.networks.bitcore.p2wpkhInP2sh = {
 	baseNetwork: "bitcore",
 	messagePrefix: '\x18BitCore Signed Message:\n',
 	bech32: 'bitcore',
@@ -449,7 +449,7 @@ bitcoinjs.bitcoin.networks.bitcore.p2wpkhInP2sh = {
 	wif: 0x80
 };
 
-bitcoinjs.bitcoin.networks.monacoin.p2wpkh = {
+libs.bitcoin.networks.monacoin.p2wpkh = {
     baseNetwork: "monacoin",
 	messagePrefix: '\x18Monacoin Signed Message:\n',
 	bech32: 'monacoin',
@@ -462,7 +462,7 @@ bitcoinjs.bitcoin.networks.monacoin.p2wpkh = {
 	wif: 0xb0
 };
 
-bitcoinjs.bitcoin.networks.monacoin.p2wpkhInP2sh = {
+libs.bitcoin.networks.monacoin.p2wpkhInP2sh = {
 	baseNetwork: "monacoin",
 	messagePrefix: '\x18Monacoin Signed Message:\n',
 	bech32: 'monacoin',
@@ -475,7 +475,7 @@ bitcoinjs.bitcoin.networks.monacoin.p2wpkhInP2sh = {
 	wif: 0xb0
 };
 
-bitcoinjs.bitcoin.networks.syscoin.p2wpkh = {
+libs.bitcoin.networks.syscoin.p2wpkh = {
     baseNetwork: "syscoin",
 	messagePrefix: '\x18Syscoin Signed Message:\n',
 	bech32: 'sys',
@@ -488,7 +488,7 @@ bitcoinjs.bitcoin.networks.syscoin.p2wpkh = {
 	wif: 0x80
 };
 
-bitcoinjs.bitcoin.networks.syscoin.p2wpkhInP2sh = {
+libs.bitcoin.networks.syscoin.p2wpkhInP2sh = {
 	baseNetwork: "syscoin",
 	messagePrefix: '\x18Syscoin Signed Message:\n',
 	bech32: 'sys',
@@ -501,7 +501,7 @@ bitcoinjs.bitcoin.networks.syscoin.p2wpkhInP2sh = {
 	wif: 0x80
 };
 
-bitcoinjs.bitcoin.networks.viacoin.p2wpkh = {
+libs.bitcoin.networks.viacoin.p2wpkh = {
     baseNetwork: "viacoin",
 	messagePrefix: '\x18Viacoin Signed Message:\n',
 	bech32: 'viacoin',
@@ -514,7 +514,7 @@ bitcoinjs.bitcoin.networks.viacoin.p2wpkh = {
 	wif: 0xc7
 };
 
-bitcoinjs.bitcoin.networks.viacoin.p2wpkhInP2sh = {
+libs.bitcoin.networks.viacoin.p2wpkhInP2sh = {
 	baseNetwork: "viacoin",
 	messagePrefix: '\x18Viacoin Signed Message:\n',
 	bech32: 'viacoin',
@@ -527,7 +527,7 @@ bitcoinjs.bitcoin.networks.viacoin.p2wpkhInP2sh = {
 	wif: 0xc7
 };
 
-bitcoinjs.bitcoin.networks.dogecointestnet.p2wpkh = {
+libs.bitcoin.networks.dogecointestnet.p2wpkh = {
     baseNetwork: "dogecointestnet",
 	messagePrefix: '\x19Dogecoin Signed Message:\n',
 	bech32: 'dogecointestnet',
@@ -540,7 +540,7 @@ bitcoinjs.bitcoin.networks.dogecointestnet.p2wpkh = {
 	wif: 0xf1
 };
 
-bitcoinjs.bitcoin.networks.dogecointestnet.p2wpkhInP2sh = {
+libs.bitcoin.networks.dogecointestnet.p2wpkhInP2sh = {
 	baseNetwork: "dogecointestnet",
 	messagePrefix: '\x19Dogecoin Signed Message:\n',
 	bech32: 'dogecointestnet',
@@ -553,7 +553,7 @@ bitcoinjs.bitcoin.networks.dogecointestnet.p2wpkhInP2sh = {
 	wif: 0xf1
 };
 
-bitcoinjs.bitcoin.networks.dogecointestnet.p2wpkh = {
+libs.bitcoin.networks.dogecointestnet.p2wpkh = {
     baseNetwork: "dogecointestnet",
 	messagePrefix: '\x19Dogecoin Signed Message:\n',
 	bech32: 'dogecointestnet',
@@ -566,7 +566,7 @@ bitcoinjs.bitcoin.networks.dogecointestnet.p2wpkh = {
 	wif: 0xf1
 };
 
-bitcoinjs.bitcoin.networks.dogecointestnet.p2wpkhInP2sh = {
+libs.bitcoin.networks.dogecointestnet.p2wpkhInP2sh = {
 	baseNetwork: "dogecointestnet",
 	messagePrefix: '\x19Dogecoin Signed Message:\n',
 	bech32: 'dogecointestnet',
@@ -579,7 +579,7 @@ bitcoinjs.bitcoin.networks.dogecointestnet.p2wpkhInP2sh = {
 	wif: 0xf1
 };
 
-bitcoinjs.bitcoin.networks.litecointestnet.p2wpkh = {
+libs.bitcoin.networks.litecointestnet.p2wpkh = {
     baseNetwork: "litecointestnet",
 	messagePrefix: '\x18Litecoin Signed Message:\n',
 	bech32: 'litecointestnet',
@@ -592,7 +592,7 @@ bitcoinjs.bitcoin.networks.litecointestnet.p2wpkh = {
 	wif: 0xef
 };
 
-bitcoinjs.bitcoin.networks.litecointestnet.p2wpkhInP2sh = {
+libs.bitcoin.networks.litecointestnet.p2wpkhInP2sh = {
 	baseNetwork: "litecointestnet",
 	messagePrefix: '\x18Litecoin Signed Message:\n',
 	bech32: 'litecointestnet',
@@ -605,7 +605,7 @@ bitcoinjs.bitcoin.networks.litecointestnet.p2wpkhInP2sh = {
 	wif: 0xef
 };
 
-bitcoinjs.bitcoin.networks.groestlcoin.p2wpkh = {
+libs.bitcoin.networks.groestlcoin.p2wpkh = {
     baseNetwork: "groestlcoin",
     messagePrefix: '\x19GroestlCoin Signed Message:\n',
     bech32: 'grs',
@@ -618,7 +618,7 @@ bitcoinjs.bitcoin.networks.groestlcoin.p2wpkh = {
     wif: 0x80,
 };
 
-bitcoinjs.bitcoin.networks.groestlcointestnet.p2wpkh = {
+libs.bitcoin.networks.groestlcointestnet.p2wpkh = {
     baseNetwork: "groestlcointestnet",
     messagePrefix: '\x19GroestlCoin Signed Message:\n',
     bech32: 'tgrs',
@@ -631,7 +631,7 @@ bitcoinjs.bitcoin.networks.groestlcointestnet.p2wpkh = {
     wif: 0xef
 };
 
-bitcoinjs.bitcoin.networks.groestlcoin.p2wpkhInP2sh = {
+libs.bitcoin.networks.groestlcoin.p2wpkhInP2sh = {
     baseNetwork: "groestlcoin",
     messagePrefix: '\x19GroestlCoin Signed Message:\n',
     bech32: 'grs',
@@ -644,7 +644,7 @@ bitcoinjs.bitcoin.networks.groestlcoin.p2wpkhInP2sh = {
     wif: 0x80,
 };
 
-bitcoinjs.bitcoin.networks.groestlcointestnet.p2wpkhInP2sh = {
+libs.bitcoin.networks.groestlcointestnet.p2wpkhInP2sh = {
     baseNetwork: "groestlcointestnet",
     messagePrefix: '\x19GroestlCoin Signed Message:\n',
     bech32: 'tgrs',

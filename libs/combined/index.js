@@ -2,6 +2,18 @@
 
 let basex = require('base-x')
 
+/* bchaddrjs */
+
+let bchaddr = require('bchaddrjs')
+
+/* bchaddrjs slp */
+
+let bchaddrSlp = require('bchaddrjs-slp')
+
+/* biginteger */
+
+let BigInteger = require('javascript-biginteger')
+
 /* bitcoinjs-bip38 */
 
 let bip38 = require('bip38')
@@ -10,9 +22,39 @@ let bip38 = require('bip38')
 
 let bitcoin = require('bitcoinjs-lib')
 
+/* buffer */
+
+let buffer = require('buffer');
+
+/* elastos */
+// See https://github.com/iancoleman/bip39/pull/368
+// and https://github.com/johnnynanjiang/Elastos.SDK.Keypair.Javascript/tree/iancoleman-bip39
+
+let elastosjs = require('elastos-wallet-js')
+
 /* ethereum-util */
 
 let ethUtil = require('ethereumjs-util')
+
+/* fast-levenshtein */
+
+let levenshtein = require('fast-levenshtein')
+
+/* groestlcoin */
+
+let groestlcoinjs = require('groestlcoinjs-lib')
+
+/* groestlcoin bip38 */
+
+let groestlcoinjsBip38 = require('bip38grs')
+
+/* kjua qr codes */
+
+let kjua = require('kjua')
+
+/* nebulas */
+
+let nebulas = require('nebulas')
 
 /* stellar-util */
 
@@ -32,12 +74,32 @@ let stellarUtil = {
     },
 }
 
+/* unorm */
+
+let unorm = require('unorm')
+
+/* zxcvbn */
+
+let zxcvbn = require('zxcvbn')
+
 /* exports */
 
 module.exports = {
   basex,
+  bchaddr,
+  bchaddrSlp,
+  buffer,
+  BigInteger,
   bip38,
   bitcoin,
+  elastosjs,
   ethUtil,
-  stellarUtil
+  groestlcoinjs,
+  groestlcoinjsBip38,
+  kjua,
+  levenshtein,
+  nebulas,
+  stellarUtil,
+  unorm,
+  zxcvbn
 }

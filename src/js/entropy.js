@@ -16,7 +16,7 @@
 
 window.Entropy = new (function() {
 
-    var TWO = new BigInteger(2);
+    var TWO = new libs.BigInteger.BigInteger(2);
 
     // matchers returns an array of the matched events for each type of entropy.
     // eg
@@ -103,11 +103,11 @@ window.Entropy = new (function() {
         // Convert base.ints to BigInteger.
         // Due to using unusual bases, eg cards of base52, this is not as simple as
         // using BigInteger.parse()
-        var entropyInt = BigInteger.ZERO;
+        var entropyInt = libs.BigInteger.BigInteger.ZERO;
         for (var i=base.ints.length-1; i>=0; i--) {
-            var thisInt = BigInteger.parse(base.ints[i]);
+            var thisInt = libs.BigInteger.BigInteger.parse(base.ints[i]);
             var power = (base.ints.length - 1) - i;
-            var additionalEntropy = BigInteger.parse(base.asInt).pow(power).multiply(thisInt);
+            var additionalEntropy = libs.BigInteger.BigInteger.parse(base.asInt).pow(power).multiply(thisInt);
             entropyInt = entropyInt.add(additionalEntropy);
         }
         // Convert entropy to binary
@@ -328,7 +328,7 @@ window.Entropy = new (function() {
         // Math.LOG2E
         // log2(8) gave 2.9999999999999996 which when floored causes issues.
         // So instead use the BigInteger library to get it right.
-        return BigInteger.log(x) / BigInteger.log(2);
+        return libs.BigInteger.BigInteger.log(x) / libs.BigInteger.BigInteger.log(2);
     };
 
     // Depends on BigInteger
@@ -336,9 +336,9 @@ window.Entropy = new (function() {
         if (n == 0) {
             return 1;
         }
-        f = BigInteger.ONE;
+        f = libs.BigInteger.BigInteger.ONE;
         for (var i=1; i<=n; i++) {
-            f = f.multiply(new BigInteger(i));
+            f = f.multiply(new libs.BigInteger.BigInteger(i));
         }
         return f;
     }
