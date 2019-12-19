@@ -1,3 +1,14 @@
+# 0.4.0
+
+* Third party libraries deduplicated and minified
+* Add text reminder for multibit wallet change addresses
+* Seed field can be edited
+* Add bitcoin regtest parameters
+* Mnemonic conversion to entropy is hex encoded instead of binary
+* Entropy type can be manually selected
+* Add Bitcoin P2WSH and P2WSH-P2SH
+* Add Czech language
+
 # 0.3.14
 
 * Ethereum uses standard BIP44 as per majority of wallets (Issue 378)
