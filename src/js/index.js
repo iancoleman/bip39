@@ -1128,9 +1128,9 @@
                 }
                 // Ethereum values are different
                 if (networkIsEthereum()) {
-                    var privKeyBuffer = keyPair.d.toBuffer(32);
-                    privkey = privKeyBuffer.toString('hex');
-                    var addressBuffer = libs.ethUtil.privateToAddress(privKeyBuffer);
+                    var pubkeyBuffer = keyPair.getPublicKeyBuffer();
+                    var ethPubkey = libs.ethUtil.importPublic(pubkeyBuffer);
+                    var addressBuffer = libs.ethUtil.publicToAddress(ethPubkey);
                     var hexAddress = addressBuffer.toString('hex');
                     var checksumAddress = libs.ethUtil.toChecksumAddress(hexAddress);
                     address = libs.ethUtil.addHexPrefix(checksumAddress);
