@@ -2,7 +2,7 @@
   "name": "bip39-tool-external-libs",
   "version": "0.4.0",
   "scripts": {
-    "build": "browserify index.js --standalone libs > ../../src/js/bip39-libs.js"
+    "build": "browserify index.js --standalone libs | uglifyjs -c > ../../src/js/bip39-libs.js"
   },
   "dependencies": {
     "base-x": "3.0.7",
