@@ -595,7 +595,6 @@ it('Allows selection of ethereum', function(done) {
         firstAddress: "0xe5815d5902Ad612d49283DEdEc02100Bd44C2772",
     };
     testNetwork(done, params);
-    // TODO test private key and public key
 });
 it('Allows selection of slimcoin', function(done) {
     var params = {
@@ -4336,6 +4335,22 @@ it('Generates addresses when seed is set', function(done) {
     driver.sleep(generateDelay).then(function() {
         getFirstAddress(function(address) {
             expect(address).toBe("1Di3Vp7tBWtyQaDABLAjfWtF6V7hYKJtug");
+            done();
+        });
+    });
+});
+
+// https://github.com/iancoleman/bip39/issues/169
+it('Generates ethereum addresses from a public key', function(done) {
+    var pubkey = "xpub68UK3hrMEp2jLPxPASgXSiqiUsQsUWZHCeuu6NqcJLt259LMeWzwDyufXLN1QmjLeLRY5he4QfArDDLbsXiw3xN3kFcYtyDy74BY73RPhhW";
+    driver.findElement(By.css('.root-key'))
+      .sendKeys(pubkey);
+    driver.findElement(By.css('#bip32-tab a'))
+        .click()
+    selectNetwork('ETH - Ethereum');
+    driver.sleep(generateDelay).then(function() {
+        getFirstAddress(function(address) {
+            expect(address).toBe("0x1Bd54748903438C7E386b4a3fCbe16237A316a98");
             done();
         });
     });
