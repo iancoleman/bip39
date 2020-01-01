@@ -1838,6 +1838,7 @@
                     || (name == "ELLA - Ellaism")
                     || (name == "ESN - Ethersocial Network")
                     || (name == "VET - VeChain")
+                    || (name == "ERE - EtherCore")
     }
 
     function networkHasSegwit() {
@@ -2415,6 +2416,14 @@
             onSelect: function() {
                 network = libs.bitcoin.networks.bitcoin;
                 setHdCoin(194);
+            },
+        },
+        {
+            name: "ERE - EtherCore",
+            segwitAvailable: false,
+            onSelect: function() {
+                network = libs.bitcoin.networks.bitcoin;
+                setHdCoin(466);
             },
         },
         {
