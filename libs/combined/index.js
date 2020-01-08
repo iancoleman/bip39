@@ -1,66 +1,66 @@
 /* base-x */
 
-let basex = require('base-x')
+module.exports.basex = require('base-x')
 
 /* bchaddrjs */
 
-let bchaddr = require('bchaddrjs')
+module.exports.bchaddr = require('bchaddrjs')
 
 /* bchaddrjs slp */
 
-let bchaddrSlp = require('bchaddrjs-slp')
+module.exports.bchaddrSlp = require('bchaddrjs-slp')
 
 /* biginteger */
 
-let BigInteger = require('javascript-biginteger')
+module.exports.BigInteger = require('javascript-biginteger')
 
 /* bitcoinjs-bip38 */
 
-let bip38 = require('bip38')
+module.exports.bip38 = require('bip38')
 
 /* bitcoinjs-lib */
 
-let bitcoin = require('bitcoinjs-lib')
+module.exports.bitcoin = require('bitcoinjs-lib')
 
 /* buffer */
 
-let buffer = require('buffer');
+module.exports.buffer = require('buffer');
 
 /* elastos */
 // See https://github.com/iancoleman/bip39/pull/368
 // and https://github.com/johnnynanjiang/Elastos.SDK.Keypair.Javascript/tree/iancoleman-bip39
 
-let elastosjs = require('elastos-wallet-js')
+module.exports.elastosjs = require('elastos-wallet-js')
 
 /* ethereum-util */
 
-let ethUtil = require('ethereumjs-util')
+module.exports.ethUtil = require('ethereumjs-util')
 
 /* fast-levenshtein */
 
-let levenshtein = require('fast-levenshtein')
+module.exports.levenshtein = require('fast-levenshtein')
 
 /* groestlcoin */
 
-let groestlcoinjs = require('groestlcoinjs-lib')
+module.exports.groestlcoinjs = require('groestlcoinjs-lib')
 
 /* groestlcoin bip38 */
 
-let groestlcoinjsBip38 = require('bip38grs')
+module.exports.groestlcoinjsBip38 = require('bip38grs')
 
 /* kjua qr codes */
 
-let kjua = require('kjua')
+module.exports.kjua = require('kjua')
 
 /* nebulas */
 
-let nebulas = require('nebulas')
+module.exports.nebulas = require('nebulas')
 
 /* stellar-util */
 
 let StellarBase = require('stellar-base');
 let edHd = require('ed25519-hd-key');
-let stellarUtil = {
+module.exports.stellarUtil = {
     getKeypair: function (path, seed) {
         const result = edHd.derivePath(path, seed);
         return StellarBase.Keypair.fromRawEd25519Seed(result.key);
@@ -76,30 +76,8 @@ let stellarUtil = {
 
 /* unorm */
 
-let unorm = require('unorm')
+module.exports.unorm = require('unorm')
 
 /* zxcvbn */
 
-let zxcvbn = require('zxcvbn')
-
-/* exports */
-
-module.exports = {
-  basex,
-  bchaddr,
-  bchaddrSlp,
-  buffer,
-  BigInteger,
-  bip38,
-  bitcoin,
-  elastosjs,
-  ethUtil,
-  groestlcoinjs,
-  groestlcoinjsBip38,
-  kjua,
-  levenshtein,
-  nebulas,
-  stellarUtil,
-  unorm,
-  zxcvbn
-}
+module.exports.zxcvbn = require('zxcvbn')
