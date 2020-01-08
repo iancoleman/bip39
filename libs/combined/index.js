@@ -54,7 +54,13 @@ module.exports.kjua = require('kjua')
 
 /* nebulas */
 
+try {
 module.exports.nebulas = require('nebulas')
+}
+catch (e) {
+    console.warn("Error loading nebulas library");
+    console.warn(e);
+};
 
 /* stellar-util */
 
