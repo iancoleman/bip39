@@ -2948,6 +2948,20 @@
             },
         },
         {
+            name: "RBTC - RSK",
+            onSelect: function() {
+                network = libs.bitcoin.networks.rubycoin;
+                setHdCoin(137);
+            },
+        },
+        {
+            name: "tRBTC - RSK Testnet",
+            onSelect: function() {
+                network = libs.bitcoin.networks.rubycoin;
+                setHdCoin(37310);
+            },
+        },
+        {
             name: "RBY - Rubycoin",
             onSelect: function() {
                 network = libs.bitcoin.networks.rubycoin;
