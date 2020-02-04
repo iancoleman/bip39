@@ -657,4 +657,30 @@ libs.bitcoin.networks.groestlcointestnet.p2wpkhInP2sh = {
     wif: 0xef
 };
 
+libs.bitcoin.networks.deeponion.p2wpkh = {
+    baseNetwork: "deeponion",
+	messagePrefix: '\x18DeepOnion Signed Message:\n',
+	bech32: 'dpn',
+	bip32: {
+		public: 0x0488b21e,
+		private: 0x0488ade4
+	},
+	pubKeyHash: 0x1f,
+	scriptHash: 0x4e,
+	wif: 0x9f
+};
+
+libs.bitcoin.networks.deeponion.p2wpkhInP2sh = {
+	baseNetwork: "deeponion",
+	messagePrefix: '\x18DeepOnion Signed Message:\n',
+	bech32: 'dpn',
+	bip32: {
+		public: 0x0488b21e,
+		private: 0x0488ade4
+	},
+	pubKeyHash: 0x1f,
+	scriptHash: 0x4e,
+	wif: 0x9f
+};
+
 })();
