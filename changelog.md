@@ -1,3 +1,11 @@
+# 0.4.1
+
+* Fix no loading on chrome with third-party cookies blocked
+* Add EtherCore
+* Add RSK network
+* Add DeepOnion segwit parameters
+* Fix ethereum xpub derivation
+
 # 0.4.0
 
 * Third party libraries deduplicated and minified
