@@ -1638,7 +1638,7 @@ it('Allows selection of Thought', function(done) {
 it('Allows selection of EtherCore', function(done) {
     var params = {
         selectText: "ERE - EtherCore",
-        firstAddress: "0xDeeAD0297F06dfe6c7Ad0C1D0CF5B06D6047bEEe",
+        firstAddress: "0x119e6EAC3Ce1b473D62d9fD847fb0ea222eF1D9e",
     };
     testNetwork(done, params);
 });
