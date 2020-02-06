@@ -1635,6 +1635,13 @@ it('Allows selection of Thought', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of EtherCore', function(done) {
+    var params = {
+        selectText: "ERE - EtherCore",
+        firstAddress: "0xDeeAD0297F06dfe6c7Ad0C1D0CF5B06D6047bEEe",
+    };
+    testNetwork(done, params);
+});
 
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {
