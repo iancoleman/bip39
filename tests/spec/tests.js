@@ -1642,6 +1642,20 @@ it('Allows selection of EtherCore', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of RBTC - RSK', function(done) {
+    var params = {
+        selectText: "RBTC - RSK",
+        firstAddress: "RGtz5TDdtviAZ9haz1YAUNQzcGVFm5bQrP",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of tRBTC - RSK Testnet', function(done) {
+    var params = {
+        selectText: "tRBTC - RSK Testnet",
+        firstAddress: "RHkrWgnSdJHxQAqEsMErhUUa4icXY6xUUC",
+    };
+    testNetwork(done, params);
+});
 
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {
