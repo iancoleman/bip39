@@ -1134,8 +1134,10 @@
                     var hexAddress = addressBuffer.toString('hex');
                     var checksumAddress = libs.ethUtil.toChecksumAddress(hexAddress);
                     address = libs.ethUtil.addHexPrefix(checksumAddress);
-                    privkey = libs.ethUtil.addHexPrefix(privkey);
                     pubkey = libs.ethUtil.addHexPrefix(pubkey);
+                    if (hasPrivkey) {
+                        privkey = libs.ethUtil.bufferToHex(keyPair.d.toBuffer());
+                    }
                 }
 
                 // Stellar is different
