@@ -1,3 +1,7 @@
+# 0.4.2
+
+* Fix ethereum private key format
+
 # 0.4.1
 
 * Fix no loading on chrome with third-party cookies blocked
