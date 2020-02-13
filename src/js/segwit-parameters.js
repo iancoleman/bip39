@@ -452,7 +452,7 @@ libs.bitcoin.networks.bitcore.p2wpkhInP2sh = {
 libs.bitcoin.networks.monacoin.p2wpkh = {
     baseNetwork: "monacoin",
 	messagePrefix: '\x18Monacoin Signed Message:\n',
-	bech32: 'monacoin',
+	bech32: 'mona',
 	bip32: {
 		public: 0x0488b21e,
 		private: 0x0488ade4
@@ -465,7 +465,7 @@ libs.bitcoin.networks.monacoin.p2wpkh = {
 libs.bitcoin.networks.monacoin.p2wpkhInP2sh = {
 	baseNetwork: "monacoin",
 	messagePrefix: '\x18Monacoin Signed Message:\n',
-	bech32: 'monacoin',
+	bech32: 'mona',
 	bip32: {
 		public: 0x0488b21e,
 		private: 0x0488ade4
