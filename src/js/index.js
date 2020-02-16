@@ -1165,6 +1165,11 @@
                     privkey = convertRipplePriv(privkey);
                     address = convertRippleAdrr(address);
                 }
+                // Jingtum values are different
+                if (networks[DOM.network.val()].name == "SWTC - Jingtum") {
+                    privkey = convertJingtumPriv(privkey);
+                    address = convertJingtumAdrr(address);
+                }
                 // CasinoCoin values are different
                 if (networks[DOM.network.val()].name == "CSC - CasinoCoin") {
                     privkey = convertCasinoCoinPriv(privkey);
@@ -1832,6 +1837,7 @@
                     || (name == "EWT - EnergyWeb")
                     || (name == "PIRL - Pirl")
                     || (name == "MIX - MIX")
+                    || (name == "MOAC - MOAC")
                     || (name == "MUSIC - Musicoin")
                     || (name == "POA - Poa")
                     || (name == "EXP - Expanse")
@@ -2739,6 +2745,14 @@
             },
         },
         {
+            name: "MOAC - MOAC",
+            segwitAvailable: false,
+            onSelect: function() {
+                network = libs.bitcoin.networks.bitcoin;
+                setHdCoin(314);
+            },
+        },
+        {
             name: "MUSIC - Musicoin",
             segwitAvailable: false,
             onSelect: function() {
@@ -3075,6 +3089,13 @@
             onSelect: function() {
                 network = libs.bitcoin.networks.stratis;
                 setHdCoin(105);
+            },
+        },
+        {
+            name: "SWTC - Jingtum",
+            onSelect: function() {
+                network = libs.bitcoin.networks.bitcoin;
+                setHdCoin(315);
             },
         },
         {

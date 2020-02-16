@@ -464,6 +464,16 @@ it('Allows selection of ripple', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of jingtum', function(done) {
+    var params = {
+        selectText: "SWTC - Jingtum",
+        phrase: "ill clump only blind unit burden thing track silver cloth review awake useful craft whale all satisfy else trophy sunset walk vanish hope valve",
+        firstAddress: "jffSYWyxcr9t6DHHdAj2yUXrCsioU66xjm",
+        firstPubKey: "029dfcb278148874dd7e7109001593d7f410909e7bbcbcc3cc19ecb476c8bf8d84",
+        firstPrivKey: "02bdfe14bdd75514e714db7b8cbbae87b2ab8d7a050c3e441d687b7c4ef17d1f",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of casinocoin', function(done) {
     var params = {
         selectText: "CSC - CasinoCoin",
@@ -1896,6 +1906,16 @@ it('Allows selection of Monkey Project', function(done) {
     testNetwork(done, params);
 });
 
+it('Allows selection of MOAC', function(done) {
+    var params = {
+        selectText: "MOAC - MOAC",
+        phrase: "ill clump only blind unit burden thing track silver cloth review awake useful craft whale all satisfy else trophy sunset walk vanish hope valve",
+        firstAddress: "0xa1350EA5707247e0092Ab780A0CDbeA9c8C7Acb5",
+        firstPubKey: "0x0376b024c6068c9fda7e91779e115dcd3a70584fd6984e6dd25da144c46ca259c6",
+        firstPrivKey: "0x2515f9db03c1e56de393648eabf35d288f730aadce5d30865c52e72b28e303c9",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Musicoin', function(done) {
     var params = {
         selectText: "MUSIC - Musicoin",
