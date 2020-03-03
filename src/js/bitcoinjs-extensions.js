@@ -1175,6 +1175,31 @@ libs.bitcoin.networks.revolutionvr = {
   wif: 0xc6,
 };
 
+libs.bitcoin.networks.rsk = {
+  messagePrefix: '\x18RSK Signed Message:\n',
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  },
+  // TODO defaulting to Bitcoin value, check this
+  pubKeyHash: 0x00,
+  // TODO defaulting to Bitcoin value, check this
+  scriptHash: 0x05,
+  // TODO defaulting to Bitcoin value, check this
+  wif: 0x80
+};
+
+libs.bitcoin.networks.rsktestnet = {
+  messagePrefix: '\x18RSK Testnet Signed Message:\n',
+  bip32: {
+    public: 0x043587cf,
+    private: 0x04358394
+  },
+  pubKeyHash: 0x6f,
+  scriptHash: 0xc4,
+  wif: 0xef
+};
+
 libs.bitcoin.networks.rubycoin = {
   messagePrefix: '\x18Rubycoin Signed Message:\n',
   bip32: {

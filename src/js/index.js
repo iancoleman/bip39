@@ -2973,16 +2973,16 @@
             },
         },
         {
-            name: "RBTC - RSK",
+            name: "R-BTC - RSK",
             onSelect: function() {
-                network = libs.bitcoin.networks.rubycoin;
+                network = libs.bitcoin.networks.rsk;
                 setHdCoin(137);
             },
         },
         {
-            name: "tRBTC - RSK Testnet",
+            name: "tR-BTC - RSK Testnet",
             onSelect: function() {
-                network = libs.bitcoin.networks.rubycoin;
+                network = libs.bitcoin.networks.rsktestnet;
                 setHdCoin(37310);
             },
         },
