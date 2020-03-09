@@ -1140,6 +1140,34 @@
                     }
                 }
 
+                // RSK values are different
+                if (networkIsRsk()) {
+                    var pubkeyBuffer = keyPair.getPublicKeyBuffer();
+                    var ethPubkey = libs.ethUtil.importPublic(pubkeyBuffer);
+                    var addressBuffer = libs.ethUtil.publicToAddress(ethPubkey);
+                    var hexAddress = addressBuffer.toString('hex');
+                    // Use chainId based on selected network
+                    // Ref: https://developers.rsk.co/rsk/architecture/account-based/#chainid
+                    var chainId;
+                    var rskNetworkName = networks[DOM.network.val()].name;
+                    switch (rskNetworkName) {
+                        case "R-BTC - RSK":
+                            chainId = 30;
+                            break;
+                        case "tR-BTC - RSK Testnet":
+                            chainId = 31;
+                            break;
+                        default:
+                            chainId = null;
+                    }
+                    var checksumAddress = toChecksumAddressForRsk(hexAddress, chainId);
+                    address = libs.ethUtil.addHexPrefix(checksumAddress);
+                    pubkey = libs.ethUtil.addHexPrefix(pubkey);
+                    if (hasPrivkey) {
+                        privkey = libs.ethUtil.bufferToHex(keyPair.d.toBuffer());
+                    }
+                }
+
                 // Stellar is different
                 if (networks[DOM.network.val()].name == "XLM - Stellar") {
                     var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
@@ -1847,6 +1875,12 @@
                     || (name == "ESN - Ethersocial Network")
                     || (name == "VET - VeChain")
                     || (name == "ERE - EtherCore")
+    }
+
+    function networkIsRsk() {
+        var name = networks[DOM.network.val()].name;
+        return (name == "R-BTC - RSK")
+            || (name == "tR-BTC - RSK Testnet");
     }
 
     function networkHasSegwit() {
@@ -3348,6 +3382,46 @@
             },
         }
     ]
+
+    // RSK - RSK functions - begin
+    function stripHexPrefix(address) {
+        if (typeof address !== "string") {
+            throw new Error("address parameter should be a string.");
+        }
+
+        var hasPrefix = (address.substring(0, 2) === "0x" ||
+            address.substring(0, 2) === "0X");
+
+        return hasPrefix ? address.slice(2) : address;
+    };
+
+    function toChecksumAddressForRsk(address, chainId = null) {
+        if (typeof address !== "string") {
+            throw new Error("address parameter should be a string.");
+        }
+
+        if (!/^(0x)?[0-9a-f]{40}$/i.test(address)) {
+            throw new Error("Given address is not a valid RSK address: " + address);
+        }
+
+        var stripAddress = stripHexPrefix(address).toLowerCase();
+        var prefix = chainId != null ? chainId.toString() + "0x" : "";
+        var keccakHash = libs.ethUtil.keccak256(prefix + stripAddress)
+            .toString("hex")
+            .replace(/^0x/i, "");
+        var checksumAddress = "0x";
+
+        for (var i = 0; i < stripAddress.length; i++) {
+            checksumAddress +=
+                parseInt(keccakHash[i], 16) >= 8 ?
+                stripAddress[i].toUpperCase() :
+                stripAddress[i];
+        }
+
+        return checksumAddress;
+    }
+
+    // RSK - RSK functions - end
 
     // ELA - Elastos functions - begin
     function displayBip44InfoForELA() {
