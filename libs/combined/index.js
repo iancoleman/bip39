@@ -87,3 +87,5 @@ module.exports.unorm = require('unorm')
 /* zxcvbn */
 
 module.exports.zxcvbn = require('zxcvbn')
+
+module.exports.handshake = require('handshake-util')

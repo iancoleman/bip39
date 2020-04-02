@@ -1140,6 +1140,11 @@
                     }
                 }
 
+                // Handshake values are different
+                if (networks[DOM.network.val()].name == "HNS - Handshake") {
+                    var ring = libs.handshake.KeyRing.fromPublic(keyPair.getPublicKeyBuffer())
+                    address = ring.getAddress().toString();
+                }
                 // Stellar is different
                 if (networks[DOM.network.val()].name == "XLM - Stellar") {
                     var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
@@ -2568,6 +2573,12 @@
             onSelect: function() {
                 network = libs.bitcoin.networks.groestlcointestnet;
                 setHdCoin(1);
+            },
+        },
+        {
+            name: "HNS - Handshake",
+            onSelect: function() {
+                setHdCoin(5353);
             },
         },
         {
