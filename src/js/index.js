@@ -1230,10 +1230,16 @@
                     address = libs.bitcoin.networks.crown.toNewAddress(address);
                 }
 
-              if (networks[DOM.network.val()].name == "EOS - EOSIO") {
+                if (networks[DOM.network.val()].name == "EOS - EOSIO") {
                     address = ""
                     pubkey = eosUtil.bufferToPublic(keyPair.getPublicKeyBuffer());
                     privkey = eosUtil.bufferToPrivate(keyPair.d.toBuffer(32));
+                }
+
+                if (networks[DOM.network.val()].name == "FIO - Foundation for Interwallet Operability") {
+                    address = ""
+                    pubkey = fioUtil.bufferToPublic(keyPair.getPublicKeyBuffer());
+                    privkey = fioUtil.bufferToPrivate(keyPair.d.toBuffer(32));
                 }
 
                 //Groestlcoin Addresses are different
@@ -2486,6 +2492,13 @@
                 setHdCoin(40);
             },
         },
+        {
+            name: "FIO - Foundation for Interwallet Operability",
+            onSelect: function() {
+                network = libs.bitcoin.networks.bitcoin;
+                setHdCoin(235);
+            },
+        },        
         {
             name: "FIX - FIX",
             onSelect: function() {

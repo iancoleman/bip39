@@ -1,3 +1,7 @@
+# 0.4.3
+
+* Add FIO - Foundation for Interwallet Operability
+
 # 0.4.2
 
 * Fix ethereum private key format
