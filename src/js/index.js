@@ -2031,6 +2031,13 @@
             },
         },
         {
+            name: "AGM - Argoneum",
+            onSelect: function() {
+                network = libs.bitcoin.networks.argoneum;
+                setHdCoin(421);
+            },
+        },
+        {
             name: "ARYA - Aryacoin",
             onSelect: function() {
                 network = libs.bitcoin.networks.aryacoin;
