@@ -3092,6 +3092,13 @@
             },
         },
         {
+            name: "SUGAR - Sugarchain",
+            onSelect: function() {
+                network = libs.bitcoin.networks.sugarchain;
+                setHdCoin(408);
+            },
+        },
+        {
             name: "SWTC - Jingtum",
             onSelect: function() {
                 network = libs.bitcoin.networks.bitcoin;
