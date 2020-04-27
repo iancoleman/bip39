@@ -683,4 +683,30 @@ libs.bitcoin.networks.deeponion.p2wpkhInP2sh = {
 	wif: 0x9f
 };
 
+libs.bitcoin.networks.sugarchain.p2wpkh = {
+	baseNetwork: "sugarchain",
+	messagePrefix: '\x1DSugarchain Signed Message:\n',
+	bech32: 'sugar',
+	bip32: {
+		public: 0x04b24746,
+		private: 0x04b2430c
+	},
+	pubKeyHash: 0x3f,
+	scriptHash: 0x7d,
+	wif: 0x80
+};
+
+libs.bitcoin.networks.sugarchain.p2wpkhInP2sh = {
+	baseNetwork: "sugarchain",
+	messagePrefix: '\x1DSugarchain Signed Message:\n',
+	bech32: 'sugar',
+	bip32: {
+		public: 0x049d7cb2,
+		private: 0x049d7878
+	},
+	pubKeyHash: 0x3f,
+	scriptHash: 0x7d,
+	wif: 0x80
+};
+
 })();

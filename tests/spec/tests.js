@@ -1675,6 +1675,16 @@ it('Allows selection of Stratis Test', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Sugarchain', function(done) {
+    var params = {
+        selectText: "SUGAR - Sugarchain",
+        phrase: "abandon abandon ability",
+        firstAddress: "SYnd31fYr39VgKju87Vz1sYBmEeHg5cudk",
+        firstPubKey: "035bc9fa22eff2246ec07bb09c9e32f5f9fee517b4f49a8f117508f8fb41905b25",
+        firstPrivKey: "L2G3axGdZv5EV8osAsBPMese74i4dTHaGvxDh7DsRF5Ky6hKkPDY",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Syscoin', function(done) {
     var params = {
         selectText: "SYS - Syscoin",

@@ -1739,6 +1739,17 @@ libs.bitcoin.networks.elastos = {
     wif: 0xef // TODO set this correctly, same as BTC for now
 };
 
+libs.bitcoin.networks.sugarchain = {
+    messagePrefix: '\x18Sugarchain Signed Message:\n',
+    bip32: {
+        public: 0x0488B21E,
+        private: 0x0488ADE4,
+    },
+    pubKeyHash: 0x3f,
+    scriptHash: 0x7d,
+    wif: 0x80
+};
+
 // https://github.com/libs.bitcoinjs-lib/blob/3f6f5ef97a1ee1b8337865209282c0095e22b2e7/src/networks.js
 libs.bitcoin.networks.regtest = {
   messagePrefix: '\x18Bitcoin Signed Message:\n',
