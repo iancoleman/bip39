@@ -2226,6 +2226,16 @@ it('Allows selection of tRBTC - RSK Testnet', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Argoneum', function(done) {
+    var params = {
+        selectText: "AGM - Argoneum",
+        phrase: "abandon abandon ability",
+        firstAddress: "MWgLPvJkaJwH6hrXFs1MimAC4FwC1kYRhe",
+        firstPubKey: "0348e5252045fee1d3b1e5bce25dbc16284d5b6c3bfff9c305d4ffa6078c16f3f8",
+        firstPrivKey: "VJXpuMEFnK8USLyo5tgF7M4cBXU44U8MUor1KRTQ6t9DVno9AAgg",
+    };
+    testNetwork(done, params);
+});
 
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {

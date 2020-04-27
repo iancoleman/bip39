@@ -1762,3 +1762,14 @@ libs.bitcoin.networks.regtest = {
   scriptHash: 0xc4,
   wif: 0xef,
 };
+
+libs.bitcoin.networks.argoneum = {
+  messagePrefix: 'unused',
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  },
+  pubKeyHash: 0x32,
+  scriptHash: 0x61,
+  wif: 0xbf
+};
