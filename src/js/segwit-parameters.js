@@ -709,4 +709,30 @@ libs.bitcoin.networks.sugarchain.p2wpkhInP2sh = {
 	wif: 0x80
 };
 
+libs.bitcoin.networks.sugarchaintestnet.p2wpkh = {
+	baseNetwork: "sugarchaintestnet",
+	messagePrefix: '\x18Sugarchain Signed Message:\n',
+	bech32: 'tugar',
+	bip32: {
+		public: 0x045f1cf6,
+		private: 0x045f18bc
+	},
+	pubKeyHash: 0x42,
+	scriptHash: 0x80,
+	wif: 0xef
+};
+
+libs.bitcoin.networks.sugarchaintestnet.p2wpkhInP2sh = {
+	baseNetwork: "sugarchaintestnet",
+	messagePrefix: '\x18Sugarchain Signed Message:\n',
+	bech32: 'tugar',
+	bip32: {
+		public: 0x044a5262,
+		private: 0x044a4e28
+	},
+	pubKeyHash: 0x42,
+	scriptHash: 0x80,
+	wif: 0xef
+};
+
 })();
