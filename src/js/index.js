@@ -3106,6 +3106,13 @@
             },
         },
         {
+            name: "TUGAR - Sugarchain Testnet",
+            onSelect: function() {
+                network = libs.bitcoin.networks.sugarchaintestnet;
+                setHdCoin(408);
+            },
+        },
+        {
             name: "SWTC - Jingtum",
             onSelect: function() {
                 network = libs.bitcoin.networks.bitcoin;

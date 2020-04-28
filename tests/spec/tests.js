@@ -1685,6 +1685,16 @@ it('Allows selection of Sugarchain', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Sugarchain Testnet', function(done) {
+    var params = {
+        selectText: "TUGAR - Sugarchain Testnet",
+        phrase: "abandon abandon ability",
+        firstAddress: "TkoRzLZQyaY88dAACNVwUFMYekR7pv6CbY",
+        firstPubKey: "035bc9fa22eff2246ec07bb09c9e32f5f9fee517b4f49a8f117508f8fb41905b25",
+        firstPrivKey: "cSd33sGUzymVeaH8ZGzWiyNhjJ1UHuPGLy6goXgNvMjLDqioARWW",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Syscoin', function(done) {
     var params = {
         selectText: "SYS - Syscoin",

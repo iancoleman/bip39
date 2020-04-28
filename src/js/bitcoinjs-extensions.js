@@ -1750,6 +1750,17 @@ libs.bitcoin.networks.sugarchain = {
     wif: 0x80
 };
 
+libs.bitcoin.networks.sugarchaintestnet = {
+    messagePrefix: '\x18Sugarchain Signed Message:\n',
+    bip32: {
+        public: 0x045f1cf6,
+        private: 0x045f18bc,
+    },
+    pubKeyHash: 0x42,
+    scriptHash: 0x80,
+    wif: 0xef
+};
+
 // https://github.com/libs.bitcoinjs-lib/blob/3f6f5ef97a1ee1b8337865209282c0095e22b2e7/src/networks.js
 libs.bitcoin.networks.regtest = {
   messagePrefix: '\x18Bitcoin Signed Message:\n',
