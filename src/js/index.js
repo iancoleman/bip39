@@ -1241,6 +1241,12 @@
                     privkey = eosUtil.bufferToPrivate(keyPair.d.toBuffer(32));
                 }
 
+                if (networks[DOM.network.val()].name == "FIO - Foundation for Interwallet Operability") {
+                    address = ""
+                    pubkey = FIObufferToPublic(keyPair.getPublicKeyBuffer());
+                    privkey = FIObufferToPrivate(keyPair.d.toBuffer(32));
+                }
+
                 //Groestlcoin Addresses are different
                 if(isGRS()) {
 
@@ -2498,6 +2504,13 @@
                 setHdCoin(40);
             },
         },
+        {
+            name: "FIO - Foundation for Interwallet Operability",
+            onSelect: function() {
+                network = libs.bitcoin.networks.bitcoin;
+                setHdCoin(235);
+            },
+        },  
         {
             name: "FIX - FIX",
             onSelect: function() {

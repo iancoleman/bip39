@@ -1205,6 +1205,15 @@ it('Allows selection of Feathercoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of FIO', function(done) {
+    var params = {
+        selectText: "FIO - Foundation for Interwallet Operability",
+        phrase: "valley alien library bread worry brother bundle hammer loyal barely dune brave",
+        firstPubKey: "FIO5kJKNHwctcfUM5XZyiWSqSTM5HTzznJP9F3ZdbhaQAHEVq575o",
+        firstPrivKey: "5Kbb37EAqQgZ9vWUHoPiC2uXYhyGSFNbL6oiDp24Ea1ADxV1qnu",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Firstcoin', function(done) {
     var params = {
         selectText: "FRST - Firstcoin",
