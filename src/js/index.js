@@ -2031,6 +2031,13 @@
             },
         },
         {
+            name: "AGM - Argoneum",
+            onSelect: function() {
+                network = libs.bitcoin.networks.argoneum;
+                setHdCoin(421);
+            },
+        },
+        {
             name: "ARYA - Aryacoin",
             onSelect: function() {
                 network = libs.bitcoin.networks.aryacoin;
@@ -3089,6 +3096,20 @@
             onSelect: function() {
                 network = libs.bitcoin.networks.stratis;
                 setHdCoin(105);
+            },
+        },
+        {
+            name: "SUGAR - Sugarchain",
+            onSelect: function() {
+                network = libs.bitcoin.networks.sugarchain;
+                setHdCoin(408);
+            },
+        },
+        {
+            name: "TUGAR - Sugarchain Testnet",
+            onSelect: function() {
+                network = libs.bitcoin.networks.sugarchaintestnet;
+                setHdCoin(408);
             },
         },
         {

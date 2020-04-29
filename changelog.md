@@ -1,3 +1,5 @@
+* Add Argoneum
+
 # 0.4.2
 
 * Fix ethereum private key format
