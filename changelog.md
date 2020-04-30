@@ -1,3 +1,4 @@
+* Add FIO - Foundation for Interwallet Operability
 * Add Argoneum
 
 # 0.4.2
