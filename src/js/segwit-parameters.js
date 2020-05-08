@@ -163,6 +163,36 @@ libs.bitcoin.networks.regtest.p2wshInP2sh = {
     scriptHash: 0xc4,
     wif: 0xef
 };
+                               
+libs.bitcoin.networks.cranepay.p2wpkhInP2sh = {
+    baseNetwork: "cranepay",
+    messagePrefix: '\x18Bitcoin Signed Message:\n',
+    bech32: 'cp',
+    bip32: {
+        public: 0x049d7cb2,
+        private: 0x049d7878
+    },
+    pubKeyHash: 28,
+    scriptHash: 10,
+    wif: 123
+};
+
+// bech32
+libs.bitcoin.networks.cranepay.p2wpkh = {
+    baseNetwork: "cranepay",
+    messagePrefix: '\x18Bitcoin Signed Message:\n',
+    bech32: 'cp',
+    bip32: {
+        public: 0x04b24746,
+        private: 0x04b2430c
+    },
+    pubKeyHash: 28,
+    scriptHash: 10,
+    wif: 123
+};
+
+
+
 
 libs.bitcoin.networks.litecoin.p2wpkh = {
     baseNetwork: "litecoin",
