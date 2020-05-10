@@ -2227,21 +2227,21 @@ it('Allows selection of EtherCore', function(done) {
 });
 it('Allows selection of RBTC - RSK', function(done) {
     var params = {
-        selectText: "RBTC - RSK",
+        selectText: "R-BTC - RSK",
         phrase: "abandon abandon ability",
-        firstAddress: "RGtz5TDdtviAZ9haz1YAUNQzcGVFm5bQrP",
-        firstPubKey: "0219d9b5087ab68edc8a714969d8cb70e7159417b47a05932b227e6f417c7962b9",
-        firstPrivKey: "UsiDPMcpYqCwtzGXo4wiPZp7cwBaKdmbmseioTc1rFQsg21adFc8",
+        firstAddress: "0x37CA764c4b2fe819108448b80d2F35921b035931",
+        firstPubKey: "0x0219d9b5087ab68edc8a714969d8cb70e7159417b47a05932b227e6f417c7962b9",
+        firstPrivKey: "0x6e6f48cc422825f7fd68f2200d3dde757849f15342f252eeb0bc4ebc46089fe1",
     };
     testNetwork(done, params);
 });
 it('Allows selection of tRBTC - RSK Testnet', function(done) {
     var params = {
-        selectText: "tRBTC - RSK Testnet",
+        selectText: "tR-BTC - RSK Testnet",
         phrase: "abandon abandon ability",
-        firstAddress: "RHkrWgnSdJHxQAqEsMErhUUa4icXY6xUUC",
-        firstPubKey: "03f77eb7bd83e92ef47be1abddae7f71fb0bc8a7a1ee4b193662a86ed2705ffc5b",
-        firstPrivKey: "UpqfuSEDKoacrPh4wMV4sJZqCB6DJfYe81oWBr4eb7y9FWQWoo2A",
+        firstAddress: "0x176484B5a155Fe802aCB26055eb1c193D5A576d5",
+        firstPubKey: "0x03f77eb7bd83e92ef47be1abddae7f71fb0bc8a7a1ee4b193662a86ed2705ffc5b",
+        firstPrivKey: "0x18c2400d2f818d28b80d0e31235873bfeef644fc45fd702f54ae0d422cff6ab3",
     };
     testNetwork(done, params);
 });
