@@ -87,3 +87,25 @@ module.exports.unorm = require('unorm')
 /* zxcvbn */
 
 module.exports.zxcvbn = require('zxcvbn')
+
+/* handshake */
+module.exports.handshake = require('handshake-util')
+
+/* bs58 */
+try {
+    module.exports.bs58 = require('bs58')
+}
+catch (e) {
+    console.warn("Error loading bs58 library");
+    console.warn(e);
+};
+
+/* create-hash */
+try {
+    module.exports.createHash = require('create-hash')
+}
+catch (e) {
+    console.warn("Error loading create-hash library");
+    console.warn(e);
+};
+

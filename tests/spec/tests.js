@@ -1205,6 +1205,15 @@ it('Allows selection of Feathercoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of FIO', function(done) {
+    var params = {
+        selectText: "FIO - Foundation for Interwallet Operability",
+        phrase: "valley alien library bread worry brother bundle hammer loyal barely dune brave",
+        firstPubKey: "FIO5kJKNHwctcfUM5XZyiWSqSTM5HTzznJP9F3ZdbhaQAHEVq575o",
+        firstPrivKey: "5Kbb37EAqQgZ9vWUHoPiC2uXYhyGSFNbL6oiDp24Ea1ADxV1qnu",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Firstcoin', function(done) {
     var params = {
         selectText: "FRST - Firstcoin",
@@ -1672,6 +1681,26 @@ it('Allows selection of Stratis Test', function(done) {
         firstAddress: "TRLWm3dye4FRrDWouwYUSUZP96xb76mBE3",
         firstPubKey: "0269cea528e4ed01b44729287c831fe1889b196fee6202956a7e5c9486c3bc5c00",
         firstPrivKey: "VLx3VXEsVzWVeZjHvrgCJ8N1H7JCEWTSHiEGsYUEZCedHR6yBqDU",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Sugarchain', function(done) {
+    var params = {
+        selectText: "SUGAR - Sugarchain",
+        phrase: "abandon abandon ability",
+        firstAddress: "SYnd31fYr39VgKju87Vz1sYBmEeHg5cudk",
+        firstPubKey: "035bc9fa22eff2246ec07bb09c9e32f5f9fee517b4f49a8f117508f8fb41905b25",
+        firstPrivKey: "L2G3axGdZv5EV8osAsBPMese74i4dTHaGvxDh7DsRF5Ky6hKkPDY",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Sugarchain Testnet', function(done) {
+    var params = {
+        selectText: "TUGAR - Sugarchain Testnet",
+        phrase: "abandon abandon ability",
+        firstAddress: "TkoRzLZQyaY88dAACNVwUFMYekR7pv6CbY",
+        firstPubKey: "035bc9fa22eff2246ec07bb09c9e32f5f9fee517b4f49a8f117508f8fb41905b25",
+        firstPrivKey: "cSd33sGUzymVeaH8ZGzWiyNhjJ1UHuPGLy6goXgNvMjLDqioARWW",
     };
     testNetwork(done, params);
 });
@@ -2213,6 +2242,16 @@ it('Allows selection of tRBTC - RSK Testnet', function(done) {
         firstAddress: "RHkrWgnSdJHxQAqEsMErhUUa4icXY6xUUC",
         firstPubKey: "03f77eb7bd83e92ef47be1abddae7f71fb0bc8a7a1ee4b193662a86ed2705ffc5b",
         firstPrivKey: "UpqfuSEDKoacrPh4wMV4sJZqCB6DJfYe81oWBr4eb7y9FWQWoo2A",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Argoneum', function(done) {
+    var params = {
+        selectText: "AGM - Argoneum",
+        phrase: "abandon abandon ability",
+        firstAddress: "MWgLPvJkaJwH6hrXFs1MimAC4FwC1kYRhe",
+        firstPubKey: "0348e5252045fee1d3b1e5bce25dbc16284d5b6c3bfff9c305d4ffa6078c16f3f8",
+        firstPrivKey: "VJXpuMEFnK8USLyo5tgF7M4cBXU44U8MUor1KRTQ6t9DVno9AAgg",
     };
     testNetwork(done, params);
 });

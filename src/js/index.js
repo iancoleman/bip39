@@ -1168,6 +1168,12 @@
                     }
                 }
 
+                // Handshake values are different
+                if (networks[DOM.network.val()].name == "HNS - Handshake") {
+                    var ring = libs.handshake.KeyRing.fromPublic(keyPair.getPublicKeyBuffer())
+                    address = ring.getAddress().toString();
+                }
+
                 // Stellar is different
                 if (networks[DOM.network.val()].name == "XLM - Stellar") {
                     var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
@@ -1262,6 +1268,12 @@
                     address = ""
                     pubkey = eosUtil.bufferToPublic(keyPair.getPublicKeyBuffer());
                     privkey = eosUtil.bufferToPrivate(keyPair.d.toBuffer(32));
+                }
+
+                if (networks[DOM.network.val()].name == "FIO - Foundation for Interwallet Operability") {
+                    address = ""
+                    pubkey = FIObufferToPublic(keyPair.getPublicKeyBuffer());
+                    privkey = FIObufferToPrivate(keyPair.d.toBuffer(32));
                 }
 
                 //Groestlcoin Addresses are different
@@ -2065,6 +2077,13 @@
             },
         },
         {
+            name: "AGM - Argoneum",
+            onSelect: function() {
+                network = libs.bitcoin.networks.argoneum;
+                setHdCoin(421);
+            },
+        },
+        {
             name: "ARYA - Aryacoin",
             onSelect: function() {
                 network = libs.bitcoin.networks.aryacoin;
@@ -2521,6 +2540,13 @@
             },
         },
         {
+            name: "FIO - Foundation for Interwallet Operability",
+            onSelect: function() {
+                network = libs.bitcoin.networks.bitcoin;
+                setHdCoin(235);
+            },
+        },  
+        {
             name: "FIX - FIX",
             onSelect: function() {
                 network = libs.bitcoin.networks.fix;
@@ -2602,6 +2628,12 @@
             onSelect: function() {
                 network = libs.bitcoin.networks.groestlcointestnet;
                 setHdCoin(1);
+            },
+        },
+        {
+            name: "HNS - Handshake",
+            onSelect: function() {
+                setHdCoin(5353);
             },
         },
         {
@@ -3123,6 +3155,20 @@
             onSelect: function() {
                 network = libs.bitcoin.networks.stratis;
                 setHdCoin(105);
+            },
+        },
+        {
+            name: "SUGAR - Sugarchain",
+            onSelect: function() {
+                network = libs.bitcoin.networks.sugarchain;
+                setHdCoin(408);
+            },
+        },
+        {
+            name: "TUGAR - Sugarchain Testnet",
+            onSelect: function() {
+                network = libs.bitcoin.networks.sugarchaintestnet;
+                setHdCoin(408);
             },
         },
         {
