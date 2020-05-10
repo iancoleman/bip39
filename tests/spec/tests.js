@@ -2255,6 +2255,16 @@ it('Allows selection of Argoneum', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of CranePay', function(done) {
+    var params = {
+        selectText: "CRP - CranePay",
+        phrase: "abandon abandon ability",
+        firstAddress: "CcUHPqgmef1BmgWFa9g3YNc8scgVXVh8ip",
+        firstPubKey: "0392af9ea9dc78170c6f68c50bac926f960e50769295f539ac6382a3af2b928740",
+        firstPrivKey: "KHTCAvKHKg1WdLoDSg3VjjyZK5Wk1ihzJENpp2YMb1RmAxrCZrXX",
+    };
+    testNetwork(done, params);
+});
 
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {
