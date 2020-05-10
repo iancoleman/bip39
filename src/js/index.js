@@ -2332,6 +2332,14 @@
             },
         },
         {
+            name: "CRP - CranePay",
+            onSelect: function() {
+                network = libs.bitcoin.networks.cranepay;
+                setHdCoin(2304);
+            },
+        },
+
+        {
             name: "CRW - Crown (Legacy)",
             onSelect: function() {
                 network = libs.bitcoin.networks.crown;

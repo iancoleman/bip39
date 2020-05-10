@@ -581,6 +581,17 @@ libs.bitcoin.networks.cannacoin = {
   wif: 0x9c,
 };
 
+libs.bitcoin.networks.cranepay = {
+  messagePrefix: '\x18Bitcoin Signed Message:\n',
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  },
+  pubKeyHash: 28,
+  scriptHash: 10,
+  wif: 123,
+};
+
 libs.bitcoin.networks.cryptoescudo = {
   messagePrefix: '\x18Cryptoescudo Signed Message:\n',
   bip32: {
