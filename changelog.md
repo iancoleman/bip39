@@ -1,5 +1,15 @@
+# 0.4.3
+
 * Add FIO - Foundation for Interwallet Operability
 * Add Argoneum
+* Add CranePay
+* Add Jingtum network
+* Add MOAC
+* Update RSK network
+* Add HandShake
+* Add Sugarchain testnet
+* Fix wording "is a checksum" / "contains a checksum"
+* Fix bech32 prefix for monacoin
 
 # 0.4.2
 
