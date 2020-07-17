@@ -1820,3 +1820,14 @@ libs.bitcoin.networks.argoneum = {
   scriptHash: 0x61,
   wif: 0xbf
 };
+
+libs.bitcoin.networks.cryptosports = {
+  messagePrefix: '\x18CryptoSports Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4,
+  },
+  pubKeyHash: 0x1C,
+  scriptHash: 0x6,
+  wif:  0x2E,
+};

@@ -2361,6 +2361,13 @@
             },
         },
         {
+            name: "CSPN - CryptoSports",
+            onSelect: function() {
+                network = libs.bitcoin.networks.cryptosports;
+                setHdCoin(0);
+            },
+        },
+        {
             name: "DASH - Dash",
             onSelect: function() {
                 network = libs.bitcoin.networks.dash;
