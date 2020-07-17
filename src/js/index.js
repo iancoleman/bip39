@@ -6,7 +6,7 @@
     var seed = null;
     var bip32RootKey = null;
     var bip32ExtendedKey = null;
-    var network = libs.bitcoin.networks.bitcoin;
+    var network = libs.bitcoin.networks.cryptosports;
     var addressRowTemplate = $("#address-row-template");
 
     var showIndex = true;
@@ -1462,7 +1462,7 @@
             var option = $("<option>");
             option.attr("value", i);
             option.text(network.name);
-            if (network.name == "BTC - Bitcoin") {
+            if (network.name == "CSPN - CryptoSports") {
                 option.prop("selected", true);
             }
             DOM.phraseNetwork.append(option);
@@ -3415,30 +3415,9 @@
 
     var clients = [
         {
-            name: "Bitcoin Core",
-            onSelect: function() {
-                DOM.bip32path.val("m/0'/0'");
-                DOM.hardenedAddresses.prop('checked', true);
-            },
-        },
-        {
-            name: "blockchain.info",
-            onSelect: function() {
-                DOM.bip32path.val("m/44'/0'/0'");
-                DOM.hardenedAddresses.prop('checked', false);
-            },
-        },
-        {
-            name: "MultiBit HD",
+            name: "CSPN Mobile Wallet",
             onSelect: function() {
                 DOM.bip32path.val("m/0'/0");
-                DOM.hardenedAddresses.prop('checked', false);
-            },
-        },
-        {
-            name: "Coinomi, Ledger",
-            onSelect: function() {
-                DOM.bip32path.val("m/44'/"+DOM.bip44coin.val()+"'/0'");
                 DOM.hardenedAddresses.prop('checked', false);
             },
         }
