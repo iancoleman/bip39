@@ -3088,6 +3088,13 @@
               setHdCoin(19165);
             },
         },
+        {
+            name: "SCRIBE - Scribe",
+            onSelect: function() {
+                network = libs.bitcoin.networks.scribe;
+                setHdCoin(545);
+            },
+        },
     {
           name: "SLS - Salus",
           onSelect: function() {
