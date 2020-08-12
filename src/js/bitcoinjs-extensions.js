@@ -139,6 +139,17 @@ libs.bitcoin.networks.axe = {
   wif: 0xcc
 };
 
+libs.bitcoin.networks.scribe = {
+  messagePrefix: 'unused',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4
+  },
+  pubKeyHash: 0x3c,
+  scriptHash: 0x7d,
+  wif: 0x6e
+};
+
 libs.bitcoin.networks.slimcoin = {
   messagePrefix: 'unused',
   bip32: {
