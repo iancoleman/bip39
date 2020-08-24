@@ -2265,6 +2265,16 @@ it('Allows selection of CranePay', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Scribe', function(done) {
+    var params = {
+        selectText: "SCRIBE - Scribe",
+        phrase: "abandon abandon ability",
+        firstAddress: "RYAnPeBLD8veZ9Tw8xugeTC2f9PeZonLHM",
+        firstPubKey: "02c912bc4759c8a209475502fb5352ff5be8a8f13eb72f1732ee25125cd53edc1e",
+        firstPrivKey: "HLZWvNCEUv4ghygjH9A2EYCa9HNRcxe5CS42kzUTmoxJYp3z96QE",
+    };
+    testNetwork(done, params);
+});
 
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {
