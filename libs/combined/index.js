@@ -80,6 +80,23 @@ module.exports.stellarUtil = {
     },
 }
 
+/* nano-util */
+
+let NanoBase = require('nanocurrency-web');
+module.exports.nanoUtil = {
+    getKeypair: function (index, seed) {
+        const accounts = NanoBase.wallet.accounts(seed, index, index)
+        return {privKey: accounts[0].privateKey, pubKey: accounts[0].publicKey, address: accounts[0].address};
+    },
+    dummyNetwork: {
+        bip32: {public: 0, private: 0},
+        messagePrefix: '',
+        pubKeyHash: 0,
+        scriptHash: 0,
+        wif: 0,
+    },
+}
+
 /* unorm */
 
 module.exports.unorm = require('unorm')

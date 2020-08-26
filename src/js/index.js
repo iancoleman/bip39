@@ -1186,6 +1186,15 @@
                     privkey = keypair.secret();
                     pubkey = address = keypair.publicKey();
                 }
+
+                // Nano currency
+                if (networks[DOM.network.val()].name == "NANO - Nano") {
+                    var nanoKeypair = libs.nanoUtil.getKeypair(index, seed);
+                    privkey = nanoKeypair.privKey;
+                    pubkey = nanoKeypair.pubKey;
+                    address = nanoKeypair.address;
+                }
+
                 if ((networks[DOM.network.val()].name == "NAS - Nebulas")) {
                     var privKeyBuffer = keyPair.d.toBuffer(32);
                     var nebulasAccount = libs.nebulas.Account.NewAccount();
@@ -2832,6 +2841,13 @@
             onSelect: function() {
                 network = libs.bitcoin.networks.bitcoin;
                 setHdCoin(184);
+            },
+        },
+        {
+            name: "NANO - Nano",
+            onSelect: function() {
+                network = network = libs.nanoUtil.dummyNetwork;
+                setHdCoin(165);
             },
         },
         {
