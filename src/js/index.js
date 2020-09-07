@@ -1266,8 +1266,8 @@
 
               if (networks[DOM.network.val()].name == "EOS - EOSIO") {
                     address = ""
-                    pubkey = eosUtil.bufferToPublic(keyPair.getPublicKeyBuffer());
-                    privkey = eosUtil.bufferToPrivate(keyPair.d.toBuffer(32));
+                    pubkey = EOSbufferToPublic(keyPair.getPublicKeyBuffer());
+                    privkey = EOSbufferToPrivate(keyPair.d.toBuffer(32));
                 }
 
                 if (networks[DOM.network.val()].name == "FIO - Foundation for Interwallet Operability") {
