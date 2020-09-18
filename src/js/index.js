@@ -1141,6 +1141,7 @@
                 }
                 //TRX is different
                 if (networks[DOM.network.val()].name == "TRX - Tron") {
+                    keyPair = new libs.bitcoin.ECPair(keyPair.d, null, { network: network, compressed: false });
                     var pubkeyBuffer = keyPair.getPublicKeyBuffer();
                     var ethPubkey = libs.ethUtil.importPublic(pubkeyBuffer);
                     var addressBuffer = libs.ethUtil.publicToAddress(ethPubkey);
