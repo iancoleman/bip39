@@ -2275,6 +2275,16 @@ it('Allows selection of Scribe', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Binance Smart Chain', function(done) {
+    var params = {
+        selectText: "BSC - Binance Smart Chain",
+        phrase: "abandon abandon ability",
+        firstAddress: "0xe5815d5902Ad612d49283DEdEc02100Bd44C2772",
+        firstPubKey: "0x03e723e5b3aa7d72213f01139aa4783e1b34f74e1a04534e3fd8e29bfe2768af8a",
+        firstPrivKey: "0x8f253078b73d7498302bb78c171b23ce7a8fb511987d2b2702b731638a4a15e7",
+    };
+    testNetwork(done, params);
+});
 
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {

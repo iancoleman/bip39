@@ -1887,6 +1887,7 @@
                     || (name == "ESN - Ethersocial Network")
                     || (name == "VET - VeChain")
                     || (name == "ERE - EtherCore")
+                    || (name == "BSC - Binance Smart Chain")
     }
 
     function networkIsRsk() {
@@ -2230,6 +2231,13 @@
             onSelect: function() {
                 network = libs.bitcoin.networks.bitcoinprivate;
                 setHdCoin(183);
+            },
+        },
+        {
+            name: "BSC - Binance Smart Chain",
+            onSelect: function() {
+                network = libs.bitcoin.networks.bitcoin;
+                setHdCoin(60);
             },
         },
         {
