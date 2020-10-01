@@ -16,7 +16,136 @@
 
 window.Entropy = new (function() {
 
-    var TWO = new libs.BigInteger.BigInteger(2);
+    let eventBits = {
+
+    "binary": {
+        "0": "0",
+        "1": "1",
+    },
+
+    // log2(6) = 2.58496 bits per roll, with bias
+    // 4 rolls give 2 bits each
+    // 2 rolls give 1 bit each
+    // Average (4*2 + 2*1) / 6 = 1.66 bits per roll without bias
+    "base 6": {
+        "0": "00",
+        "1": "01",
+        "2": "10",
+        "3": "11",
+        "4": "0",
+        "5": "1",
+    },
+
+    // log2(6) = 2.58496 bits per roll, with bias
+    // 4 rolls give 2 bits each
+    // 2 rolls give 1 bit each
+    // Average (4*2 + 2*1) / 6 = 1.66 bits per roll without bias
+    "base 6 (dice)": {
+        "0": "00", // equivalent to 0 in base 6
+        "1": "01",
+        "2": "10",
+        "3": "11",
+        "4": "0",
+        "5": "1",
+    },
+
+    // log2(10) = 3.321928 bits per digit, with bias
+    // 8 digits give 3 bits each
+    // 2 digits give 1 bit each
+    // Average (8*3 + 2*1) / 10 = 2.6 bits per digit without bias
+    "base 10": {
+        "0": "000",
+        "1": "001",
+        "2": "010",
+        "3": "011",
+        "4": "100",
+        "5": "101",
+        "6": "110",
+        "7": "111",
+        "8": "0",
+        "9": "1",
+    },
+
+    "hexadecimal": {
+        "0": "0000",
+        "1": "0001",
+        "2": "0010",
+        "3": "0011",
+        "4": "0100",
+        "5": "0101",
+        "6": "0110",
+        "7": "0111",
+        "8": "1000",
+        "9": "1001",
+        "a": "1010",
+        "b": "1011",
+        "c": "1100",
+        "d": "1101",
+        "e": "1110",
+        "f": "1111",
+    },
+
+    // log2(52) = 5.7004 bits per card, with bias
+    // 32 cards give 5 bits each
+    // 16 cards give 4 bits each
+    // 4 cards give 2 bits each
+    // Average (32*5 + 16*4 + 4*2) / 52 = 4.46 bits per card without bias
+    "card": {
+        "ac": "00000",
+        "2c": "00001",
+        "3c": "00010",
+        "4c": "00011",
+        "5c": "00100",
+        "6c": "00101",
+        "7c": "00110",
+        "8c": "00111",
+        "9c": "01000",
+        "tc": "01001",
+        "jc": "01010",
+        "qc": "01011",
+        "kc": "01100",
+        "ad": "01101",
+        "2d": "01110",
+        "3d": "01111",
+        "4d": "10000",
+        "5d": "10001",
+        "6d": "10010",
+        "7d": "10011",
+        "8d": "10100",
+        "9d": "10101",
+        "td": "10110",
+        "jd": "10111",
+        "qd": "11000",
+        "kd": "11001",
+        "ah": "11010",
+        "2h": "11011",
+        "3h": "11100",
+        "4h": "11101",
+        "5h": "11110",
+        "6h": "11111",
+        "7h": "0000",
+        "8h": "0001",
+        "9h": "0010",
+        "th": "0011",
+        "jh": "0100",
+        "qh": "0101",
+        "kh": "0110",
+        "as": "0111",
+        "2s": "1000",
+        "3s": "1001",
+        "4s": "1010",
+        "5s": "1011",
+        "6s": "1100",
+        "7s": "1101",
+        "8s": "1110",
+        "9s": "1111",
+        "ts": "00",
+        "js": "01",
+        "qs": "10",
+        "ks": "11",
+    },
+
+    }
 
     // matchers returns an array of the matched events for each type of entropy.
     // eg
@@ -51,48 +180,28 @@ window.Entropy = new (function() {
         }
     }
 
-    // Convert array of cards from ["ac", "4d", "ks"]
-    // to numbers between 0 and 51 [0, 16, 51]
-    function convertCardsToInts(cards) {
-        var ints = [];
-        var values = "a23456789tjqk";
-        var suits = "cdhs";
-        for (var i=0; i<cards.length; i++) {
-            var card = cards[i].toLowerCase();
-            var value = card[0];
-            var suit = card[1];
-            var asInt = 13 * suits.indexOf(suit) + values.indexOf(value);
-            ints.push(asInt);
-        }
-        return ints;
-    }
-
     this.fromString = function(rawEntropyStr, baseStr) {
         // Find type of entropy being used (binary, hex, dice etc)
         var base = getBase(rawEntropyStr, baseStr);
         // Convert dice to base6 entropy (ie 1-6 to 0-5)
         // This is done by changing all 6s to 0s
         if (base.str == "dice") {
-            var newParts = [];
-            var newInts = [];
-            for (var i=0; i<base.parts.length; i++) {
-                var c = base.parts[i];
+            var newEvents = [];
+            for (var i=0; i<base.events.length; i++) {
+                var c = base.events[i];
                 if ("12345".indexOf(c) > -1) {
-                    newParts[i] = base.parts[i];
-                    newInts[i] = base.ints[i];
+                    newEvents[i] = base.events[i];
                 }
                 else {
-                    newParts[i] = "0";
-                    newInts[i] = 0;
+                    newEvents[i] = "0";
                 }
             }
             base.str = "base 6 (dice)";
-            base.ints = newInts;
-            base.parts = newParts;
+            base.events = newEvents;
             base.matcher = matchers.base6;
         }
         // Detect empty entropy
-        if (base.parts.length == 0) {
+        if (base.events.length == 0) {
             return {
                 binaryStr: "",
                 cleanStr: "",
@@ -100,44 +209,23 @@ window.Entropy = new (function() {
                 base: base,
             };
         }
-        // Convert base.ints to BigInteger.
-        // Due to using unusual bases, eg cards of base52, this is not as simple as
-        // using BigInteger.parse()
-        var entropyInt = libs.BigInteger.BigInteger.ZERO;
-        for (var i=base.ints.length-1; i>=0; i--) {
-            var thisInt = libs.BigInteger.BigInteger.parse(base.ints[i]);
-            var power = (base.ints.length - 1) - i;
-            var additionalEntropy = libs.BigInteger.BigInteger.parse(base.asInt).pow(power).multiply(thisInt);
-            entropyInt = entropyInt.add(additionalEntropy);
-        }
-        // Convert entropy to binary
-        var entropyBin = entropyInt.toString(2);
-        // If the first integer is small, it must be padded with zeros.
-        // Otherwise the chance of the first bit being 1 is 100%, which is
-        // obviously incorrect.
-        // This is not perfect for non-2^n bases.
-        var expectedBits = Math.floor(base.parts.length * Math.log2(base.asInt));
-        while (entropyBin.length < expectedBits) {
-            entropyBin = "0" + entropyBin;
-        }
-        // Calculate the number of bits per event
-        var bitsPerEvent = Math.log2(base.asInt);
-        // Cards binary must be handled differently, since they're not replaced
-        if (base.asInt == 52) {
-            var cardEntropy = processCardEntropy(base.parts);
-            entropyBin = cardEntropy.binaryStr;
-            bitsPerEvent = cardEntropy.bitsPerEvent;
-        }
+        // Convert entropy events to binary
+        var entropyBin = base.events.map(function(e) {
+            return eventBits[base.str][e.toLowerCase()];
+        }).join("");
+        // Get average bits per event
+        // which may be adjusted for bias if log2(base) is fractional
+        var bitsPerEvent = base.bitsPerEvent;
         // Supply a 'filtered' entropy string for display purposes
-        var entropyClean = base.parts.join("");
-        var entropyHtml = base.parts.join("");
+        var entropyClean = base.events.join("");
+        var entropyHtml = base.events.join("");
         if (base.asInt == 52) {
-            entropyClean = base.parts.join(" ").toUpperCase();
+            entropyClean = base.events.join(" ").toUpperCase();
             entropyClean = entropyClean.replace(/C/g, "\u2663");
             entropyClean = entropyClean.replace(/D/g, "\u2666");
             entropyClean = entropyClean.replace(/H/g, "\u2665");
             entropyClean = entropyClean.replace(/S/g, "\u2660");
-            entropyHtml = base.parts.join(" ").toUpperCase();
+            entropyHtml = base.events.join(" ").toUpperCase();
             entropyHtml = entropyHtml.replace(/C/g, "<span class='card-suit club'>\u2663</span>");
             entropyHtml = entropyHtml.replace(/D/g, "<span class='card-suit diamond'>\u2666</span>");
             entropyHtml = entropyHtml.replace(/H/g, "<span class='card-suit heart'>\u2665</span>");
@@ -154,18 +242,6 @@ window.Entropy = new (function() {
         return e;
     }
 
-    function getSortedDeck() {
-        var s = [];
-        var suits = "CDHS";
-        var values = "A23456789TJQK";
-        for (var i=0; i<suits.length; i++) {
-            for (var j=0; j<values.length; j++) {
-                s.push(values[j]+suits[i]);
-            }
-        }
-        return s;
-    }
-
     function getBase(str, baseStr) {
         // Need to get the lowest base for the supplied entropy.
         // This prevents interpreting, say, dice rolls as hexadecimal.
@@ -177,20 +253,21 @@ window.Entropy = new (function() {
             var ints = binaryMatches.map(function(i) { return parseInt(i, 2) });
             return {
                 ints: ints,
-                parts: binaryMatches,
+                events: binaryMatches,
                 matcher: matchers.binary,
                 asInt: 2,
+                bitsPerEvent: 1,
                 str: "binary",
             }
         }
         var cardMatches = matchers.card(str);
         if ((cardMatches.length >= hexMatches.length / 2 && autodetect) || baseStr === "card") {
-            var ints = convertCardsToInts(cardMatches);
             return {
                 ints: ints,
-                parts: cardMatches,
+                events: cardMatches,
                 matcher: matchers.card,
                 asInt: 52,
+                bitsPerEvent: (32*5 + 16*4 + 4*2) / 52, // see cardBits
                 str: "card",
             }
         }
@@ -199,9 +276,10 @@ window.Entropy = new (function() {
             var ints = diceMatches.map(function(i) { return parseInt(i) });
             return {
                 ints: ints,
-                parts: diceMatches,
+                events: diceMatches,
                 matcher: matchers.dice,
                 asInt: 6,
+                bitsPerEvent: (4*2 + 2*1) / 6, // see diceBits
                 str: "dice",
             }
         }
@@ -210,9 +288,10 @@ window.Entropy = new (function() {
             var ints = base6Matches.map(function(i) { return parseInt(i) });
             return {
                 ints: ints,
-                parts: base6Matches,
+                events: base6Matches,
                 matcher: matchers.base6,
                 asInt: 6,
+                bitsPerEvent: (4*2 + 2*1) / 6, // see diceBits
                 str: "base 6",
             }
         }
@@ -221,126 +300,22 @@ window.Entropy = new (function() {
             var ints = base10Matches.map(function(i) { return parseInt(i) });
             return {
                 ints: ints,
-                parts: base10Matches,
+                events: base10Matches,
                 matcher: matchers.base10,
                 asInt: 10,
+                bitsPerEvent: (8*3 + 2*1) / 10, // see b10Bits
                 str: "base 10",
             }
         }
         var ints = hexMatches.map(function(i) { return parseInt(i, 16) });
         return {
             ints: ints,
-            parts: hexMatches,
+            events: hexMatches,
             matcher: matchers.hex,
             asInt: 16,
+            bitsPerEvent: 4,
             str: "hexadecimal",
         }
-    }
-
-    // Assume cards are NOT replaced.
-    // Additional entropy decreases as more cards are used. This means
-    // total possible entropy is measured using n!, not base^n.
-    // eg the second last card can be only one of two, not one of fifty two
-    // so the added entropy for that card is only one bit at most
-    function processCardEntropy(cards) {
-        // Track how many instances of each card have been used, and thus
-        // how many decks are in use.
-        var cardCounts = {};
-        var numberOfDecks = 0;
-        // Work out number of decks by max(duplicates)
-        for (var i=0; i<cards.length; i++) {
-            // Get the card that was drawn
-            var cardLower = cards[i];
-            var card = cardLower.toUpperCase();
-            // Initialize the count for this card if needed
-            if (!(card in cardCounts)) {
-                cardCounts[card] = 0;
-            }
-            cardCounts[card] += 1;
-            // See if this is max(duplicates)
-            if (cardCounts[card] > numberOfDecks) {
-                numberOfDecks = cardCounts[card];
-            }
-        }
-        // Work out the total number of bits for this many decks
-        // See http://crypto.stackexchange.com/q/41886
-        var gainedBits = 0;
-        // Equivalent of Math.log2(factorial(52*numberOfDecks))
-        // which becomes infinity for numberOfDecks > 4
-        for (var i=1; i<=52*numberOfDecks; i++) {
-            gainedBits = gainedBits + Math.log2(i);
-        }
-        var lostBits = 52 * Math.log2(factorial(numberOfDecks));
-        var maxBits = gainedBits - lostBits;
-        // Convert the drawn cards to a binary representation.
-        // The exact technique for doing this is unclear.
-        // See
-        // http://crypto.stackexchange.com/a/41896
-        // "I even doubt that this is well defined (only the average entropy
-        // is, I believe)."
-        // See
-        // https://github.com/iancoleman/bip39/issues/33#issuecomment-263021856
-        // "The binary representation can be the first log(permutations,2) bits
-        // of the sha-2 hash of the normalized deck string."
-        //
-        // In this specific implementation, the first N bits of the hash of the
-        // normalized cards string is being used. Uppercase, no spaces; eg
-        // sha256("AH8DQSTC2H")
-        var totalCards = numberOfDecks * 52;
-        var percentUsed = cards.length / totalCards;
-        // Calculate the average number of bits of entropy for the number of
-        // cards drawn.
-        var numberOfBits = Math.floor(maxBits * percentUsed);
-        // Create a normalized string of the selected cards
-        var normalizedCards = cards.join("").toUpperCase();
-        // Convert to binary using the SHA256 hash of the normalized cards.
-        // If the number of bits is more than 256, multiple hashes
-        // are used until the required number of bits is reached.
-        var entropyBin = "";
-        var iterations = 0;
-        while (entropyBin.length < numberOfBits) {
-            var hashedCards = sjcl.hash.sha256.hash(normalizedCards + ":" + iterations);
-            var hashHex = sjcl.codec.hex.fromBits(hashedCards);
-            for (var i=0; i<hashHex.length; i++) {
-                var decimal = parseInt(hashHex[i], 16);
-                var binary = decimal.toString(2);
-                while (binary.length < 4) {
-                    binary = "0" + binary;
-                }
-                entropyBin = entropyBin + binary;
-            }
-            iterations = iterations + 1;
-        }
-        // Truncate to the appropriate number of bits.
-        entropyBin = entropyBin.substring(0, numberOfBits);
-        // Get the number of bits per event
-        bitsPerEvent = maxBits / totalCards;
-        return {
-            binaryStr: entropyBin,
-            bitsPerEvent: bitsPerEvent,
-        }
-    }
-
-    // Polyfill for Math.log2
-    // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/log2#Polyfill
-    Math.log2 = Math.log2 || function(x) {
-        // The polyfill isn't good enough because of the poor accuracy of
-        // Math.LOG2E
-        // log2(8) gave 2.9999999999999996 which when floored causes issues.
-        // So instead use the BigInteger library to get it right.
-        return libs.BigInteger.BigInteger.log(x) / libs.BigInteger.BigInteger.log(2);
-    };
-
-    // Depends on BigInteger
-    function factorial(n) {
-        if (n == 0) {
-            return 1;
-        }
-        f = libs.BigInteger.BigInteger.ONE;
-        for (var i=1; i<=n; i++) {
-            f = f.multiply(new libs.BigInteger.BigInteger(i));
-        }
-        return f;
     }
 
 })();

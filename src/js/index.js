@@ -1726,7 +1726,7 @@
         var numberOfBits = entropy.binaryStr.length;
         var timeToCrack = "unknown";
         try {
-            var z = libs.zxcvbn(entropy.base.parts.join(""));
+            var z = libs.zxcvbn(entropy.base.events.join(""));
             timeToCrack = z.crack_times_display.offline_fast_hashing_1e10_per_second;
             if (z.feedback.warning != "") {
                 timeToCrack = timeToCrack + " - " + z.feedback.warning;
@@ -1745,7 +1745,7 @@
         DOM.entropyFiltered.html(entropy.cleanHtml);
         DOM.entropyType.text(entropyTypeStr);
         DOM.entropyCrackTime.text(timeToCrack);
-        DOM.entropyEventCount.text(entropy.base.ints.length);
+        DOM.entropyEventCount.text(entropy.base.events.length);
         DOM.entropyBits.text(numberOfBits);
         DOM.entropyWordCount.text(wordCount);
         DOM.entropyBinary.text(spacedBinaryStr);
@@ -1770,8 +1770,8 @@
             // Detect duplicates
             var dupes = [];
             var dupeTracker = {};
-            for (var i=0; i<entropy.base.parts.length; i++) {
-                var card = entropy.base.parts[i];
+            for (var i=0; i<entropy.base.events.length; i++) {
+                var card = entropy.base.events[i];
                 var cardUpper = card.toUpperCase();
                 if (cardUpper in dupeTracker) {
                     dupes.push(card);
