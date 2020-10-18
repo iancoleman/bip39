@@ -1,6 +1,6 @@
 # Generate libs
 
 ```
-npm install
+npm install --no-optional
 npm run build
 ```

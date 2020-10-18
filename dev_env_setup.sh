@@ -24,7 +24,7 @@ source $HOME/.bashrc
 ln -s /usr/bin/python3 $HOME/.bin/python
 
 # install firefox and other dependencies
-sudo apt-get -y install firefox unzip openjdk-11-jre-headless xvfb libxi6 libgconf-2-4
+sudo apt-get -y install firefox unzip openjdk-11-jre-headless xvfb libxi6 libgconf-2-4 make build-essential
 # install chrome
 curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add
 sudo sh -c "echo \"deb https://dl.google.com/linux/chrome/deb/ stable main\" >> /etc/apt/sources.list.d/google-chrome.list"
