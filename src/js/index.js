@@ -1115,7 +1115,7 @@
                                 console.log("Progressed " + p.percent.toFixed(1) + "% for index " + index);
                             }, null, networks[DOM.network.val()].name.includes("Testnet"));
                         else
-                            privkey = libs.bip38.encrypt(keyPair.d.toBuffer(), false, bip38password, function(p) {
+                            privkey = libs.bip38.encrypt(address, keyPair.d.toBuffer(), false, bip38password, function(p) {
                                 console.log("Progressed " + p.percent.toFixed(1) + "% for index " + index);
                             });
                     }
