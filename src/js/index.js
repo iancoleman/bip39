@@ -1139,6 +1139,17 @@
                         privkey = libs.ethUtil.bufferToHex(keyPair.d.toBuffer());
                     }
                 }
+                //TRX is different
+                if (networks[DOM.network.val()].name == "TRX - Tron") {
+                    keyPair = new libs.bitcoin.ECPair(keyPair.d, null, { network: network, compressed: false });
+                    var pubkeyBuffer = keyPair.getPublicKeyBuffer();
+                    var ethPubkey = libs.ethUtil.importPublic(pubkeyBuffer);
+                    var addressBuffer = libs.ethUtil.publicToAddress(ethPubkey);
+                    address = libs.bitcoin.address.toBase58Check(addressBuffer, 0x41);
+                    if (hasPrivkey) {
+                        privkey = keyPair.d.toBuffer().toString('hex');
+                    }
+                }
 
                 // RSK values are different
                 if (networkIsRsk()) {
@@ -3234,6 +3245,12 @@
             onSelect: function() {
                 network = libs.bitcoin.networks.toa;
                 setHdCoin(159);
+            },
+        },
+        {
+            name: "TRX - Tron",
+            onSelect: function() {
+                setHdCoin(195);
             },
         },
         {

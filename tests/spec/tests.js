@@ -2286,6 +2286,17 @@ it('Allows selection of Binance Smart Chain', function(done) {
     testNetwork(done, params);
 });
 
+it('Allows selection of TRX on Tron', function(done) {
+    var params = {
+        selectText: "TRX - Tron",
+        phrase: "abandon abandon ability",
+        firstAddress: "TA891Fu7vVz595BGQpNX2MCzr7yBcxuoC7",
+        firstPubKey: "0337bbb060e6166066f7f9e59e52f67bc23a6c9d0cbc815b82b6d89112444842e7",
+        firstPrivKey: "3a8fbd0379a815764979de86a3fcda759cb62d49e784e7b2a9a03206c90cfae2",
+    };
+    testNetwork(done, params);
+});
+
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {
     driver.findElement(By.css('.phrase'))
