@@ -2285,6 +2285,27 @@ it('Allows selection of Scribe', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Binance Smart Chain', function(done) {
+    var params = {
+        selectText: "BSC - Binance Smart Chain",
+        phrase: "abandon abandon ability",
+        firstAddress: "0xe5815d5902Ad612d49283DEdEc02100Bd44C2772",
+        firstPubKey: "0x03e723e5b3aa7d72213f01139aa4783e1b34f74e1a04534e3fd8e29bfe2768af8a",
+        firstPrivKey: "0x8f253078b73d7498302bb78c171b23ce7a8fb511987d2b2702b731638a4a15e7",
+    };
+    testNetwork(done, params);
+});
+
+it('Allows selection of TRX on Tron', function(done) {
+    var params = {
+        selectText: "TRX - Tron",
+        phrase: "abandon abandon ability",
+        firstAddress: "TA891Fu7vVz595BGQpNX2MCzr7yBcxuoC7",
+        firstPubKey: "0337bbb060e6166066f7f9e59e52f67bc23a6c9d0cbc815b82b6d89112444842e7",
+        firstPrivKey: "3a8fbd0379a815764979de86a3fcda759cb62d49e784e7b2a9a03206c90cfae2",
+    };
+    testNetwork(done, params);
+});
 
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {
@@ -3130,7 +3151,7 @@ it("Shows the number of bits of entropy for 4 bits of binary", function(done) {
     testEntropyBits(done, "0000", "4");
 });
 it("Shows the number of bits of entropy for 1 character of base 6 (dice)", function(done) {
-    // 6 in card is 0 in base 6, 0 in base 6 is 2.6 bits (rounded down to 2 bits)
+    // 6 in card is 0 in base 6, 0 is mapped to 00 by entropy.js
     testEntropyBits(done, "6", "2");
 });
 it("Shows the number of bits of entropy for 1 character of base 10 with 3 bits", function(done) {
@@ -3138,13 +3159,15 @@ it("Shows the number of bits of entropy for 1 character of base 10 with 3 bits",
     testEntropyBits(done, "7", "3");
 });
 it("Shows the number of bits of entropy for 1 character of base 10 with 4 bis", function(done) {
-    testEntropyBits(done, "8", "4");
+    // 8 in base 10 is mapped to 0 by entropy.js
+    testEntropyBits(done, "8", "1");
 });
 it("Shows the number of bits of entropy for 1 character of hex", function(done) {
     testEntropyBits(done, "F", "4");
 });
 it("Shows the number of bits of entropy for 2 characters of base 10", function(done) {
-    testEntropyBits(done, "29", "6");
+    // 2 as base 10 is binary 010, 9 is mapped to binary 1 by entropy.js
+    testEntropyBits(done, "29", "4");
 });
 it("Shows the number of bits of entropy for 2 characters of hex", function(done) {
     testEntropyBits(done, "0A", "8");
@@ -3169,17 +3192,17 @@ it("Shows the number of bits of entropy for 4 characters of hex with leading zer
     testEntropyBits(done, "000A", "16");
 });
 it("Shows the number of bits of entropy for 4 characters of base 6", function(done) {
-    testEntropyBits(done, "5555", "11");
+    // 5 in base 6 is mapped to binary 1
+    testEntropyBits(done, "5555", "4");
 });
 it("Shows the number of bits of entropy for 4 characters of base 6 dice", function(done) {
     // uses dice, so entropy is actually 0000 in base 6, which is 4 lots of
-    // 2.58 bits, which is 10.32 bits (rounded down to 10 bits)
-    testEntropyBits(done, "6666", "10");
+    // binary 00
+    testEntropyBits(done, "6666", "8");
 });
 it("Shows the number of bits of entropy for 4 charactes of base 10", function(done) {
-    // Uses base 10, which is 4 lots of 3.32 bits, which is 13.3 bits (rounded
-    // down to 13)
-    testEntropyBits(done, "2227", "13");
+    // 2 in base 10 is binary 010 and 7 is binary 111 so is 4 events of 3 bits
+    testEntropyBits(done, "2227", "12");
 });
 it("Shows the number of bits of entropy for 4 characters of hex with 2 leading zeros", function(done) {
     testEntropyBits(done, "222F", "16");
@@ -3188,13 +3211,16 @@ it("Shows the number of bits of entropy for 4 characters of hex starting with F"
     testEntropyBits(done, "FFFF", "16");
 });
 it("Shows the number of bits of entropy for 10 characters of base 10", function(done) {
-    // 10 events at 3.32 bits per event
-    testEntropyBits(done, "0000101017", "33");
+    // 10 events with 3 bits for each event
+    testEntropyBits(done, "0000101017", "30");
+});
+it("Shows the number of bits of entropy for 10 characters of base 10 account for bias", function(done) {
+    // 9 events with 3 bits per event and 1 event with 1 bit per event
+    testEntropyBits(done, "0000101018", "28");
 });
 it("Shows the number of bits of entropy for a full deck of cards", function(done) {
-    // cards are not replaced, so a full deck is not 52^52 entropy which is 296
-    // bits, it's 52!, which is 225 bits
-    testEntropyBits(done, "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks", "225");
+    // removing bias is 32*5 + 16*4 + 4*2
+    testEntropyBits(done, "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks", "232");
 });
 
 it("Shows details about the entered entropy", function(done) {
@@ -3320,7 +3346,7 @@ it("Shows details about the entered entropy", function(done) {
             entropy: "7d",
             type: "card",
             events: "1",
-            bits: "4",
+            bits: "5",
             words: 0,
             strength: "less than a second",
         }
@@ -3332,7 +3358,7 @@ it("Shows details about the entered entropy", function(done) {
             entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks",
             type: "card (full deck)",
             events: "52",
-            bits: "225",
+            bits: "232",
             words: 21,
             strength: "centuries",
         }
@@ -3344,7 +3370,7 @@ it("Shows details about the entered entropy", function(done) {
             entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks3d",
             type: "card (full deck, 1 duplicate: 3d)",
             events: "53",
-            bits: "254",
+            bits: "237",
             words: 21,
             strength: "centuries",
         }
@@ -3356,7 +3382,7 @@ it("Shows details about the entered entropy", function(done) {
             entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqs3d4d",
             type: "card (2 duplicates: 3d 4d, 1 missing: KS)",
             events: "53",
-            bits: "254",
+            bits: "240",
             words: 21,
             strength: "centuries",
         }
@@ -3368,8 +3394,8 @@ it("Shows details about the entered entropy", function(done) {
             entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqs3d4d5d6d",
             type: "card (4 duplicates: 3d 4d 5d..., 1 missing: KS)",
             events: "55",
-            bits: "264",
-            words: 24,
+            bits: "250",
+            words: 21,
             strength: "centuries",
         }
     );
@@ -3377,13 +3403,12 @@ it("Shows details about the entered entropy", function(done) {
 it("Shows details about the entered entropy", function(done) {
     testEntropyFeedback(done,
         // Next test was throwing uncaught error in zxcvbn
-        // Also tests 451 bits, ie Math.log2(52!)*2 = 225.58 * 2
         {
             entropy: "ac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsksac2c3c4c5c6c7c8c9ctcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks",
             type: "card (full deck, 52 duplicates: ac 2c 3c...)",
             events: "104",
-            bits: "499",
-            words: 45,
+            bits: "464",
+            words: 42,
             strength: "centuries",
         }
     );
@@ -3395,7 +3420,7 @@ it("Shows details about the entered entropy", function(done) {
             entropy: "asAS",
             type: "card (1 duplicate: AS)",
             events: "2",
-            bits: "9",
+            bits: "8",
             words: 0,
             strength: "less than a second",
         }
@@ -3407,7 +3432,7 @@ it("Shows details about the entered entropy", function(done) {
             entropy: "ASas",
             type: "card (1 duplicate: as)",
             events: "2",
-            bits: "9",
+            bits: "8",
             words: 0,
             strength: "less than a second",
         }
@@ -3420,8 +3445,8 @@ it("Shows details about the entered entropy", function(done) {
             entropy: "ac2c3c4c5c6c7c8c  tcjcqckcad2d3d4d5d6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks",
             type: "card (1 missing: 9C)",
             events: "51",
-            bits: "221",
-            words: 18,
+            bits: "227",
+            words: 21,
             strength: "centuries",
         }
     );
@@ -3432,7 +3457,7 @@ it("Shows details about the entered entropy", function(done) {
             entropy: "ac2c3c4c5c6c7c8c  tcjcqckcad2d3d4d  6d7d8d9dtdjdqdkdah2h3h4h5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks",
             type: "card (2 missing: 9C 5D)",
             events: "50",
-            bits: "216",
+            bits: "222",
             words: 18,
             strength: "centuries",
         }
@@ -3444,7 +3469,7 @@ it("Shows details about the entered entropy", function(done) {
             entropy: "ac2c3c4c5c6c7c8c  tcjcqckcad2d3d4d  6d7d8d9dtdjd  kdah2h3h  5h6h7h8h9hthjhqhkhas2s3s4s5s6s7s8s9stsjsqsks",
             type: "card (4 missing: 9C 5D QD...)",
             events: "48",
-            bits: "208",
+            bits: "212",
             words: 18,
             strength: "centuries",
         }
@@ -3457,20 +3482,21 @@ it("Shows details about the entered entropy", function(done) {
             entropy: "ac2c3c4c5c6c7c8c  tcjcqckcad2d3d4d  6d  8d9d  jd  kdah2h3h  5h6h7h8h9hthjhqhkh  2s3s4s5s6s7s8s9stsjsqsks",
             type: "card",
             events: "45",
-            bits: "195",
+            bits: "198",
             words: 18,
             strength: "centuries",
         }
     );
 });
 it("Shows details about the entered entropy", function(done) {
+    // multiple decks does not affect the bits per event
+    // since the bits are hardcoded in entropy.js
     testEntropyFeedback(done,
-        // Multiple decks of cards increases bits per event
         {
             entropy: "3d",
             events: "1",
-            bits: "4",
-            bitsPerEvent: "4.34",
+            bits: "5",
+            bitsPerEvent: "4.46",
         }
     );
 });
@@ -3479,8 +3505,8 @@ it("Shows details about the entered entropy", function(done) {
         {
             entropy: "3d3d",
             events: "2",
-            bits: "9",
-            bitsPerEvent: "4.80",
+            bits: "10",
+            bitsPerEvent: "4.46",
         }
     );
 });
@@ -3490,7 +3516,7 @@ it("Shows details about the entered entropy", function(done) {
             entropy: "3d3d3d",
             events: "3",
             bits: "15",
-            bitsPerEvent: "5.01",
+            bitsPerEvent: "4.46",
         }
     );
 });
@@ -3500,7 +3526,7 @@ it("Shows details about the entered entropy", function(done) {
             entropy: "3d3d3d3d",
             events: "4",
             bits: "20",
-            bitsPerEvent: "5.14",
+            bitsPerEvent: "4.46",
         }
     );
 });
@@ -3509,8 +3535,8 @@ it("Shows details about the entered entropy", function(done) {
         {
             entropy: "3d3d3d3d3d",
             events: "5",
-            bits: "26",
-            bitsPerEvent: "5.22",
+            bits: "25",
+            bitsPerEvent: "4.46",
         }
     );
 });
@@ -3519,8 +3545,8 @@ it("Shows details about the entered entropy", function(done) {
         {
             entropy: "3d3d3d3d3d3d",
             events: "6",
-            bits: "31",
-            bitsPerEvent: "5.28",
+            bits: "30",
+            bitsPerEvent: "4.46",
         }
     );
 });
@@ -3529,8 +3555,8 @@ it("Shows details about the entered entropy", function(done) {
         {
             entropy: "3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d",
             events: "33",
-            bits: "184",
-            bitsPerEvent: "5.59",
+            bits: "165",
+            bitsPerEvent: "4.46",
             strength: 'less than a second - Repeats like "abcabcabc" are only slightly harder to guess than "abc"',
         }
     );
@@ -3581,10 +3607,11 @@ it('Converts very long entropy to very long mnemonics', function(done) {
 // https://bip32jp.github.io/english/index.html
 // NOTES:
 // Is incompatible with:
+//     base 6
 //     base 20
 it('Is compatible with bip32jp.github.io', function(done) {
-    var entropy  = "543210543210543210543210543210543210543210543210543210543210543210543210543210543210543210543210543";
-    var expectedPhrase = "train then jungle barely whip fiber purpose puppy eagle cloud clump hospital robot brave balcony utility detect estate old green desk skill multiply virus";
+    var entropy  = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+    var expectedPhrase = "primary fetch primary fetch primary fetch primary fetch primary fetch primary fetch primary fetch primary fetch primary fetch primary fetch primary fetch primary foster";
     driver.findElement(By.css('.use-entropy'))
         .click();
     driver.findElement(By.css('.entropy'))
