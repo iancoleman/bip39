@@ -2160,8 +2160,8 @@ it('Allows selection of Nano', function(done) {
         selectText: "NANO - Nano",
         phrase: "deal wedding panda forum property artist whip total word student sea middle",
         firstAddress: "nano_15fum9n68681dz73qyu37fuc9tro84gqm86eptdqpm9jutkfnt34agkoqpw5",
-        firstPubKey: "0DBB99E84310C05FCA1BFB612B76A3EB15309D79988CB6977B4CF1DEA4DA6822",
-        firstPrivKey: "30633C8497CC47E0AEFD52C7971FFD45E6C5D166274C7978FECA3482A859C0AF",
+        firstPubKey: "0dbb99e84310c05fca1bfb612b76a3eb15309d79988cb6977b4cf1dea4da6822",
+        firstPrivKey: "30633c8497cc47e0aefd52c7971ffd45e6c5d166274c7978feca3482a859c0af",
     };
     testNetwork(done, params);
 });
