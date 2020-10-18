@@ -2155,6 +2155,16 @@ it('Allows selection of Stellar', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Nano', function(done) {
+    var params = {
+        selectText: "NANO - Nano",
+        phrase: "deal wedding panda forum property artist whip total word student sea middle",
+        firstAddress: "nano_15fum9n68681dz73qyu37fuc9tro84gqm86eptdqpm9jutkfnt34agkoqpw5",
+        firstPubKey: "0DBB99E84310C05FCA1BFB612B76A3EB15309D79988CB6977B4CF1DEA4DA6822",
+        firstPrivKey: "30633C8497CC47E0AEFD52C7971FFD45E6C5D166274C7978FECA3482A859C0AF",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Wagerr', function(done) {
     var params = {
         selectText: "WGR - Wagerr",

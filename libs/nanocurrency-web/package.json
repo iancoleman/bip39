@@ -1,0 +1,14 @@
+{
+  "name": "nano-util",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "browserify nano-util.js > /tmp/nano-util.js"
+  },
+  "dependencies": {
+    "nanocurrency-web": "^1.2.2"
+  },
+  "devDependencies": {
+    "browserify": "^16.2.3",
+    "uglify-es": "^3.3.9"
+  }
+}
