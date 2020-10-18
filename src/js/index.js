@@ -47,6 +47,8 @@
     DOM.entropyWeakEntropyOverrideWarning = DOM.entropyContainer.find(".weak-entropy-override-warning");
     DOM.entropyFilterWarning = DOM.entropyContainer.find(".filter-warning");
     DOM.phrase = $(".phrase");
+    DOM.splitMnemonic = $(".splitMnemonic");
+    DOM.showSplitMnemonic = $(".showSplitMnemonic");
     DOM.phraseSplit = $(".phraseSplit");
     DOM.phraseSplitWarn = $(".phraseSplitWarn");
     DOM.passphrase = $(".passphrase");
@@ -133,6 +135,7 @@
         DOM.entropyMnemonicLength.on("change", entropyChanged);
         DOM.entropyTypeInputs.on("change", entropyTypeChanged);
         DOM.phrase.on("input", delayedPhraseChanged);
+        DOM.showSplitMnemonic.on("change", toggleSplitMnemonic);
         DOM.passphrase.on("input", delayedPhraseChanged);
         DOM.generate.on("click", generateClicked);
         DOM.more.on("click", showMore);
@@ -426,6 +429,15 @@
             network = libs.bitcoin.networks.litecoinXprv;
         }
         phraseChanged();
+    }
+
+    function toggleSplitMnemonic() {
+        if (DOM.showSplitMnemonic.prop("checked")) {
+            DOM.splitMnemonic.removeClass("hidden");
+        }
+        else {
+            DOM.splitMnemonic.addClass("hidden");
+        }
     }
 
     function calcForDerivationPath() {
