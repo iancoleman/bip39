@@ -1,3 +1,17 @@
+# 0.5.0
+
+* Remove bias from base 6 and base 10 entropy
+* Add notes about card entropy
+* Hide/show split mnemonic cards
+* Fix link to standalone release file
+* Add Scribe network
+* Add Nano network
+* Add TRX network
+* Add Binance Smart Chain network
+* Clean up dependencies for eos-util
+* Update bootstrap to 3.4.1
+* Bump library versions
+
 # 0.4.3
 
 * Add FIO - Foundation for Interwallet Operability
