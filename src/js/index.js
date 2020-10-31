@@ -1308,6 +1308,12 @@
                     privkey = FIObufferToPrivate(keyPair.d.toBuffer(32));
                 }
 
+                if (networks[DOM.network.val()].name == "ATOM - Cosmos Hub") {
+                    address = CosmosBufferToAddress(keyPair.getPublicKeyBuffer());
+                    pubkey = CosmosBufferToPublic(keyPair.getPublicKeyBuffer());
+                    privkey = keyPair.d.toBuffer().toString("base64");
+                }
+
                 //Groestlcoin Addresses are different
                 if(isGRS()) {
 
@@ -2121,6 +2127,13 @@
             onSelect: function() {
                 network = libs.bitcoin.networks.aryacoin;
                 setHdCoin(357);
+            },
+        },
+        {
+            name: "ATOM - Cosmos Hub",
+            onSelect: function() {
+                network = libs.bitcoin.networks.bitcoin;
+                setHdCoin(118);
             },
         },
         {
