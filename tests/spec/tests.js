@@ -906,6 +906,16 @@ it('Allows selection of Aryacoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Cosmos Hub', function(done) {
+    var params = {
+        selectText: "ATOM - Cosmos Hub",
+        phrase: "abandon abandon ability",
+        firstAddress: "cosmos17mkch9syem8gtf6wh7p38thdgav6dwezpkylny",
+        firstPubKey: "cosmospub1addwnpepq0sgn66ty4suk5vx3hsmxxqd5z3amegqwlu59funrzyz5u8r9758qhl84ys",
+        firstPrivKey: "zUnETPxmE2vkHzLHTAlO9wg8PL/GEEBc1I4yVwvSV8M=",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Auroracoin', function(done) {
     var params = {
         selectText: "AUR - Auroracoin",
