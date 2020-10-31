@@ -126,3 +126,5 @@ catch (e) {
     console.warn(e);
 };
 
+/* bech32 */
+module.exports.bech32 = require('bech32')
