@@ -248,6 +248,86 @@
                                 <textarea id="root-key" class="root-key private-data form-control" data-show-qr autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-10">
+                                <label class="control-label text-weight-normal">
+                                    <input type="checkbox" class="showBip85" />
+                                    Show BIP85
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group bip85 hidden">
+                            <label for="bip85-application" class="col-sm-2 control-label">BIP85 Application</label>
+                            <div class="col-sm-10">
+                                <select id="bip85-application" class="form-control">
+                                    <option value="bip39" selected>BIP39</option>
+                                    <option value="wif">WIF</option>
+                                    <option value="xprv">Xprv</option>
+                                    <option value="hex">Hex</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group bip85 bip85-mnemonic-language-input hidden">
+                            <label for="bip85-mnemonic-language" class="col-sm-2 control-label">BIP85 Mnemonic Language</label>
+                            <div class="col-sm-10 languages">
+                                <select id="bip85-mnemonic-language" class="strength form-control">
+                                    <option value="0" selected>English</option>
+                                    <option value="1">日本語</option>
+                                    <option value="2">한국어</option>
+                                    <option value="3">Español</option>
+                                    <option value="4">中文(简体)</option>
+                                    <option value="5">中文(繁體)</option>
+                                    <option value="6">Français</option>
+                                    <option value="7">Italiano</option>
+                                    <option value="8">Čeština</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group bip85 bip85-mnemonic-length-input hidden">
+                            <label for="bip85-mnemonic-length" class="col-sm-2 control-label">BIP85 Mnemonic Length</label>
+                            <div class="col-sm-10">
+                                <select id="bip85-mnemonic-length" class="strength form-control">
+                                    <option value="12" selected>12</option>
+                                    <option value="18">18</option>
+                                    <option value="24">24</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group bip85 hidden">
+                            <span class="bip85-bytes-input">
+                                <label for="bip85-bytes" class="col-sm-2 control-label">BIP85 Bytes</label>
+                                <div class="col-sm-10">
+                                    <input id="bip85-bytes" type="text" class="change form-control" value="64" />
+                                </div>
+                            </span>
+                        </div>
+
+                        <div class="form-group bip85 bip85-index-input hidden">
+                            <label for="bip85-index" class="col-sm-2 control-label">BIP85 Index</label>
+                            <div class="col-sm-10">
+                                <input id="bip85-index" type="text" class="change form-control" value="0" />
+                            </div>
+                        </div>
+
+                        <div class="form-group bip85 hidden">
+                            <label for="phrase" class="col-sm-2 control-label">BIP85 Child Key</label>
+                            <div class="col-sm-10">
+                                <textarea
+                                    id="bip85Field"
+                                    data-show-qr
+                                    class="bip85Field private-data form-control"
+                                    title="BIP85 Child Key"
+                                    rows="3"
+                                ></textarea>
+                            </div>
+                        </div>
+
                         <div class="form-group litecoin-ltub-container hidden">
                             <label for="litecoin-use-ltub" class="col-sm-2 control-label">Prefixes</label>
                             <div class="col-sm-10 checkbox">
