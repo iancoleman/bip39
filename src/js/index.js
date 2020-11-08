@@ -464,7 +464,7 @@
     function toggleBip85() {
       if (DOM.showBip85.prop('checked')) {
         DOM.bip85.removeClass('hidden');
-        toggleBip85Fields();
+        calcBip85();
       } else {
         DOM.bip85.addClass('hidden');
       }
@@ -487,6 +487,10 @@
     }
   
     function calcBip85() {
+      if (!DOM.showBip85.prop('checked')) {
+        return
+      }
+
       toggleBip85Fields();
   
       var app = DOM.bip85application.val();
