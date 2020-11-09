@@ -254,7 +254,7 @@
                             <div class="col-sm-10">
                                 <label class="control-label text-weight-normal">
                                     <input type="checkbox" class="showBip85" />
-                                    Show BIP85
+                                    Show <a href="https://github.com/bitcoin/bips/blob/master/bip-0085.mediawiki">BIP85</a>
                                 </label>
                             </div>
                         </div>
@@ -325,6 +325,15 @@
                                     title="BIP85 Child Key"
                                     rows="3"
                                 ></textarea>
+                                <p class="help-block">
+                                    <span id="bip85Warn" class="text-danger">The value of the "BIP85 Child Key" field shown above is not used
+                                        anywhere on this page. It can be used as a new key.
+                                        (In case of the BIP39 application, you can paste it into the "BIP39 Mnemonic"
+                                        field to use it as a new mnemonic). Please read the
+                                        <a href="https://github.com/bitcoin/bips/blob/master/bip-0085.mediawiki">BIP85 specs</a>
+                                        for more information. This is an advanced feature and should only be used if you understand what it does.
+                                    </span>
+                                </p>
                             </div>
                         </div>
 
