@@ -2595,7 +2595,7 @@
             },
         },  
         {
-            name: "FIRO - Firo (XZC - Zcoin)",
+            name: "FIRO - Firo",
             onSelect: function() {
                 network = libs.bitcoin.networks.firo;
                 setHdCoin(136);
