@@ -1214,9 +1214,9 @@ it('Allows selection of FIO', function(done) {
     };
     testNetwork(done, params);
 });
-it('Allows selection of Firo (ex-Zcoin)', function(done) {
+it('Allows selection of Firo', function(done) {
     var params = {
-        selectText: "FIRO - Firo (ex-Zcoin)",
+        selectText: "FIRO - Firo",
         phrase: "abandon abandon ability",
         firstAddress: "a6VcMdP4XgAA9Tr7xNszmPG5FZpfRf17Cq",
         firstPubKey: "0236f2348c32dc62d69488b01988ed1154df261723ec60461cb6e62189984c62db",
