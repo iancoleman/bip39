@@ -769,7 +769,7 @@ libs.bitcoin.networks.feathercoin = {
 };
 
 libs.bitcoin.networks.firo = {
-  messagePrefix: '\x18Firo (ex-Zcoin) Signed Message:\n',
+  messagePrefix: '\x18Firo Signed Message:\n',
   bip32: {
     public: 0x0488B21E,
     private: 0x0488ADE4,
