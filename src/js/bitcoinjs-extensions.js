@@ -768,6 +768,17 @@ libs.bitcoin.networks.feathercoin = {
   wif: 0x8e,
 };
 
+libs.bitcoin.networks.firo = {
+  messagePrefix: '\x18Firo (ex-Zcoin) Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4,
+  },
+  pubKeyHash: 0x52,
+  scriptHash: 0x07,
+  wif: 0xd2,
+};
+
 libs.bitcoin.networks.firstcoin = {
   messagePrefix: '\x18FirstCoin Signed Message:\n',
   bip32: {
@@ -1463,17 +1474,6 @@ libs.bitcoin.networks.wincoin = {
   pubKeyHash: 0x49,
   scriptHash: 0x1c,
   wif: 0xc9,
-};
-
-libs.bitcoin.networks.zcoin = {
-  messagePrefix: '\x18Zcoin Signed Message:\n',
-  bip32: {
-    public: 0x0488B21E,
-    private: 0x0488ADE4,
-  },
-  pubKeyHash: 0x52,
-  scriptHash: 0x07,
-  wif: 0xd2,
 };
 
 libs.bitcoin.networks.zcash = {
