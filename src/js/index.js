@@ -2595,6 +2595,13 @@
             },
         },  
         {
+            name: "FIRO - Firo (XZC - Zcoin)",
+            onSelect: function() {
+                network = libs.bitcoin.networks.firo;
+                setHdCoin(136);
+            },
+        },
+        {
             name: "FIX - FIX",
             onSelect: function() {
                 network = libs.bitcoin.networks.fix;
@@ -3434,13 +3441,6 @@
             onSelect: function() {
                 network = libs.bitcoin.networks.whitecoin;
                 setHdCoin(155);
-            },
-        },
-        {
-            name: "XZC - Zcoin",
-            onSelect: function() {
-                network = libs.bitcoin.networks.zcoin;
-                setHdCoin(136);
             },
         },
         {
