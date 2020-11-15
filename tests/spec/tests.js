@@ -1214,6 +1214,16 @@ it('Allows selection of FIO', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Firo (ex-Zcoin)', function(done) {
+    var params = {
+        selectText: "FIRO - Firo (ex-Zcoin)",
+        phrase: "abandon abandon ability",
+        firstAddress: "a6VcMdP4XgAA9Tr7xNszmPG5FZpfRf17Cq",
+        firstPubKey: "0236f2348c32dc62d69488b01988ed1154df261723ec60461cb6e62189984c62db",
+        firstPrivKey: "Y8k3XQRQrJoABEao4Sw45s744g6xth7yviNqFcN7zqPqKUJrrKTQ",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Firstcoin', function(done) {
     var params = {
         selectText: "FRST - Firstcoin",
@@ -1841,16 +1851,6 @@ it('Allows selection of Wincoin', function(done) {
         firstAddress: "WaDVCESMGgyKgNESdn3u43NnwmGSkZED3Z",
         firstPubKey: "02d10b29f6d88dd86f733b2140ba2207a9dfb5d014bb287541c66a41e467e231a7",
         firstPrivKey: "WmLWUvbz8UF1s7PrHyeQBMLbt4LpmQrwbzatvusvx6SRoNASbWtW",
-    };
-    testNetwork(done, params);
-});
-it('Allows selection of Zcoin', function(done) {
-    var params = {
-        selectText: "XZC - Zcoin",
-        phrase: "abandon abandon ability",
-        firstAddress: "a6VcMdP4XgAA9Tr7xNszmPG5FZpfRf17Cq",
-        firstPubKey: "0236f2348c32dc62d69488b01988ed1154df261723ec60461cb6e62189984c62db",
-        firstPrivKey: "Y8k3XQRQrJoABEao4Sw45s744g6xth7yviNqFcN7zqPqKUJrrKTQ",
     };
     testNetwork(done, params);
 });
