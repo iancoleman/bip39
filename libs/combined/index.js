@@ -18,6 +18,10 @@ module.exports.BigInteger = require('javascript-biginteger')
 
 module.exports.bip38 = require('bip38')
 
+/* bip85 */
+
+module.exports.bip85 = require('bip85')
+
 /* bitcoinjs-lib */
 
 module.exports.bitcoin = require('bitcoinjs-lib')

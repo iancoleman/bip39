@@ -4960,6 +4960,24 @@ it('Shows split prase cards', function(done) {
     });
 });
 
+// Pull Request 454 https://github.com/iancoleman/bip39/pull/454
+// Add BIP85 support
+it('Show BIP85', function(done) {
+  var originalPhrase = "install scatter logic circle pencil average fall shoe quantum disease suspect usage";
+  driver.findElement(By.css('.phrase'))
+      .sendKeys(originalPhrase);
+  driver.sleep(generateDelay).then(function() {
+    driver.findElement(By.css('.showBip85')).click();
+    driver.findElement(By.css('.showBip85')).isSelected().then(function(isSelected) {
+      expect(isSelected).toBe(true)
+      driver.findElement(By.css('#bip85Field')).getAttribute("value").then(function(childMnemonic) {
+        expect(childMnemonic).toBe('girl mad pet galaxy egg matter matrix prison refuse sense ordinary nose')
+        done();
+      })
+    });
+  });
+});
+
 // It allows manually specifying the entropy type
 it('Allows entropy type to be manually selected', function(done) {
     driver.findElement(By.css('.use-entropy'))

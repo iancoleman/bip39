@@ -10,6 +10,7 @@
     "bchaddrjs-slp": "git://github.com/simpleledger/bchaddrjs.git#af16e44a6bfbe4b3980a62dba50e2f68ed864c6b",
     "bip38": "2.0.2",
     "bip38grs": "git://github.com/Groestlcoin/bip38grs.git#091975b01679b74dc0a4136bb743fe17791b0151",
+    "bip85": "0.0.3",
     "bitcoinjs-lib": "git://github.com/iancoleman/bitcoinjs-lib.git#v3.3.2_16bit",
     "bs58": "^4.0.1",
     "buffer": "^5.4.3",
