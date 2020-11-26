@@ -3541,6 +3541,13 @@
             },
         },
         {
+            name: "ZBC - ZooBlockchain",
+            onSelect: function () {
+            network = libs.bitcoin.networks.zoobc;
+            setHdCoin(883);
+            },
+        },
+        {
             name: "ZCL - Zclassic",
             onSelect: function() {
                 network = libs.bitcoin.networks.zclassic;
