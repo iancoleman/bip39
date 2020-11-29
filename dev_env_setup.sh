@@ -48,7 +48,7 @@ npm install selenium-webdriver
 wget https://github.com/mozilla/geckodriver/releases/download/v0.27.0/geckodriver-v0.27.0-linux64.tar.gz --output-document=/tmp/geckodriver.tar.gz
 tar -xf /tmp/geckodriver.tar.gz -C $HOME/.bin
 # install chrome webdriver for chromium
-wget https://chromedriver.storage.googleapis.com/85.0.4183.87/chromedriver_linux64.zip --output-document=/tmp/chromedriver.zip
+wget https://chromedriver.storage.googleapis.com/87.0.4280.20/chromedriver_linux64.zip --output-document=/tmp/chromedriver.zip
 unzip /tmp/chromedriver.zip -d $HOME/.bin
 
 # to run tests
