@@ -2685,7 +2685,7 @@
             },
         },  
         {
-            name: "FIRO - Firo",
+            name: "FIRO - Firo (Zcoin rebrand)",
             onSelect: function() {
                 network = libs.bitcoin.networks.firo;
                 setHdCoin(136);
@@ -3531,6 +3531,13 @@
             onSelect: function() {
                 network = libs.bitcoin.networks.whitecoin;
                 setHdCoin(155);
+            },
+        },
+        {
+            name: "XZC - Zcoin (rebranded to Firo)",
+            onSelect: function() {
+                network = libs.bitcoin.networks.zcoin;
+                setHdCoin(136);
             },
         },
         {

@@ -1216,7 +1216,17 @@ it('Allows selection of FIO', function(done) {
 });
 it('Allows selection of Firo', function(done) {
     var params = {
-        selectText: "FIRO - Firo",
+        selectText: "FIRO - Firo (Zcoin rebrand)",
+        phrase: "abandon abandon ability",
+        firstAddress: "a6VcMdP4XgAA9Tr7xNszmPG5FZpfRf17Cq",
+        firstPubKey: "0236f2348c32dc62d69488b01988ed1154df261723ec60461cb6e62189984c62db",
+        firstPrivKey: "Y8k3XQRQrJoABEao4Sw45s744g6xth7yviNqFcN7zqPqKUJrrKTQ",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Zcoin', function(done) {
+    var params = {
+        selectText: "XZC - Zcoin (rebranded to Firo)",
         phrase: "abandon abandon ability",
         firstAddress: "a6VcMdP4XgAA9Tr7xNszmPG5FZpfRf17Cq",
         firstPubKey: "0236f2348c32dc62d69488b01988ed1154df261723ec60461cb6e62189984c62db",
