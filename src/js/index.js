@@ -96,7 +96,7 @@
     DOM.bip84change = $("#bip84 .change");
     DOM.bip85 = $('.bip85');
     DOM.showBip85 = $('.showBip85');
-    DOM.bip85Field = $('.bip85Field');	
+    DOM.bip85Field = $('.bip85Field');
     DOM.bip85application = $('#bip85-application');
     DOM.bip85mnemonicLanguage = $('#bip85-mnemonic-language');
     DOM.bip85mnemonicLanguageInput = $('.bip85-mnemonic-language-input');
@@ -105,7 +105,7 @@
     DOM.bip85index = $('#bip85-index');
     DOM.bip85indexInput = $('.bip85-index-input');
     DOM.bip85bytes = $('#bip85-bytes');
-    DOM.bip85bytesInput = $('.bip85-bytes-input');	
+    DOM.bip85bytesInput = $('.bip85-bytes-input');
     DOM.bip141unavailable = $("#bip141 .unavailable");
     DOM.bip141available = $("#bip141 .available");
     DOM.bip141path = $("#bip141-path");
@@ -166,7 +166,7 @@
         DOM.bip85mnemonicLanguage.on('change', calcBip85);
         DOM.bip85mnemonicLength.on('change', calcBip85);
         DOM.bip85index.on('input', calcBip85);
-        DOM.bip85bytes.on('input', calcBip85);		
+        DOM.bip85bytes.on('input', calcBip85);
         DOM.bip141path.on("input", calcForDerivationPath);
         DOM.bip141semantics.on("change", tabChanged);
         DOM.tab.on("shown.bs.tab", tabChanged);
@@ -469,13 +469,13 @@
         DOM.bip85.addClass('hidden');
       }
     }
-  
+
     function toggleBip85Fields() {
       if (DOM.showBip85.prop('checked')) {
         DOM.bip85mnemonicLanguageInput.addClass('hidden');
         DOM.bip85mnemonicLengthInput.addClass('hidden');
         DOM.bip85bytesInput.addClass('hidden');
-  
+
         var app = DOM.bip85application.val();
         if (app === 'bip39') {
           DOM.bip85mnemonicLanguageInput.removeClass('hidden');
@@ -485,16 +485,16 @@
         }
       }
     }
-  
+
     function calcBip85() {
       if (!DOM.showBip85.prop('checked')) {
         return
       }
 
       toggleBip85Fields();
-  
+
       var app = DOM.bip85application.val();
-  
+
       var phrase = DOM.phrase.val();
       var passphrase = DOM.passphrase.val();
       if (!phrase) {
@@ -502,15 +502,15 @@
       }
       try {
         var master = libs.bip85.BIP85.fromMnemonic(phrase, passphrase);
-  
+
         var result;
-  
+
         const index = parseInt(DOM.bip85index.val(), 10);
-  
+
         if (app === 'bip39') {
           const language = parseInt(DOM.bip85mnemonicLanguage.val(), 10);
           const length = parseInt(DOM.bip85mnemonicLength.val(), 10);
-  
+
           result = master.deriveBIP39(language, length, index).toMnemonic();
         } else if (app === 'wif') {
           result = master.deriveWIF(index).toWIF();
@@ -518,10 +518,10 @@
           result = master.deriveXPRV(index).toXPRV();
         } else if (app === 'hex') {
           const bytes = parseInt(DOM.bip85bytes.val(), 10);
-  
+
           result = master.deriveHex(bytes, index).toEntropy();
         }
-  
+
         hideValidationError();
         DOM.bip85Field.val(result);
       } catch (e) {
@@ -2683,7 +2683,7 @@
                 network = libs.bitcoin.networks.bitcoin;
                 setHdCoin(235);
             },
-        },  
+        },
         {
             name: "FIRO - Firo (Zcoin rebrand)",
             onSelect: function() {

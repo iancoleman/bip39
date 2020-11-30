@@ -163,7 +163,7 @@ libs.bitcoin.networks.regtest.p2wshInP2sh = {
     scriptHash: 0xc4,
     wif: 0xef
 };
-                               
+
 libs.bitcoin.networks.cranepay.p2wpkhInP2sh = {
     baseNetwork: "cranepay",
     messagePrefix: '\x18Bitcoin Signed Message:\n',
