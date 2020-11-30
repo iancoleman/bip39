@@ -168,6 +168,17 @@ function selectNetwork(name) {
     }, name);
 }
 
+function selectBip85Language(language) {
+    driver.executeScript(function() {
+        var selectText = arguments[0];
+        $(".bip85-mnemonic-language option[selected]").removeAttr("selected");
+        $(".bip85-mnemonic-language option").filter(function(i,e) {
+            return $(e).html() == selectText;
+        }).prop("selected", true);
+        $(".bip85-mnemonic-language").trigger("change");
+    }, language);
+}
+
 function testEntropyType(done, entropyText, entropyTypeUnsafe) {
     // entropy type is compiled into regexp so needs escaping
     // see https://stackoverflow.com/a/2593661
@@ -4982,6 +4993,25 @@ it('Show BIP85', function(done) {
       expect(isSelected).toBe(true)
       driver.findElement(By.css('#bip85Field')).getAttribute("value").then(function(childMnemonic) {
         expect(childMnemonic).toBe('girl mad pet galaxy egg matter matrix prison refuse sense ordinary nose')
+        done();
+      })
+    });
+  });
+});
+
+it('Show BIP85 in non-English languages', function(done) {
+  pending("BIP85 library update");
+  var originalPhrase = "install scatter logic circle pencil average fall shoe quantum disease suspect usage";
+  driver.findElement(By.css('.phrase'))
+      .sendKeys(originalPhrase);
+  driver.sleep(generateDelay).then(function() {
+    driver.findElement(By.css('.showBip85')).click();
+    selectBip85Language("3");
+    driver.findElement(By.css('.showBip85')).isSelected().then(function(isSelected) {
+      expect(isSelected).toBe(true)
+      driver.findElement(By.css('#bip85Field')).getAttribute("value").then(function(childMnemonic) {
+        expect(childMnemonic).not.toBe('girl mad pet galaxy egg matter matrix prison refuse sense ordinary nose')
+        //expect(childMnemonic).toBe('Not sure yet, something Spanish')
         done();
       })
     });
