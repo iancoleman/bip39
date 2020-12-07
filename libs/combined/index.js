@@ -2,6 +2,10 @@
 
 module.exports.basex = require('base-x')
 
+/* base32 */
+
+module.exports.base32 = require('base32.js')
+
 /* bchaddrjs */
 
 module.exports.bchaddr = require('bchaddrjs')
@@ -82,6 +86,35 @@ module.exports.stellarUtil = {
         scriptHash: 0,
         wif: 0,
     },
+}
+
+/* zoobc-util */
+
+let base32 = require('base32.js');
+let nbl = require('nebulas');
+module.exports.zoobcUtil = {
+    getKeypair: function (path, seed) {
+        const { key, chainCode}  = edHd.derivePath(path, seed);
+        const pubKey = edHd.getPublicKey(key);
+        return {key,chainCode, pubKey};
+    },
+    getZBCAddress(publicKey, prefix = "ZBC") {
+        const prefixDefault = ["ZBC", "ZNK", "ZBL", "ZTX"];
+        const valid = prefixDefault.indexOf(prefix) > -1;
+        if (valid) {
+          var bytes = new Uint8Array(35);
+          for (let i = 0; i < 32; i++) bytes[i] = publicKey[i];
+          for (let i = 0; i < 3; i++) bytes[i + 32] = prefix.charCodeAt(i);
+          const checksum = nbl.CryptoUtils.sha3(bytes);
+          for (let i = 0; i < 3; i++) bytes[i + 32] = Number(checksum[i]);
+          var segs = [prefix];
+          var b32 = base32.encode(bytes);
+          for (let i = 0; i < 7; i++) segs.push(b32.substr(i * 8, 8));
+          return segs.join("_");
+        } else {
+          throw new Error("The Prefix not available!");
+        }
+      }
 }
 
 /* nano-util */

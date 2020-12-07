@@ -2328,6 +2328,17 @@ it('Allows selection of TRX on Tron', function(done) {
     testNetwork(done, params);
 });
 
+it('Allows selection of ZooBlockchain', function(done) {
+    var params = {
+        selectText: "ZBC - ZooBlockchain",
+        phrase: "shy invest oxygen real lunar moral merge corn program air affair amazing dove imitate combine solve library fresh case alcohol pole question act thing",
+        firstAddress: "ZBC_MGEZVH3U_SXPCBHTU_KSWDPQ4X_K6MSI3VR_CQAYMTLC_RXUMM3DJ_LFABCAXA",
+        firstPubKey: "61899a9f7495de209e7454ac37c3975799246eb11401864d628de8c66c695940",
+        firstPrivKey: "adb11e79068fa7366ec4f5963ad57115d666b1ad2b369b92d962563adf7dd48b",
+    };
+    testNetwork(done, params);
+});
+
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {
     driver.findElement(By.css('.phrase'))
