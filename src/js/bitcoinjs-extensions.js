@@ -114,7 +114,7 @@ libs.bitcoin.networks.namecoin = {
   },
   pubKeyHash: 0x34,
   scriptHash: 0x0D,
-  wif: 0x80
+  wif: 0xb4
 };
 
 libs.bitcoin.networks.peercoin = {
