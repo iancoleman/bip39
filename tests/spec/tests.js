@@ -1635,6 +1635,16 @@ it('Allows selection of RevolutionVR', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Ritocoin', function(done) {
+    var params = {
+        selectText: "RITO - Ritocoin",
+        phrase: "abandon abandon ability",
+        firstAddress: "BMbHdwDiuaZh4ATp8Xapf4srv3swzAGgkf",
+        firstPubKey: "036f5f55dc37fa97294a2a5ae4d92735d4392d4405cbbebebf2d70d5d6781be622",
+        firstPrivKey: "L1CyVD5ADNgSUxZn6kRpJe9e17FDuAZzRGwNjvDBnEqRWjo4SEAX",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Rubycoin', function(done) {
     var params = {
         selectText: "RBY - Rubycoin",
