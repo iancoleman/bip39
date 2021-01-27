@@ -1227,7 +1227,7 @@ libs.bitcoin.networks.ritocoin = {
   },
   pubKeyHash: 0x19,
   scriptHash: 0x69,
-  wif: 0x80,
+  wif: 0x8b,
 };
 
 libs.bitcoin.networks.rsk = {
