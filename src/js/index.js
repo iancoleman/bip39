@@ -3393,6 +3393,13 @@
             },
         },
         {
+            name: "UFO - Uniform Fiscal Object",
+            onSelect: function() {
+                network = libs.bitcoin.networks.ufo;
+                setHdCoin(555);
+            },
+        },
+        {
             name: "USC - Ultimatesecurecash",
             onSelect: function() {
                 network = libs.bitcoin.networks.ultimatesecurecash;
