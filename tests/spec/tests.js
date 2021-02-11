@@ -1651,7 +1651,7 @@ it('Allows selection of Ritocoin', function(done) {
         phrase: "abandon abandon ability",
         firstAddress: "BMbHdwDiuaZh4ATp8Xapf4srv3swzAGgkf",
         firstPubKey: "036f5f55dc37fa97294a2a5ae4d92735d4392d4405cbbebebf2d70d5d6781be622",
-        firstPrivKey: "L1CyVD5ADNgSUxZn6kRpJe9e17FDuAZzRGwNjvDBnEqRWjo4SEAX",
+        firstPrivKey: "Mdaumz3494kxCeiEBame4ZBzjtTQ5mYzD8notv2EBW8FcNy3PiYd",
     };
     testNetwork(done, params);
 });
