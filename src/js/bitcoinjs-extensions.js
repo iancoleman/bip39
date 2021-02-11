@@ -1219,6 +1219,17 @@ libs.bitcoin.networks.revolutionvr = {
   wif: 0xc6,
 };
 
+libs.bitcoin.networks.ritocoin = {
+  messagePrefix: '\x15Rito Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4,
+  },
+  pubKeyHash: 0x19,
+  scriptHash: 0x69,
+  wif: 0x8b,
+};
+
 libs.bitcoin.networks.rsk = {
   messagePrefix: '\x18RSK Signed Message:\n',
   bip32: {

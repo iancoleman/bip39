@@ -3240,6 +3240,13 @@
             },
         },
         {
+            name: "RITO - Ritocoin",
+            onSelect: function() {
+                network = libs.bitcoin.networks.ritocoin;
+                setHdCoin(19169);
+            },
+        },
+        {
             name: "RVR - RevolutionVR",
             onSelect: function() {
                 network = libs.bitcoin.networks.revolutionvr;
