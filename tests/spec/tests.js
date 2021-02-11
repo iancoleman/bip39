@@ -651,7 +651,7 @@ it('Allows selection of namecoin', function(done) {
         phrase: "abandon abandon ability",
         firstAddress: "Mw2vK2Bvex1yYtYF6sfbEg2YGoUc98YUD2",
         firstPubKey: "0398066486fe87cbcb9da8e29d180b44937b6c43ad1ec4d3bddd77b7905765937e",
-        firstPrivKey: "L4A8sSkrGndiXyZdj6Fnju8Wu76s96cdHHmPxV3C5M2R2w4GVNco",
+        firstPrivKey: "TkJvbqVdNnGsCtFaV2nE8x3qqhYnYriRkGAB4747cEDRg9VUKKiz",
     };
     testNetwork(done, params);
 });
