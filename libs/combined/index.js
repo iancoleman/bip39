@@ -14,6 +14,10 @@ module.exports.bchaddr = require('bchaddrjs')
 
 module.exports.bchaddrSlp = require('bchaddrjs-slp')
 
+/* bech32 */
+
+module.exports.bech32 = require('bech32')
+
 /* biginteger */
 
 module.exports.BigInteger = require('javascript-biginteger')
