@@ -1348,6 +1348,27 @@
                          address = libs.bchaddrSlp.toSlpAddress(address);
                      }
                  }
+
+                // ZooBC address format may vary
+                if (networks[DOM.network.val()].name == "ZBC - ZooBlockchain") {  
+                    
+                    var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
+                    var coin = parseIntNoNaN(DOM.bip44coin.val(), 0);
+                    var path = "m/";
+                        path += purpose + "'/";
+                        path += coin + "'/" + index + "'";
+                    var result = libs.zoobcUtil.getKeypair(path, seed);
+    
+                    let publicKey = result.pubKey.slice(1, 33);
+                    let privateKey = result.key;
+    
+                    privkey = privateKey.toString('hex');
+                    pubkey = publicKey.toString('hex');
+    
+                    indexText = path;
+                    address = libs.zoobcUtil.getZBCAddress(publicKey, 'ZBC');
+                }
+
                 // Segwit addresses are different
                 if (isSegwit) {
                     if (!segwitAvailable) {
@@ -3538,6 +3559,13 @@
             onSelect: function() {
                 network = libs.bitcoin.networks.zcoin;
                 setHdCoin(136);
+            },
+        },
+        {
+            name: "ZBC - ZooBlockchain",
+            onSelect: function () {
+            network = libs.bitcoin.networks.zoobc;
+            setHdCoin(883);
             },
         },
         {
