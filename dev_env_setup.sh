@@ -45,10 +45,10 @@ cd tests
 npm install --global jasmine
 npm install selenium-webdriver
 # install gecko webdriver for firefox
-wget https://github.com/mozilla/geckodriver/releases/download/v0.28.0/geckodriver-v0.28.0-linux64.tar.gz --output-document=/tmp/geckodriver.tar.gz
+wget https://github.com/mozilla/geckodriver/releases/download/v0.29.0/geckodriver-v0.29.0-linux64.tar.gz --output-document=/tmp/geckodriver.tar.gz
 tar -xf /tmp/geckodriver.tar.gz -C $HOME/.bin
 # install chrome webdriver for chromium
-wget https://chromedriver.storage.googleapis.com/87.0.4280.20/chromedriver_linux64.zip --output-document=/tmp/chromedriver.zip
+wget https://chromedriver.storage.googleapis.com/88.0.4324.96/chromedriver_linux64.zip --output-document=/tmp/chromedriver.zip
 unzip /tmp/chromedriver.zip -d $HOME/.bin
 
 # to run tests
