@@ -1238,7 +1238,7 @@
                     address = libs.ethUtil.addHexPrefix(checksumAddress);
                     pubkey = libs.ethUtil.addHexPrefix(pubkey);
                     if (hasPrivkey) {
-                        privkey = libs.ethUtil.bufferToHex(keyPair.d.toBuffer());
+                        privkey = libs.ethUtil.bufferToHex(keyPair.d.toBuffer(32));
                     }
                 }
                 //TRX is different
