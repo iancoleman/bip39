@@ -1,3 +1,7 @@
+# 0.5.2
+
+* Show ethereum private keys with correct padding
+
 # 0.5.1
 
 * Add Portuguese language
