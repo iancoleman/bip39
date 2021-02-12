@@ -5123,7 +5123,7 @@ it('Generates ethereum addresses from a public key', function(done) {
 });
 
 // https://github.com/iancoleman/bip39/issues/469
-fit('Generates ethereum private keys with the correct padding', function(done) {
+it('Generates ethereum private keys with the correct padding', function(done) {
   var phrase = "flip vicious divorce angle toward say derive blue refuse load word creek once expire bounce";
   let withoutPadding = "0x53121fc5d193e623d2dbf43b2a96640bbed16bd530947fff8dda12f1aec828";
   let withPadding = "0x0053121fc5d193e623d2dbf43b2a96640bbed16bd530947fff8dda12f1aec828";
