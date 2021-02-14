@@ -1850,6 +1850,6 @@ libs.bitcoin.networks.ufo = {
     private: 0x0488ade4
   },
   pubKeyHash: 0x1B,
-  scriptHash: 0x3C,
+  scriptHash: 0x44,
   wif: 0x9B
 };

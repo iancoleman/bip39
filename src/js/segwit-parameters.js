@@ -774,7 +774,7 @@ libs.bitcoin.networks.ufo.p2wpkh = {
         private: 0x04b2430c
     },
     pubKeyHash: 0x1B,
-    scriptHash: 0x3C,
+    scriptHash: 0x44,
     wif: 0x9B
 };
 
@@ -787,7 +787,7 @@ libs.bitcoin.networks.ufo.p2wpkhInP2sh = {
         private: 0x049d7878
     },
     pubKeyHash: 0x1B,
-    scriptHash: 0x3C,
+    scriptHash: 0x44,
     wif: 0x9B
 };
 
@@ -800,7 +800,7 @@ libs.bitcoin.networks.ufo.p2wsh = {
         private: 0x02aa7a99
     },
     pubKeyHash: 0x1B,
-    scriptHash: 0x3C,
+    scriptHash: 0x44,
     wif: 0x9B
 };
 
@@ -813,7 +813,7 @@ libs.bitcoin.networks.ufo.p2wshInP2sh = {
         private: 0x0295b005
     },
     pubKeyHash: 0x1B,
-    scriptHash: 0x3C,
+    scriptHash: 0x44,
     wif: 0x9B
 };
 
