@@ -765,4 +765,56 @@ libs.bitcoin.networks.sugarchaintestnet.p2wpkhInP2sh = {
 	wif: 0xef
 };
 
+libs.bitcoin.networks.ufo.p2wpkh = {
+    baseNetwork: "ufo",
+    messagePrefix: '\x19UFO Signed Message:\n',
+    bech32: 'uf',
+    bip32: {
+        public: 0x04b24746,
+        private: 0x04b2430c
+    },
+    pubKeyHash: 0x1B,
+    scriptHash: 0x3C,
+    wif: 0x9B
+};
+
+libs.bitcoin.networks.ufo.p2wpkhInP2sh = {
+    baseNetwork: "ufo",
+    messagePrefix: '\x19UFO Signed Message:\n',
+    bech32: 'uf',
+    bip32: {
+        public: 0x049d7cb2,
+        private: 0x049d7878
+    },
+    pubKeyHash: 0x1B,
+    scriptHash: 0x3C,
+    wif: 0x9B
+};
+
+libs.bitcoin.networks.ufo.p2wsh = {
+    baseNetwork: "ufo",
+    messagePrefix: '\x19UFO Signed Message:\n',
+    bech32: 'uf',
+    bip32: {
+        public: 0x02aa7ed3,
+        private: 0x02aa7a99
+    },
+    pubKeyHash: 0x1B,
+    scriptHash: 0x3C,
+    wif: 0x9B
+};
+
+libs.bitcoin.networks.ufo.p2wshInP2sh = {
+    baseNetwork: "ufo",
+    messagePrefix: '\x19UFO Signed Message:\n',
+    bech32: 'uf',
+    bip32: {
+        public: 0x0295b43f,
+        private: 0x0295b005
+    },
+    pubKeyHash: 0x1B,
+    scriptHash: 0x3C,
+    wif: 0x9B
+};
+
 })();

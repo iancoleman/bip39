@@ -3396,7 +3396,7 @@
             name: "UFO - Uniform Fiscal Object",
             onSelect: function() {
                 network = libs.bitcoin.networks.ufo;
-                setHdCoin(555);
+                setHdCoin(202);
             },
         },
         {
