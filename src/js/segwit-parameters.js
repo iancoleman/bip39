@@ -534,7 +534,7 @@ libs.bitcoin.networks.syscoin.p2wpkhInP2sh = {
 libs.bitcoin.networks.viacoin.p2wpkh = {
     baseNetwork: "viacoin",
 	messagePrefix: '\x18Viacoin Signed Message:\n',
-	bech32: 'viacoin',
+	bech32: 'via',
 	bip32: {
 		public: 0x0488b21e,
 		private: 0x0488ade4
@@ -547,7 +547,7 @@ libs.bitcoin.networks.viacoin.p2wpkh = {
 libs.bitcoin.networks.viacoin.p2wpkhInP2sh = {
 	baseNetwork: "viacoin",
 	messagePrefix: '\x18Viacoin Signed Message:\n',
-	bech32: 'viacoin',
+	bech32: 'via',
 	bip32: {
 		public: 0x0488b21e,
 		private: 0x0488ade4
