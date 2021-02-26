@@ -249,6 +249,12 @@
                                 <textarea id="root-key" class="root-key private-data form-control" data-show-qr autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
                             </div>
                         </div>
+                        <div class="form-group xmr-seed-container hidden">
+                            <label for="xmr-seed-words" class="col-sm-2 control-label">XMR Seed Words</label>
+                            <div class="col-sm-10">
+                                <textarea id="xmr-seed-words" class="xmr-seed-words private-data form-control" readonly="readonly" data-show-qr autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+                            </div>
+                        </div>                        
 
                         <div class="form-group">
                             <div class="col-sm-2"></div>
@@ -496,7 +502,7 @@
                                     <div class="col-sm-10">
                                         <input id="bip32-path" type="text" class="path form-control" value="m/0">
                                     </div>
-                                </div>
+                                </div>                                
                                 <div class="form-group">
                                     <label for="core-path" class="col-sm-2 control-label">Bitcoin Core</label>
                                     <div class="col-sm-10">
@@ -1117,6 +1123,12 @@
         <script src="js/wordlist_portuguese.js"></script>
         <script src="js/jsbip39.js"></script>
         <script src="js/entropy.js"></script>
+        <script src="js/nemjs.js"></script>
+        <script src="js/decredjs-lib.js"></script>
+        <script src="js/smartcashjs.js"></script>
+        <script src="js/algorandjs.js"></script>
+        <script src="js/aionjs.js"></script>
+        <script src="js/monero.js"></script>
         <script src="js/index.js"></script>
     </body>
 </html>
