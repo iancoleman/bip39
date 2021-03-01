@@ -817,4 +817,56 @@ libs.bitcoin.networks.ufo.p2wshInP2sh = {
     wif: 0x9B
 };
 
+libs.bitcoin.networks.feathercoin.p2wpkh = {
+    baseNetwork: "feathercoin",
+    messagePrefix: '\x19Feathercoin Signed Message:\n',
+    bech32: 'fc',
+    bip32: {
+        public: 0x04b24746,
+        private: 0x04b2430c
+    },
+    pubKeyHash: 0x0E,
+    scriptHash: 0x05,
+    wif: 0x8E
+};
+
+libs.bitcoin.networks.feathercoin.p2wpkhInP2sh = {
+    baseNetwork: "feathercoin",
+    messagePrefix: '\x19Feathercoin Signed Message:\n',
+    bech32: 'fc',
+    bip32: {
+        public: 0x049d7cb2,
+        private: 0x049d7878
+    },
+    pubKeyHash: 0x0E,
+    scriptHash: 0x05,
+    wif: 0x8E
+};
+
+libs.bitcoin.networks.feathercoin.p2wsh = {
+    baseNetwork: "feathercoin",
+    messagePrefix: '\x19Feathercoin Signed Message:\n',
+    bech32: 'fc',
+    bip32: {
+        public: 0x02aa7ed3,
+        private: 0x02aa7a99
+    },
+    pubKeyHash: 0x0E,
+    scriptHash: 0x05,
+    wif: 0x8E
+};
+
+libs.bitcoin.networks.feathercoin.p2wshInP2sh = {
+    baseNetwork: "feathercoin",
+    messagePrefix: '\x19Feathercoin Signed Message:\n',
+    bech32: 'fc',
+    bip32: {
+        public: 0x0295b43f,
+        private: 0x0295b005
+    },
+    pubKeyHash: 0x0E,
+    scriptHash: 0x05,
+    wif: 0x8E
+};
+
 })();
