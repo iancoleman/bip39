@@ -927,6 +927,16 @@ it('Allows selection of Cosmos Hub', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Terra', function(done) {
+    var params = {
+        selectText: "LUNA - Terra",
+        phrase: "abandon abandon ability",
+        firstAddress: "terra1txr4jwel3vjl64vrc08pljnjryqkhtffmyp265",
+        firstPubKey: "028e7658e3debb2d9d458919bfba0e85b0220e845f7552176f30a52acd0f809d71",
+        firstPrivKey: "d611b211e370aa1edd9743acd6ce537d16fade85d7ae7e88b32f3a0483f52535",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Auroracoin', function(done) {
     var params = {
         selectText: "AUR - Auroracoin",
