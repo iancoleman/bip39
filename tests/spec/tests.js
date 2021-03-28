@@ -1875,7 +1875,7 @@ it('Allows selection of VeChain', function(done) {
     };
     testNetwork(done, params);
 });
-it('Allows selection of Whitecoin', function(done) {
+it('Allows selection of Whitecoin Classic', function(done) {
     var params = {
         selectText: "XWCC - Whitecoin Classic",
         phrase: "abandon abandon ability",
