@@ -1877,11 +1877,21 @@ it('Allows selection of VeChain', function(done) {
 });
 it('Allows selection of Whitecoin', function(done) {
     var params = {
-        selectText: "XWC - Whitecoin",
+        selectText: "XWCC - Whitecoin Classic",
         phrase: "abandon abandon ability",
         firstAddress: "WcSwCAUqrSgeSYbsaS3SSWWhsx8KRYTFDR",
         firstPubKey: "03d3f4fa758f6260bfb39664d248a32258b53a90a71224db056ee79abaa3e9f208",
         firstPrivKey: "WrGUVSubUyDx5wzjfwi3EhhUwf5anHFW7Dv9kAaTu39CtDDBJWM9",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Whitecoin', function(done) {
+    var params = {
+        selectText: "XWC - Whitecoin",
+        phrase: "abandon abandon ability",
+        firstAddress: "XWCNY5EQsC55ifxRVEbP7H28yc3TMXC2pqsb5",
+        firstPubKey: "XWC68fEy4cCc8G1UWyeMPnQ5NjEhMUFSvu1oz4gLKxvj3dPvh7v18",
+        firstPrivKey: "5K8toD6TYy5DMHkxjpywXNLj4M6CjZAT5h12uhRuVuBBRtci8Zw",
     };
     testNetwork(done, params);
 });
