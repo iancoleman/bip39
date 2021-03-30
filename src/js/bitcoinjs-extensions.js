@@ -1531,6 +1531,17 @@ libs.bitcoin.networks.bitcoinprivate = {
   wif: 0x80,
 };
 
+libs.bitcoin.networks.bitcoinprivatetestnet = {
+  messagePrefix: '\x18BitcoinPrivate Signed Message:\n',
+  bip32: {
+    public: 0x043587CF,
+    private: 0x04358394,
+  },
+  pubKeyHash: 0x1957,
+  scriptHash: 0x19E0,
+  wif: 0xEF,
+};
+
 libs.bitcoin.networks.bitcoinz = {
   messagePrefix: '\x18BitcoinZ Signed Message:\n',
   bip32: {
