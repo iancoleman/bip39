@@ -495,12 +495,16 @@
 
       var app = DOM.bip85application.val();
 
-      var rootKey = DOM.rootKey.val();
-      if (!rootKey) {
+      var rootKeyBase58 = DOM.rootKey.val();
+      if (!rootKeyBase58) {
         return;
       }
       try {
-        var master = libs.bip85.BIP85.fromBase58(rootKey);
+        // try parsing using base network params
+        // The bip85 lib only understands xpubs, so compute it
+        var rootKey = libs.bitcoin.HDNode.fromBase58(rootKeyBase58, network);
+        rootKey.keyPair.network = libs.bitcoin.networks['bitcoin']
+        var master = libs.bip85.BIP85.fromBase58(rootKey.toBase58());
 
         var result;
 
