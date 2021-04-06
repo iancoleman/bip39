@@ -495,13 +495,12 @@
 
       var app = DOM.bip85application.val();
 
-      var phrase = DOM.phrase.val();
-      var passphrase = DOM.passphrase.val();
-      if (!phrase) {
+      var rootKey = DOM.rootKey.val();
+      if (!rootKey) {
         return;
       }
       try {
-        var master = libs.bip85.BIP85.fromMnemonic(phrase, passphrase);
+        var master = libs.bip85.BIP85.fromBase58(rootKey);
 
         var result;
 
