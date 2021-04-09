@@ -3582,6 +3582,13 @@
             },
         },
         {
+          name: "YEC - Ycash",
+	  onSelect: function() {
+              network = libs.bitcoin.networks.ycash;
+	      setHdCoin(347);
+            },
+        },
+        {
             name: "ZBC - ZooBlockchain",
             onSelect: function () {
             network = libs.bitcoin.networks.zoobc;

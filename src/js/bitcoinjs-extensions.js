@@ -1865,3 +1865,14 @@ libs.bitcoin.networks.argoneum = {
   scriptHash: 0x61,
   wif: 0xbf
 };
+
+libs.bitcoin.networks.ycash = {
+  messagePrefix: '\x18Zcash Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4,
+  },
+  pubKeyHash: 0x1C28,
+  scriptHash: 0x1C2C,
+  wif: 0x80,
+};

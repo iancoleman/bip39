@@ -2136,6 +2136,16 @@ it('Allows selection of Blocknode Testnet', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Ycash', function(done) {
+     var params = {                                                                                                                                                                               
+         selectText: "YEC - Ycash",
+        phrase: "abandon abandon ability",
+         firstAddress: "s1ZW4W3G1Ht6jVFTGm3WgQJdZEYcKm5kt4U",
+        firstPubKey: "02fdae46c46ef5e1023bec467b060ada7a7a80a599ab7a66d633c0cc007502188c",
+        firstPrivKey: "L4CnZdAxYSZm1wqVB6gMdzEHqxycBPg4YbYWj58dHUWVPCAr4RuG",
+     };
+     testNetwork(done, params);
+ });
 it('Allows selection of LitecoinZ', function(done) {
     var params = {
         selectText: "LTZ - LitecoinZ",
