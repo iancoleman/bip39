@@ -3274,6 +3274,13 @@
             },
         },
         {
+          name: "SAFE - SafeNode",
+          onSelect: function() {
+              network = libs.bitcoin.networks.safecoin;
+              setHdCoin(19166);
+            },
+	},
+        {
             name: "SCRIBE - Scribe",
             onSelect: function() {
                 network = libs.bitcoin.networks.scribe;
