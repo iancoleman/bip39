@@ -23,7 +23,7 @@
     "groestlcoinjs-lib": "git://github.com/Groestlcoin/groestlcoinjs-lib.git#3.3.2",
     "handshake-util": "1.2.0",
     "javascript-biginteger": "0.9.2",
-    "jsrsasign": "^8.0.19",
+    "jsrsasign": "^10.2.0",
     "kjua": "0.6.0",
     "nanocurrency-web": "^1.2.2",
     "nebulas": "0.5.6",
