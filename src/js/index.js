@@ -1420,10 +1420,18 @@
                 }
 
                 if (networks[DOM.network.val()].name == "ATOM - Cosmos Hub") {
-                    address = CosmosBufferToAddress(keyPair.getPublicKeyBuffer());
-                    pubkey = CosmosBufferToPublic(keyPair.getPublicKeyBuffer());
+                    const hrp = "cosmos";
+                    address = CosmosBufferToAddress(keyPair.getPublicKeyBuffer(), hrp);
+                    pubkey = CosmosBufferToPublic(keyPair.getPublicKeyBuffer(), hrp);
                     privkey = keyPair.d.toBuffer().toString("base64");
                 }
+                
+                if (networks[DOM.network.val()].name == "RUNE - THORChain") {
+                     const hrp = "thor";
+                     address = CosmosBufferToAddress(keyPair.getPublicKeyBuffer(), hrp);
+                     pubkey = keyPair.getPublicKeyBuffer().toString("hex");
+                     privkey = keyPair.d.toBuffer().toString("hex");
+                 }
 
                 //Groestlcoin Addresses are different
                 if(isGRS()) {
@@ -3257,6 +3265,13 @@
             onSelect: function() {
                 network = libs.bitcoin.networks.ritocoin;
                 setHdCoin(19169);
+            },
+        },
+        {
+            name: "RUNE - THORChain",
+            onSelect: function() {
+                network = libs.bitcoin.networks.bitcoin;
+                setHdCoin(931);
             },
         },
         {

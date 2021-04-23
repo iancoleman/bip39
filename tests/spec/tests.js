@@ -1665,6 +1665,16 @@ it('Allows selection of Rubycoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of THORChain', function(done) {
+    var params = {
+        selectText: "RUNE - THORChain",
+        phrase: "flip vicious divorce angle toward say derive blue refuse load word creek once expire bounce",
+        firstAddress: "thor1zp3yx758t64vqvu8776vnwd0udrs2vwuxhc4ep",
+        firstPubKey: "02fa85b75ef37fe3a4f4a6d62352aa7de070d2b39af9c55be26f079d01f406851d",
+        firstPrivKey: "6020c0d5a9a8689c491c6a8f36beb70bf459e129e1428fed64aaf594beee54a6",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Salus', function(done) {
     var params = {
         selectText: "SLS - Salus",
