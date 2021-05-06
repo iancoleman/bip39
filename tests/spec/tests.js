@@ -1355,6 +1355,16 @@ it('Allows selection of Iop', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Starname', function(done) {
+    var params = {
+        selectText: "IOV - Starname",
+        phrase: "abandon abandon ability",
+        firstAddress: "star1xgfvgq40r7ff8ylw9l95dw56xnr0pvtjnlp7h4",
+        firstPubKey: "starpub1addwnpepqg9x5cft48hcgx25vyzeyygntl7pt763datr6v50hrecafyane54xlqdxkd",
+        firstPrivKey: "bGI4BNRvMYT1lbCOoH000HvNFPkyXms9n3Xp1X/7E80=",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Ixcoin', function(done) {
     var params = {
         selectText: "IXC - Ixcoin",
