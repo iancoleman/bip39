@@ -1350,21 +1350,21 @@
                  }
 
                 // ZooBC address format may vary
-                if (networks[DOM.network.val()].name == "ZBC - ZooBlockchain") {  
-                    
+                if (networks[DOM.network.val()].name == "ZBC - ZooBlockchain") {
+
                     var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
                     var coin = parseIntNoNaN(DOM.bip44coin.val(), 0);
                     var path = "m/";
                         path += purpose + "'/";
                         path += coin + "'/" + index + "'";
                     var result = libs.zoobcUtil.getKeypair(path, seed);
-    
+
                     let publicKey = result.pubKey.slice(1, 33);
                     let privateKey = result.key;
-    
+
                     privkey = privateKey.toString('hex');
                     pubkey = publicKey.toString('hex');
-    
+
                     indexText = path;
                     address = libs.zoobcUtil.getZBCAddress(publicKey, 'ZBC');
                 }
@@ -1433,7 +1433,14 @@
                     privkey = keyPair.d.toBuffer().toString("hex");
                 }
 
-                //Groestlcoin Addresses are different
+                if (networks[DOM.network.val()].name == "IOV - Starname") {
+                  const hrp = "star";
+                  address = CosmosBufferToAddress(keyPair.getPublicKeyBuffer(), hrp);
+                  pubkey = CosmosBufferToPublic(keyPair.getPublicKeyBuffer(), hrp);
+                  privkey = keyPair.d.toBuffer().toString("base64");
+                }
+
+              //Groestlcoin Addresses are different
                 if(isGRS()) {
 
                     if (isSegwit) {
@@ -2859,6 +2866,13 @@
             },
         },
         {
+            name: "IOV - Starname",
+            onSelect: function() {
+                network = libs.bitcoin.networks.bitcoin;
+                setHdCoin(234);
+            },
+         },
+         {
             name: "IXC - Ixcoin",
             onSelect: function() {
                 network = libs.bitcoin.networks.ixcoin;
