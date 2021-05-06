@@ -209,12 +209,7 @@
         var network = networks[networkIndex];
         network.onSelect();
         adjustNetworkForSegwit();
-        if (seed != null) {
-            phraseChanged();
-        }
-        else {
-            rootKeyChanged();
-        }
+        rootKeyChanged();
     }
 
     function bip32ClientChanged(e) {
