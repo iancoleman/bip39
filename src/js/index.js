@@ -1420,9 +1420,17 @@
                 }
 
                 if (networks[DOM.network.val()].name == "ATOM - Cosmos Hub") {
-                    address = CosmosBufferToAddress(keyPair.getPublicKeyBuffer());
-                    pubkey = CosmosBufferToPublic(keyPair.getPublicKeyBuffer());
+                    const hrp = "cosmos";
+                    address = CosmosBufferToAddress(keyPair.getPublicKeyBuffer(), hrp);
+                    pubkey = CosmosBufferToPublic(keyPair.getPublicKeyBuffer(), hrp);
                     privkey = keyPair.d.toBuffer().toString("base64");
+                }
+
+                if (networks[DOM.network.val()].name == "LUNA - Terra") {
+                    const hrp = "terra";
+                    address = CosmosBufferToAddress(keyPair.getPublicKeyBuffer(), hrp);
+                    pubkey = keyPair.getPublicKeyBuffer().toString("hex");
+                    privkey = keyPair.d.toBuffer().toString("hex");
                 }
 
                 if (networks[DOM.network.val()].name == "IOV - Starname") {
@@ -2951,6 +2959,13 @@
             onSelect: function() {
                 network = libs.bitcoin.networks.litecoinz;
                 setHdCoin(221);
+            },
+        },
+        {
+            name: "LUNA - Terra",
+            onSelect: function() {
+                network = libs.bitcoin.networks.bitcoin;
+                setHdCoin(330);
             },
         },
         {
