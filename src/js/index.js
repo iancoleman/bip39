@@ -1425,6 +1425,12 @@
                     pubkey = CosmosBufferToPublic(keyPair.getPublicKeyBuffer(), hrp);
                     privkey = keyPair.d.toBuffer().toString("base64");
                 }
+                if (networks[DOM.network.val()].name == "XWC - Whitecoin"){
+                    address = XWCbufferToAddress(keyPair.getPublicKeyBuffer());
+                    pubkey = XWCbufferToPublic(keyPair.getPublicKeyBuffer());
+                    privkey = XWCbufferToPrivate(keyPair.d.toBuffer(32));
+
+                }
 
                 if (networks[DOM.network.val()].name == "LUNA - Terra") {
                     const hrp = "terra";
@@ -3597,7 +3603,7 @@
             },
         },
         {
-            name: "XWC - Whitecoin",
+            name: "XWCC - Whitecoin Classic",
             onSelect: function() {
                 network = libs.bitcoin.networks.whitecoin;
                 setHdCoin(155);
@@ -3638,6 +3644,13 @@
                 setHdCoin(121);
             },
         },
+        {
+            name: "XWC - Whitecoin",
+            onSelect: function() {
+                network = libs.bitcoin.networks.bitcoin;
+                setHdCoin(559);
+            },
+        }
     ]
 
     var clients = [
