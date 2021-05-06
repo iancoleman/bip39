@@ -927,6 +927,16 @@ it('Allows selection of Cosmos Hub', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Terra', function(done) {
+    var params = {
+        selectText: "LUNA - Terra",
+        phrase: "abandon abandon ability",
+        firstAddress: "terra1txr4jwel3vjl64vrc08pljnjryqkhtffmyp265",
+        firstPubKey: "028e7658e3debb2d9d458919bfba0e85b0220e845f7552176f30a52acd0f809d71",
+        firstPrivKey: "d611b211e370aa1edd9743acd6ce537d16fade85d7ae7e88b32f3a0483f52535",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Auroracoin', function(done) {
     var params = {
         selectText: "AUR - Auroracoin",
@@ -984,6 +994,16 @@ it('Allows selection of Bitcoin Private', function(done) {
         firstAddress: "b1M3PbiXXyN6Hdivdw5rJv5VKpLjPzhm4jM",
         firstPubKey: "03b4dae910c8563ae77e4c665022f8afbf8bcc659ce3bc790a74956e5ebba932af",
         firstPrivKey: "L5U3Rfy7otN5JQP9iveYkT1pB9va71uebx7VE8reBbiAofKCiCxk",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Bitcoin Private testnet', function(done) {
+    var params = {
+        selectText: "BTCPt - Bitcoin Private Testnet",
+        phrase: "abandon abandon ability",
+        firstAddress: "n1UcUUSDfDppfzh7XLJNHmZkLdbTQg3VAZL",
+        firstPubKey: "0382a5450765e2025bdb5f7d109c9254a11ef97a566228bf171d80ecb348763bb0",
+        firstPrivKey: "cV3coiYD2NhHKfhC6Gb8DzpvPzcGYYExYxuNxpUtKq3VUJrkFLZx",
     };
     testNetwork(done, params);
 });
@@ -1352,6 +1372,16 @@ it('Allows selection of Iop', function(done) {
         firstAddress: "pGKQmcaPf95Ur5o6oHK4qdiZ52p1yaTvq1",
         firstPubKey: "02bbaa07f154d04b04dec0978a1655952e1a09a3c0e7798085902273965d93c2f6",
         firstPrivKey: "8MDnKDhVSp84AqzYN5g18MhMvHk3UMYnP51EVjidSas1pT62Sdpc",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Starname', function(done) {
+    var params = {
+        selectText: "IOV - Starname",
+        phrase: "abandon abandon ability",
+        firstAddress: "star1xgfvgq40r7ff8ylw9l95dw56xnr0pvtjnlp7h4",
+        firstPubKey: "starpub1addwnpepqg9x5cft48hcgx25vyzeyygntl7pt763datr6v50hrecafyane54xlqdxkd",
+        firstPrivKey: "bGI4BNRvMYT1lbCOoH000HvNFPkyXms9n3Xp1X/7E80=",
     };
     testNetwork(done, params);
 });
@@ -1885,13 +1915,23 @@ it('Allows selection of VeChain', function(done) {
     };
     testNetwork(done, params);
 });
-it('Allows selection of Whitecoin', function(done) {
+it('Allows selection of Whitecoin Classic', function(done) {
     var params = {
-        selectText: "XWC - Whitecoin",
+        selectText: "XWCC - Whitecoin Classic",
         phrase: "abandon abandon ability",
         firstAddress: "WcSwCAUqrSgeSYbsaS3SSWWhsx8KRYTFDR",
         firstPubKey: "03d3f4fa758f6260bfb39664d248a32258b53a90a71224db056ee79abaa3e9f208",
         firstPrivKey: "WrGUVSubUyDx5wzjfwi3EhhUwf5anHFW7Dv9kAaTu39CtDDBJWM9",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of Whitecoin', function(done) {
+    var params = {
+        selectText: "XWC - Whitecoin",
+        phrase: "abandon abandon ability",
+        firstAddress: "XWCNY5EQsC55ifxRVEbP7H28yc3TMXC2pqsb5",
+        firstPubKey: "XWC68fEy4cCc8G1UWyeMPnQ5NjEhMUFSvu1oz4gLKxvj3dPvh7v18",
+        firstPrivKey: "5K8toD6TYy5DMHkxjpywXNLj4M6CjZAT5h12uhRuVuBBRtci8Zw",
     };
     testNetwork(done, params);
 });

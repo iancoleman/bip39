@@ -209,12 +209,7 @@
         var network = networks[networkIndex];
         network.onSelect();
         adjustNetworkForSegwit();
-        if (seed != null) {
-            phraseChanged();
-        }
-        else {
-            rootKeyChanged();
-        }
+        rootKeyChanged();
     }
 
     function bip32ClientChanged(e) {
@@ -495,13 +490,16 @@
 
       var app = DOM.bip85application.val();
 
-      var phrase = DOM.phrase.val();
-      var passphrase = DOM.passphrase.val();
-      if (!phrase) {
+      var rootKeyBase58 = DOM.rootKey.val();
+      if (!rootKeyBase58) {
         return;
       }
       try {
-        var master = libs.bip85.BIP85.fromMnemonic(phrase, passphrase);
+        // try parsing using base network params
+        // The bip85 lib only understands xpubs, so compute it
+        var rootKey = libs.bitcoin.HDNode.fromBase58(rootKeyBase58, network);
+        rootKey.keyPair.network = libs.bitcoin.networks['bitcoin']
+        var master = libs.bip85.BIP85.fromBase58(rootKey.toBase58());
 
         var result;
 
@@ -1350,21 +1348,21 @@
                  }
 
                 // ZooBC address format may vary
-                if (networks[DOM.network.val()].name == "ZBC - ZooBlockchain") {  
-                    
+                if (networks[DOM.network.val()].name == "ZBC - ZooBlockchain") {
+
                     var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
                     var coin = parseIntNoNaN(DOM.bip44coin.val(), 0);
                     var path = "m/";
                         path += purpose + "'/";
                         path += coin + "'/" + index + "'";
                     var result = libs.zoobcUtil.getKeypair(path, seed);
-    
+
                     let publicKey = result.pubKey.slice(1, 33);
                     let privateKey = result.key;
-    
+
                     privkey = privateKey.toString('hex');
                     pubkey = publicKey.toString('hex');
-    
+
                     indexText = path;
                     address = libs.zoobcUtil.getZBCAddress(publicKey, 'ZBC');
                 }
@@ -1425,15 +1423,35 @@
                     pubkey = CosmosBufferToPublic(keyPair.getPublicKeyBuffer(), hrp);
                     privkey = keyPair.d.toBuffer().toString("base64");
                 }
-                
+              
                 if (networks[DOM.network.val()].name == "RUNE - THORChain") {
                      const hrp = "thor";
                      address = CosmosBufferToAddress(keyPair.getPublicKeyBuffer(), hrp);
                      pubkey = keyPair.getPublicKeyBuffer().toString("hex");
                      privkey = keyPair.d.toBuffer().toString("hex");
-                 }
+                }
+              
+                if (networks[DOM.network.val()].name == "XWC - Whitecoin"){
+                    address = XWCbufferToAddress(keyPair.getPublicKeyBuffer());
+                    pubkey = XWCbufferToPublic(keyPair.getPublicKeyBuffer());
+                    privkey = XWCbufferToPrivate(keyPair.d.toBuffer(32));
+                }
 
-                //Groestlcoin Addresses are different
+                if (networks[DOM.network.val()].name == "LUNA - Terra") {
+                    const hrp = "terra";
+                    address = CosmosBufferToAddress(keyPair.getPublicKeyBuffer(), hrp);
+                    pubkey = keyPair.getPublicKeyBuffer().toString("hex");
+                    privkey = keyPair.d.toBuffer().toString("hex");
+                }
+
+                if (networks[DOM.network.val()].name == "IOV - Starname") {
+                  const hrp = "star";
+                  address = CosmosBufferToAddress(keyPair.getPublicKeyBuffer(), hrp);
+                  pubkey = CosmosBufferToPublic(keyPair.getPublicKeyBuffer(), hrp);
+                  privkey = keyPair.d.toBuffer().toString("base64");
+                }
+
+              //Groestlcoin Addresses are different
                 if(isGRS()) {
 
                     if (isSegwit) {
@@ -2398,6 +2416,13 @@
             },
         },
         {
+            name: "BTCPt - Bitcoin Private Testnet",
+            onSelect: function() {
+                network = libs.bitcoin.networks.bitcoinprivatetestnet;
+                setHdCoin(1);
+            },
+        },
+        {
             name: "BSC - Binance Smart Chain",
             onSelect: function() {
                 network = libs.bitcoin.networks.bitcoin;
@@ -2859,6 +2884,13 @@
             },
         },
         {
+            name: "IOV - Starname",
+            onSelect: function() {
+                network = libs.bitcoin.networks.bitcoin;
+                setHdCoin(234);
+            },
+         },
+         {
             name: "IXC - Ixcoin",
             onSelect: function() {
                 network = libs.bitcoin.networks.ixcoin;
@@ -2945,6 +2977,13 @@
             onSelect: function() {
                 network = libs.bitcoin.networks.litecoinz;
                 setHdCoin(221);
+            },
+        },
+        {
+            name: "LUNA - Terra",
+            onSelect: function() {
+                network = libs.bitcoin.networks.bitcoin;
+                setHdCoin(330);
             },
         },
         {
@@ -3583,7 +3622,7 @@
             },
         },
         {
-            name: "XWC - Whitecoin",
+            name: "XWCC - Whitecoin Classic",
             onSelect: function() {
                 network = libs.bitcoin.networks.whitecoin;
                 setHdCoin(155);
@@ -3624,6 +3663,13 @@
                 setHdCoin(121);
             },
         },
+        {
+            name: "XWC - Whitecoin",
+            onSelect: function() {
+                network = libs.bitcoin.networks.bitcoin;
+                setHdCoin(559);
+            },
+        }
     ]
 
     var clients = [
