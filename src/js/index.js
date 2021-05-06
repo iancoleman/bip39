@@ -2411,6 +2411,13 @@
             },
         },
         {
+            name: "BTCPt - Bitcoin Private Testnet",
+            onSelect: function() {
+                network = libs.bitcoin.networks.bitcoinprivatetestnet;
+                setHdCoin(1);
+            },
+        },
+        {
             name: "BSC - Binance Smart Chain",
             onSelect: function() {
                 network = libs.bitcoin.networks.bitcoin;

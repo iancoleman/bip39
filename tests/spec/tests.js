@@ -997,6 +997,16 @@ it('Allows selection of Bitcoin Private', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Bitcoin Private testnet', function(done) {
+    var params = {
+        selectText: "BTCPt - Bitcoin Private Testnet",
+        phrase: "abandon abandon ability",
+        firstAddress: "n1UcUUSDfDppfzh7XLJNHmZkLdbTQg3VAZL",
+        firstPubKey: "0382a5450765e2025bdb5f7d109c9254a11ef97a566228bf171d80ecb348763bb0",
+        firstPrivKey: "cV3coiYD2NhHKfhC6Gb8DzpvPzcGYYExYxuNxpUtKq3VUJrkFLZx",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Bitcoin SV', function(done) {
     var params = {
         selectText: "BSV - BitcoinSV",
