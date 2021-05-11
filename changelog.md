@@ -1,3 +1,14 @@
+# 0.5.3
+
+Add Starname network
+Add Terra network
+Add Bitcoin Private network
+Add Thorchain network
+Change Xwc network to Xwcc and add new Xwc
+Fix Bip85 works without mnemonic (using xprv)
+Fix extended key not updating when switching tabs
+Fix incorrect html closing tag
+
 # 0.5.2
 
 * Show ethereum private keys with correct padding
