@@ -3339,6 +3339,13 @@
             },
         },
         {
+          name: "SAFE - SafeNode",
+          onSelect: function() {
+              network = libs.bitcoin.networks.safecoin;
+              setHdCoin(19166);
+            },
+	},
+        {
             name: "SCRIBE - Scribe",
             onSelect: function() {
                 network = libs.bitcoin.networks.scribe;
@@ -3644,6 +3651,13 @@
             onSelect: function() {
                 network = libs.bitcoin.networks.zcoin;
                 setHdCoin(136);
+            },
+        },
+        {
+          name: "YEC - Ycash",
+	  onSelect: function() {
+              network = libs.bitcoin.networks.ycash;
+	      setHdCoin(347);
             },
         },
         {
