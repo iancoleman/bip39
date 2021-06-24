@@ -2409,6 +2409,17 @@ it('Allows selection of ZooBlockchain', function(done) {
     testNetwork(done, params);
 });
 
+it('Allows selection of Particl', function(done) {
+    var params = {
+        selectText: "PART - Particl",
+        phrase: "abandon abandon ability",
+        firstAddress: "Pjf2jj1E4GLJnyZA6jNN25Ajn4wHDahuL5",
+        firstPubKey: "039d803bfa8bd30c9e74c14a8785cee64b696b56e10d7545ad3fbf954c40cbfda2",
+        firstPrivKey: "H79cmSqW1uYVbi14c8VH5eH9UdpjhuvGmXFV8zhkcfR84TEUWfHp",
+    };
+    testNetwork(done, params);
+});
+
 // BIP39 seed is set from phrase
 it('Sets the bip39 seed from the prhase', function(done) {
     driver.findElement(By.css('.phrase'))
