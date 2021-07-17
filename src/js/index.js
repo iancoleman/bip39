@@ -281,7 +281,7 @@
     } else {
         clearDisplay();
         clearEntropyFeedback();
-        showValidationError("Auto compute disabled");
+        showValidationError("Auto compute is disabled");
     }
     }
 
