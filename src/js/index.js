@@ -47,6 +47,7 @@
     DOM.entropyWeakEntropyOverrideWarning = DOM.entropyContainer.find(".weak-entropy-override-warning");
     DOM.entropyFilterWarning = DOM.entropyContainer.find(".filter-warning");
     DOM.phrase = $(".phrase");
+    DOM.autoCompute = $(".autoCompute");
     DOM.splitMnemonic = $(".splitMnemonic");
     DOM.showSplitMnemonic = $(".showSplitMnemonic");
     DOM.phraseSplit = $(".phraseSplit");
@@ -143,6 +144,7 @@
         DOM.network.on("change", networkChanged);
         DOM.bip32Client.on("change", bip32ClientChanged);
         DOM.useEntropy.on("change", setEntropyVisibility);
+        DOM.autoCompute.on("change", delayedPhraseChanged);
         DOM.entropy.on("input", delayedEntropyChanged);
         DOM.entropyMnemonicLength.on("change", entropyChanged);
         DOM.entropyTypeInputs.on("change", entropyTypeChanged);
@@ -234,6 +236,10 @@
         }
     }
 
+    function isUsingAutoCompute() {
+        return DOM.autoCompute.prop("checked");
+    }
+
     function setEntropyVisibility() {
         if (isUsingOwnEntropy()) {
             DOM.entropyContainer.removeClass("hidden");
@@ -251,6 +257,8 @@
     }
 
     function delayedPhraseChanged() {
+
+        if(isUsingAutoCompute()) {
         hideValidationError();
         seed = null;
         bip32RootKey = null;
@@ -270,6 +278,11 @@
                 entropyTypeAutoDetect = false;
             }
         }, 400);
+    } else {
+        clearDisplay();
+        clearEntropyFeedback();
+        showValidationError("Auto compute disabled");
+    }
     }
 
     function phraseChanged() {
