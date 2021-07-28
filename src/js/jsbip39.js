@@ -28,7 +28,9 @@
 
 var Mnemonic = function(language) {
 
-    var PBKDF2_ROUNDS = 2048;
+    var DOM = {};
+    DOM.entropyContainer = $(".entropy-container");
+    PBKDF2_ROUNDS = DOM.entropyContainer.find(".pbkdf2-rounds").val();
     var RADIX = 2048;
 
     var self = this;
