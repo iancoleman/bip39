@@ -3045,6 +3045,25 @@ it('Uses the correct derivation for altcoins with root keys', function(done) {
     });
 });
 
+// Changing the coin when only using a seed (without a mnemonic phrase) should
+// work the same as the previous test.
+// See https://github.com/iancoleman/bip39/pull/486
+it('Uses the correct derivation for altcoins with seed and without mnemonic phrase', function(done) {
+    driver.findElement(By.css('.seed'))
+        .sendKeys("20da140d3dd1df8713cefcc4d54ce0e445b4151027a1ab567b832f6da5fcc5afc1c3a3f199ab78b8e0ab4652efd7f414ac2c9a3b81bceb879a70f377aa0a58f3");
+    driver.sleep(generateDelay).then(function() {
+        // 4) switch from bitcoin to viacoin
+        selectNetwork("VIA - Viacoin");
+        driver.sleep(generateDelay).then(function() {
+            // 5) ensure the derived address is correct
+            getFirstAddress(function(address) {
+                expect(address).toBe("Vq9Eq4N5SQnjqZvxtxzo7hZPW5XnyJsmXT");
+                done();
+            });
+        });
+    });
+});
+
 // Selecting a language with no existing phrase should generate a phrase in
 // that language.
 it('Generate a random phrase when language is selected and no current phrase', function(done) {
