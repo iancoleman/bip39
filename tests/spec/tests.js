@@ -17,6 +17,9 @@ if (!browser) {
     console.log("Using default browser: chrome");
     browser = "chrome";
 }
+else if (browser !== 'chrome' && browser !== 'firefox') {
+    throw `Unsupported browser: "${browser}", must be "chrome" or "firefox"`
+}
 else {
     console.log("Using browser: " + browser);
 }
