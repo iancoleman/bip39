@@ -217,7 +217,7 @@
         network.onSelect();
         adjustNetworkForSegwit();
         if (seed != null) {
-            phraseChanged();
+            seedChanged()
         }
         else {
             rootKeyChanged();
@@ -232,12 +232,7 @@
         else {
             DOM.bip32path.prop("readonly", true);
             clients[clientIndex].onSelect();
-            if (seed != null) {
-                phraseChanged();
-            }
-            else {
-                rootKeyChanged();
-            }
+            rootKeyChanged();
         }
     }
 
@@ -491,7 +486,9 @@
         else {
             network = libs.bitcoin.networks.litecoinXprv;
         }
-        phraseChanged();
+        // Can't use rootKeyChanged because validation will fail as we changed
+        // the network but the version bytes stayed as previously.
+        seedChanged();
     }
 
     function toggleSplitMnemonic() {
@@ -637,7 +634,7 @@
     }
 
     function bitcoinCashAddressTypeChange() {
-        phraseChanged();
+        rootKeyChanged();
     }
 
     function toggleIndexes() {
