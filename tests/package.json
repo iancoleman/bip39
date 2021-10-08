@@ -2,7 +2,7 @@
   "name": "tests",
   "version": "1.0.0",
   "scripts": {
-    "test": "node tests.js"
+    "test": "jasmine spec/tests.js"
   },
   "author": "Ian coleman",
   "description": "Tests for BIP39 tool",
@@ -11,6 +11,7 @@
     "url": "git://github.com/iancoleman/bip39.git"
   },
   "dependencies": {
+    "jasmine": "^3.9.0",
     "selenium-webdriver": "^3.6.0"
   },
   "license": "MIT"
