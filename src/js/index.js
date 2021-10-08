@@ -1434,14 +1434,14 @@
                     pubkey = CosmosBufferToPublic(keyPair.getPublicKeyBuffer(), hrp);
                     privkey = keyPair.d.toBuffer().toString("base64");
                 }
-              
+
                 if (networks[DOM.network.val()].name == "RUNE - THORChain") {
                      const hrp = "thor";
                      address = CosmosBufferToAddress(keyPair.getPublicKeyBuffer(), hrp);
                      pubkey = keyPair.getPublicKeyBuffer().toString("hex");
                      privkey = keyPair.d.toBuffer().toString("hex");
                 }
-              
+
                 if (networks[DOM.network.val()].name == "XWC - Whitecoin"){
                     address = XWCbufferToAddress(keyPair.getPublicKeyBuffer());
                     pubkey = XWCbufferToPublic(keyPair.getPublicKeyBuffer());
@@ -3180,6 +3180,13 @@
             onSelect: function() {
                 network = libs.bitcoin.networks.onixcoin;
                 setHdCoin(174);
+            },
+        },
+        {
+            name: "PART - Particl",
+            onSelect: function() {
+                network = libs.bitcoin.networks.particl;
+                setHdCoin(44);
             },
         },
         {
