@@ -44,6 +44,9 @@
     DOM.entropyWordIndexes = DOM.entropyContainer.find(".word-indexes");
     DOM.entropyChecksum = DOM.entropyContainer.find(".checksum");
     DOM.entropyMnemonicLength = DOM.entropyContainer.find(".mnemonic-length");
+    DOM.pbkdf2Rounds = DOM.entropyContainer.find(".pbkdf2-rounds");
+    DOM.pbkdf2CustomInput = DOM.entropyContainer.find("#pbkdf2-custom-input");
+    DOM.pbkdf2InfosDanger = $(".PBKDF2-infos-danger");
     DOM.entropyWeakEntropyOverrideWarning = DOM.entropyContainer.find(".weak-entropy-override-warning");
     DOM.entropyFilterWarning = DOM.entropyContainer.find(".filter-warning");
     DOM.phrase = $(".phrase");
@@ -147,6 +150,8 @@
         DOM.autoCompute.on("change", delayedPhraseChanged);
         DOM.entropy.on("input", delayedEntropyChanged);
         DOM.entropyMnemonicLength.on("change", entropyChanged);
+        DOM.pbkdf2Rounds.on("change", pbkdf2RoundsChanged);
+        DOM.pbkdf2CustomInput.on("change", pbkdf2RoundsChanged);
         DOM.entropyTypeInputs.on("change", entropyTypeChanged);
         DOM.phrase.on("input", delayedPhraseChanged);
         DOM.showSplitMnemonic.on("change", toggleSplitMnemonic);
@@ -349,6 +354,24 @@
         entropyChangeTimeoutEvent = setTimeout(entropyChanged, 400);
     }
 
+    function pbkdf2RoundsChanged() {
+        if (DOM.pbkdf2Rounds.val() == "custom") {
+            PBKDF2_ROUNDS = DOM.pbkdf2CustomInput.val();
+            DOM.pbkdf2CustomInput.removeClass("hidden");
+        } else {
+            PBKDF2_ROUNDS = DOM.pbkdf2Rounds.val();
+            DOM.pbkdf2CustomInput.addClass("hidden");
+        }
+        ispbkdf2Rounds2048();
+        phraseChanged();
+    }
+    function ispbkdf2Rounds2048() {
+        if (PBKDF2_ROUNDS == 2048) {
+            DOM.pbkdf2InfosDanger.addClass("hidden");
+        } else {
+            DOM.pbkdf2InfosDanger.removeClass("hidden");
+        }
+    }
     function entropyChanged() {
         // If blank entropy, clear mnemonic, addresses, errors
         if (DOM.entropy.val().trim().length == 0) {
