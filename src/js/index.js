@@ -2640,6 +2640,20 @@
             },
         },
         {
+            name: "DIVI - DIVI",
+            onSelect: function() {
+                network = libs.bitcoin.networks.divi;
+                setHdCoin(301);
+            },
+        },
+        {
+            name: "DIVI - DIVI Testnet",
+            onSelect: function() {
+                network = libs.bitcoin.networks.divitestnet;
+                setHdCoin(1);
+            },
+        },
+        {
             name: "DMD - Diamond",
             onSelect: function() {
                 network = libs.bitcoin.networks.diamond;

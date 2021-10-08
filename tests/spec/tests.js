@@ -625,6 +625,26 @@ it('Allows selection of dash testnet', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of divi', function(done) {
+    var params = {
+        selectText: "DIVI - Divi",
+        phrase: "abandon abandon ability",
+        firstAddress: "DLeGz7jqF1y1cmfEkSeRBkQPK8vTZ8rHt4",
+        firstPubKey: "032ade8a36983a1efcc40d64b2a1a52cc26a908f7dc2fa222f43598812dd10d8bc",
+        firstPrivKey: "YWG1Fht24fMUntuAhVRMPSj2eVN7BxkM7SuuqRhg1ibsTNbr31VF",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of divi testnet', function(done) {
+    var params = {
+        selectText: "DIVI - Divi Testnet",
+        phrase: "abandon abandon ability",
+        firstAddress: "yB5U384n6dGkVE3by5y9VdvHHPwPg68fQj",
+        firstPubKey: "0382a5450765e2025bdb5f7d109c9254a11ef97a566228bf171d80ecb348763bb0",
+        firstPrivKey: "cV3coiYD2NhHKfhC6Gb8DzpvPzcGYYExYxuNxpUtKq3VUJrkFLZx",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of game', function(done) {
     var params = {
         selectText: "GAME - GameCredits",
