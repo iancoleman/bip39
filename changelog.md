@@ -1,3 +1,11 @@
+# 0.5.4
+
+* Add Particl network
+* Add Divi network
+* Add option to turn autocompute on / off
+* Add option to set custom number of pbkdf2 rounds
+* Fix blank mnemonic errors when using only seed
+
 # 0.5.3
 
 Add Starname network
