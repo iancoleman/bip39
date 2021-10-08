@@ -258,7 +258,12 @@
 
     function delayedPhraseChanged() {
 
-        if(isUsingAutoCompute()) {
+        if(!isUsingAutoCompute()) {
+            clearDisplay();
+            clearEntropyFeedback();
+            showValidationError("Auto compute is disabled");
+            return;
+        }
         hideValidationError();
         seed = null;
         bip32RootKey = null;
@@ -278,14 +283,15 @@
                 entropyTypeAutoDetect = false;
             }
         }, 400);
-    } else {
-        clearDisplay();
-        clearEntropyFeedback();
-        showValidationError("Auto compute is disabled");
-    }
     }
 
     function phraseChanged() {
+        if(!isUsingAutoCompute()) {
+            clearDisplay();
+            clearEntropyFeedback();
+            showValidationError("Auto compute is disabled");
+            return;
+        }
         showPending();
         setMnemonicLanguage();
         // Get the mnemonic phrase
@@ -306,6 +312,12 @@
     }
 
     function tabChanged() {
+        if(!isUsingAutoCompute()) {
+            clearDisplay();
+            clearEntropyFeedback();
+            showValidationError("Auto compute is disabled");
+            return;
+        }
         showPending();
         adjustNetworkForSegwit();
         var phrase = DOM.phrase.val();
@@ -341,6 +353,12 @@
     }
 
     function delayedEntropyChanged() {
+        if(!isUsingAutoCompute()) {
+            clearDisplay();
+            clearEntropyFeedback();
+            showValidationError("Auto compute is disabled");
+            return;
+        }
         hideValidationError();
         showPending();
         if (entropyChangeTimeoutEvent != null) {
@@ -402,6 +420,12 @@
     }
 
     function delayedSeedChanged() {
+        if(!isUsingAutoCompute()) {
+            clearDisplay();
+            clearEntropyFeedback();
+            showValidationError("Auto compute is disabled");
+            return;
+        }
         // Warn if there is an existing mnemonic or passphrase.
         if (DOM.phrase.val().length > 0 || DOM.passphrase.val().length > 0) {
             if (!confirm("This will clear existing mnemonic and passphrase")) {
@@ -426,6 +450,12 @@
     }
 
     function delayedRootKeyChanged() {
+        if(!isUsingAutoCompute()) {
+            clearDisplay();
+            clearEntropyFeedback();
+            showValidationError("Auto compute is disabled");
+            return;
+        }
         // Warn if there is an existing mnemonic or passphrase.
         if (DOM.phrase.val().length > 0 || DOM.passphrase.val().length > 0) {
             if (!confirm("This will clear existing mnemonic and passphrase")) {
@@ -447,6 +477,12 @@
     }
 
     function seedChanged() {
+        if(!isUsingAutoCompute()) {
+            clearDisplay();
+            clearEntropyFeedback();
+            showValidationError("Auto compute is disabled");
+            return;
+        }
         showPending();
         hideValidationError();
         seed = DOM.seed.val();
@@ -464,6 +500,12 @@
     }
 
     function rootKeyChanged() {
+        if(!isUsingAutoCompute()) {
+            clearDisplay();
+            clearEntropyFeedback();
+            showValidationError("Auto compute is disabled");
+            return;
+        }
         showPending();
         hideValidationError();
         var rootKeyBase58 = DOM.rootKey.val();
@@ -573,6 +615,12 @@
     }
 
     function calcForDerivationPath() {
+        if(!isUsingAutoCompute()) {
+            clearDisplay();
+            clearEntropyFeedback();
+            showValidationError("Auto compute is disabled");
+            return;
+        }
         clearDerivedKeys();
         clearAddressesList();
         showPending();
@@ -607,6 +655,7 @@
         if (isUsingOwnEntropy()) {
             return;
         }
+        document.getElementsByClassName("autoCompute")[0].checked = true;
         clearDisplay();
         showPending();
         setTimeout(function() {
@@ -1538,6 +1587,12 @@
     }
 
     function showMore() {
+        if(!isUsingAutoCompute()) {
+            clearDisplay();
+            clearEntropyFeedback();
+            showValidationError("Auto compute is disabled");
+            return;
+        }
         var rowsToAdd = parseInt(DOM.rowsToAdd.val());
         if (isNaN(rowsToAdd)) {
             rowsToAdd = 20;
