@@ -1,0 +1,15 @@
+{
+  "name": "nimiq-util",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "browserify nimiq-util.js > /tmp/nimiq-util.js"
+  },
+  "dependencies": {
+    "blake2b": "^2.1.3",
+    "ed25519-hd-key": "^1.0.0"
+  },
+  "devDependencies": {
+    "browserify": "^16.2.3",
+    "uglify-es": "^3.3.9"
+  }
+}

@@ -1528,6 +1528,16 @@ it('Allows selection of Neoscoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Nimiq', function(done) {
+    var params = {
+        selectText: "NIM - Nimiq",
+        phrase: "abandon abandon ability",
+        firstAddress: "NQ26P4K0MYB213CU3J04RQJK3KSUDLXJP2BH",
+        firstPubKey: "8dfef0de0cf794efb29fbb90e3d143764beec947cbd290a17d57ea4e81cd476b",
+        firstPrivKey: "3e22277e6bd2c31d55f4542993c4cb4ef78788afc44023cda8d9f14a52548c38",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Nix', function(done) {
     var params = {
         selectText: "NIX - NIX Platform",
