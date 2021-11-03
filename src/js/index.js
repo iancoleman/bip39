@@ -1468,6 +1468,34 @@
                     privkey = keyPair.d.toBuffer().toString("base64");
                 }
 
+                if (networks[DOM.network.val()].name == "CRO - Crypto.org Chain") {
+                    const hrp = "cro";
+                    address = CosmosBufferToAddress(keyPair.getPublicKeyBuffer(), hrp);
+                    pubkey = keyPair.getPublicKeyBuffer().toString("hex");
+                    privkey = keyPair.d.toBuffer().toString("hex");
+                }
+
+                if (networks[DOM.network.val()].name == "CRO - Crypto.org Chain Testnet") {
+                    const hrp = "tcro";
+                    address = CosmosBufferToAddress(keyPair.getPublicKeyBuffer(), hrp);
+                    pubkey = keyPair.getPublicKeyBuffer().toString("hex");
+                    privkey = keyPair.d.toBuffer().toString("hex");
+                }
+
+                if (networks[DOM.network.val()].name == "CRO - Cronos") {
+                    const hrp = "crc";
+                    address = CosmosBufferToAddress(keyPair.getPublicKeyBuffer(), hrp);
+                    pubkey = keyPair.getPublicKeyBuffer().toString("hex");
+                    privkey = keyPair.d.toBuffer().toString("hex");
+                }
+
+                if (networks[DOM.network.val()].name == "CRO - Cronos Testnet") {
+                    const hrp = "tcrc";
+                    address = CosmosBufferToAddress(keyPair.getPublicKeyBuffer(), hrp);
+                    pubkey = keyPair.getPublicKeyBuffer().toString("hex");
+                    privkey = keyPair.d.toBuffer().toString("hex");
+                }
+
                 if (networks[DOM.network.val()].name == "RUNE - THORChain") {
                      const hrp = "thor";
                      address = CosmosBufferToAddress(keyPair.getPublicKeyBuffer(), hrp);
@@ -2570,6 +2598,34 @@
             onSelect: function() {
                 network = libs.bitcoin.networks.crave;
                 setHdCoin(186);
+            },
+        },
+        {
+            name: "CRO - Crypto.org Chain",
+            onSelect: function() {
+                network = libs.bitcoin.networks.bitcoin;
+                setHdCoin(394);
+            },
+        },
+        {
+            name: "CRO - Crypto.org Chain Testnet",
+            onSelect: function() {
+                network = libs.bitcoin.networks.bitcoin;
+                setHdCoin(1);
+            },
+        },
+        {
+            name: "CRO - Cronos",
+            onSelect: function() {
+                network = libs.bitcoin.networks.bitcoin;
+                setHdCoin(60);
+            },
+        },
+        {
+            name: "CRO - Cronos Testnet",
+            onSelect: function() {
+                network = libs.bitcoin.networks.bitcoin;
+                setHdCoin(60);
             },
         },
         {
