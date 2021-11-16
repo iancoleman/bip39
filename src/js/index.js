@@ -64,6 +64,9 @@
     DOM.litecoinUseLtub = $(".litecoin-use-ltub");
     DOM.extendedPrivKey = $(".extended-priv-key");
     DOM.extendedPubKey = $(".extended-pub-key");
+    DOM.rootPrivKey = $(".root-priv-key");
+    DOM.rootPubKey = $(".root-pub-key");
+    DOM.rootAddress = $(".root-address");
     DOM.bip32tab = $("#bip32-tab");
     DOM.bip44tab = $("#bip44-tab");
     DOM.bip49tab = $("#bip49-tab");
@@ -1151,6 +1154,18 @@
         DOM.extendedPrivKey.val(extendedPrivKey);
         var extendedPubKey = bip32ExtendedKey.neutered().toBase58();
         DOM.extendedPubKey.val(extendedPubKey);
+
+        var keyPair = bip32ExtendedKey.keyPair;
+        // get address
+        var address = keyPair.getAddress().toString();
+        // get privkey
+        var privkey = keyPair.toWIF();
+        // get pubkey
+        var pubkey = keyPair.getPublicKeyBuffer().toString('hex');
+        DOM.rootPrivKey.val(privkey);
+        DOM.rootPubKey.val(pubkey);
+        DOM.rootAddress.val(address);
+
         // Display the addresses and privkeys
         clearAddressesList();
         var initialAddressCount = parseInt(DOM.rowsToAdd.val());
