@@ -16,7 +16,8 @@ module.exports.bchaddrSlp = require('bchaddrjs-slp')
 
 /* bech32 */
 
-module.exports.bech32 = require('bech32')
+const bech32 = require('bech32')
+module.exports.bech32 = bech32;
 
 /* biginteger */
 
@@ -48,6 +49,11 @@ module.exports.elastosjs = require('elastos-wallet-js')
 
 module.exports.ethUtil = require('ethereumjs-util')
 
+/* ed25519 */
+
+const ed25519 = require('ed25519-hd-key');
+module.exports.ed25519 = ed25519;
+
 /* fast-levenshtein */
 
 module.exports.levenshtein = require('fast-levenshtein')
@@ -77,10 +83,9 @@ catch (e) {
 /* stellar-util */
 
 let StellarBase = require('stellar-base');
-let edHd = require('ed25519-hd-key');
 module.exports.stellarUtil = {
     getKeypair: function (path, seed) {
-        const result = edHd.derivePath(path, seed);
+        const result = ed25519.derivePath(path, seed);
         return StellarBase.Keypair.fromRawEd25519Seed(result.key);
     },
     dummyNetwork: {
@@ -98,8 +103,8 @@ let base32 = require('base32.js');
 let nbl = require('nebulas');
 module.exports.zoobcUtil = {
     getKeypair: function (path, seed) {
-        const { key, chainCode}  = edHd.derivePath(path, seed);
-        const pubKey = edHd.getPublicKey(key);
+        const { key, chainCode}  = ed25519.derivePath(path, seed);
+        const pubKey = ed25519.getPublicKey(key);
         return {key,chainCode, pubKey};
     },
     getZBCAddress(publicKey, prefix = "ZBC") {
@@ -166,4 +171,3 @@ catch (e) {
     console.warn("Error loading create-hash library");
     console.warn(e);
 };
-

@@ -728,6 +728,16 @@ it('Allows selection of ethereum', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Elrond', function(done) {
+    var params = {
+        selectText: "EGLD - Elrond",
+        phrase: "ill clump only blind unit burden thing track silver cloth review awake useful craft whale all satisfy else trophy sunset walk vanish hope valve",
+        firstAddress: "erd12sw6xxpd39jctnhlhpxnqz2ff0az0m7kk4n7uctfv042qv4zu89swawuj8",
+        firstPubKey: "541da3182d896585ceffb84d3009494bfa27efd6b567ee616963eaa032a2e1cb",
+        firstPrivKey: "32f7c74cd521023ffd9056544364b12290a41bd2d87af11e7df014b8bb6bb52d",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of slimcoin', function(done) {
     var params = {
         selectText: "SLM - Slimcoin",

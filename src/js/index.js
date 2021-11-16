@@ -1342,6 +1342,18 @@
                     pubkey = address = keypair.publicKey();
                 }
 
+                // EGLD - Elrond
+                if (networks[DOM.network.val()].name == "EGLD - Elrond") {
+                    var privkeyBuffer = libs.ed25519.derivePath(getDerivationPath() + "'/" + index + "'", seed).key;
+                    privkey = privkeyBuffer.toString("hex");
+
+                    var pubkeyBuffer = libs.ed25519.getPublicKey(privkeyBuffer, false);
+                    pubkey = pubkeyBuffer.toString("hex");
+
+                    var words = libs.bech32.toWords(pubkeyBuffer);
+                    address = libs.bech32.encode("erd", words);
+                }
+
                 // Nano currency
                 if (networks[DOM.network.val()].name == "NANO - Nano") {
                     var nanoKeypair = libs.nanoUtil.getKeypair(index, seed);
@@ -2704,6 +2716,13 @@
             onSelect: function() {
                 network = libs.bitcoin.networks.egulden;
                 setHdCoin(78);
+            },
+        },
+        {
+            name: "EGLD - Elrond",
+            onSelect: function() {
+                network = libs.bitcoin.networks.bitcoin;
+                setHdCoin(508);
             },
         },
         {
