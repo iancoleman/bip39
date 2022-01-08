@@ -1342,6 +1342,17 @@
                     pubkey = address = keypair.publicKey();
                 }
 
+                // Solana is different
+                if (networks[DOM.network.val()].name == "SOL - Solana") {
+                    var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
+                    var coin = parseIntNoNaN(DOM.bip44coin.val(), 0);
+                    var path = `m/${purpose}'/${coin}'/${index}'/0'`;
+                    var keypair = libs.solanaUtil.getKeypair(path, seed);
+                    indexText = path;
+                    privkey = libs.bs58.encode(libs.buffer.Buffer.from(keypair.secretKey));
+                    pubkey = address = libs.bs58.encode(libs.buffer.Buffer.from(keypair.publicKey));
+                }
+
                 // Nano currency
                 if (networks[DOM.network.val()].name == "NANO - Nano") {
                     var nanoKeypair = libs.nanoUtil.getKeypair(index, seed);
@@ -3453,6 +3464,13 @@
             onSelect: function() {
                 network = libs.bitcoin.networks.smileycoin;
                 setHdCoin(59);
+            },
+        },
+        {
+            name: "SOL - Solana",
+            onSelect: function() {
+                network = libs.solanaUtil.dummyNetwork;
+                setHdCoin(501);
             },
         },
         {

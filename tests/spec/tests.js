@@ -2269,6 +2269,16 @@ it('Allows selection of Stellar', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Solana', function(done) {
+    var params = {
+        selectText: "SOL - Solana",
+        phrase: "abandon abandon ability",
+        firstAddress: "5iErhk1Noj8HTQyo85UVhiTLq1dJfA8BVgBzh5gEjLam",
+        firstPubKey: "5iErhk1Noj8HTQyo85UVhiTLq1dJfA8BVgBzh5gEjLam",
+        firstPrivKey: "4NJUVvRktj9dwyHhDcXqkn3hU71drRvjz5aKyuTez79MDRDQfBGzKUMs4bdX5ssyizUieCckEeU762gZqeEC9Hiy",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Nano', function(done) {
     var params = {
         selectText: "NANO - Nano",
