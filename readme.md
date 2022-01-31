@@ -36,7 +36,7 @@ the obvious places like code or issues, donating to the project itself causes
 significant operational difficulties.
 
 As a result, if you would like to support this project financially you are
-encouraged to donate to one of the many groups that makes the internet a place
+encouraged to donate to one of the many groups that make the internet a place
 amenable to projects such as this one.
 
 [Donation-accepting organizations and projects](https://en.bitcoin.it/wiki/Donation-accepting_organizations_and_projects)
