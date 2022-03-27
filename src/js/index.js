@@ -1780,7 +1780,7 @@
     function convertPhraseToNewLanguage() {
         var oldLanguage = getLanguageFromPhrase();
         var newLanguage = getLanguageFromUrl();
-        var oldPhrase = DOM.phrase.val();
+        var oldPhrase = DOM.phrase.val().normalize("NFKD");
         var oldWords = phraseToWordArray(oldPhrase);
         var newWords = [];
         for (var i=0; i<oldWords.length; i++) {
