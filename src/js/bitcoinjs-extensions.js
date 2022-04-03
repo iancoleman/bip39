@@ -95,6 +95,28 @@ libs.bitcoin.networks.dashtn = {
   wif: 0xef
 };
 
+libs.bitcoin.networks.documentchain = {
+  messagePrefix: 'unused',
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  },
+  pubKeyHash: 0x1e,
+  scriptHash: 0x0f,
+  wif: 0x85
+};
+
+libs.bitcoin.networks.documentchaintn = {
+  messagePrefix: 'unused',
+  bip32: {
+    public: 0x043587cf,
+    private: 0x04358394
+  },
+  pubKeyHash: 0x7f,
+  scriptHash: 0x13,
+  wif: 0xef
+};
+
 libs.bitcoin.networks.game = {
   messagePrefix: 'unused',
   bip32: {
