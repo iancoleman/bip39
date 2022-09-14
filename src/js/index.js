@@ -2942,6 +2942,13 @@
             },
         },
         {
+            name: "IOTA - IOTA",
+            onSelect: function() {
+                network = libs.bitcoin.networks.iota;
+                setHdCoin(41);
+            },
+        },
+        {
             name: "IOV - Starname",
             onSelect: function() {
                 network = libs.bitcoin.networks.bitcoin;
@@ -3453,6 +3460,13 @@
             onSelect: function() {
                 network = libs.bitcoin.networks.smileycoin;
                 setHdCoin(59);
+            },
+        },
+        {
+            name: "SMR - Shimmer",
+            onSelect: function() {
+                network = libs.bitcoin.networks.shimmer;
+                setHdCoin(4219);
             },
         },
         {
