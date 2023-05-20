@@ -677,16 +677,16 @@
             return;
         }
         // get the amount of entropy to use
-        var numWords = parseInt(DOM.generatedStrength.val());
-        var strength = numWords / 3 * 32;
-        var buffer = new Uint8Array(strength / 8);
+        const numWords = parseInt(DOM.generatedStrength.val());
+        const strength = numWords / 3 * 32;
+        const buffer = new Uint8Array(strength / 8);
         // create secure entropy
-        var data = crypto.getRandomValues(buffer);
+        const data = crypto.getRandomValues(buffer);
         // show the words
-        var words = mnemonic.toMnemonic(data);
+        const words = mnemonic.toMnemonic(data);
         DOM.phrase.val(words);
         // show the entropy
-        var entropyHex = uint8ArrayToHex(data);
+        const entropyHex = uint8ArrayToHex(data);
         DOM.entropy.val(entropyHex);
         // ensure entropy fields are consistent with what is being displayed
         DOM.entropyMnemonicLength.val("raw");
