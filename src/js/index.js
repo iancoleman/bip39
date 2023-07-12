@@ -607,6 +607,14 @@
         if (isUsingOwnEntropy()) {
             return;
         }
+        // Pressing enter on BIP85 index field triggers generate click event.
+        // See https://github.com/iancoleman/bip39/issues/634
+        // To cancel the incorrect generation process, stop here if generate is
+        // not focused.
+        var buttonIsFocused = DOM.generate[0].contains(document.activeElement);
+        if (!buttonIsFocused) {
+            return;
+        }
         clearDisplay();
         showPending();
         setTimeout(function() {
