@@ -1,3 +1,7 @@
+# 0.5.5
+
+* Fix BIP85 bug when pressing enter
+
 # 0.5.4
 
 * Add Particl network
