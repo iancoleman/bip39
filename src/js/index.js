@@ -2945,7 +2945,7 @@
             name: "IOTA - IOTA",
             onSelect: function() {
                 network = libs.bitcoin.networks.iota;
-                setHdCoin(41);
+                setHdCoin(4218);
             },
         },
         {
