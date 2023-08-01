@@ -1476,6 +1476,20 @@
                     privkey = keyPair.d.toBuffer().toString("base64");
                 }
 
+                if (networks[DOM.network.val()].name == "BNB - Binance Chain") {
+                    const hrp = "bnb";
+                    address = CosmosBufferToAddress(keyPair.getPublicKeyBuffer(), hrp);
+                    pubkey = CosmosBufferToPublic(keyPair.getPublicKeyBuffer(), hrp);
+                    privkey = keyPair.d.toBuffer().toString("hex");
+                }
+
+                if (networks[DOM.network.val()].name == "BNB - Binance Chain Testnet") {
+                    const hrp = "tbnb";
+                    address = CosmosBufferToAddress(keyPair.getPublicKeyBuffer(), hrp);
+                    pubkey = CosmosBufferToPublic(keyPair.getPublicKeyBuffer(), hrp);
+                    privkey = keyPair.d.toBuffer().toString("hex");
+                }
+
                 if (networks[DOM.network.val()].name == "RUNE - THORChain") {
                      const hrp = "thor";
                      address = CosmosBufferToAddress(keyPair.getPublicKeyBuffer(), hrp);
@@ -2389,6 +2403,28 @@
             },
         },
         {
+            // Source https://docs.binance.org/blockchain.html
+            name: "BNB - Binance Chain",
+            onSelect: function() {
+                network = libs.bitcoin.networks.bitcoin;
+                setHdCoin(714);
+            },
+        },
+        {
+            name: "BNB - Binance Chain Testnet",
+            onSelect: function() {
+                network = libs.bitcoin.networks.bitcoin;
+                setHdCoin(714);
+            },
+        },
+        {
+            name: "BSC - Binance Smart Chain",
+            onSelect: function() {
+                network = libs.bitcoin.networks.bitcoin;
+                setHdCoin(60);
+            },
+        },
+        {
             name: "BND - Blocknode",
             onSelect: function() {
                 network = libs.bitcoin.networks.blocknode;
@@ -2472,13 +2508,6 @@
             onSelect: function() {
                 network = libs.bitcoin.networks.bitcoinprivatetestnet;
                 setHdCoin(1);
-            },
-        },
-        {
-            name: "BSC - Binance Smart Chain",
-            onSelect: function() {
-                network = libs.bitcoin.networks.bitcoin;
-                setHdCoin(60);
             },
         },
         {
