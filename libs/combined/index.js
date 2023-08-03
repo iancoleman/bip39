@@ -92,6 +92,23 @@ module.exports.stellarUtil = {
     },
 }
 
+/* solana-util */
+
+let nacl = require('tweetnacl');
+module.exports.solanaUtil = {
+    getKeypair: function (path, seed) {
+        const result = edHd.derivePath(path, seed);
+        return nacl.sign.keyPair.fromSeed(result.key);
+    },
+    dummyNetwork: {
+        bip32: {public: 0, private: 0},
+        messagePrefix: '',
+        pubKeyHash: 0,
+        scriptHash: 0,
+        wif: 0,
+    },
+}
+
 /* zoobc-util */
 
 let base32 = require('base32.js');
