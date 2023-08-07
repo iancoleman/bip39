@@ -648,6 +648,26 @@ it('Allows selection of divi testnet', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of documentchain', function(done) {
+    var params = {
+        selectText: "DMS - Documentchain",
+        phrase: "abandon abandon ability",
+        firstAddress: "D83xbNC2D68ScABQW58dVUvh3CUNeCRW27",
+        firstPubKey: "0270009f37337f15603103ce90111f32f44ddd87525017a93ec6170abb784be2ff",
+        firstPrivKey: "LmfU8Fuvb23igJbprwQVBcdNxvuxjnqhFyXNEYvK54UsN33P7NUz",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of documentchain testnet', function(done) {
+    var params = {
+        selectText: "DMS - Documentchain Testnet",
+        phrase: "abandon abandon ability",
+        firstAddress: "tM2EDpVKaTiEg2NZg3yKg8eqjLr55BErHe",
+        firstPubKey: "0382a5450765e2025bdb5f7d109c9254a11ef97a566228bf171d80ecb348763bb0",
+        firstPrivKey: "cV3coiYD2NhHKfhC6Gb8DzpvPzcGYYExYxuNxpUtKq3VUJrkFLZx",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of game', function(done) {
     var params = {
         selectText: "GAME - GameCredits",

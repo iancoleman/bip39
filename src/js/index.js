@@ -2666,6 +2666,20 @@
             },
         },
         {
+            name: "DMS - Documentchain",
+            onSelect: function() {
+                network = libs.bitcoin.networks.documentchain;
+                setHdCoin(5);
+            },
+        },
+        {
+            name: "DMS - Documentchain Testnet",
+            onSelect: function() {
+                network = libs.bitcoin.networks.documentchaintn;
+                setHdCoin(1);
+            },
+        },
+        {
             name: "DNR - Denarius",
             onSelect: function() {
                 network = libs.bitcoin.networks.denarius;
