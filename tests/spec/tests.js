@@ -1428,6 +1428,16 @@ it('Allows selection of Kobocoin', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of Koinos', function(done) {
+    var params = {
+        selectText: "KOIN - Koinos",
+        phrase: "abandon abandon ability",
+        firstAddress: "1889eLacywFQbAHEr3AXRTPcvJM2TSFEaA",
+        firstPubKey: "023df79ce443ae0c972c016d3bbc9d2cf1019e68207b3e1cfc1110b1c6a388318c",
+        firstPrivKey: "KxN6Cx2PYRf75M2MQnrErrBzKgTbBjNFrpSBbZUTdeCho8ksBSoR",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Landcoin', function(done) {
     var params = {
         selectText: "LDCN - Landcoin",

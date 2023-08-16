@@ -2987,6 +2987,13 @@
             },
         },
         {
+            name: "KOIN - Koinos",
+            onSelect: function() {
+                network = libs.bitcoin.networks.koinos;
+                setHdCoin(659);
+            },
+        },
+        {
             name: "LBC - Library Credits",
             onSelect: function() {
                 network = libs.bitcoin.networks.lbry;
