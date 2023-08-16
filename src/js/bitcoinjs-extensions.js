@@ -1153,6 +1153,28 @@ libs.bitcoin.networks.omnicore = {
   wif: 0x80,
 };
 
+libs.bitcoin.networks.harmonyOld = {
+  messagePrefix: '\x18Bitcoin Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4,
+  },
+  pubKeyHash: 0x00,
+  scriptHash: 0x05,
+  wif: 0x80,
+};
+
+libs.bitcoin.networks.harmonyNew = {
+  messagePrefix: '\x18Bitcoin Signed Message:\n',
+  bip32: {
+    public: 0x0488B21E,
+    private: 0x0488ADE4,
+  },
+  pubKeyHash: 0x00,
+  scriptHash: 0x05,
+  wif: 0x80,
+};
+
 libs.bitcoin.networks.pesobit = {
   messagePrefix: '\x18Pesobit Signed Message:\n',
   bip32: {
