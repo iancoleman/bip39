@@ -1153,7 +1153,7 @@ libs.bitcoin.networks.omnicore = {
   wif: 0x80,
 };
 
-libs.bitcoin.networks.harmonyOld = {
+libs.bitcoin.networks.harmony = {
   messagePrefix: '\x18Bitcoin Signed Message:\n',
   bip32: {
     public: 0x0488B21E,
@@ -1164,7 +1164,7 @@ libs.bitcoin.networks.harmonyOld = {
   wif: 0x80,
 };
 
-libs.bitcoin.networks.harmonyNew = {
+libs.bitcoin.networks.harmonyLegacy = {
   messagePrefix: '\x18Bitcoin Signed Message:\n',
   bip32: {
     public: 0x0488B21E,
