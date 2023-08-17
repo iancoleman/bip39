@@ -1692,7 +1692,7 @@
             if (network.name == "BTC - Bitcoin") {
                 option.prop("selected", true);
             }
-            if (network.name == "ONE - Harmony (path 60; old)") {
+            if (network.name == "ONE - Harmony") {
                 option.prop("selected", true);
                 network.onSelect();
             }
@@ -2119,8 +2119,8 @@
                     || (name == "VET - VeChain")
                     || (name == "ERE - EtherCore")
                     || (name == "BSC - Binance Smart Chain")
-                    || (name == "ONE - Harmony (path 60; old)")
-                    || (name == "ONE - Harmony (path 1023; new)")
+                    || (name == "ONE - Harmony")
+                    || (name == "ONE - Harmony (legacy)")
     }
 
     function networkIsRsk() {
@@ -3230,16 +3230,16 @@
             },
         },
         {
-            name: "ONE - Harmony (path 60; old)",
+            name: "ONE - Harmony",
             onSelect: function() {
-                network = libs.bitcoin.networks.harmonyOld;
+                network = libs.bitcoin.networks.harmony;
                 setHdCoin(60);
             },
         },
         {
-            name: "ONE - Harmony (path 1023; new)",
+            name: "ONE - Harmony (Legacy)",
             onSelect: function() {
-                network = libs.bitcoin.networks.harmonyNew;
+                network = libs.bitcoin.networks.harmonyLegacy;
                 setHdCoin(1023);
             },
         },
