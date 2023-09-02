@@ -42,7 +42,7 @@ for style in styles:
 
 # Write the standalone file
 
-f = open('bip39-standalone.html', 'w', encoding="utf-8")
+f = open('docs/index.html', 'w', encoding="utf-8")
 f.write(page)
 f.close()
 
