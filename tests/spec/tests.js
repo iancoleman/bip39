@@ -1150,6 +1150,46 @@ it('Allows selection of Crave', function(done) {
     };
     testNetwork(done, params);
 });
+it('Allows selection of CRO Crypto.org Chain', function(done) {
+    var params = {
+        selectText: "CRO - Crypto.org Chain",
+        phrase: "park dentist certain april draw tortoise broken immense fat syrup catalog twist photo husband boss",
+        firstAddress: "cro1mgj80pqnyktna96gd7uu57vnew0as8jstr3ee9",
+        firstPubKey: "02373daea266a7479f49a9cf0df7346e2226889dcd44cfbbeded7ba84f83e476ac",
+        firstPrivKey: "023e612674424216dc99b4516abc54b88c451d304619439cd08e2c084387d1fd",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of CRO Crypto.org Chain Testnet', function(done) {
+    var params = {
+        selectText: "CRO - Crypto.org Chain Testnet",
+        phrase: "park dentist certain april draw tortoise broken immense fat syrup catalog twist photo husband boss",
+        firstAddress: "tcro1m7e8dv2fphj994ydm4wmtnpp9y4xqmh68nky0s",
+        firstPubKey: "03db086afe855eebd8532a097cc167c887efa1b3bfbefbc6465eefb03490b9762e",
+        firstPrivKey: "960c664f818489a921327941ce4d9624556328aa4b1f87811d4a888cc1e8a30a",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of CRO Cronos', function(done) {
+    var params = {
+        selectText: "CRO - Cronos",
+        phrase: "park dentist certain april draw tortoise broken immense fat syrup catalog twist photo husband boss",
+        firstAddress: "crc125y6m2tqt5e0hdxydclfa9q42selmk9jy3f0el",
+        firstPubKey: "033eec3651db73099af9fcb9cd6dd813c2483b01325bf98f291b9b0f048795f340",
+        firstPrivKey: "b91585bdecd9ea0a14b7cbaae676101cc5336400d6e27ae014e45e30d2c4239f",
+    };
+    testNetwork(done, params);
+});
+it('Allows selection of CRO Cronos Testnet', function(done) {
+    var params = {
+        selectText: "CRO - Cronos Testnet",
+        phrase: "park dentist certain april draw tortoise broken immense fat syrup catalog twist photo husband boss",
+        firstAddress: "tcrc125y6m2tqt5e0hdxydclfa9q42selmk9j2yqtew",
+        firstPubKey: "033eec3651db73099af9fcb9cd6dd813c2483b01325bf98f291b9b0f048795f340",
+        firstPrivKey: "b91585bdecd9ea0a14b7cbaae676101cc5336400d6e27ae014e45e30d2c4239f",
+    };
+    testNetwork(done, params);
+});
 it('Allows selection of Defcoin', function(done) {
     var params = {
         selectText: "DFC - Defcoin",
