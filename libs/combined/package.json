@@ -13,6 +13,7 @@
     "bip38grs": "git://github.com/Groestlcoin/bip38grs.git#091975b01679b74dc0a4136bb743fe17791b0151",
     "bip85": "0.0.3",
     "bitcoinjs-lib": "git://github.com/iancoleman/bitcoinjs-lib.git#v3.3.2_16bit",
+    "blake2b": "^2.1.3",
     "bs58": "^4.0.1",
     "buffer": "^5.4.3",
     "create-hash": "^1.2.0",

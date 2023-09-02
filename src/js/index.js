@@ -1366,6 +1366,25 @@
                     privkey = nebulasAccount.getPrivateKeyString();
                     pubkey = nebulasAccount.getPublicKeyString();
                 }
+
+                // Nimiq is different
+                if (networks[DOM.network.val()].name == "NIM - Nimiq") {
+                    DOM.hardenedAddresses.prop('checked', true);
+                    var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
+                    var coin = parseIntNoNaN(DOM.bip44coin.val(), 242);
+                    var account = parseIntNoNaN(DOM.bip44account.val(), 0);
+                    var path = "m/";
+                        path += purpose + "'/";
+                        path += coin + "'/";
+                        path += account + "'/";
+                        path += index + "'";
+                    indexText = path;
+                    var keypair = libs.nimiqUtil.getKeypair(path, seed);
+                    privkey = keypair.privKey.toString('hex');
+                    pubkey = keypair.pubKey.toString('hex');
+                    address = convertNimiqAddr(keypair.address);
+                }
+
                 // Ripple values are different
                 if (networks[DOM.network.val()].name == "XRP - Ripple") {
                     privkey = convertRipplePriv(privkey);
@@ -1457,7 +1476,7 @@
                     address = libs.bitcoin.networks.crown.toNewAddress(address);
                 }
 
-              if (networks[DOM.network.val()].name == "EOS - EOSIO") {
+                if (networks[DOM.network.val()].name == "EOS - EOSIO") {
                     address = ""
                     pubkey = EOSbufferToPublic(keyPair.getPublicKeyBuffer());
                     privkey = EOSbufferToPrivate(keyPair.d.toBuffer(32));
@@ -1503,7 +1522,7 @@
                   privkey = keyPair.d.toBuffer().toString("base64");
                 }
 
-              //Groestlcoin Addresses are different
+                //Groestlcoin Addresses are different
                 if(isGRS()) {
 
                     if (isSegwit) {
@@ -3151,6 +3170,13 @@
             onSelect: function() {
                 network = libs.bitcoin.networks.neoscoin;
                 setHdCoin(25);
+            },
+        },
+        {
+            name: "NIM - Nimiq",
+            onSelect: function() {
+                network = libs.nimiqUtil.dummyNetwork;
+                setHdCoin(242);
             },
         },
         {
