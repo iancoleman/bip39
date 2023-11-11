@@ -2,8 +2,10 @@ import os
 import re
 import datetime
 from io import open
+import hashlib
+import glob
 
-# This script generates the bip39-standalone.html file.
+# This script generates the bip39-standalone-xxxxxx.html versioned file.
 
 # It removes script and style tags and replaces with the file content.
 
@@ -39,10 +41,16 @@ for style in styles:
     styleTag = """<link rel="stylesheet" href="%s">""" % style
     page = page.replace(styleTag, styleContent)
 
-
+# Delete previous files
+	
+for f in glob.glob("bip39-standalone*.html"):
+    os.remove(f)
+	
 # Write the standalone file
 
-f = open('bip39-standalone.html', 'w', encoding="utf-8")
+hashedWord = hashlib.sha256(page.encode('utf-8')).hexdigest()
+
+f = open('bip39-standalone-' + hashedWord[-6:] + '.html', 'w', encoding="utf-8")
 f.write(page)
 f.close()
 
