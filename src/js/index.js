@@ -1476,6 +1476,13 @@
                     privkey = keyPair.d.toBuffer().toString("base64");
                 }
 
+                if (networks[DOM.network.val()].name == "NIM - Nimble") {
+                    const hrp = "nimble";
+                    address = CosmosBufferToAddress(keyPair.getPublicKeyBuffer(), hrp);
+                    pubkey = CosmosBufferToPublic(keyPair.getPublicKeyBuffer(), hrp);
+                    privkey = keyPair.d.toBuffer().toString("base64");
+                }
+
                 if (networks[DOM.network.val()].name == "RUNE - THORChain") {
                      const hrp = "thor";
                      address = CosmosBufferToAddress(keyPair.getPublicKeyBuffer(), hrp);
@@ -2320,6 +2327,13 @@
         },
         {
             name: "ATOM - Cosmos Hub",
+            onSelect: function() {
+                network = libs.bitcoin.networks.bitcoin;
+                setHdCoin(118);
+            },
+        },
+        {
+            name: "NIM - Nimble",
             onSelect: function() {
                 network = libs.bitcoin.networks.bitcoin;
                 setHdCoin(118);
