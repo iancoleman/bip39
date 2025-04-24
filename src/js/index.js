@@ -2673,6 +2673,13 @@
             },
         },
         {
+            name: "DINGO - Dingocoin",
+            onSelect: function() {
+                network = libs.bitcoin.networks.dingocoin;
+                setHdCoin(3);
+            },
+        },
+        {
             name: "DOGE - Dogecoin",
             onSelect: function() {
                 network = libs.bitcoin.networks.dogecoin;
