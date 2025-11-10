@@ -41,7 +41,6 @@
     DOM.entropyBitsPerEvent = DOM.entropyContainer.find(".bits-per-event");
     DOM.entropyWordCount = DOM.entropyContainer.find(".word-count");
     DOM.entropyBinary = DOM.entropyContainer.find(".binary");
-    DOM.entropyWordIndexes = DOM.entropyContainer.find(".word-indexes");
     DOM.entropyChecksum = DOM.entropyContainer.find(".checksum");
     DOM.entropyMnemonicLength = DOM.entropyContainer.find(".mnemonic-length");
     DOM.pbkdf2Rounds = DOM.entropyContainer.find(".pbkdf2-rounds");
@@ -50,6 +49,7 @@
     DOM.entropyWeakEntropyOverrideWarning = DOM.entropyContainer.find(".weak-entropy-override-warning");
     DOM.entropyFilterWarning = DOM.entropyContainer.find(".filter-warning");
     DOM.phrase = $(".phrase");
+    DOM.indices = $(".indices");
     DOM.autoCompute = $(".autoCompute");
     DOM.splitMnemonic = $(".splitMnemonic");
     DOM.showSplitMnemonic = $(".showSplitMnemonic");
@@ -257,32 +257,31 @@
     }
 
     function delayedPhraseChanged() {
-
-        if(isUsingAutoCompute()) {
-        hideValidationError();
-        seed = null;
-        bip32RootKey = null;
-        bip32ExtendedKey = null;
-        clearAddressesList();
-        showPending();
-        if (phraseChangeTimeoutEvent != null) {
-            clearTimeout(phraseChangeTimeoutEvent);
-        }
-        phraseChangeTimeoutEvent = setTimeout(function() {
-            phraseChanged();
-            var entropy = mnemonic.toRawEntropyHex(DOM.phrase.val());
-            if (entropy !== null) {
-                DOM.entropyMnemonicLength.val("raw");
-                DOM.entropy.val(entropy);
-                DOM.entropyTypeInputs.filter("[value='hexadecimal']").prop("checked", true);
-                entropyTypeAutoDetect = false;
+        if (isUsingAutoCompute()) {
+            hideValidationError();
+            seed = null;
+            bip32RootKey = null;
+            bip32ExtendedKey = null;
+            clearAddressesList();
+            showPending();
+            if (phraseChangeTimeoutEvent != null) {
+                clearTimeout(phraseChangeTimeoutEvent);
             }
-        }, 400);
-    } else {
-        clearDisplay();
-        clearEntropyFeedback();
-        showValidationError("Auto compute is disabled");
-    }
+            phraseChangeTimeoutEvent = setTimeout(function() {
+                phraseChanged();
+                var entropy = mnemonic.toRawEntropyHex(DOM.phrase.val());
+                if (entropy !== null) {
+                    DOM.entropyMnemonicLength.val("raw");
+                    DOM.entropy.val(entropy);
+                    DOM.entropyTypeInputs.filter("[value='hexadecimal']").prop("checked", true);
+                    entropyTypeAutoDetect = false;
+                }
+            }, 400);
+        } else {
+            clearDisplay();
+            clearEntropyFeedback();
+            showValidationError("Auto compute is disabled");
+        }
     }
 
     function phraseChanged() {
@@ -2228,12 +2227,12 @@
         var wordIndexes = [];
         var language = getLanguage();
         for (var i=0; i<words.length; i++) {
-            var word = words[i];
-            var wordIndex = WORDLISTS[language].indexOf(word);
-            wordIndexes.push(wordIndex);
+            var wordIndex = WORDLISTS[language].indexOf(words[i]);
+            var wordIndexStr = ("0000" + wordIndex).slice(-4);
+            wordIndexes.push(wordIndexStr);
         }
-        var wordIndexesStr = wordIndexes.join(", ");
-        DOM.entropyWordIndexes.text(wordIndexesStr);
+        var wordIndexesStr = wordIndexes.join(" ");
+        DOM.indices.val(wordIndexesStr);
     }
 
     function showChecksum() {

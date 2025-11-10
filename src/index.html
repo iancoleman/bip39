@@ -51,8 +51,8 @@
                                             <option value="3">3</option>
                                             <option value="6">6</option>
                                             <option value="9">9</option>
-                                            <option value="12">12</option>
-                                            <option value="15" selected>15</option>
+                                            <option value="12" selected>12</option>
+                                            <option value="15">15</option>
                                             <option value="18">18</option>
                                             <option value="21">21</option>
                                             <option value="24">24</option>
@@ -110,8 +110,6 @@
                                     <div class="binary private-data col-sm-9 form-control-static"></div>
                                     <label class="col-sm-3 control-label">Binary Checksum</label>
                                     <div class="checksum private-data col-sm-9 form-control-static">&nbsp;</div>
-                                    <label class="col-sm-3 control-label">Word Indexes</label>
-                                    <div class="word-indexes private-data col-sm-9 form-control-static">&nbsp;</div>
                                     <label class="col-sm-3 control-label">Mnemonic Length</label>
                                     <div class="col-sm-9">
                                         <select class="mnemonic-length form-control">
@@ -239,6 +237,12 @@
                             <label for="phrase" class="col-sm-2 control-label">BIP39 Mnemonic</label>
                             <div class="col-sm-10">
                                 <textarea id="phrase" class="phrase private-data form-control" data-show-qr autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="indices" class="col-sm-2 control-label">BIP39 Mnemonic Indices</label>
+                            <div class="col-sm-10">
+                                <textarea id="indices" class="indices private-data form-control" readonly data-show-qr autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
