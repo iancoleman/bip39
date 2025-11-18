@@ -1118,11 +1118,22 @@
         var path = "m/";
         path += purpose + "'/";
         path += coin + "'/";
-        path += account + "'/";
+        path += account + "'";
         // Calculate the account extended keys
         var accountExtendedKey = calcBip32ExtendedKey(path);
-        var accountXprv = accountExtendedKey.toBase58();
-        var accountXpub = accountExtendedKey.neutered().toBase58();
+        // Get the correct network for BIP49 (p2wpkhInP2sh uses ypub/yprv prefixes)
+        var bip49Network = network;
+        if ("baseNetwork" in network) {
+            bip49Network = libs.bitcoin.networks[network.baseNetwork];
+        }
+        if ("p2wpkhInP2sh" in bip49Network) {
+            bip49Network = bip49Network.p2wpkhInP2sh;
+        }
+        // Re-derive from seed with correct network to get proper encoding
+        var bip49RootKey = libs.bitcoin.HDNode.fromSeedHex(seed, bip49Network);
+        var bip49ExtendedKey = bip49RootKey.derivePath(path);
+        var accountXprv = bip49ExtendedKey.toBase58();
+        var accountXpub = bip49ExtendedKey.neutered().toBase58();
         // Display the extended keys
         DOM.bip49accountXprv.val(accountXprv);
         DOM.bip49accountXpub.val(accountXpub);
@@ -1136,11 +1147,22 @@
         var path = "m/";
         path += purpose + "'/";
         path += coin + "'/";
-        path += account + "'/";
+        path += account + "'";
         // Calculate the account extended keys
         var accountExtendedKey = calcBip32ExtendedKey(path);
-        var accountXprv = accountExtendedKey.toBase58();
-        var accountXpub = accountExtendedKey.neutered().toBase58();
+        // Get the correct network for BIP84 (p2wpkh uses zpub/zprv prefixes)
+        var bip84Network = network;
+        if ("baseNetwork" in network) {
+            bip84Network = libs.bitcoin.networks[network.baseNetwork];
+        }
+        if ("p2wpkh" in bip84Network) {
+            bip84Network = bip84Network.p2wpkh;
+        }
+        // Re-derive from seed with correct network to get proper encoding
+        var bip84RootKey = libs.bitcoin.HDNode.fromSeedHex(seed, bip84Network);
+        var bip84ExtendedKey = bip84RootKey.derivePath(path);
+        var accountXprv = bip84ExtendedKey.toBase58();
+        var accountXpub = bip84ExtendedKey.neutered().toBase58();
         // Display the extended keys
         DOM.bip84accountXprv.val(accountXprv);
         DOM.bip84accountXpub.val(accountXpub);
