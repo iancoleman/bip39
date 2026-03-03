@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head lang="en">
         <meta charset="utf-8" />
         <title>BIP39 - Mnemonic Code</title>
@@ -46,8 +46,9 @@
                                 <div class="form-inline">
                                     <div class="input-group-inline">
                                          <span>Generate a random mnemonic</span>:
-                                        <button class="btn generate" ><b>GENERATE</b></button>
-                                        <select id="strength" class="strength form-control">
+                                        <label for="strength" class="visually-hidden">Number of words in mnemonic</label>
+                                        <button class="btn generate" aria-label="Generate random mnemonic"><b>GENERATE</b></button>
+                                        <select id="strength" class="strength form-control" aria-label="Number of words in mnemonic">
                                             <option value="3">3</option>
                                             <option value="6">6</option>
                                             <option value="9">9</option>
@@ -872,25 +873,25 @@
                                     <th>
                                         <div class="input-group">
                                             <span>Path</span>&nbsp;&nbsp;
-                                            <button class="index-toggle">Toggle</button>
+                                            <button class="index-toggle" aria-label="Toggle path visibility">Toggle</button>
                                         </div>
                                     </th>
                                     <th>
                                         <div class="input-group">
                                             <span>Address</span>&nbsp;&nbsp;
-                                            <button class="address-toggle">Toggle</button>
+                                            <button class="address-toggle" aria-label="Toggle address visibility">Toggle</button>
                                         </div>
                                     </th>
                                     <th>
                                         <div class="input-group">
                                             <span>Public Key</span>&nbsp;&nbsp;
-                                            <button class="public-key-toggle">Toggle</button>
+                                            <button class="public-key-toggle" aria-label="Toggle public key visibility">Toggle</button>
                                         </div>
                                     </th>
                                     <th>
                                         <div class="input-group">
                                             <span>Private Key</span>&nbsp;&nbsp;
-                                            <button class="private-key-toggle">Toggle</button>
+                                            <button class="private-key-toggle" aria-label="Toggle private key visibility">Toggle</button>
                                         </div>
                                     </th>
                                 </thead>
@@ -912,10 +913,12 @@
                 </div>
             </div>
             <span>Show</span>
-            <input type="number" class="rows-to-add" value="20">
-            <button class="more">more rows</button>
+            <label for="rows-to-add" class="visually-hidden">Number of rows to show</label>
+            <input type="number" id="rows-to-add" class="rows-to-add" value="20" aria-label="Number of rows to show">
+            <button class="more" aria-label="Load more rows">more rows</button>
             <span>starting from index</span>
-            <input type="number" class="more-rows-start-index">
+            <label for="more-rows-start-index" class="visually-hidden">Starting index for new rows</label>
+            <input type="number" id="more-rows-start-index" class="more-rows-start-index" aria-label="Starting index for new rows">
             <span>(leave blank to generate from next index)</span>
 
             <hr>
