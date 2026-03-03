@@ -46,7 +46,7 @@
                                 <div class="form-inline">
                                     <div class="input-group-inline">
                                         <label for="strength">Generate a random mnemonic</label>:
-                                        <button type="button" class="btn generate"><b>GENERATE</b></button>
+                                        <button type="button" class="btn generate" aria-label="Generate new mnemonic"><b>GENERATE</b></button>
                                         <select id="strength" class="strength form-control" aria-label="Number of words">
                                             <option value="3">3</option>
                                             <option value="6">6</option>
@@ -215,17 +215,17 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Mnemonic Language</label>
                             <div class="col-sm-10 languages">
-                                <div class="form-control no-border">
-                                    <a href="#english">English</a>
-                                    <a href="#japanese" title="Japanese">日本語</a>
-                                    <a href="#spanish"  title="Spanish">Español</a>
-                                    <a href="#chinese_simplified"  title="Chinese (Simplified)">中文(简体)</a>
-                                    <a href="#chinese_traditional"  title="Chinese (Traditional)">中文(繁體)</a>
-                                    <a href="#french"  title="French">Français</a>
-                                    <a href="#italian"  title="Italian">Italiano</a>
-                                    <a href="#korean"  title="Korean">한국어</a>
-                                    <a href="#czech" title="Czech">Čeština</a>
-                                    <a href="#portuguese" title="Portuguese">Português</a>
+                                <div class="form-control no-border" role="group" aria-label="Mnemonic language selection">
+                                    <a href="#english" aria-label="English">English</a>
+                                    <a href="#japanese" title="Japanese" aria-label="Japanese">日本語</a>
+                                    <a href="#spanish"  title="Spanish" aria-label="Spanish">Español</a>
+                                    <a href="#chinese_simplified"  title="Chinese (Simplified)" aria-label="Chinese Simplified">中文(简体)</a>
+                                    <a href="#chinese_traditional"  title="Chinese (Traditional)" aria-label="Chinese Traditional">中文(繁體)</a>
+                                    <a href="#french"  title="French" aria-label="French">Français</a>
+                                    <a href="#italian"  title="Italian" aria-label="Italian">Italiano</a>
+                                    <a href="#korean"  title="Korean" aria-label="Korean">한국어</a>
+                                    <a href="#czech" title="Czech" aria-label="Czech">Čeština</a>
+                                    <a href="#portuguese" title="Portuguese" aria-label="Portuguese">Português</a>
                                 </div>
                             </div>
                         </div>
@@ -412,21 +412,21 @@
             <div class="row">
                 <div class="col-md-12">
                     <h2>Derivation Path</h2>
-                    <ul class="derivation-type nav nav-tabs" role="tablist">
+                    <ul class="derivation-type nav nav-tabs" role="tablist" aria-label="Derivation path type">
                         <li id="bip32-tab">
-                            <a href="#bip32" role="tab" data-toggle="tab">BIP32</a>
+                            <a href="#bip32" role="tab" data-toggle="tab" aria-selected="false">BIP32</a>
                         </li>
                         <li id="bip44-tab" class="active">
-                            <a href="#bip44" role="tab" data-toggle="tab">BIP44</a>
+                            <a href="#bip44" role="tab" data-toggle="tab" aria-selected="true">BIP44</a>
                         </li>
                         <li id="bip49-tab">
-                            <a href="#bip49" role="tab" data-toggle="tab">BIP49</a>
+                            <a href="#bip49" role="tab" data-toggle="tab" aria-selected="false">BIP49</a>
                         </li>
                         <li id="bip84-tab">
-                            <a href="#bip84" role="tab" data-toggle="tab">BIP84</a>
+                            <a href="#bip84" role="tab" data-toggle="tab" aria-selected="false">BIP84</a>
                         </li>
                         <li id="bip141-tab">
-                            <a href="#bip141" role="tab" data-toggle="tab">BIP141</a>
+                            <a href="#bip141" role="tab" data-toggle="tab" aria-selected="false">BIP141</a>
                         </li>
                     </ul>
                     <div class="derivation-type tab-content">
@@ -857,12 +857,12 @@
                         </label>
                     </div>
                 </div>
-                <ul class="addresses-type nav nav-tabs" role="tablist">
+                <ul class="addresses-type nav nav-tabs" role="tablist" aria-label="Address display format">
                     <li id="table-tab" class="active">
-                        <a href="#table" role="tab" data-toggle="tab">Table</a>
+                        <a href="#table" role="tab" data-toggle="tab" aria-selected="true">Table</a>
                     </li>
                     <li id="csv-tab">
-                        <a href="#csv" role="tab" data-toggle="tab">CSV</a>
+                        <a href="#csv" role="tab" data-toggle="tab" aria-selected="false">CSV</a>
                     </li>
                 </ul>
                 <div class="addresses-type tab-content">
@@ -873,25 +873,25 @@
                                     <th>
                                         <div class="input-group">
                                             <span>Path</span>&nbsp;&nbsp;
-                                            <button type="button" class="index-toggle">Toggle</button>
+                                            <button type="button" class="index-toggle" aria-label="Toggle path column visibility">Toggle</button>
                                         </div>
                                     </th>
                                     <th>
                                         <div class="input-group">
                                             <span>Address</span>&nbsp;&nbsp;
-                                            <button type="button" class="address-toggle">Toggle</button>
+                                            <button type="button" class="address-toggle" aria-label="Toggle address column visibility">Toggle</button>
                                         </div>
                                     </th>
                                     <th>
                                         <div class="input-group">
                                             <span>Public Key</span>&nbsp;&nbsp;
-                                            <button type="button" class="public-key-toggle">Toggle</button>
+                                            <button type="button" class="public-key-toggle" aria-label="Toggle public key column visibility">Toggle</button>
                                         </div>
                                     </th>
                                     <th>
                                         <div class="input-group">
                                             <span>Private Key</span>&nbsp;&nbsp;
-                                            <button type="button" class="private-key-toggle">Toggle</button>
+                                            <button type="button" class="private-key-toggle" aria-label="Toggle private key column visibility">Toggle</button>
                                         </div>
                                     </th>
                                 </thead>
