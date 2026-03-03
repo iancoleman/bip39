@@ -1,3 +1,29 @@
+/* Accessibility: visually-hidden class for screen reader only labels */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Accessibility: focus styles for keyboard navigation */
+*:focus-visible {
+    outline: 2px solid #378de5;
+    outline-offset: 2px;
+}
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+    outline: 2px solid #378de5;
+    outline-offset: 2px;
+}
+
 body {
     padding-bottom: 32px;
 }

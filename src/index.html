@@ -41,13 +41,13 @@
                             </div>
                         </div>
                         <div class="form-group generate-container">
-                            <label class="col-sm-2 control-label"></label>
+                            <label class="col-sm-2 control-label" for="strength">Generate</label>
                             <div class="col-sm-10">
                                 <div class="form-inline">
                                     <div class="input-group-inline">
-                                         <span>Generate a random mnemonic</span>:
-                                        <button class="btn generate" ><b>GENERATE</b></button>
-                                        <select id="strength" class="strength form-control">
+                                        <label for="strength">Generate a random mnemonic</label>:
+                                        <button type="button" class="btn generate"><b>GENERATE</b></button>
+                                        <select id="strength" class="strength form-control" aria-label="Number of words">
                                             <option value="3">3</option>
                                             <option value="6">6</option>
                                             <option value="9">9</option>
@@ -112,9 +112,9 @@
                                     <div class="checksum private-data col-sm-9 form-control-static">&nbsp;</div>
                                     <label class="col-sm-3 control-label">Word Indexes</label>
                                     <div class="word-indexes private-data col-sm-9 form-control-static">&nbsp;</div>
-                                    <label class="col-sm-3 control-label">Mnemonic Length</label>
+                                    <label class="col-sm-3 control-label" for="mnemonic-length">Mnemonic Length</label>
                                     <div class="col-sm-9">
-                                        <select class="mnemonic-length form-control">
+                                        <select id="mnemonic-length" class="mnemonic-length form-control">
                                             <option value="raw" selected>Use Raw Entropy (3 words per 32 bits)</option>
                                             <option value="12">12 <span>Words</span></option>
                                             <option value="15">15 <span>Words</span></option>
@@ -128,9 +128,9 @@
                                             </span>
                                         </p>
                                     </div>
-                                    <label class="col-sm-3 control-label">PBKDF2 rounds</label>
+                                    <label class="col-sm-3 control-label" for="pbkdf2-rounds">PBKDF2 rounds</label>
                                     <div class="col-sm-9">
-                                        <select class="pbkdf2-rounds form-control" style="width: 60%;float: left;">
+                                        <select id="pbkdf2-rounds" class="pbkdf2-rounds form-control" style="width: 60%;float: left;">
                                             <option value="2048" selected>2048 <span>(compatibility)</span></option>
                                             <option value="4096">4096 <span>iterations</span></option>
                                             <option value="8192">8192 <span>iterations</span></option>
@@ -138,6 +138,7 @@
                                             <option value="32768">32768 <span>iterations</span></option>
                                             <option value="custom">Custom <span>iterations</span></option>
                                         </select>
+                                        <label for="pbkdf2-custom-input" class="visually-hidden">Custom PBKDF2 iterations</label>
                                         <input type="number" class="form-control hidden" id="pbkdf2-custom-input" value="1" min="1" pattern="[0-9]" style="float: right;width: 40%;">
                                     </div>
                                 </div>
@@ -872,25 +873,25 @@
                                     <th>
                                         <div class="input-group">
                                             <span>Path</span>&nbsp;&nbsp;
-                                            <button class="index-toggle">Toggle</button>
+                                            <button type="button" class="index-toggle">Toggle</button>
                                         </div>
                                     </th>
                                     <th>
                                         <div class="input-group">
                                             <span>Address</span>&nbsp;&nbsp;
-                                            <button class="address-toggle">Toggle</button>
+                                            <button type="button" class="address-toggle">Toggle</button>
                                         </div>
                                     </th>
                                     <th>
                                         <div class="input-group">
                                             <span>Public Key</span>&nbsp;&nbsp;
-                                            <button class="public-key-toggle">Toggle</button>
+                                            <button type="button" class="public-key-toggle">Toggle</button>
                                         </div>
                                     </th>
                                     <th>
                                         <div class="input-group">
                                             <span>Private Key</span>&nbsp;&nbsp;
-                                            <button class="private-key-toggle">Toggle</button>
+                                            <button type="button" class="private-key-toggle">Toggle</button>
                                         </div>
                                     </th>
                                 </thead>
@@ -912,10 +913,12 @@
                 </div>
             </div>
             <span>Show</span>
-            <input type="number" class="rows-to-add" value="20">
-            <button class="more">more rows</button>
+            <label for="rows-to-add" class="visually-hidden">Number of rows to show</label>
+            <input type="number" id="rows-to-add" class="rows-to-add" value="20">
+            <button type="button" class="more" aria-label="Add more rows">more rows</button>
             <span>starting from index</span>
-            <input type="number" class="more-rows-start-index">
+            <label for="more-rows-start-index" class="visually-hidden">Starting index for new rows</label>
+            <input type="number" id="more-rows-start-index" class="more-rows-start-index">
             <span>(leave blank to generate from next index)</span>
 
             <hr>
