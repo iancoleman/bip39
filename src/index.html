@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head lang="en">
         <meta charset="utf-8" />
         <title>BIP39 - Mnemonic Code</title>
@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h2>Mnemonic</h2>
-                    <form class="form-horizontal" role="form">
+                    <form class="form-horizontal">
                         <div class="form-group">
                             <div class="col-sm-2"></div>
                             <div class="col-sm-10">
@@ -46,7 +46,7 @@
                                 <div class="form-inline">
                                     <div class="input-group-inline">
                                         <label for="strength">Generate a random mnemonic</label>:
-                                        <button type="button" class="btn generate"><b>GENERATE</b></button>
+                                        <button type="button" class="btn generate" aria-label="Generate random mnemonic"><b>GENERATE</b></button>
                                         <select id="strength" class="strength form-control" aria-label="Number of words">
                                             <option value="3">3</option>
                                             <option value="6">6</option>
@@ -78,7 +78,7 @@
                             <div class="form-group">
                                 <label for="entropy" class="col-sm-2 control-label">Entropy</label>
                                 <div class="col-sm-7">
-                                    <textarea id="entropy" rows="2" class="entropy private-data form-control" placeholder="Accepts either binary, base 6, 6-sided dice, base 10, hexadecimal or cards" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+                                    <textarea id="entropy" aria-label="Entropy input" rows="2" class="entropy private-data form-control" placeholder="Accepts either binary, base 6, 6-sided dice, base 10, hexadecimal or cards" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
                                     <div class="row filter-warning text-danger hidden">
                                         <p class="col-sm-12">
                                         <strong>
@@ -143,8 +143,8 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
-                                    <p>Valid entropy values include:</p>
-                                    <ul>
+                                    <p id="entropy-types-label">Valid entropy values include:</p>
+                                    <ul role="group" aria-labelledby="entropy-types-label">
                                         <li>
                                             <label>
                                                 <input type="radio" name="entropy-type" value="binary">
@@ -431,7 +431,7 @@
                     </ul>
                     <div class="derivation-type tab-content">
                         <div id="bip44" class="tab-pane active">
-                            <form class="form-horizontal" role="form">
+                            <form class="form-horizontal">
                                 <br>
                                 <div class="col-sm-2"></div>
                                 <div class="col-sm-10">
@@ -511,7 +511,7 @@
                             </form>
                         </div>
                         <div id="bip32" class="tab-pane">
-                            <form class="form-horizontal" role="form">
+                            <form class="form-horizontal">
                                 <br>
                                 <div class="col-sm-2"></div>
                                 <div class="col-sm-10">
@@ -576,7 +576,7 @@
                             </form>
                         </div>
                         <div id="bip49" class="tab-pane">
-                            <form class="form-horizontal" role="form">
+                            <form class="form-horizontal">
                                 <br>
                                 <div class="unavailable hidden">
                                     <div class="form-group">
@@ -666,7 +666,7 @@
                             </form>
                         </div>
                         <div id="bip141" class="tab-pane">
-                            <form class="form-horizontal" role="form">
+                            <form class="form-horizontal">
                                 <br>
                                 <div class="unavailable hidden">
                                     <div class="form-group">
@@ -705,7 +705,7 @@
                             </form>
                         </div>
                         <div id="bip84" class="tab-pane">
-                            <form class="form-horizontal" role="form">
+                            <form class="form-horizontal">
                                 <br>
                                 <div class="unavailable hidden">
                                     <div class="form-group">
@@ -795,7 +795,7 @@
                             </form>
                         </div>
                     </div>
-                    <form class="form-horizontal" role="form">
+                    <form class="form-horizontal">
                         <div class="form-group">
                             <label for="extended-priv-key" class="col-sm-2 control-label">BIP32 Extended Private Key</label>
                             <div class="col-sm-10">
