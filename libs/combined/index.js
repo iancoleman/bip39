@@ -67,7 +67,7 @@ module.exports.kjua = require('kjua')
 /* nebulas */
 
 try {
-module.exports.nebulas = require('nebulas')
+    module.exports.nebulas = require('nebulas')
 }
 catch (e) {
     console.warn("Error loading nebulas library");
@@ -84,7 +84,83 @@ module.exports.stellarUtil = {
         return StellarBase.Keypair.fromRawEd25519Seed(result.key);
     },
     dummyNetwork: {
-        bip32: {public: 0, private: 0},
+        bip32: { public: 0, private: 0 },
+        messagePrefix: '',
+        pubKeyHash: 0,
+        scriptHash: 0,
+        wif: 0,
+    },
+}
+
+/* solana-util */
+
+module.exports.solanaUtil = {
+    getKeypair: function (path, seed) {
+        const result = edHd.derivePath(path, seed);
+        // Get the Ed25519 public key (32 bytes) from the derived private key
+        const publicKey = edHd.getPublicKey(result.key, false);
+        return {
+            privateKey: result.key,
+            publicKey: publicKey
+        };
+    },
+    dummyNetwork: {
+        bip32: { public: 0x0488b21e, private: 0x0488ade4 },
+        messagePrefix: '',
+        pubKeyHash: 0,
+        scriptHash: 0,
+        wif: 0,
+    },
+}
+
+/* aptos-util */
+
+let sha3 = require('js-sha3');
+module.exports.aptosUtil = {
+    getKeypair: function (path, seed) {
+        const result = edHd.derivePath(path, seed);
+        const publicKey = edHd.getPublicKey(result.key, false);
+        return {
+            privateKey: result.key,
+            publicKey: publicKey
+        };
+    },
+    getAddress: function (publicKey) {
+        // Aptos address = 0x + sha3_256(publicKey + 0x00)
+        const pubKeyWithSuffix = Buffer.concat([publicKey, Buffer.from([0x00])]);
+        const hash = sha3.sha3_256(pubKeyWithSuffix);
+        return '0x' + hash;
+    },
+    dummyNetwork: {
+        bip32: { public: 0x0488b21e, private: 0x0488ade4 },
+        messagePrefix: '',
+        pubKeyHash: 0,
+        scriptHash: 0,
+        wif: 0,
+    },
+}
+
+/* sui-util */
+
+let blake2b = require('blakejs').blake2b;
+module.exports.suiUtil = {
+    getKeypair: function (path, seed) {
+        const result = edHd.derivePath(path, seed);
+        const publicKey = edHd.getPublicKey(result.key, false);
+        return {
+            privateKey: result.key,
+            publicKey: publicKey
+        };
+    },
+    getAddress: function (publicKey) {
+        // Sui address = 0x + Hex(Blake2b256(0x00 + PublicKey))
+        // 0x00 is the scheme ID for Ed25519
+        const dataToHash = Buffer.concat([Buffer.from([0x00]), publicKey]);
+        const hash = blake2b(dataToHash, null, 32); // 32 bytes = 256 bits
+        return '0x' + Buffer.from(hash).toString('hex');
+    },
+    dummyNetwork: {
+        bip32: { public: 0x0488b21e, private: 0x0488ade4 },
         messagePrefix: '',
         pubKeyHash: 0,
         scriptHash: 0,
@@ -98,27 +174,27 @@ let base32 = require('base32.js');
 let nbl = require('nebulas');
 module.exports.zoobcUtil = {
     getKeypair: function (path, seed) {
-        const { key, chainCode}  = edHd.derivePath(path, seed);
+        const { key, chainCode } = edHd.derivePath(path, seed);
         const pubKey = edHd.getPublicKey(key);
-        return {key,chainCode, pubKey};
+        return { key, chainCode, pubKey };
     },
     getZBCAddress(publicKey, prefix = "ZBC") {
         const prefixDefault = ["ZBC", "ZNK", "ZBL", "ZTX"];
         const valid = prefixDefault.indexOf(prefix) > -1;
         if (valid) {
-          var bytes = new Uint8Array(35);
-          for (let i = 0; i < 32; i++) bytes[i] = publicKey[i];
-          for (let i = 0; i < 3; i++) bytes[i + 32] = prefix.charCodeAt(i);
-          const checksum = nbl.CryptoUtils.sha3(bytes);
-          for (let i = 0; i < 3; i++) bytes[i + 32] = Number(checksum[i]);
-          var segs = [prefix];
-          var b32 = base32.encode(bytes);
-          for (let i = 0; i < 7; i++) segs.push(b32.substr(i * 8, 8));
-          return segs.join("_");
+            var bytes = new Uint8Array(35);
+            for (let i = 0; i < 32; i++) bytes[i] = publicKey[i];
+            for (let i = 0; i < 3; i++) bytes[i + 32] = prefix.charCodeAt(i);
+            const checksum = nbl.CryptoUtils.sha3(bytes);
+            for (let i = 0; i < 3; i++) bytes[i + 32] = Number(checksum[i]);
+            var segs = [prefix];
+            var b32 = base32.encode(bytes);
+            for (let i = 0; i < 7; i++) segs.push(b32.substr(i * 8, 8));
+            return segs.join("_");
         } else {
-          throw new Error("The Prefix not available!");
+            throw new Error("The Prefix not available!");
         }
-      }
+    }
 }
 
 /* nano-util */
@@ -127,10 +203,10 @@ let NanoBase = require('nanocurrency-web');
 module.exports.nanoUtil = {
     getKeypair: function (index, seed) {
         const accounts = NanoBase.wallet.accounts(seed, index, index)
-        return {privKey: accounts[0].privateKey, pubKey: accounts[0].publicKey, address: accounts[0].address};
+        return { privKey: accounts[0].privateKey, pubKey: accounts[0].publicKey, address: accounts[0].address };
     },
     dummyNetwork: {
-        bip32: {public: 0, private: 0},
+        bip32: { public: 0, private: 0 },
         messagePrefix: '',
         pubKeyHash: 0,
         scriptHash: 0,
