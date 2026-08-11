@@ -1708,11 +1708,11 @@
 
     function getLanguage() {
         var defaultLanguage = "english";
-        // Try to get from existing phrase
-        var language = getLanguageFromPhrase();
-        // Try to get from url if not from phrase
+        // Try to get from url
+        var language = getLanguageFromUrl();
+        // Try to get from existing phrase if not from url
         if (language.length == 0) {
-            language = getLanguageFromUrl();
+            language = getLanguageFromPhrase();
         }
         // Default to English if no other option
         if (language.length == 0) {
